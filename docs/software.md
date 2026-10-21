@@ -1,0 +1,97 @@
+# RetroDiode software
+
+The AVR holds the picture and reads the controls. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver or a pin.
+
+Firmware is plain avr-gcc, clocked from the internal 24 MHz oscillator. The chip is programmed over UPDI.
+
+## Framebuffer
+
+Sixteen rows, sixteen columns, one bit each. Thirty-two bytes.
+
+```c
+uint16_t frame[16];
+```
+
+`frame[0]` is the top row. Bit 0 of a row is the leftmost pixel. A set bit is on.
+
+```c
+void pixel(uint8_t x, uint8_t y, bool on);
+bool pixel_get(uint8_t x, uint8_t y);
+void clear(void);
+```
+
+`x` and `y` run from 0 to 15. A coordinate outside that range is ignored.
+
+This is the whole display interface. There is no per-pixel brightness, no hardware sprite, and no second layer. Driver intensity stays at full scale.
+
+## Timing
+
+The game runs at 60 Hz. One tick reads the controls, updates the game, and writes pixels. After the tick, the runtime flushes `frame` to the drivers.
+
+Each MAX7219 keeps scanning its block from the last data it latched. A slow tick drops game frames. The LEDs keep showing the last flush.
+
+## Flush
+
+DIN is PA4, CLK is PA6, and LOAD is PA7. CLK idles low. LOAD idles high. Data is sampled on the rising edge of CLK. A word is 16 bits, MSB first. The high byte is the register address. The low byte is the data.
+
+Four words go out before LOAD rises. The first word reaches the bottom-right driver. Then bottom left, then top right, then top left.
+
+A row of eight pixels becomes one byte with the leftmost pixel in bit 7. That matches the segment wiring in the hardware doc.
+
+Digit address for block row `d` (0 at the top of the block) is `d + 1`, from 0x01 through 0x08.
+
+One flush sends all eight digit addresses. For each `d` from 0 to 7:
+
+1. LOAD goes low.
+2. The bottom-right byte comes from `frame[8 + d]`, bits 8 to 15, packed left to right into bit 7 down to bit 0.
+3. The bottom-left byte comes from `frame[8 + d]`, bits 0 to 7, packed the same way.
+4. The top-right byte comes from `frame[d]`, bits 8 to 15.
+5. The top-left byte comes from `frame[d]`, bits 0 to 7.
+6. LOAD goes high.
+
+Before the first flush, the drivers are taken out of the power-up shutdown state.
+
+| Register | Address | Value | Effect |
+| --- | --- | --- | --- |
+| Display test | 0x0F | 0x00 | Test off |
+| Decode mode | 0x09 | 0x00 | Raw segment bits |
+| Intensity | 0x0A | 0x0F | Full scale, 31/32 |
+| Scan limit | 0x0B | 0x07 | All eight digits |
+| Digit 0 to 7 | 0x01 to 0x08 | 0x00 | Blocks cleared |
+| Shutdown | 0x0C | 0x01 | Drivers leave shutdown |
+
+Each of those writes is the same four-word transfer, with the same value sent to every driver.
+
+## Controls
+
+Five switches, active low, internal pull-ups. The input layer reports them independently. A diagonal is left and up held together, and the game decides whether that means anything. A 4-way game can ignore a tick where both axes are held, or keep the axis that changed most recently.
+
+Debounce is two game ticks. A switch changes state after the new raw level has lasted through two ticks in a row.
+
+Once per tick the input layer fills this in. `pressed` and `released` are true for that tick only.
+
+```c
+typedef struct {
+    bool up, down, left, right, button;             /* held */
+    bool up_pressed, down_pressed, left_pressed,
+         right_pressed, button_pressed;
+    bool up_released, down_released, left_released,
+         right_released, button_released;
+} Input;
+```
+
+## What a game is
+
+A game is one function called from the 60 Hz tick.
+
+```c
+void game_tick(const Input *in);
+```
+
+It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
+
+`main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Picking which game runs can be a later menu. The first program can call one game directly.
+
+## Left out of this contract
+
+Sound, scores beyond what a game draws itself, saved data, and a loader for more than one game. Spare pins for a beeper are listed in the hardware doc. Nothing in this contract depends on them.
