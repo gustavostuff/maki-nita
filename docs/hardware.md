@@ -26,7 +26,7 @@ The AVR keeps the frame in RAM. It sends that frame to the drivers when the pict
 
 Column 0 is the left of the screen. Row 0 is the top. Inside a block, the same rule holds. The block's own column 0 is its left edge, and its own row 0 is its top edge.
 
-DOUT of one driver feeds DIN of the next. CLK is common. LOAD is common.
+DOUT of one driver feeds DIN of the next. CLK is common. LOAD is common. DOUT changes on the falling edge of CLK. A bit at DIN is valid at DOUT 16.5 clock cycles later. In a four-driver transfer, the first 16-bit word is the word the last driver latches.
 
 ## Parts
 
@@ -48,9 +48,14 @@ The AVR128DB28-I/SP and the MAX7219ENG+ are in production.
 | 1 | Barrel jack, 5.5 x 2.1 mm, center positive | Regulated 5 V in |
 | 1 | SPST panel switch | Breaks the 5 V rail |
 | 1 | 100 uF electrolytic | Bulk capacitor on the 5 V rail |
+| 4 | 10 uF electrolytic | One from each driver V+ to GND, close to the package |
 | 7 | 100 nF | One at each driver V+ pin, and at VDD, AVDD, and VDDIO2 |
 
 VDD, AVDD, and VDDIO2 all tie to the 5 V rail. Port C takes power from VDDIO2. An open VDDIO2 pin leaves that port unpowered.
+
+Each driver has two GND pins, 4 and 9. Both tie to ground. The 10 uF and the 100 nF for that driver sit between its V+ and GND, close to the package.
+
+DIN, CLK, and LOAD are logic inputs with a high threshold of 3.5 V and a low threshold of 0.8 V. The AVR drives them from the same rail as the drivers.
 
 Each ISET resistor sits between that driver's V+ and its ISET pin. For a red LED near 2 V, 28 kohm sets the peak segment current near 20 mA. The drivers also have a global intensity register. It stays at full scale (31/32). Games do not change it. A lit pixel then averages about 2.4 mA, because the driver scans one row of its block at a time.
 
@@ -82,11 +87,13 @@ Digit pins are cathodes, top to bottom. Digit 0 is the top row of the block.
 | 6 | DIG6 | 0x07 |
 | 7 | DIG7 | 0x08 |
 
-On power-up the MAX7219 blanks the display and stays in shutdown until the shutdown register enables it.
+A segment that is off is pulled to GND. A digit that is off is pulled to V+.
+
+On power-up the MAX7219 blanks the display, enters shutdown, sets the scan limit to digit 0 only, leaves decode off, and sets intensity to its minimum. Firmware writes scan limit, decode mode, and intensity before it leaves shutdown. The driver can take those writes while shutdown is still in force.
 
 ## Current
 
-A full-white frame turns on every LED. Each driver is always lighting one of its eight rows, eight LEDs at about 20 mA, so one driver draws about 160 mA continuously. Four drivers draw about 640 mA before the intensity duty, and about 620 mA after the 31/32 duty. The CPU and the drivers' own logic add well under 50 mA. The total is about 0.7 A.
+A full-white frame turns on every LED. Each driver lights one of its eight rows at a time, eight LEDs at about 20 mA, and blanks that row for 1/32 of the row time. One driver therefore draws about 155 mA for the LEDs. Four drivers draw about 620 mA. The dissipation formula in the driver datasheet uses 8 mA of logic current per driver, and the CPU draws under 20 mA, so the rest of the board is about 50 mA. The total is about 0.7 A.
 
 The jack takes a regulated 5 V supply, 2 A. Center positive. The polyfuse, then the Schottky, then the panel switch, then the bulk capacitor. The Schottky drops about 0.4 V. The drivers are specified from 4.0 V to 5.5 V, so the rail near 4.6 V is in range.
 
@@ -100,7 +107,7 @@ Port pins on the AVR128DB28. Package pin numbers stay with the schematic, taken 
 | --- | --- | --- | --- |
 | DIN | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
 | CLK | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
-| LOAD | PA7 | out | Rising edge latches the last 16 bits in every driver. 10 kohm pull-up. Idle high |
+| LOAD | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
 | UP | PD1 | in | Active low, internal pull-up |
 | DOWN | PD2 | in | Active low, internal pull-up |
 | LEFT | PD3 | in | Active low, internal pull-up |

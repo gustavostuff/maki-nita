@@ -32,7 +32,9 @@ Each MAX7219 keeps scanning its block from the last data it latched. A slow tick
 
 ## Flush
 
-DIN is PA4, CLK is PA6, and LOAD is PA7. CLK idles low. LOAD idles high. Data is sampled on the rising edge of CLK. A word is 16 bits, MSB first. The high byte is the register address. The low byte is the data.
+DIN is PA4, CLK is PA6, and LOAD is PA7. CLK idles low. LOAD idles high. Data is sampled on the rising edge of CLK. A word is 16 bits, MSB first. The high byte is the register address. The upper nibble of that byte is unused. The low byte is the data.
+
+For the MAX7219, CLK shifts data regardless of LOAD. The rising edge of LOAD latches the 16 bits then sitting in each driver's shift register. That edge comes after the 64th rising edge of CLK and before any further rising edge. The next rising edge of CLK waits at least 50 ns after LOAD has gone high. LOAD stays high for at least 50 ns.
 
 Four words go out before LOAD rises. The first word reaches the bottom-right driver. Then bottom left, then top right, then top left.
 

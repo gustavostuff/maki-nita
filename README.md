@@ -17,3 +17,4 @@ An AVR128DB28 runs the game and holds the picture. Four MAX7219 drivers share th
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
 - [Software](docs/software.md) covers the framebuffer, the driver update, the inputs, and what a game is.
+- A picture of the screen and the controls is `sim/retrodiode-ui`, built with `make -C sim`. The stick follows WASD or the arrow keys. Space holds the action button.
