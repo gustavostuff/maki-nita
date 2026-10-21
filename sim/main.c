@@ -1,19 +1,8 @@
+#include "board.h"
+
 #include <SDL.h>
 
 #define GRID 16
-
-/* Bit 0 of a row is the left pixel. A set bit is on. */
-static const unsigned short pattern[GRID] = {
-    0xFFFF, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0xFFFF,
-};
-
-static int pixel_on(int x, int y)
-{
-    return (pattern[y] >> x) & 1u;
-}
 
 static void fill_circle(SDL_Renderer *renderer, int cx, int cy, int radius)
 {
@@ -50,7 +39,7 @@ static void draw_arrow(SDL_Renderer *renderer, int x0, int y0, int x1, int y1)
     SDL_RenderDrawLine(renderer, x1, y1, bx - px, by - py);
 }
 
-static void draw(SDL_Renderer *renderer, int sx, int sy, int pressed)
+static void draw(SDL_Renderer *renderer, const Board *board, int sx, int sy, int pressed)
 {
     const int win_w = 420;
     const int pitch = 20;
@@ -77,7 +66,7 @@ static void draw(SDL_Renderer *renderer, int sx, int sy, int pressed)
 
     for (y = 0; y < GRID; y++) {
         for (x = 0; x < GRID; x++) {
-            if (pixel_on(x, y))
+            if (board_led_on(board, x, y))
                 SDL_SetRenderDrawColor(renderer, 230, 28, 28, 255);
             else
                 SDL_SetRenderDrawColor(renderer, 52, 10, 10, 255);
@@ -146,6 +135,7 @@ static void draw(SDL_Renderer *renderer, int sx, int sy, int pressed)
 
 int main(void)
 {
+    static Board board;
     SDL_Window *window;
     SDL_Renderer *renderer;
     int running = 1;
@@ -176,9 +166,22 @@ int main(void)
         return 1;
     }
 
+    board_init(&board);
+    if (board_bringup(&board) != 0) {
+        SDL_Log("display bring-up saw a timing fault");
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
     while (running) {
         SDL_Event event;
         const Uint8 *keys;
+        int up;
+        int down;
+        int left;
+        int right;
         int sx = 0;
         int sy = 0;
         int pressed;
@@ -189,21 +192,23 @@ int main(void)
         }
 
         keys = SDL_GetKeyboardState(NULL);
-        if ((keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP]) &&
-            !keys[SDL_SCANCODE_S] && !keys[SDL_SCANCODE_DOWN])
+        up = (keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP]) ? 1 : 0;
+        down = (keys[SDL_SCANCODE_S] || keys[SDL_SCANCODE_DOWN]) ? 1 : 0;
+        left = (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) ? 1 : 0;
+        right = (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) ? 1 : 0;
+        if (up && !down)
             sy = -1;
-        if ((keys[SDL_SCANCODE_S] || keys[SDL_SCANCODE_DOWN]) &&
-            !keys[SDL_SCANCODE_W] && !keys[SDL_SCANCODE_UP])
+        if (down && !up)
             sy = 1;
-        if ((keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) &&
-            !keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_RIGHT])
+        if (left && !right)
             sx = -1;
-        if ((keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) &&
-            !keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_LEFT])
+        if (right && !left)
             sx = 1;
         pressed = keys[SDL_SCANCODE_SPACE] ? 1 : 0;
+        board_set_switches(&board, up, down, left, right, pressed);
+        board_advance(&board, 16000000);
 
-        draw(renderer, sx, sy, pressed);
+        draw(renderer, &board, sx, sy, pressed);
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }

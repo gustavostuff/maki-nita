@@ -17,4 +17,4 @@ An AVR128DB28 runs the game and holds the picture. Four MAX7219 drivers share th
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
 - [Software](docs/software.md) covers the framebuffer, the driver update, the inputs, and what a game is.
-- A picture of the screen and the controls is `sim/retrodiode-ui`, built with `make -C sim`. The stick follows WASD or the arrow keys. Space holds the action button.
+- A picture of the screen and the controls is `sim/retrodiode-ui`, built with `make -C sim`. The LEDs in that picture come from the four MAX7219 models. A pin-level model of the AVR128DB28 clocks them and does not run instructions. The stick follows WASD or the arrow keys, and those keys close the CPU input pins. Space holds the action button. `make -C sim test` checks each chip and the chain. From the repo root, `./build_all.sh` builds the picture and runs those checks.
