@@ -33,8 +33,6 @@ typedef struct Board {
 } Board;
 
 void board_init(Board *board);
-/* Clocks the documented init and a fixed border through the drivers. */
-int board_bringup(Board *board);
 void board_eval(Board *board);
 void board_advance(Board *board, uint64_t ns);
 void board_drive(Board *board, int avr_pin, Sig level);

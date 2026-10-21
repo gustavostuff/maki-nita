@@ -1,19 +1,5 @@
 #include "board.h"
 
-/*
- * Half-period of the bring-up clock. 100 ns high, 100 ns low.
- * Data changes 100 ns before the rising edge. LOAD stays high for 100 ns.
- * Those gaps sit inside the MAX7219 minimums.
- */
-#define HALF_NS 100u
-
-static const unsigned short border[16] = {
-    0xFFFF, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0xFFFF,
-};
-
 static const int sw_pin[5] = {
     AVR_PD1, AVR_PD2, AVR_PD3, AVR_PD4, AVR_PD5,
 };
@@ -137,95 +123,6 @@ void board_init(Board *board)
 
     board->now_ns = 0;
     board_eval(board);
-}
-
-static void shift_bit(Board *board, int bit)
-{
-    board_drive(board, AVR_PA4, bit ? SIG_H : SIG_L);
-    board_eval(board);
-    board_advance(board, HALF_NS);
-    board_drive(board, AVR_PA6, SIG_H);
-    board_eval(board);
-    board_advance(board, HALF_NS);
-    board_drive(board, AVR_PA6, SIG_L);
-    board_eval(board);
-}
-
-static void send_word(Board *board, unsigned word)
-{
-    int i;
-
-    for (i = 15; i >= 0; i--)
-        shift_bit(board, (word >> i) & 1);
-}
-
-/* w0 is clocked first and lands in the last driver. */
-static void send4(Board *board, unsigned w0, unsigned w1, unsigned w2, unsigned w3)
-{
-    board_drive(board, AVR_PA7, SIG_L);
-    board_eval(board);
-    board_advance(board, HALF_NS);
-    send_word(board, w0);
-    send_word(board, w1);
-    send_word(board, w2);
-    send_word(board, w3);
-    board_drive(board, AVR_PA7, SIG_H);
-    board_eval(board);
-    board_advance(board, HALF_NS);
-}
-
-static unsigned reg_word(unsigned addr, unsigned data)
-{
-    return ((addr & 0x0F) << 8) | (data & 0xFF);
-}
-
-/* Bit 0 of the row is the left pixel. Bit 7 of the driver byte is the left pixel. */
-static unsigned pack_side(unsigned row, int high)
-{
-    unsigned byte = 0;
-    int base = high ? 8 : 0;
-    int i;
-
-    for (i = 0; i < 8; i++) {
-        if ((row >> (base + i)) & 1u)
-            byte |= 1u << (7 - i);
-    }
-    return byte;
-}
-
-static void send_same(Board *board, unsigned addr, unsigned data)
-{
-    unsigned word = reg_word(addr, data);
-
-    send4(board, word, word, word, word);
-}
-
-int board_bringup(Board *board)
-{
-    int d;
-
-    send_same(board, 0x0F, 0x00);
-    send_same(board, 0x09, 0x00);
-    send_same(board, 0x0A, 0x0F);
-    send_same(board, 0x0B, 0x07);
-    for (d = 0; d < 8; d++)
-        send_same(board, (unsigned)(d + 1), 0x00);
-    send_same(board, 0x0C, 0x01);
-
-    for (d = 0; d < 8; d++) {
-        unsigned top = border[d];
-        unsigned bot = border[8 + d];
-        unsigned addr = (unsigned)(d + 1);
-
-        send4(board,
-              reg_word(addr, pack_side(bot, 1)),
-              reg_word(addr, pack_side(bot, 0)),
-              reg_word(addr, pack_side(top, 1)),
-              reg_word(addr, pack_side(top, 0)));
-    }
-
-    board_advance(board, MAX7219_WAKE_NS);
-    return board_fault(board);
 }
 
 void board_set_switches(Board *board, int up, int down, int left, int right, int button)

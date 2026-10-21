@@ -82,6 +82,12 @@ typedef struct {
 } Input;
 ```
 
+## Square
+
+The first game draws a 3x3 block. It starts near the middle of the field. The stick steps that block one cell at a time, including diagonals. Opposite switches on one axis cancel. The block stops at the edge of the field. A held direction keeps stepping, slowly enough that one tap moves a single cell. The action button jumps the block to a different cell.
+
+The tick, the framebuffer, the input debounce, and the flush are the same C in the simulator and in the AVR image. The simulator drives the model pins. The AVR image drives PORTA. `make -C fw/avr` builds `fw/avr/square.hex` for the AVR128DB28. The internal oscillator is set to 24 MHz in that image, and the chip is programmed over UPDI.
+
 ## What a game is
 
 A game is one function called from the 60 Hz tick.

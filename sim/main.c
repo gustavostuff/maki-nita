@@ -1,4 +1,7 @@
-#include "board.h"
+#include "flush.h"
+#include "game.h"
+#include "host.h"
+#include "input.h"
 
 #include <SDL.h>
 
@@ -167,7 +170,13 @@ int main(void)
     }
 
     board_init(&board);
-    if (board_bringup(&board) != 0) {
+    sim_bind(&board);
+    input_reset();
+    game_reset();
+    drivers_init();
+    drivers_flush();
+    board_advance(&board, MAX7219_WAKE_NS);
+    if (board_fault(&board) != 0) {
         SDL_Log("display bring-up saw a timing fault");
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
@@ -182,6 +191,7 @@ int main(void)
         int down;
         int left;
         int right;
+        Input in;
         int sx = 0;
         int sy = 0;
         int pressed;
@@ -206,6 +216,14 @@ int main(void)
             sx = 1;
         pressed = keys[SDL_SCANCODE_SPACE] ? 1 : 0;
         board_set_switches(&board, up, down, left, right, pressed);
+        input_tick(board_sense(&board, AVR_PD1) == SIG_L,
+                   board_sense(&board, AVR_PD2) == SIG_L,
+                   board_sense(&board, AVR_PD3) == SIG_L,
+                   board_sense(&board, AVR_PD4) == SIG_L,
+                   board_sense(&board, AVR_PD5) == SIG_L,
+                   &in);
+        game_tick(&in);
+        drivers_flush();
         board_advance(&board, 16000000);
 
         draw(renderer, &board, sx, sy, pressed);

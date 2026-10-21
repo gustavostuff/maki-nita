@@ -1,4 +1,9 @@
 #include "board.h"
+#include "flush.h"
+#include "frame.h"
+#include "game.h"
+#include "host.h"
+#include "input.h"
 
 #include <stdio.h>
 
@@ -10,6 +15,33 @@ static void expect(int cond, const char *msg)
         fprintf(stderr, "fail: %s\n", msg);
         failures++;
     }
+}
+
+static const unsigned short border[16] = {
+    0xFFFF, 0x8001, 0x8001, 0x8001,
+    0x8001, 0x8001, 0x8001, 0x8001,
+    0x8001, 0x8001, 0x8001, 0x8001,
+    0x8001, 0x8001, 0x8001, 0xFFFF,
+};
+
+static void draw_border(void)
+{
+    int x;
+    int y;
+
+    clear();
+    for (y = 0; y < 16; y++) {
+        for (x = 0; x < 16; x++)
+            pixel((uint8_t)x, (uint8_t)y, (border[y] >> x) & 1u);
+    }
+}
+
+static void show(Board *board)
+{
+    sim_bind(board);
+    drivers_init();
+    drivers_flush();
+    board_advance(board, MAX7219_WAKE_NS);
 }
 
 static void test_switches(void)
@@ -28,13 +60,15 @@ static void test_switches(void)
     expect(board_sense(&board, AVR_PD1) == SIG_H, "releasing the switch returns the input high");
 }
 
-static void test_bringup_border(void)
+static void test_flush_border(void)
 {
     Board board;
     int i;
 
     board_init(&board);
-    if (board_bringup(&board) != MAX7219_OK) {
+    draw_border();
+    show(&board);
+    if (board_fault(&board) != MAX7219_OK) {
         for (i = 0; i < 4; i++) {
             if (board.drv[i].fault != MAX7219_OK)
                 fprintf(stderr, "fail: %s timing fault %d\n",
@@ -64,10 +98,38 @@ static void test_bringup_border(void)
     expect(board_led_on(&board, 15, 1), "right edge stays on");
 }
 
+static void test_square_on_leds(void)
+{
+    Board board;
+    Input in;
+
+    board_init(&board);
+    input_reset();
+    game_reset();
+    show(&board);
+    expect(board_fault(&board) == MAX7219_OK, "the square flush stays inside the timings");
+    expect(board_led_on(&board, 6, 6), "the middle of the block is lit");
+    expect(!board_led_on(&board, 5, 6), "the cell left of the block is dark");
+    expect(board_led_on(&board, 8, 8), "the bottom-right of the block is lit");
+
+    board_set_switches(&board, 0, 0, 0, 1, 0);
+    input_tick(0, 0, 0, 1, 0, &in);
+    game_tick(&in);
+    drivers_flush();
+    expect(board_led_on(&board, 6, 6), "debounce holds the block for the first tick");
+
+    input_tick(0, 0, 0, 1, 0, &in);
+    game_tick(&in);
+    drivers_flush();
+    expect(!board_led_on(&board, 6, 6), "the old left column turns off");
+    expect(board_led_on(&board, 9, 6), "the new right column turns on");
+}
+
 int main(void)
 {
     test_switches();
-    test_bringup_border();
+    test_flush_border();
+    test_square_on_leds();
     if (failures) {
         fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
         return 1;
