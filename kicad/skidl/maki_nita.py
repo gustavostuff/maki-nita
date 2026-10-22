@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""SKiDL netlist for the Maki Nita board.
+"""SKiDL netlist for the Maki Nita console.
 
-Connections follow sim/board.c. U1 is the AVR128DB28. U2 to U5 are the
+Connections follow sim/board.c. J1 is the cart socket. The AVR128DB28
+lives on the cartridge, so this board has no CPU. U2 to U5 are the
 MAX7219 chain, left to right, top to bottom. DS1 to DS4 are the matrices
 those drivers scan. The sim keeps the picture inside each driver. Here each
 segment and digit pin lands on one matrix pad.
@@ -39,6 +40,7 @@ from skidl import KICAD10, Net, Part, Pin, SKIDL, generate_netlist
 from skidl.pin import pin_types
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from cart_edge import contacts, socket_pad, socket_pins
 from net_classes import annotate_netlist_classes, apply_netclasses, patch_kicad_pro
 
 HERE = Path(__file__).resolve().parent
@@ -46,7 +48,7 @@ REPO = HERE.parents[1]
 NET_PATH = HERE / "maki-nita.net"
 PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
 
-AVR_FP = "Package_DIP:DIP-28_W7.62mm"
+SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x18_2.54x5.08mm"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 MATRIX_FP = "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 
@@ -58,37 +60,6 @@ DIG_PINS = (2, 11, 6, 7, 3, 10, 5, 8)  # DIG0 .. DIG7
 # Placeholder pad numbers. See the module docstring.
 COL_PADS = (1, 2, 3, 4, 5, 6, 7, 8)
 ROW_PADS = (16, 15, 14, 13, 12, 11, 10, 9)
-
-AVR_PINS = (
-    (1, "PA7"),
-    (2, "PC0"),
-    (3, "PC1"),
-    (4, "PC2"),
-    (5, "PC3"),
-    (6, "VDDIO2"),
-    (7, "PD1"),
-    (8, "PD2"),
-    (9, "PD3"),
-    (10, "PD4"),
-    (11, "PD5"),
-    (12, "PD6"),
-    (13, "PD7"),
-    (14, "AVDD"),
-    (15, "GND"),
-    (16, "PF0"),
-    (17, "PF1"),
-    (18, "PF6"),
-    (19, "UPDI"),
-    (20, "VDD"),
-    (21, "GND2"),
-    (22, "PA0"),
-    (23, "PA1"),
-    (24, "PA2"),
-    (25, "PA3"),
-    (26, "PA4"),
-    (27, "PA5"),
-    (28, "PA6"),
-)
 
 DRV_PINS = (
     (1, "DIN"),
@@ -118,7 +89,6 @@ DRV_PINS = (
 )
 
 POWER_NAMES = {"VDD", "VDDIO2", "AVDD", "V+", "GND", "GND2"}
-AVR_SPARE = (2, 3, 4, 5, 12, 13, 16, 17, 22, 23, 24, 25, 27)
 
 
 def _pin(num: int, name: str) -> Pin:
@@ -163,24 +133,33 @@ def build() -> None:
         "BUTTON": Net("BUTTON"),
     }
 
-    cpu = _part("AVR128DB28-I/SP", "U1", AVR_FP, AVR_PINS, "AVR128DB28-I/SP")
-    _tie(cpu, 20, vcc)
-    _tie(cpu, 14, vcc)
-    _tie(cpu, 6, vcc)
-    _tie(cpu, 15, gnd)
-    _tie(cpu, 21, gnd)
-    _tie(cpu, 26, din)
-    _tie(cpu, 28, clk)
-    _tie(cpu, 1, load)
-    _tie(cpu, 18, reset)
-    _tie(cpu, 19, updi)
-    _tie(cpu, 7, switches["UP"])
-    _tie(cpu, 8, switches["DOWN"])
-    _tie(cpu, 9, switches["LEFT"])
-    _tie(cpu, 10, switches["RIGHT"])
-    _tie(cpu, 11, switches["BUTTON"])
-    for num in AVR_SPARE:
-        _stub(cpu, num)
+    named = {
+        "DIN": din,
+        "CLK": clk,
+        "LOAD": load,
+        "RESET": reset,
+        "UPDI": updi,
+        **switches,
+    }
+    socket = _part(
+        "EDAC-395-036-520-201",
+        "J1",
+        SOCKET_FP,
+        socket_pins(),
+        "EDAC 395-036-520-201",
+    )
+    for number, side, net_name, _avr in contacts():
+        pad = socket_pad(number, side)
+        if net_name == "GND":
+            _tie(socket, pad, gnd)
+        elif net_name == "+5V":
+            _tie(socket, pad, vcc)
+        elif net_name is None:
+            _stub(socket, pad)
+        elif net_name in named:
+            _tie(socket, pad, named[net_name])
+        else:
+            _tie(socket, pad, Net(net_name))
 
     drivers = []
     matrices = []
@@ -243,26 +222,33 @@ def _check(text: str) -> None:
         chunk = text[start : start + (nxt.start() if nxt else len(text))]
         return set(re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', chunk))
 
-    if text.count('(footprint "Package_DIP:DIP-28_W7.62mm")') != 1:
-        raise SystemExit("AVR footprint missing")
+    if text.count(f'(footprint "{SOCKET_FP}")') != 1:
+        raise SystemExit("cart socket footprint missing")
     if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
         raise SystemExit("expected 4 MAX7219 footprints")
     if text.count(f'(footprint "{MATRIX_FP}")') != 4:
         raise SystemExit("expected 4 matrix footprints")
     vcc = nodes("+5V")
     gnd = nodes("GND")
-    if ("U1", "20") not in vcc or ("U1", "14") not in vcc or ("U1", "6") not in vcc:
-        raise SystemExit("+5V does not reach the AVR rails")
+    if ("J1", "3") not in vcc or ("J1", "4") not in vcc:
+        raise SystemExit("+5V does not reach the cart socket")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
-    if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
-        raise SystemExit("GND does not reach both AVR ground pins")
+    for pad in ("1", "2", "35", "36"):
+        if ("J1", pad) not in gnd:
+            raise SystemExit(f"GND does not reach cart socket pad {pad}")
     if ("U2", "4") not in gnd or ("U2", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
-    if din != {("U1", "26"), ("U2", "1")}:
+    if din != {("J1", "25"), ("U2", "1")}:
         raise SystemExit(f"DIN nodes {din}")
+    clk = nodes("CLK")
+    if ("J1", "27") not in clk or ("U2", "13") not in clk or ("U5", "13") not in clk:
+        raise SystemExit(f"CLK nodes {clk}")
+    load = nodes("LOAD")
+    if ("J1", "5") not in load or ("U2", "12") not in load or ("U5", "12") not in load:
+        raise SystemExit(f"LOAD nodes {load}")
     link = nodes("DOUT_U2")
     if link != {("U2", "24"), ("U3", "1")}:
         raise SystemExit(f"DOUT_U2 nodes {link}")

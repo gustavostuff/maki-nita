@@ -1,15 +1,16 @@
 # Maki Nita hardware
 
-Maki Nita is one board. Four red 8x8 matrices fill the top in a 2 by 2 grid. A strip along the bottom holds the four display drivers, the CPU, the power parts, and the headers. The field is about 64 mm square. The strip makes the board a little wider and taller than that square.
+Maki Nita is a console and a cartridge. Four red 8x8 matrices fill the top of the console in a 2 by 2 grid. A strip along the bottom holds the four display drivers, the cart socket, the power parts, and the headers. The field is about 64 mm square. The strip makes the board a little wider and taller than that square. The cartridge carries the AVR128DB28 and nothing else. That chip is the CPU.
 
 The stick and the button mount to the case. A header on the bottom edge of the strip is where their wires land.
 
-Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block. The builder solders the matrices. The drivers, the CPU, and the passives are parts on the board.
+Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block. The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 
 ```mermaid
 flowchart LR
-  controls[Stick and button] --> avr[AVR128DB28]
-  avr -->|data, clock, load| drivers[4x MAX7219]
+  controls[Stick and button] --> socket[Cart socket]
+  cart[AVR128DB28 cartridge] --> socket
+  socket -->|data, clock, load| drivers[4x MAX7219]
   drivers -->|segment and digit lines| leds[16x16 red dots]
 ```
 
@@ -40,8 +41,9 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 
 | Qty | Part | Role |
 | --- | --- | --- |
-| 1 | AVR128DB28-I/SP | CPU. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
-| 1 | 28-pin DIP socket | For the CPU |
+| 1 | EDAC 395-036-520-201 | Cart socket on the console. 36 contacts, 18 a side |
+| 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
+| 1 | 28-pin DIP socket | For the CPU, on the cartridge |
 | 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
 | 4 | 24-pin DIP sockets, 0.3 inch | For the drivers |
 | 4 | Red 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
@@ -107,22 +109,49 @@ The jack takes a regulated 5 V supply, 2 A. Center positive. The polyfuse, then 
 
 At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The packages stay within their thermal rating on a full-white frame.
 
+## Cartridge
+
+The console socket is an EDAC 395-036-520-201. It is a straight card-edge connector, 2.54 mm along a row. Side A and side B are the two faces of the cartridge edge. On the socket, side A is the odd pad numbers and side B is the even pad numbers. On the cartridge fingers, side A is pads 1 to 18 and side B is pads 19 to 36.
+
+VDD, AVDD, and VDDIO2 on the AVR tie to the +5 V contacts. Both AVR ground pins tie to the GND contacts.
+
+| Contact | Side A | Side B |
+| --- | --- | --- |
+| 1 | GND | GND |
+| 2 | +5 V | +5 V |
+| 3 | LOAD, AVR pin 1 | PC0, AVR pin 2 |
+| 4 | PC1, AVR pin 3 | PC2, AVR pin 4 |
+| 5 | PC3, AVR pin 5 | UP, AVR pin 7 |
+| 6 | DOWN, AVR pin 8 | LEFT, AVR pin 9 |
+| 7 | RIGHT, AVR pin 10 | BUTTON, AVR pin 11 |
+| 8 | PD6, AVR pin 12 | PD7, AVR pin 13 |
+| 9 | PF0, AVR pin 16 | PF1, AVR pin 17 |
+| 10 | RESET, AVR pin 18 | UPDI, AVR pin 19 |
+| 11 | PA0, AVR pin 22 | PA1, AVR pin 23 |
+| 12 | PA2, AVR pin 24 | PA3, AVR pin 25 |
+| 13 | DIN, AVR pin 26 | PA5, AVR pin 27 |
+| 14 | CLK, AVR pin 28 | open |
+| 15 | open | open |
+| 16 | open | open |
+| 17 | open | open |
+| 18 | GND | GND |
+
 ## CPU signals
 
-Port pins on the AVR128DB28. Package pin numbers are the 28-pin SPDIP numbers from the datasheet.
+Port pins on the AVR128DB28. Package pin numbers are the 28-pin SPDIP numbers from the datasheet. The contact column is the cartridge edge.
 
-| Signal | Package pin | Port | Direction | Notes |
-| --- | --- | --- | --- | --- |
-| DIN | 26 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
-| CLK | 28 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
-| LOAD | 1 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
-| UP | 7 | PD1 | in | Active low, internal pull-up |
-| DOWN | 8 | PD2 | in | Active low, internal pull-up |
-| LEFT | 9 | PD3 | in | Active low, internal pull-up |
-| RIGHT | 10 | PD4 | in | Active low, internal pull-up |
-| BUTTON | 11 | PD5 | in | Active low, internal pull-up |
-| RESET | 18 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
-| UPDI | 19 | UPDI | program | Programming header |
+| Signal | Package pin | Contact | Port | Direction | Notes |
+| --- | --- | --- | --- | --- | --- |
+| DIN | 26 | A13 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
+| CLK | 28 | A14 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
+| LOAD | 1 | A3 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
+| UP | 7 | A5 | PD1 | in | Active low, internal pull-up |
+| DOWN | 8 | A6 | PD2 | in | Active low, internal pull-up |
+| LEFT | 9 | B6 | PD3 | in | Active low, internal pull-up |
+| RIGHT | 10 | A7 | PD4 | in | Active low, internal pull-up |
+| BUTTON | 11 | B7 | PD5 | in | Active low, internal pull-up |
+| RESET | 18 | A10 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
+| UPDI | 19 | B10 | UPDI | program | Programming header |
 
 PA0, PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads.
 

@@ -2,7 +2,7 @@
   (version "D")
   (design
     (source "maki_nita.py")
-    (date "10/22/2026 10:48 AM")
+    (date "10/22/2026 12:03 PM")
     (tool "SKiDL (2.3.0)")
     (sheet
       (number 1)
@@ -57,7 +57,7 @@
         (field
           (name "SKiDL Tag") "DS1")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "Matrix8x8"))
@@ -81,7 +81,7 @@
         (field
           (name "SKiDL Tag") "DS2")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "Matrix8x8"))
@@ -105,7 +105,7 @@
         (field
           (name "SKiDL Tag") "DS3")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "Matrix8x8"))
@@ -129,7 +129,7 @@
         (field
           (name "SKiDL Tag") "DS4")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "Matrix8x8"))
@@ -139,29 +139,29 @@
       (component_classes)
       (tstamps "bd696a26-ce58-523e-ae7c-5f4cd916d9af"))
     (comp
-      (ref "U1")
-      (value "AVR128DB28-I/SP")
+      (ref "J1")
+      (value "EDAC 395-036-520-201")
       (description "")
-      (footprint "Package_DIP:DIP-28_W7.62mm")
+      (footprint "MakiNita:EDAC_395_MoboSocket_2x18_2.54x5.08mm")
       (fields
         (field
           (name "Description"))
         (field
-          (name "Footprint") "Package_DIP:DIP-28_W7.62mm")
+          (name "Footprint") "MakiNita:EDAC_395_MoboSocket_2x18_2.54x5.08mm")
         (field
           (name "Datasheet"))
         (field
-          (name "SKiDL Tag") "U1")
+          (name "SKiDL Tag") "J1")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
-        (part "AVR128DB28-I/SP"))
+        (part "EDAC-395-036-520-201"))
       (sheetpath
         (names "/")
         (tstamps "/"))
       (component_classes)
-      (tstamps "f8fce87b-acde-5341-b554-4e93a034d648"))
+      (tstamps "d7608689-a7d2-514c-aa16-0f8bde5cf213"))
     (comp
       (ref "U2")
       (value "MAX7219")
@@ -177,7 +177,7 @@
         (field
           (name "SKiDL Tag") "U2")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "MAX7219"))
@@ -201,7 +201,7 @@
         (field
           (name "SKiDL Tag") "U3")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "MAX7219"))
@@ -225,7 +225,7 @@
         (field
           (name "SKiDL Tag") "U4")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "MAX7219"))
@@ -249,7 +249,7 @@
         (field
           (name "SKiDL Tag") "U5")
         (field
-          (name "SKiDL Line") "maki_nita.py:130"))
+          (name "SKiDL Line") "maki_nita.py:100"))
       (libsource
         (lib "NO_LIB")
         (part "MAX7219"))
@@ -263,17 +263,13 @@
       (code 1)
       (name "+5V") (class "5V_GND")
       (node
-        (ref "U1")
-        (pin "14")
-        (pintype "POWER-IN"))
+        (ref "J1")
+        (pin "3")
+        (pintype "PASSIVE"))
       (node
-        (ref "U1")
-        (pin "20")
-        (pintype "POWER-IN"))
-      (node
-        (ref "U1")
-        (pin "6")
-        (pintype "POWER-IN"))
+        (ref "J1")
+        (pin "4")
+        (pintype "PASSIVE"))
       (node
         (ref "U2")
         (pin "19")
@@ -294,15 +290,15 @@
       (code 2)
       (name "BUTTON") (class "Default")
       (node
-        (ref "U1")
-        (pin "11")
+        (ref "J1")
+        (pin "14")
         (pintype "PASSIVE")))
     (net
       (code 3)
       (name "CLK") (class "Default")
       (node
-        (ref "U1")
-        (pin "28")
+        (ref "J1")
+        (pin "27")
         (pintype "PASSIVE"))
       (node
         (ref "U2")
@@ -324,8 +320,8 @@
       (code 4)
       (name "DIN") (class "Default")
       (node
-        (ref "U1")
-        (pin "26")
+        (ref "J1")
+        (pin "25")
         (pintype "PASSIVE"))
       (node
         (ref "U2")
@@ -375,20 +371,28 @@
       (code 9)
       (name "DOWN") (class "Default")
       (node
-        (ref "U1")
-        (pin "8")
+        (ref "J1")
+        (pin "11")
         (pintype "PASSIVE")))
     (net
       (code 10)
       (name "GND") (class "5V_GND")
       (node
-        (ref "U1")
-        (pin "15")
-        (pintype "POWER-IN"))
+        (ref "J1")
+        (pin "1")
+        (pintype "PASSIVE"))
       (node
-        (ref "U1")
-        (pin "21")
-        (pintype "POWER-IN"))
+        (ref "J1")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "35")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "36")
+        (pintype "PASSIVE"))
       (node
         (ref "U2")
         (pin "4")
@@ -425,15 +429,15 @@
       (code 11)
       (name "LEFT") (class "Default")
       (node
-        (ref "U1")
-        (pin "9")
+        (ref "J1")
+        (pin "12")
         (pintype "PASSIVE")))
     (net
       (code 12)
       (name "LOAD") (class "Default")
       (node
-        (ref "U1")
-        (pin "1")
+        (ref "J1")
+        (pin "5")
         (pintype "PASSIVE"))
       (node
         (ref "U2")
@@ -453,111 +457,160 @@
         (pintype "PASSIVE")))
     (net
       (code 13)
-      (name "NC_U1_12") (class "Default")
+      (name "NC_J1_28") (class "Default")
       (node
-        (ref "U1")
-        (pin "12")
+        (ref "J1")
+        (pin "28")
         (pintype "PASSIVE")))
     (net
       (code 14)
-      (name "NC_U1_13") (class "Default")
+      (name "NC_J1_29") (class "Default")
       (node
-        (ref "U1")
-        (pin "13")
+        (ref "J1")
+        (pin "29")
         (pintype "PASSIVE")))
     (net
       (code 15)
-      (name "NC_U1_16") (class "Default")
+      (name "NC_J1_30") (class "Default")
       (node
-        (ref "U1")
-        (pin "16")
+        (ref "J1")
+        (pin "30")
         (pintype "PASSIVE")))
     (net
       (code 16)
-      (name "NC_U1_17") (class "Default")
+      (name "NC_J1_31") (class "Default")
       (node
-        (ref "U1")
-        (pin "17")
+        (ref "J1")
+        (pin "31")
         (pintype "PASSIVE")))
     (net
       (code 17)
-      (name "NC_U1_2") (class "Default")
+      (name "NC_J1_32") (class "Default")
       (node
-        (ref "U1")
-        (pin "2")
+        (ref "J1")
+        (pin "32")
         (pintype "PASSIVE")))
     (net
       (code 18)
-      (name "NC_U1_22") (class "Default")
+      (name "NC_J1_33") (class "Default")
       (node
-        (ref "U1")
-        (pin "22")
+        (ref "J1")
+        (pin "33")
         (pintype "PASSIVE")))
     (net
       (code 19)
-      (name "NC_U1_23") (class "Default")
+      (name "NC_J1_34") (class "Default")
       (node
-        (ref "U1")
-        (pin "23")
+        (ref "J1")
+        (pin "34")
         (pintype "PASSIVE")))
     (net
       (code 20)
-      (name "NC_U1_24") (class "Default")
+      (name "PA0") (class "Default")
       (node
-        (ref "U1")
-        (pin "24")
+        (ref "J1")
+        (pin "21")
         (pintype "PASSIVE")))
     (net
       (code 21)
-      (name "NC_U1_25") (class "Default")
+      (name "PA1") (class "Default")
       (node
-        (ref "U1")
-        (pin "25")
+        (ref "J1")
+        (pin "22")
         (pintype "PASSIVE")))
     (net
       (code 22)
-      (name "NC_U1_27") (class "Default")
+      (name "PA2") (class "Default")
       (node
-        (ref "U1")
-        (pin "27")
+        (ref "J1")
+        (pin "23")
         (pintype "PASSIVE")))
     (net
       (code 23)
-      (name "NC_U1_3") (class "Default")
+      (name "PA3") (class "Default")
       (node
-        (ref "U1")
-        (pin "3")
+        (ref "J1")
+        (pin "24")
         (pintype "PASSIVE")))
     (net
       (code 24)
-      (name "NC_U1_4") (class "Default")
+      (name "PA5") (class "Default")
       (node
-        (ref "U1")
-        (pin "4")
+        (ref "J1")
+        (pin "26")
         (pintype "PASSIVE")))
     (net
       (code 25)
-      (name "NC_U1_5") (class "Default")
+      (name "PC0") (class "Default")
       (node
-        (ref "U1")
-        (pin "5")
+        (ref "J1")
+        (pin "6")
         (pintype "PASSIVE")))
     (net
       (code 26)
-      (name "RESET") (class "Default")
+      (name "PC1") (class "Default")
       (node
-        (ref "U1")
-        (pin "18")
+        (ref "J1")
+        (pin "7")
         (pintype "PASSIVE")))
     (net
       (code 27)
-      (name "RIGHT") (class "Default")
+      (name "PC2") (class "Default")
       (node
-        (ref "U1")
-        (pin "10")
+        (ref "J1")
+        (pin "8")
         (pintype "PASSIVE")))
     (net
       (code 28)
+      (name "PC3") (class "Default")
+      (node
+        (ref "J1")
+        (pin "9")
+        (pintype "PASSIVE")))
+    (net
+      (code 29)
+      (name "PD6") (class "Default")
+      (node
+        (ref "J1")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 30)
+      (name "PD7") (class "Default")
+      (node
+        (ref "J1")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 31)
+      (name "PF0") (class "Default")
+      (node
+        (ref "J1")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 32)
+      (name "PF1") (class "Default")
+      (node
+        (ref "J1")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 33)
+      (name "RESET") (class "Default")
+      (node
+        (ref "J1")
+        (pin "19")
+        (pintype "PASSIVE")))
+    (net
+      (code 34)
+      (name "RIGHT") (class "Default")
+      (node
+        (ref "J1")
+        (pin "13")
+        (pintype "PASSIVE")))
+    (net
+      (code 35)
       (name "ROW1_DS1_C0") (class "ROW1")
       (node
         (ref "DS1")
@@ -568,7 +621,7 @@
         (pin "22")
         (pintype "PASSIVE")))
     (net
-      (code 29)
+      (code 36)
       (name "ROW1_DS1_C1") (class "ROW1")
       (node
         (ref "DS1")
@@ -579,7 +632,7 @@
         (pin "14")
         (pintype "PASSIVE")))
     (net
-      (code 30)
+      (code 37)
       (name "ROW1_DS1_C2") (class "ROW1")
       (node
         (ref "DS1")
@@ -590,7 +643,7 @@
         (pin "16")
         (pintype "PASSIVE")))
     (net
-      (code 31)
+      (code 38)
       (name "ROW1_DS1_C3") (class "ROW1")
       (node
         (ref "DS1")
@@ -601,7 +654,7 @@
         (pin "20")
         (pintype "PASSIVE")))
     (net
-      (code 32)
+      (code 39)
       (name "ROW1_DS1_C4") (class "ROW1")
       (node
         (ref "DS1")
@@ -612,7 +665,7 @@
         (pin "23")
         (pintype "PASSIVE")))
     (net
-      (code 33)
+      (code 40)
       (name "ROW1_DS1_C5") (class "ROW1")
       (node
         (ref "DS1")
@@ -623,7 +676,7 @@
         (pin "21")
         (pintype "PASSIVE")))
     (net
-      (code 34)
+      (code 41)
       (name "ROW1_DS1_C6") (class "ROW1")
       (node
         (ref "DS1")
@@ -634,7 +687,7 @@
         (pin "15")
         (pintype "PASSIVE")))
     (net
-      (code 35)
+      (code 42)
       (name "ROW1_DS1_C7") (class "ROW1")
       (node
         (ref "DS1")
@@ -645,7 +698,7 @@
         (pin "17")
         (pintype "PASSIVE")))
     (net
-      (code 36)
+      (code 43)
       (name "ROW1_DS1_R0") (class "ROW1")
       (node
         (ref "DS1")
@@ -656,7 +709,7 @@
         (pin "2")
         (pintype "PASSIVE")))
     (net
-      (code 37)
+      (code 44)
       (name "ROW1_DS1_R1") (class "ROW1")
       (node
         (ref "DS1")
@@ -667,7 +720,7 @@
         (pin "11")
         (pintype "PASSIVE")))
     (net
-      (code 38)
+      (code 45)
       (name "ROW1_DS1_R2") (class "ROW1")
       (node
         (ref "DS1")
@@ -678,7 +731,7 @@
         (pin "6")
         (pintype "PASSIVE")))
     (net
-      (code 39)
+      (code 46)
       (name "ROW1_DS1_R3") (class "ROW1")
       (node
         (ref "DS1")
@@ -689,7 +742,7 @@
         (pin "7")
         (pintype "PASSIVE")))
     (net
-      (code 40)
+      (code 47)
       (name "ROW1_DS1_R4") (class "ROW1")
       (node
         (ref "DS1")
@@ -700,7 +753,7 @@
         (pin "3")
         (pintype "PASSIVE")))
     (net
-      (code 41)
+      (code 48)
       (name "ROW1_DS1_R5") (class "ROW1")
       (node
         (ref "DS1")
@@ -711,7 +764,7 @@
         (pin "10")
         (pintype "PASSIVE")))
     (net
-      (code 42)
+      (code 49)
       (name "ROW1_DS1_R6") (class "ROW1")
       (node
         (ref "DS1")
@@ -722,7 +775,7 @@
         (pin "5")
         (pintype "PASSIVE")))
     (net
-      (code 43)
+      (code 50)
       (name "ROW1_DS1_R7") (class "ROW1")
       (node
         (ref "DS1")
@@ -733,7 +786,7 @@
         (pin "8")
         (pintype "PASSIVE")))
     (net
-      (code 44)
+      (code 51)
       (name "ROW1_DS2_C0") (class "ROW1")
       (node
         (ref "DS2")
@@ -744,7 +797,7 @@
         (pin "22")
         (pintype "PASSIVE")))
     (net
-      (code 45)
+      (code 52)
       (name "ROW1_DS2_C1") (class "ROW1")
       (node
         (ref "DS2")
@@ -755,7 +808,7 @@
         (pin "14")
         (pintype "PASSIVE")))
     (net
-      (code 46)
+      (code 53)
       (name "ROW1_DS2_C2") (class "ROW1")
       (node
         (ref "DS2")
@@ -766,7 +819,7 @@
         (pin "16")
         (pintype "PASSIVE")))
     (net
-      (code 47)
+      (code 54)
       (name "ROW1_DS2_C3") (class "ROW1")
       (node
         (ref "DS2")
@@ -777,7 +830,7 @@
         (pin "20")
         (pintype "PASSIVE")))
     (net
-      (code 48)
+      (code 55)
       (name "ROW1_DS2_C4") (class "ROW1")
       (node
         (ref "DS2")
@@ -788,7 +841,7 @@
         (pin "23")
         (pintype "PASSIVE")))
     (net
-      (code 49)
+      (code 56)
       (name "ROW1_DS2_C5") (class "ROW1")
       (node
         (ref "DS2")
@@ -799,7 +852,7 @@
         (pin "21")
         (pintype "PASSIVE")))
     (net
-      (code 50)
+      (code 57)
       (name "ROW1_DS2_C6") (class "ROW1")
       (node
         (ref "DS2")
@@ -810,7 +863,7 @@
         (pin "15")
         (pintype "PASSIVE")))
     (net
-      (code 51)
+      (code 58)
       (name "ROW1_DS2_C7") (class "ROW1")
       (node
         (ref "DS2")
@@ -821,7 +874,7 @@
         (pin "17")
         (pintype "PASSIVE")))
     (net
-      (code 52)
+      (code 59)
       (name "ROW1_DS2_R0") (class "ROW1")
       (node
         (ref "DS2")
@@ -832,7 +885,7 @@
         (pin "2")
         (pintype "PASSIVE")))
     (net
-      (code 53)
+      (code 60)
       (name "ROW1_DS2_R1") (class "ROW1")
       (node
         (ref "DS2")
@@ -843,7 +896,7 @@
         (pin "11")
         (pintype "PASSIVE")))
     (net
-      (code 54)
+      (code 61)
       (name "ROW1_DS2_R2") (class "ROW1")
       (node
         (ref "DS2")
@@ -854,7 +907,7 @@
         (pin "6")
         (pintype "PASSIVE")))
     (net
-      (code 55)
+      (code 62)
       (name "ROW1_DS2_R3") (class "ROW1")
       (node
         (ref "DS2")
@@ -865,7 +918,7 @@
         (pin "7")
         (pintype "PASSIVE")))
     (net
-      (code 56)
+      (code 63)
       (name "ROW1_DS2_R4") (class "ROW1")
       (node
         (ref "DS2")
@@ -876,7 +929,7 @@
         (pin "3")
         (pintype "PASSIVE")))
     (net
-      (code 57)
+      (code 64)
       (name "ROW1_DS2_R5") (class "ROW1")
       (node
         (ref "DS2")
@@ -887,7 +940,7 @@
         (pin "10")
         (pintype "PASSIVE")))
     (net
-      (code 58)
+      (code 65)
       (name "ROW1_DS2_R6") (class "ROW1")
       (node
         (ref "DS2")
@@ -898,7 +951,7 @@
         (pin "5")
         (pintype "PASSIVE")))
     (net
-      (code 59)
+      (code 66)
       (name "ROW1_DS2_R7") (class "ROW1")
       (node
         (ref "DS2")
@@ -909,7 +962,7 @@
         (pin "8")
         (pintype "PASSIVE")))
     (net
-      (code 60)
+      (code 67)
       (name "ROW2_DS3_C0") (class "ROW2")
       (node
         (ref "DS3")
@@ -920,7 +973,7 @@
         (pin "22")
         (pintype "PASSIVE")))
     (net
-      (code 61)
+      (code 68)
       (name "ROW2_DS3_C1") (class "ROW2")
       (node
         (ref "DS3")
@@ -931,7 +984,7 @@
         (pin "14")
         (pintype "PASSIVE")))
     (net
-      (code 62)
+      (code 69)
       (name "ROW2_DS3_C2") (class "ROW2")
       (node
         (ref "DS3")
@@ -942,7 +995,7 @@
         (pin "16")
         (pintype "PASSIVE")))
     (net
-      (code 63)
+      (code 70)
       (name "ROW2_DS3_C3") (class "ROW2")
       (node
         (ref "DS3")
@@ -953,7 +1006,7 @@
         (pin "20")
         (pintype "PASSIVE")))
     (net
-      (code 64)
+      (code 71)
       (name "ROW2_DS3_C4") (class "ROW2")
       (node
         (ref "DS3")
@@ -964,7 +1017,7 @@
         (pin "23")
         (pintype "PASSIVE")))
     (net
-      (code 65)
+      (code 72)
       (name "ROW2_DS3_C5") (class "ROW2")
       (node
         (ref "DS3")
@@ -975,7 +1028,7 @@
         (pin "21")
         (pintype "PASSIVE")))
     (net
-      (code 66)
+      (code 73)
       (name "ROW2_DS3_C6") (class "ROW2")
       (node
         (ref "DS3")
@@ -986,7 +1039,7 @@
         (pin "15")
         (pintype "PASSIVE")))
     (net
-      (code 67)
+      (code 74)
       (name "ROW2_DS3_C7") (class "ROW2")
       (node
         (ref "DS3")
@@ -997,7 +1050,7 @@
         (pin "17")
         (pintype "PASSIVE")))
     (net
-      (code 68)
+      (code 75)
       (name "ROW2_DS3_R0") (class "ROW2")
       (node
         (ref "DS3")
@@ -1008,7 +1061,7 @@
         (pin "2")
         (pintype "PASSIVE")))
     (net
-      (code 69)
+      (code 76)
       (name "ROW2_DS3_R1") (class "ROW2")
       (node
         (ref "DS3")
@@ -1019,7 +1072,7 @@
         (pin "11")
         (pintype "PASSIVE")))
     (net
-      (code 70)
+      (code 77)
       (name "ROW2_DS3_R2") (class "ROW2")
       (node
         (ref "DS3")
@@ -1030,7 +1083,7 @@
         (pin "6")
         (pintype "PASSIVE")))
     (net
-      (code 71)
+      (code 78)
       (name "ROW2_DS3_R3") (class "ROW2")
       (node
         (ref "DS3")
@@ -1041,7 +1094,7 @@
         (pin "7")
         (pintype "PASSIVE")))
     (net
-      (code 72)
+      (code 79)
       (name "ROW2_DS3_R4") (class "ROW2")
       (node
         (ref "DS3")
@@ -1052,7 +1105,7 @@
         (pin "3")
         (pintype "PASSIVE")))
     (net
-      (code 73)
+      (code 80)
       (name "ROW2_DS3_R5") (class "ROW2")
       (node
         (ref "DS3")
@@ -1063,7 +1116,7 @@
         (pin "10")
         (pintype "PASSIVE")))
     (net
-      (code 74)
+      (code 81)
       (name "ROW2_DS3_R6") (class "ROW2")
       (node
         (ref "DS3")
@@ -1074,7 +1127,7 @@
         (pin "5")
         (pintype "PASSIVE")))
     (net
-      (code 75)
+      (code 82)
       (name "ROW2_DS3_R7") (class "ROW2")
       (node
         (ref "DS3")
@@ -1085,7 +1138,7 @@
         (pin "8")
         (pintype "PASSIVE")))
     (net
-      (code 76)
+      (code 83)
       (name "ROW2_DS4_C0") (class "ROW2")
       (node
         (ref "DS4")
@@ -1096,7 +1149,7 @@
         (pin "22")
         (pintype "PASSIVE")))
     (net
-      (code 77)
+      (code 84)
       (name "ROW2_DS4_C1") (class "ROW2")
       (node
         (ref "DS4")
@@ -1107,7 +1160,7 @@
         (pin "14")
         (pintype "PASSIVE")))
     (net
-      (code 78)
+      (code 85)
       (name "ROW2_DS4_C2") (class "ROW2")
       (node
         (ref "DS4")
@@ -1118,7 +1171,7 @@
         (pin "16")
         (pintype "PASSIVE")))
     (net
-      (code 79)
+      (code 86)
       (name "ROW2_DS4_C3") (class "ROW2")
       (node
         (ref "DS4")
@@ -1129,7 +1182,7 @@
         (pin "20")
         (pintype "PASSIVE")))
     (net
-      (code 80)
+      (code 87)
       (name "ROW2_DS4_C4") (class "ROW2")
       (node
         (ref "DS4")
@@ -1140,7 +1193,7 @@
         (pin "23")
         (pintype "PASSIVE")))
     (net
-      (code 81)
+      (code 88)
       (name "ROW2_DS4_C5") (class "ROW2")
       (node
         (ref "DS4")
@@ -1151,7 +1204,7 @@
         (pin "21")
         (pintype "PASSIVE")))
     (net
-      (code 82)
+      (code 89)
       (name "ROW2_DS4_C6") (class "ROW2")
       (node
         (ref "DS4")
@@ -1162,7 +1215,7 @@
         (pin "15")
         (pintype "PASSIVE")))
     (net
-      (code 83)
+      (code 90)
       (name "ROW2_DS4_C7") (class "ROW2")
       (node
         (ref "DS4")
@@ -1173,7 +1226,7 @@
         (pin "17")
         (pintype "PASSIVE")))
     (net
-      (code 84)
+      (code 91)
       (name "ROW2_DS4_R0") (class "ROW2")
       (node
         (ref "DS4")
@@ -1184,7 +1237,7 @@
         (pin "2")
         (pintype "PASSIVE")))
     (net
-      (code 85)
+      (code 92)
       (name "ROW2_DS4_R1") (class "ROW2")
       (node
         (ref "DS4")
@@ -1195,7 +1248,7 @@
         (pin "11")
         (pintype "PASSIVE")))
     (net
-      (code 86)
+      (code 93)
       (name "ROW2_DS4_R2") (class "ROW2")
       (node
         (ref "DS4")
@@ -1206,7 +1259,7 @@
         (pin "6")
         (pintype "PASSIVE")))
     (net
-      (code 87)
+      (code 94)
       (name "ROW2_DS4_R3") (class "ROW2")
       (node
         (ref "DS4")
@@ -1217,7 +1270,7 @@
         (pin "7")
         (pintype "PASSIVE")))
     (net
-      (code 88)
+      (code 95)
       (name "ROW2_DS4_R4") (class "ROW2")
       (node
         (ref "DS4")
@@ -1228,7 +1281,7 @@
         (pin "3")
         (pintype "PASSIVE")))
     (net
-      (code 89)
+      (code 96)
       (name "ROW2_DS4_R5") (class "ROW2")
       (node
         (ref "DS4")
@@ -1239,7 +1292,7 @@
         (pin "10")
         (pintype "PASSIVE")))
     (net
-      (code 90)
+      (code 97)
       (name "ROW2_DS4_R6") (class "ROW2")
       (node
         (ref "DS4")
@@ -1250,7 +1303,7 @@
         (pin "5")
         (pintype "PASSIVE")))
     (net
-      (code 91)
+      (code 98)
       (name "ROW2_DS4_R7") (class "ROW2")
       (node
         (ref "DS4")
@@ -1261,44 +1314,44 @@
         (pin "8")
         (pintype "PASSIVE")))
     (net
-      (code 92)
+      (code 99)
       (name "U2_ISET") (class "Default")
       (node
         (ref "U2")
         (pin "18")
         (pintype "PASSIVE")))
     (net
-      (code 93)
+      (code 100)
       (name "U3_ISET") (class "Default")
       (node
         (ref "U3")
         (pin "18")
         (pintype "PASSIVE")))
     (net
-      (code 94)
+      (code 101)
       (name "U4_ISET") (class "Default")
       (node
         (ref "U4")
         (pin "18")
         (pintype "PASSIVE")))
     (net
-      (code 95)
+      (code 102)
       (name "U5_ISET") (class "Default")
       (node
         (ref "U5")
         (pin "18")
         (pintype "PASSIVE")))
     (net
-      (code 96)
+      (code 103)
       (name "UP") (class "Default")
       (node
-        (ref "U1")
-        (pin "7")
+        (ref "J1")
+        (pin "10")
         (pintype "PASSIVE")))
     (net
-      (code 97)
+      (code 104)
       (name "UPDI") (class "Default")
       (node
-        (ref "U1")
-        (pin "19")
+        (ref "J1")
+        (pin "20")
         (pintype "PASSIVE")))))

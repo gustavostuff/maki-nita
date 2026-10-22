@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# Write kicad/skidl/maki-nita.net from the SKiDL circuit.
+# Write the console and cartridge netlists from the SKiDL circuits.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 NET="$DIR/maki-nita.net"
+CART="$DIR/maki-nita-cart.net"
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     echo "Usage: $0"
-    echo "  Writes $NET"
+    echo "  Writes $NET and $CART"
     exit 0
 fi
 if [[ $# -ne 0 ]]; then
@@ -25,3 +26,4 @@ if ! python3 -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_s
 fi
 
 python3 "$DIR/maki_nita.py"
+python3 "$DIR/maki_nita_cart.py"
