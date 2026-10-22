@@ -9,10 +9,10 @@ An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 d
 ## Settled choices
 
 - Display: 16x16, four common-cathode 8x8 matrices, one bit per pixel.
-- Board: a console PCB and a cartridge. The matrices are on top of the console. The drivers and the cart socket sit in a strip below them.
+- Board: a 2-layer console PCB and a 2-layer cartridge, each with a ground pour on both sides. The console carries the matrices, the drivers, and the cart socket.
 - CPU: AVR128DB28-I/SP on the cartridge, internal 24 MHz clock. The console socket is an EDAC 345-016-520-212, 16 contacts, 8 a side.
 - Drivers: four MAX7219ENG+ or MAX7219CNG+, one per 8x8 block.
-- Power: regulated 5 V barrel jack and a panel switch.
+- Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
 
 ## Docs

@@ -1,0 +1,39 @@
+# SKiDL writes these beside the script, including the repo root
+skidl.log
+skidl.erc
+skidl_REPL.log
+skidl_REPL.erc
+maki_nita.log
+maki_nita.erc
+maki_nita_cart.log
+maki_nita_cart.erc
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Netlists come from the SKiDL scripts
+*.net
+
+# Simulator and firmware images
+sim/maki-nita-ui
+sim/makinita-ui
+sim/retrodiode-ui
+sim/test_chips
+sim/tests/test_max7219
+sim/tests/test_avr128db28
+sim/tests/test_board
+sim/tests/test_game
+fw/avr/*.elf
+fw/avr/*.hex
+*.o
+
+# KiCad local files
+*.kicad_prl
+fp-info-cache
+~*.lck
+*-backups/
+_autosave*
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_pro-bak

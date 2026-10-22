@@ -50,6 +50,7 @@ PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
 
 SOCKET_FP = "MakiNita:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
+PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 MATRIX_FP = "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 
@@ -63,6 +64,14 @@ HDR_PINS = (
     (6, "RIGHT"),
     (7, "BUTTON"),
     (8, "GND2"),
+)
+
+# Pin 1 is the square pad. The row with pin 1 is power. The other row is reset.
+PWR_PINS = (
+    (1, "GND"),
+    (2, "VCC"),
+    (3, "RESET"),
+    (4, "GND2"),
 )
 
 # Column 0 is the left pixel, bit 7, segment DP. Same order as docs/hardware.md.
@@ -184,6 +193,12 @@ def build() -> None:
     _tie(header, 6, switches["RIGHT"])
     _tie(header, 7, switches["BUTTON"])
 
+    power = _part("PinHeader_2x02", "J3", PWR_FP, PWR_PINS, "PinHeader 2x02")
+    _tie(power, 1, gnd)
+    _tie(power, 2, vcc)
+    _tie(power, 3, reset)
+    _tie(power, 4, gnd)
+
     drivers = []
     matrices = []
     for index in range(4):
@@ -251,6 +266,8 @@ def _check(text: str) -> None:
         raise SystemExit("cart socket footprint missing")
     if text.count(f'(footprint "{HDR_FP}")') != 1:
         raise SystemExit("control header footprint missing")
+    if text.count(f'(footprint "{PWR_FP}")') != 1:
+        raise SystemExit("power header footprint missing")
     if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
         raise SystemExit("expected 4 MAX7219 footprints")
     if text.count(f'(footprint "{MATRIX_FP}")') != 4:
@@ -261,6 +278,8 @@ def _check(text: str) -> None:
         raise SystemExit("+5V does not reach three cart socket contacts")
     if ("J2", "2") not in vcc:
         raise SystemExit("+5V does not reach the header")
+    if ("J3", "2") not in vcc:
+        raise SystemExit("+5V does not reach the power header")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
@@ -269,6 +288,8 @@ def _check(text: str) -> None:
             raise SystemExit(f"GND does not reach cart socket pad {pad}")
     if ("J2", "1") not in gnd or ("J2", "8") not in gnd:
         raise SystemExit("GND does not reach both header ground pins")
+    if ("J3", "1") not in gnd or ("J3", "4") not in gnd:
+        raise SystemExit("GND does not reach both power header ground pins")
     if ("U2", "4") not in gnd or ("U2", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
@@ -286,6 +307,9 @@ def _check(text: str) -> None:
     button = nodes("BUTTON")
     if button != {("J1", "13"), ("J2", "7")}:
         raise SystemExit(f"BUTTON nodes {button}")
+    reset_net = nodes("RESET")
+    if reset_net != {("J1", "12"), ("J3", "3")}:
+        raise SystemExit(f"RESET nodes {reset_net}")
     link = nodes("DOUT_U2")
     if link != {("U2", "24"), ("U3", "1")}:
         raise SystemExit(f"DOUT_U2 nodes {link}")

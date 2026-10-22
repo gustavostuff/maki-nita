@@ -1,8 +1,8 @@
 # Maki Nita hardware
 
-Maki Nita is a console and a cartridge. Four red 8x8 matrices fill the top of the console in a 2 by 2 grid. A strip along the bottom holds the four display drivers, the cart socket, the power parts, and the headers. The field is about 64 mm square. The strip makes the board a little wider and taller than that square. The cartridge carries the AVR128DB28 and nothing else. That chip is the CPU.
+Maki Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 field, about 64 mm square. The console also carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 and nothing else. That chip is the CPU.
 
-The stick and the button mount to the case. A header on the bottom edge of the strip is where their wires land.
+The stick and the button mount to the case. Their wires land on one header. Power and reset land on another.
 
 Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block. The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 
@@ -42,6 +42,8 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | Qty | Part | Role |
 | --- | --- | --- |
 | 1 | EDAC 345-016-520-212 | Cart socket on the console. 16 contacts, 8 a side, 2.54 mm pitch |
+| 1 | Pin header, 2x4, 2.54 mm | Stick and button. J2 |
+| 1 | Pin header, 2x2, 2.54 mm | Power and reset. J3 |
 | 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU, on the cartridge |
 | 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
@@ -105,9 +107,17 @@ On power-up the MAX7219 blanks the display, enters shutdown, sets the scan limit
 
 A full-white frame turns on every LED. Each driver lights one of its eight rows at a time, eight LEDs at about 20 mA, and blanks that row for 1/32 of the row time. One driver therefore draws about 155 mA for the LEDs. Four drivers draw about 620 mA. The dissipation formula in the driver datasheet uses 8 mA of logic current per driver, and the CPU draws under 20 mA, so the rest of the board is about 50 mA. The total is about 0.7 A.
 
-The jack takes a regulated 5 V supply, 2 A. Center positive. The polyfuse, then the Schottky, then the panel switch, then the bulk capacitor. The polyfuse holds 1.5 A, so a full-white frame leaves it closed. The Schottky drops about 0.4 V. The drivers are specified from 4.0 V to 5.5 V, so the rail near 4.6 V is in range.
+The jack takes a regulated 5 V supply, 2 A. Center positive. The polyfuse, then the Schottky, then the panel switch, then the bulk capacitor. The polyfuse holds 1.5 A, so a full-white frame leaves it closed. The Schottky drops about 0.4 V. The drivers are specified from 4.0 V to 5.5 V, so the rail near 4.6 V is in range. That rail enters the console on J3.
 
 At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The packages stay within their thermal rating on a full-white frame.
+
+## Layers
+
+The console and the cartridge are 2-layer boards. Both sides carry a ground pour, and vias stitch the pours together. The segment and digit traces of one matrix stay close to each other. DIN, CLK, and LOAD run over the pour.
+
+The frame flushes once per 60 Hz tick. One flush is 512 rising edges of CLK, about 31,000 edges a second. The burst lasts about a millisecond at a few hundred kilohertz. CLK and DIN then sit low, and LOAD sits high.
+
+Each driver scans its block at about 800 Hz. A full row is about 160 mA peak. The 10 uF and the 100 nF at each driver V+ pin take that pulse. The stick wires leave beside the ground pins on J2. The reset switch leaves beside the ground pin on J3.
 
 ## Cartridge
 
@@ -163,6 +173,17 @@ Every switch common ties to GND. The normally open contact ties to its signal pi
 | 6 | RIGHT |
 | 7 | BUTTON |
 | 8 | GND |
+
+## Power and reset
+
+J3 is a 2x2 pin header, 2.54 mm pitch. Pin 1 is the square pad. The row with that pad is the 5 V rail. The other row is reset. RESET is the same net as cart contact B6. A switch from pin 3 to pin 4 pulls the CPU into reset. The 10 kohm pull-up holds the net high.
+
+| Pin | Net |
+| --- | --- |
+| 1 | GND |
+| 2 | +5 V |
+| 3 | RESET |
+| 4 | GND |
 
 ## Still open
 
