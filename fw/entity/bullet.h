@@ -1,7 +1,7 @@
 #ifndef FW_BULLET_H
 #define FW_BULLET_H
 
-/* One LED. It travels up one cell every four ticks. */
+/* One LED. It travels up one cell every two ticks. */
 
 void bullet_reset(void);
 void bullet_fire(int x, int y);

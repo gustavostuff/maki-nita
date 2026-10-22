@@ -19,7 +19,7 @@ static const uint8_t burst_rows[8] = {
     SHAPE_ROW8(1, 1, 0, 0, 0, 0, 1, 1),
 };
 static const Shape burst_shape = {burst_rows, 8, 8};
-static const BaseEntity burst_at = {.x = 4, .y = 4, .live = 1};
+static const BaseEntity burst_at = {.x = 12, .y = 12, .live = 1};
 
 static int over;
 

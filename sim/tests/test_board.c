@@ -17,22 +17,18 @@ static void expect(int cond, const char *msg)
     }
 }
 
-static const unsigned short border[16] = {
-    0xFFFF, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0x8001,
-    0x8001, 0x8001, 0x8001, 0xFFFF,
-};
-
 static void draw_border(void)
 {
     int x;
     int y;
 
     clear();
-    for (y = 0; y < 16; y++) {
-        for (x = 0; x < 16; x++)
-            pixel((uint8_t)x, (uint8_t)y, (border[y] >> x) & 1u);
+    for (y = 0; y < 32; y++) {
+        for (x = 0; x < 32; x++) {
+            int edge = (x == 0 || x == 31 || y == 0 || y == 31);
+
+            pixel((uint8_t)x, (uint8_t)y, edge);
+        }
     }
 }
 
@@ -80,22 +76,22 @@ static void test_flush_border(void)
 
     expect(board.drv[0].digit[0] == 0xFF, "top-left top row is full");
     expect(board.drv[0].digit[1] == 0x80, "top-left second row keeps the left edge");
-    expect(board.drv[1].digit[1] == 0x01, "top-right second row keeps the right edge");
-    expect(board.drv[2].digit[1] == 0x80, "bottom-left follows the same edge");
-    expect(board.drv[3].digit[1] == 0x01, "the first word reached the last driver");
+    expect(board.drv[3].digit[1] == 0x01, "top-right second row keeps the right edge");
+    expect(board.drv[12].digit[1] == 0x80, "bottom-left follows the same edge");
+    expect(board.drv[15].digit[1] == 0x01, "the first word reached the last driver");
     expect(board.drv[0].decode == 0, "decode stays off");
     expect(board.drv[1].intensity == 0x0F, "intensity is full scale");
     expect(board.drv[2].scan_limit == 7, "scan limit is all eight digits");
     expect(board.drv[3].shutdown == 0, "the drivers have left shutdown");
 
     expect(board_led_on(&board, 0, 0), "top-left pixel is on");
-    expect(board_led_on(&board, 15, 0), "top-right pixel is on");
-    expect(board_led_on(&board, 0, 15), "bottom-left pixel is on");
-    expect(board_led_on(&board, 15, 15), "bottom-right pixel is on");
+    expect(board_led_on(&board, 31, 0), "top-right pixel is on");
+    expect(board_led_on(&board, 0, 31), "bottom-left pixel is on");
+    expect(board_led_on(&board, 31, 31), "bottom-right pixel is on");
     expect(board_led_on(&board, 0, 1), "left edge stays on");
     expect(!board_led_on(&board, 1, 1), "the inside of the border is off");
-    expect(!board_led_on(&board, 8, 1), "the inside of the right block is off");
-    expect(board_led_on(&board, 15, 1), "right edge stays on");
+    expect(!board_led_on(&board, 24, 1), "the inside of the right block is off");
+    expect(board_led_on(&board, 31, 1), "right edge stays on");
 }
 
 static void test_square_on_leds(void)
@@ -108,22 +104,22 @@ static void test_square_on_leds(void)
     game_reset();
     show(&board);
     expect(board_fault(&board) == MAX7219_OK, "the ship flush stays inside the timings");
-    expect(board_led_on(&board, 7, 13), "the nose is lit");
-    expect(!board_led_on(&board, 6, 13), "the shoulder beside the nose is dark");
-    expect(board_led_on(&board, 6, 15) && board_led_on(&board, 8, 15),
+    expect(board_led_on(&board, 15, 29), "the nose is lit");
+    expect(!board_led_on(&board, 14, 29), "the shoulder beside the nose is dark");
+    expect(board_led_on(&board, 14, 31) && board_led_on(&board, 16, 31),
            "the bottom row of the ship is lit");
 
     board_set_switches(&board, 0, 0, 0, 1, 0);
     input_tick(0, 0, 0, 1, 0, &in);
     game_tick(&in);
     drivers_flush();
-    expect(board_led_on(&board, 6, 15), "debounce holds the ship for the first tick");
+    expect(board_led_on(&board, 14, 31), "debounce holds the ship for the first tick");
 
     input_tick(0, 0, 0, 1, 0, &in);
     game_tick(&in);
     drivers_flush();
-    expect(!board_led_on(&board, 6, 15), "the old left column turns off");
-    expect(board_led_on(&board, 9, 15), "the new right column turns on");
+    expect(!board_led_on(&board, 14, 31), "the old left column turns off");
+    expect(board_led_on(&board, 17, 31), "the new right column turns on");
 }
 
 int main(void)

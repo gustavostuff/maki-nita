@@ -20,7 +20,7 @@ static void settle_all(Board *board)
     net_settle(&board->dout);
     net_settle(&board->reset);
     net_settle(&board->updi);
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < NDRV - 1; i++)
         net_settle(&board->cascade[i]);
     for (i = 0; i < 5; i++)
         net_settle(&board->sw[i]);
@@ -31,12 +31,12 @@ void board_eval(Board *board)
     int i;
 
     settle_all(board);
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < NDRV; i++)
         max7219_edges(&board->drv[i], board->now_ns);
     settle_all(board);
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < NDRV; i++)
         max7219_sense(&board->drv[i], board->now_ns);
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < NDRV; i++)
         max7219_pins(&board->drv[i], board->now_ns);
 }
 
@@ -67,11 +67,14 @@ static void tie_chip_rails(Board *board, Max7219 *chip)
 
 void board_init(Board *board)
 {
-    static const char *refdes[4] = {"U2", "U3", "U4", "U5"};
+    static const char *refdes[NDRV] = {
+        "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9",
+        "U10", "U11", "U12", "U13", "U14", "U15", "U16", "U17",
+    };
     int i;
 
     avr_init(&board->cpu, "U1");
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < NDRV; i++)
         max7219_init(&board->drv[i], refdes[i]);
 
     for (i = 0; i < 5; i++) {
@@ -91,7 +94,7 @@ void board_init(Board *board)
     net_init(&board->dout, "DOUT", SIG_L);
     net_init(&board->reset, "RESET", SIG_H);
     net_init(&board->updi, "UPDI", SIG_H);
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < NDRV - 1; i++)
         net_init(&board->cascade[i], "CASCADE", SIG_L);
     for (i = 0; i < 5; i++)
         net_init(&board->sw[i], sw_name[i], SIG_H);
@@ -108,13 +111,13 @@ void board_init(Board *board)
     net_tie(&board->updi, avr_pin(&board->cpu, AVR_UPDI));
 
     net_tie(&board->din, max7219_pin(&board->drv[0], MAX7219_DIN));
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < NDRV; i++)
         tie_chip_rails(board, &board->drv[i]);
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < NDRV - 1; i++) {
         net_tie(&board->cascade[i], max7219_pin(&board->drv[i], MAX7219_DOUT));
         net_tie(&board->cascade[i], max7219_pin(&board->drv[i + 1], MAX7219_DIN));
     }
-    net_tie(&board->dout, max7219_pin(&board->drv[3], MAX7219_DOUT));
+    net_tie(&board->dout, max7219_pin(&board->drv[NDRV - 1], MAX7219_DOUT));
 
     for (i = 0; i < 5; i++) {
         net_tie(&board->sw[i], avr_pin(&board->cpu, sw_pin[i]));
@@ -144,9 +147,9 @@ int board_led_on(const Board *board, int x, int y)
 {
     int block;
 
-    if (x < 0 || x > 15 || y < 0 || y > 15)
+    if (x < 0 || x > 31 || y < 0 || y > 31)
         return 0;
-    block = (y >= 8 ? 2 : 0) + (x >= 8 ? 1 : 0);
+    block = (y / 8) * 4 + (x / 8);
     return max7219_led_on(&board->drv[block], x & 7, y & 7, board->now_ns);
 }
 
@@ -154,7 +157,7 @@ int board_fault(const Board *board)
 {
     int i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < NDRV; i++) {
         if (board->drv[i].fault != MAX7219_OK)
             return board->drv[i].fault;
     }

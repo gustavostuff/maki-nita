@@ -8,7 +8,7 @@
  *   010
  *   111
  *   111
- * The stick steps it one LED every four ticks.
+ * The stick steps it one LED every tick.
  */
 
 void player_reset(void);

@@ -1,16 +1,16 @@
 # Maki Nita hardware
 
-Maki Nita is one board. The LED field fills the top. A strip along the bottom holds the four display drivers, the CPU, the power parts, and the headers. The field is square. The strip makes the board a little taller than that square. Pitch is still open, so the outline in mm is still open.
-
-The field is 256 red 5 mm LEDs on one even pitch. Electrically it is four 8x8 blocks. The pitch does not change at the block boundaries.
+Maki Nita is one board. Sixteen red 8x8 matrices fill the top in a 4 by 4 grid. A strip along the bottom holds the sixteen display drivers, the CPU, the power parts, and the headers. The field is about 128 mm square. The strip makes the board a little wider and taller than that square.
 
 The stick and the button mount to the case. A header on the bottom edge of the strip is where their wires land.
+
+Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block. The builder solders the matrices. The drivers, the CPU, and the passives are parts on the board.
 
 ```mermaid
 flowchart LR
   controls[Stick and button] --> avr[AVR128DB28]
-  avr -->|data, clock, load| drivers[4x MAX7219]
-  drivers -->|segment and digit lines| leds[16x16 red LEDs]
+  avr -->|data, clock, load| drivers[16x MAX7219]
+  drivers -->|segment and digit lines| leds[32x32 red dots]
 ```
 
 ## Who turns a pixel on
@@ -23,16 +23,11 @@ The three outputs are the display chain. DIN is PA4, package pin 26, and it idle
 
 Each MAX7219 stores one 8x8 block and scans it on its own. A segment pin sources an LED anode. A digit pin sinks an LED cathode. A lit pixel is one segment bit set in that digit's register.
 
-| Block | Columns | Rows | Place in the chain |
-| --- | --- | --- | --- |
-| Top left | 0 to 7 | 0 to 7 | First. DIN comes from the AVR |
-| Top right | 8 to 15 | 0 to 7 | Second |
-| Bottom left | 0 to 7 | 8 to 15 | Third |
-| Bottom right | 8 to 15 | 8 to 15 | Fourth. End of the chain |
+The blocks form a 4 by 4 array. Block column `bc` and block row `br` start at 0 in the top left. That block covers screen columns `bc * 8` through `bc * 8 + 7` and screen rows `br * 8` through `br * 8 + 7`. The chain runs left to right across a row, then down to the next row. The top-left block is first and takes DIN from the AVR. The bottom-right block is last.
 
 Column 0 is the left of the screen. Row 0 is the top. Inside a block, the same rule holds. The block's own column 0 is its left edge, and its own row 0 is its top edge.
 
-DOUT of one driver feeds DIN of the next. CLK is common. LOAD is common. DOUT changes on the falling edge of CLK. A bit at DIN is valid at DOUT 16.5 clock cycles later. In a four-driver transfer, the first 16-bit word is the word the last driver latches.
+DOUT of one driver feeds DIN of the next. CLK is common. LOAD is common. DOUT changes on the falling edge of CLK. A bit at DIN is valid at DOUT 16.5 clock cycles later. In a sixteen-driver transfer, the first 16-bit word is the word the last driver latches.
 
 ## Parts
 
@@ -42,20 +37,20 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | --- | --- | --- |
 | 1 | AVR128DB28-I/SP | CPU. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU |
-| 4 | MAX7219ENG+ | 8x8 common-cathode LED drivers, 24-pin DIP |
-| 4 | 24-pin DIP sockets, 0.3 inch | For the drivers |
-| 256 | Red 5 mm LED | The field |
-| 4 | 28 kohm | ISET, one per driver. About 20 mA peak per LED |
+| 16 | MAX7219ENG+ | 8x8 common-cathode LED drivers, 24-pin DIP |
+| 16 | 24-pin DIP sockets, 0.3 inch | For the drivers |
+| 16 | Red 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
+| 16 | 28 kohm | ISET, one per driver. About 20 mA peak per LED |
 | 1 | 10 kohm | RESET pull-up |
 | 1 | 10 kohm | LOAD pull-up |
 | 2 | 10 kohm | Pull-downs on DIN and CLK |
-| 1 | 1N5822 | Series Schottky, reverse-plug protection |
-| 1 | Polyfuse, 1.5 A hold | On the 5 V input |
+| 1 | SB540 | Series Schottky, 5 A, reverse-plug protection |
+| 1 | Polyfuse, 4 A hold | On the 5 V input |
 | 1 | Barrel jack, 5.5 x 2.1 mm, center positive | Regulated 5 V in |
 | 1 | SPST panel switch | Breaks the 5 V rail |
-| 1 | 100 uF electrolytic | Bulk capacitor on the 5 V rail |
-| 4 | 10 uF electrolytic | One from each driver V+ to GND, close to the package |
-| 7 | 100 nF | One at each driver V+ pin, and at VDD, AVDD, and VDDIO2 |
+| 1 | 470 uF electrolytic | Bulk capacitor on the 5 V rail |
+| 16 | 10 uF electrolytic | One from each driver V+ to GND, close to the package |
+| 19 | 100 nF | One at each driver V+ pin, and at VDD, AVDD, and VDDIO2 |
 
 VDD, AVDD, and VDDIO2 all tie to the 5 V rail. Port C takes power from VDDIO2. An open VDDIO2 pin leaves that port unpowered.
 
@@ -93,15 +88,15 @@ Digit pins are cathodes, top to bottom. Digit 0 is the top row of the block.
 | 6 | DIG6 | 0x07 |
 | 7 | DIG7 | 0x08 |
 
-A segment that is off is pulled to GND. A digit that is off is pulled to V+.
+The matrix datasheet names which package pin is which row and which column. Those pins land on the segment and digit lines above. A segment that is off is pulled to GND. A digit that is off is pulled to V+.
 
 On power-up the MAX7219 blanks the display, enters shutdown, sets the scan limit to digit 0 only, leaves decode off, and sets intensity to its minimum. Firmware writes scan limit, decode mode, and intensity before it leaves shutdown. The driver can take those writes while shutdown is still in force.
 
 ## Current
 
-A full-white frame turns on every LED. Each driver lights one of its eight rows at a time, eight LEDs at about 20 mA, and blanks that row for 1/32 of the row time. One driver therefore draws about 155 mA for the LEDs. Four drivers draw about 620 mA. The dissipation formula in the driver datasheet uses 8 mA of logic current per driver, and the CPU draws under 20 mA, so the rest of the board is about 50 mA. The total is about 0.7 A.
+A full-white frame turns on every LED. Each driver lights one of its eight rows at a time, eight LEDs at about 20 mA, and blanks that row for 1/32 of the row time. One driver therefore draws about 155 mA for the LEDs. Sixteen drivers draw about 2.5 A. The dissipation formula in the driver datasheet uses 8 mA of logic current per driver, and the CPU draws under 20 mA, so the rest of the board is about 150 mA. The total is about 2.6 A.
 
-The jack takes a regulated 5 V supply, 2 A. Center positive. The polyfuse, then the Schottky, then the panel switch, then the bulk capacitor. The Schottky drops about 0.4 V. The drivers are specified from 4.0 V to 5.5 V, so the rail near 4.6 V is in range.
+The jack takes a regulated 5 V supply, 5 A. Center positive. The polyfuse, then the Schottky, then the panel switch, then the bulk capacitor. The polyfuse holds 4 A, so a full-white frame leaves it closed. The Schottky drops about half a volt at this current. The drivers are specified from 4.0 V to 5.5 V, so the rail stays in range.
 
 At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The packages stay within their thermal rating on a full-white frame.
 
@@ -134,6 +129,5 @@ Every switch common ties to GND. The normally open contact ties to its signal pi
 
 ## Still open
 
-- LED pitch and the exact outline of the board.
 - A case.
 - A small speaker for beeps. It plays a triangle or a sine wave at a chosen frequency. The pin and the drive circuit are still open. The other spare pins stay free.

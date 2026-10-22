@@ -3,7 +3,7 @@
 #include "base_entity.h"
 
 #define BULLET_MAX 4
-#define BULLET_EVERY 4
+#define BULLET_EVERY 2
 
 static const uint8_t dot_row[1] = {SHAPE_ROW1(1)};
 static const Shape dot = {dot_row, 1, 1};

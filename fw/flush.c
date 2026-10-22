@@ -3,6 +3,8 @@
 #include "frame.h"
 #include "hal.h"
 
+#define CHAIN 16
+
 static void shift_bit(int bit)
 {
     hal_din(bit ? 1 : 0);
@@ -21,15 +23,15 @@ static void send_word(unsigned word)
         shift_bit((word >> i) & 1);
 }
 
-/* w0 is clocked first and lands in the last driver. CLK is left low, DIN low, LOAD high. */
-static void send4(unsigned w0, unsigned w1, unsigned w2, unsigned w3)
+/* The first word lands in the last driver. CLK is left low, DIN low, LOAD high. */
+static void send_words(const unsigned *word, int n)
 {
+    int i;
+
     hal_load(0);
     hal_step();
-    send_word(w0);
-    send_word(w1);
-    send_word(w2);
-    send_word(w3);
+    for (i = n - 1; i >= 0; i--)
+        send_word(word[i]);
     hal_din(0);
     hal_step();
     hal_load(1);
@@ -41,15 +43,14 @@ static unsigned reg_word(unsigned addr, unsigned data)
     return ((addr & 0x0Fu) << 8) | (data & 0xFFu);
 }
 
-/* Bit 0 of the row is the left pixel. Bit 7 of the driver byte is the left pixel. */
-static unsigned pack_side(unsigned row, int high)
+/* Bit 0 of the row is the left pixel. Bit 7 of the driver byte is that pixel. */
+static unsigned pack_byte(uint32_t row, int origin)
 {
     unsigned byte = 0;
-    int base = high ? 8 : 0;
     int i;
 
     for (i = 0; i < 8; i++) {
-        if ((row >> (base + i)) & 1u)
+        if ((row >> (origin + i)) & 1u)
             byte |= 1u << (7 - i);
     }
     return byte;
@@ -57,9 +58,12 @@ static unsigned pack_side(unsigned row, int high)
 
 static void send_same(unsigned addr, unsigned data)
 {
-    unsigned word = reg_word(addr, data);
+    unsigned word[CHAIN];
+    int i;
 
-    send4(word, word, word, word);
+    for (i = 0; i < CHAIN; i++)
+        word[i] = reg_word(addr, data);
+    send_words(word, CHAIN);
 }
 
 void drivers_init(void)
@@ -80,13 +84,16 @@ void drivers_flush(void)
     int d;
 
     for (d = 0; d < 8; d++) {
-        unsigned top = frame[d];
-        unsigned bot = frame[8 + d];
-        unsigned addr = (unsigned)(d + 1);
+        unsigned word[CHAIN];
+        int b;
 
-        send4(reg_word(addr, pack_side(bot, 1)),
-              reg_word(addr, pack_side(bot, 0)),
-              reg_word(addr, pack_side(top, 1)),
-              reg_word(addr, pack_side(top, 0)));
+        for (b = 0; b < CHAIN; b++) {
+            int br = b / 4;
+            int bc = b % 4;
+
+            word[b] = reg_word((unsigned)(d + 1),
+                               pack_byte(frame[br * 8 + d], bc * 8));
+        }
+        send_words(word, CHAIN);
     }
 }

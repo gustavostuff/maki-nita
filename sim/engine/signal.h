@@ -21,7 +21,7 @@ typedef enum PinDir {
     PIN_NC = 3
 } PinDir;
 
-#define NET_MAX_PINS 24
+#define NET_MAX_PINS 48
 
 typedef struct Net Net;
 

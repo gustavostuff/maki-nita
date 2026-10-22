@@ -1,6 +1,6 @@
 # Maki Nita software
 
-The AVR holds the picture and reads the controls. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver or a pin.
+The AVR holds the picture and reads the controls. The sixteen MAX7219 drivers store the blocks and scan them. A game never talks to a driver or a pin.
 
 Firmware is plain avr-gcc, clocked from the internal 24 MHz oscillator. The chip is programmed over UPDI.
 
@@ -10,16 +10,16 @@ The runtime loops at 60 Hz. Each pass reads the controls, calls the game, then f
 
 Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed switch reads low. The hardware doc lists the package pins. Debounce is two ticks, described below.
 
-The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
+The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The sixteen MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
 That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. `make -C fw/avr` builds `fw/avr/game.hex` for the chip.
 
 ## Framebuffer
 
-Sixteen rows, sixteen columns, one bit each. Thirty-two bytes.
+Thirty-two rows, thirty-two columns, one bit each. One hundred twenty-eight bytes.
 
 ```c
-uint16_t frame[16];
+uint32_t frame[32];
 ```
 
 `frame[0]` is the top row. Bit 0 of a row is the leftmost pixel. A set bit is on.
@@ -30,7 +30,7 @@ bool pixel_get(uint8_t x, uint8_t y);
 void clear(void);
 ```
 
-`x` and `y` run from 0 to 15. A coordinate outside that range is ignored.
+`x` and `y` run from 0 to 31. A coordinate outside that range is ignored.
 
 This is the whole display interface. There is no per-pixel brightness, no hardware sprite, and no second layer. Driver intensity stays at full scale.
 
@@ -44,22 +44,19 @@ Each MAX7219 keeps scanning its block from the last data it latched. A slow tick
 
 DIN is PA4, CLK is PA6, and LOAD is PA7. CLK idles low. LOAD idles high. Data is sampled on the rising edge of CLK. A word is 16 bits, MSB first. The high byte is the register address. The upper nibble of that byte is unused. The low byte is the data.
 
-For the MAX7219, CLK shifts data regardless of LOAD. The rising edge of LOAD latches the 16 bits then sitting in each driver's shift register. That edge comes after the 64th rising edge of CLK and before any further rising edge. The next rising edge of CLK waits at least 50 ns after LOAD has gone high. LOAD stays high for at least 50 ns.
+For the MAX7219, CLK shifts data regardless of LOAD. The rising edge of LOAD latches the 16 bits then sitting in each driver's shift register. That edge comes after the 256th rising edge of CLK and before any further rising edge. The next rising edge of CLK waits at least 50 ns after LOAD has gone high. LOAD stays high for at least 50 ns.
 
-Four words go out before LOAD rises. The first word reaches the bottom-right driver. Then bottom left, then top right, then top left.
+Sixteen words go out before LOAD rises. The first word reaches the bottom-right driver. The last word reaches the top-left driver. Between those, the words follow the chain in reverse. The chain itself runs left to right, then down a row.
 
 A row of eight pixels becomes one byte with the leftmost pixel in bit 7. That matches the segment wiring in the hardware doc.
 
-Digit address for block row `d` (0 at the top of the block) is `d + 1`, from 0x01 through 0x08.
+Digit address for block row `d` (0 at the top of the block) is `d + 1`, from 0x01 through 0x08. One transfer writes that same row inside every block. Screen row `br * 8 + d` feeds the four blocks of block row `br`.
 
 One flush sends all eight digit addresses. For each `d` from 0 to 7:
 
 1. LOAD goes low.
-2. The bottom-right byte comes from `frame[8 + d]`, bits 8 to 15, packed left to right into bit 7 down to bit 0.
-3. The bottom-left byte comes from `frame[8 + d]`, bits 0 to 7, packed the same way.
-4. The top-right byte comes from `frame[d]`, bits 8 to 15.
-5. The top-left byte comes from `frame[d]`, bits 0 to 7.
-6. LOAD goes high.
+2. Sixteen bytes go out, last driver first. Block `b` takes screen row `(b / 4) * 8 + d`, columns `(b % 4) * 8` through `(b % 4) * 8 + 7`.
+3. LOAD goes high.
 
 Before the first flush, the drivers are taken out of the power-up shutdown state.
 
@@ -72,7 +69,7 @@ Before the first flush, the drivers are taken out of the power-up shutdown state
 | Digit 0 to 7 | 0x01 to 0x08 | 0x00 | Blocks cleared |
 | Shutdown | 0x0C | 0x01 | Drivers leave shutdown |
 
-Each of those writes is the same four-word transfer, with the same value sent to every driver.
+Each of those writes is the same sixteen-word transfer, with the same value sent to every driver.
 
 ## Controls
 
@@ -102,9 +99,9 @@ The first game is a shooter. The ship sits at the bottom. Its shape points up.
 111
 ```
 
-The stick steps the ship one LED every four ticks, including diagonals. Opposite switches on one axis cancel. The ship stops at the edge of the field.
+The stick steps the ship one LED every tick, including diagonals. Opposite switches on one axis cancel. The ship stops at the edge of the field.
 
-Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock moves one row every 4, 8, 12, or 16 ticks. The action button fires one bullet. The bullet is a single LED and climbs one cell every four ticks. A bullet that meets a rock removes both. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows an 8x8 burst in the center for two seconds, and the round starts over.
+Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock moves one row every 4, 8, 12, or 16 ticks. It may also step one column every 15 or 30 ticks, to the left, to the right, or not at all. A rock that reaches a side edge stays on the field. The action button fires one bullet. The bullet is a single LED and climbs one cell every two ticks. A bullet that meets a rock removes both. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows an 8x8 burst in the center for two seconds, and the round starts over.
 
 The tick stays at 60 Hz.
 
@@ -116,7 +113,7 @@ A game is one function called from the 60 Hz tick.
 void game_tick(const Input *in);
 ```
 
-It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
+It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 128-byte frame.
 
 `main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Picking which game runs can be a later menu. The first program can call one game directly.
 

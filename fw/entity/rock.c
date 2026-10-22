@@ -26,6 +26,9 @@ static const Shape solid3 = {solid3_rows, 3, 3};
 typedef struct Rock {
     BaseEntity e;
     int size;
+    int dx;
+    int xevery;
+    int xpace;
 } Rock;
 
 static Rock rock[ROCK_MAX];
@@ -53,13 +56,17 @@ void rock_reset(void)
     rng = 1;
 }
 
-void rock_add(int x, int y, int size, int every)
+void rock_add(int x, int y, int size, int every, int dx, int xevery)
 {
     int i;
 
     if (size != 2 && size != 3)
         return;
     if (every != 4 && every != 8 && every != 12 && every != 16)
+        return;
+    if (dx < -1 || dx > 1)
+        return;
+    if (xevery != 15 && xevery != 30)
         return;
     if (x < 0 || x > FIELD - size)
         return;
@@ -68,6 +75,9 @@ void rock_add(int x, int y, int size, int every)
             continue;
         base_take(&rock[i].e, x, y, every);
         rock[i].size = size;
+        rock[i].dx = dx;
+        rock[i].xevery = xevery;
+        rock[i].xpace = 0;
         return;
     }
 }
@@ -91,11 +101,14 @@ static void spawn(void)
 {
     uint16_t r = next_rand();
     int size = (r & 1u) ? 2 : 3;
-    /* The low bits of this generator count, so the pace comes from the top. */
+    /* Low bits of this generator count. The fall period stays in bits
+     * 13 and 14. The sideways step uses the bits just under those. */
     int every = period[(r >> 13) & 3u];
+    int xevery = (r & 0x8000u) ? 15 : 30;
+    int dx = (int)(((r >> 10) & 7u) % 3u) - 1;
     int x = (int)((r >> 3) % (uint16_t)(FIELD - size));
 
-    rock_add(x, -size, size, every);
+    rock_add(x, -size, size, every, dx, xevery);
 }
 
 int rock_tick(void)
@@ -116,6 +129,19 @@ int rock_tick(void)
             continue;
         if (base_due(&r->e))
             r->e.y++;
+        if (r->dx != 0) {
+            r->xpace++;
+            if (r->xpace >= r->xevery) {
+                int nx = r->e.x + r->dx;
+
+                r->xpace = 0;
+                if (nx < 0)
+                    nx = 0;
+                if (nx > FIELD - r->size)
+                    nx = FIELD - r->size;
+                r->e.x = nx;
+            }
+        }
         if (r->e.y >= FIELD) {
             r->e.live = 0;
             continue;

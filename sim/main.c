@@ -8,8 +8,8 @@
 
 #include <stdio.h>
 
-#define GRID 16
-#define LED 8
+#define GRID 32
+#define LED 4
 #define CANVAS_W (GRID * LED)
 #define CANVAS_H 192
 #define SCALE 4
@@ -90,28 +90,6 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
     SDL_RenderCopy(renderer, button_tex, NULL, &button);
 }
 
-/* The button-up event is lost when the window moves under the pointer.
- * The platform button mask is what ends the drag. */
-static void drag_update(SDL_Window *window, int *dragging, int button,
-                        int anchor_mx, int anchor_my, int anchor_wx, int anchor_wy)
-{
-    int mx;
-    int my;
-    Uint32 held;
-
-    if (!*dragging)
-        return;
-    held = SDL_GetGlobalMouseState(&mx, &my);
-    if ((held & SDL_BUTTON(button)) == 0) {
-        *dragging = 0;
-        SDL_CaptureMouse(SDL_FALSE);
-        return;
-    }
-    SDL_SetWindowPosition(window,
-                          anchor_wx + mx - anchor_mx,
-                          anchor_wy + my - anchor_my);
-}
-
 int main(void)
 {
     static Board board;
@@ -150,12 +128,12 @@ int main(void)
     }
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-    window = SDL_CreateWindow("Maki Nita",
+    window = SDL_CreateWindow("Maki Nita simulator",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
                               CANVAS_W * SCALE,
                               CANVAS_H * SCALE,
-                              SDL_WINDOW_HIDDEN | SDL_WINDOW_BORDERLESS);
+                              SDL_WINDOW_HIDDEN);
     if (window == NULL) {
         SDL_Log("SDL_CreateWindow failed: %s", SDL_GetError());
         IMG_Quit();
@@ -192,16 +170,6 @@ int main(void)
         return 1;
     }
 
-    int dragging = 0;
-    int drag_button = 0;
-    int drag_mx = 0;
-    int drag_my = 0;
-    int drag_wx = 0;
-    int drag_wy = 0;
-    int hold_sx = 0;
-    int hold_sy = 0;
-    int hold_pressed = 0;
-
     draw(renderer, led_on, led_off, stick_tex, button_tex, &board, 0, 0, 0);
     SDL_RenderPresent(renderer);
     SDL_ShowWindow(window);
@@ -225,20 +193,6 @@ int main(void)
             if (event.type == SDL_KEYDOWN &&
                 event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
                 running = 0;
-            if (event.type == SDL_MOUSEBUTTONDOWN && !dragging &&
-                (event.button.button == SDL_BUTTON_LEFT ||
-                 event.button.button == SDL_BUTTON_RIGHT)) {
-                dragging = 1;
-                drag_button = event.button.button;
-                SDL_GetGlobalMouseState(&drag_mx, &drag_my);
-                SDL_GetWindowPosition(window, &drag_wx, &drag_wy);
-                SDL_CaptureMouse(SDL_TRUE);
-            }
-            if (event.type == SDL_MOUSEBUTTONUP && dragging &&
-                event.button.button == drag_button) {
-                dragging = 0;
-                SDL_CaptureMouse(SDL_FALSE);
-            }
             if (event.type == SDL_KEYDOWN &&
                 (event.key.keysym.mod & KMOD_CTRL) &&
                 !event.key.repeat) {
@@ -256,43 +210,35 @@ int main(void)
                     SDL_SetWindowSize(window, CANVAS_W * scale, CANVAS_H * scale);
             }
         }
-        drag_update(window, &dragging, drag_button,
-                    drag_mx, drag_my, drag_wx, drag_wy);
-
-        if (!dragging) {
-            keys = SDL_GetKeyboardState(NULL);
-            up = (keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP]) ? 1 : 0;
-            down = (keys[SDL_SCANCODE_S] || keys[SDL_SCANCODE_DOWN]) ? 1 : 0;
-            left = (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) ? 1 : 0;
-            right = (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) ? 1 : 0;
-            sx = 0;
-            sy = 0;
-            if (up && !down)
-                sy = -1;
-            if (down && !up)
-                sy = 1;
-            if (left && !right)
-                sx = -1;
-            if (right && !left)
-                sx = 1;
-            pressed = keys[SDL_SCANCODE_SPACE] ? 1 : 0;
-            hold_sx = sx;
-            hold_sy = sy;
-            hold_pressed = pressed;
-            board_set_switches(&board, up, down, left, right, pressed);
-            input_tick(board_sense(&board, AVR_PD1) == SIG_L,
-                       board_sense(&board, AVR_PD2) == SIG_L,
-                       board_sense(&board, AVR_PD3) == SIG_L,
-                       board_sense(&board, AVR_PD4) == SIG_L,
-                       board_sense(&board, AVR_PD5) == SIG_L,
-                       &in);
-            game_tick(&in);
-            drivers_flush();
-            board_advance(&board, 16000000);
-        }
+        keys = SDL_GetKeyboardState(NULL);
+        up = (keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP]) ? 1 : 0;
+        down = (keys[SDL_SCANCODE_S] || keys[SDL_SCANCODE_DOWN]) ? 1 : 0;
+        left = (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]) ? 1 : 0;
+        right = (keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]) ? 1 : 0;
+        sx = 0;
+        sy = 0;
+        if (up && !down)
+            sy = -1;
+        if (down && !up)
+            sy = 1;
+        if (left && !right)
+            sx = -1;
+        if (right && !left)
+            sx = 1;
+        pressed = keys[SDL_SCANCODE_SPACE] ? 1 : 0;
+        board_set_switches(&board, up, down, left, right, pressed);
+        input_tick(board_sense(&board, AVR_PD1) == SIG_L,
+                   board_sense(&board, AVR_PD2) == SIG_L,
+                   board_sense(&board, AVR_PD3) == SIG_L,
+                   board_sense(&board, AVR_PD4) == SIG_L,
+                   board_sense(&board, AVR_PD5) == SIG_L,
+                   &in);
+        game_tick(&in);
+        drivers_flush();
+        board_advance(&board, 16000000);
 
         draw(renderer, led_on, led_off, stick_tex, button_tex, &board,
-             hold_sx, hold_sy, hold_pressed);
+             sx, sy, pressed);
         SDL_RenderPresent(renderer);
         SDL_Delay(16);
     }

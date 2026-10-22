@@ -2,7 +2,7 @@
 
 #include "base_entity.h"
 
-#define STEP_EVERY 4
+#define STEP_EVERY 1
 
 static const uint8_t ship_rows[3] = {
     SHAPE_ROW3(0, 1, 0),
@@ -16,7 +16,7 @@ static BaseEntity ship;
 
 void player_reset(void)
 {
-    base_take(&ship, 6, 13, STEP_EVERY);
+    base_take(&ship, 14, 29, STEP_EVERY);
 }
 
 void player_tick(const Input *in)
