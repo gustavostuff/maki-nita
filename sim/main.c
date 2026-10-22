@@ -9,10 +9,13 @@
 
 #include <stdio.h>
 
-#define GRID 32
+#define GRID 16
 #define LED 4
-#define CANVAS_W (GRID * LED)
+#define CANVAS_W 128
 #define CANVAS_H 192
+#define FIELD_X ((CANVAS_W - GRID * LED) / 2)
+#define CTRL_H 64
+#define CTRL_Y (CANVAS_H - CTRL_H)
 #define SCALE 4
 #define MARGIN 16
 #define BG ((Uint8)(0.0 * 255)) // fully dark
@@ -57,15 +60,16 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
     int x;
     int y;
     int travel = (sx != 0 && sy != 0) ? 6 : 8;
+    int ctrl_rest = CTRL_Y + (CTRL_H - 32) / 2;
     SDL_Rect stick = {
         MARGIN + sx * travel,
-        GRID * LED + MARGIN + sy * travel,
+        ctrl_rest + sy * travel,
         32,
         32,
     };
     SDL_Rect button = {
         64 + MARGIN,
-        GRID * LED + MARGIN,
+        ctrl_rest,
         32,
         32,
     };
@@ -75,7 +79,7 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
 
     for (y = 0; y < GRID; y++) {
         for (x = 0; x < GRID; x++) {
-            SDL_Rect cell = {x * LED, y * LED, LED, LED};
+            SDL_Rect cell = {FIELD_X + x * LED, y * LED, LED, LED};
 
             SDL_RenderCopy(renderer,
                            board_led_on(board, x, y) ? led_on : led_off,

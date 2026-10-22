@@ -16,7 +16,7 @@ static BaseEntity ship;
 
 void player_reset(void)
 {
-    base_take(&ship, 14, 29, STEP_EVERY);
+    base_take(&ship, 6, 13, STEP_EVERY);
 }
 
 void player_tick(const Input *in)

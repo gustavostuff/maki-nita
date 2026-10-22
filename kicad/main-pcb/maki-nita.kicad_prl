@@ -1,10 +1,15 @@
 {
   "board": {
-    "active_layer": 0,
+    "active_layer": 25,
     "active_layer_preset": "",
     "auto_track_width": true,
-    "hidden_netclasses": [],
-    "hidden_nets": [],
+    "hidden_netclasses": [
+      "5V_GND"
+    ],
+    "hidden_nets": [
+      "GND",
+      "+5V"
+    ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
     "opacity": {
@@ -21,7 +26,7 @@
       "footprints": true,
       "graphics": true,
       "keepouts": true,
-      "lockedItems": false,
+      "lockedItems": true,
       "otherItems": true,
       "pads": true,
       "text": true,
@@ -57,7 +62,7 @@
     "zone_display_mode": 0
   },
   "git": {
-    "integration_disabled": false,
+    "integration_disabled": true,
     "repo_type": "",
     "repo_username": "",
     "ssh_key": ""

@@ -12,7 +12,7 @@
  * starts the next press on the following tick.
  */
 
-#define FIELD 32
+#define FIELD 16
 
 #define SHAPE_ROW1(a) ((uint8_t)(a))
 #define SHAPE_ROW2(a, b) ((uint8_t)(((a) << 1) | (b)))

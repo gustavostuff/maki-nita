@@ -27,8 +27,8 @@ static int ship_x(void)
 {
     int x;
 
-    for (x = 0; x < 32; x++) {
-        if (pixel_get((uint8_t)x, 30))
+    for (x = 0; x < 16; x++) {
+        if (pixel_get((uint8_t)x, 14))
             return x;
     }
     return -1;
@@ -42,8 +42,8 @@ static void test_frame(void)
     expect((frame[0] & 1u) != 0, "the top row stores that bit");
     pixel(0, 0, false);
     expect(!pixel_get(0, 0), "a pixel can turn off");
-    pixel(32, 0, true);
-    expect(frame[0] == 0, "a column past 31 is ignored");
+    pixel(16, 0, true);
+    expect(frame[0] == 0, "a column past 15 is ignored");
 }
 
 static void test_ship(void)
@@ -52,37 +52,37 @@ static void test_ship(void)
 
     input_reset();
     game_reset();
-    expect(pixel_get(15, 29) && !pixel_get(14, 29) && !pixel_get(16, 29),
+    expect(pixel_get(7, 13) && !pixel_get(6, 13) && !pixel_get(8, 13),
            "the nose is the center LED of the top row");
-    expect(pixel_get(14, 30) && pixel_get(15, 30) && pixel_get(16, 30),
+    expect(pixel_get(6, 14) && pixel_get(7, 14) && pixel_get(8, 14),
            "the middle row is full");
-    expect(pixel_get(14, 31) && pixel_get(15, 31) && pixel_get(16, 31),
+    expect(pixel_get(6, 15) && pixel_get(7, 15) && pixel_get(8, 15),
            "the bottom row is full");
-    expect(ship_x() == 14, "the ship starts near the middle of the bottom");
+    expect(ship_x() == 6, "the ship starts near the middle of the bottom");
 
     feed(0, 0, 0, 1, 0);
-    expect(ship_x() == 14, "one tick does not pass debounce");
+    expect(ship_x() == 6, "one tick does not pass debounce");
     feed(0, 0, 0, 1, 0);
-    expect(ship_x() == 15, "the next tick steps one LED");
+    expect(ship_x() == 7, "the next tick steps one LED");
     feed(0, 0, 0, 1, 0);
-    expect(ship_x() == 16, "the ship steps again on the following tick");
+    expect(ship_x() == 8, "the ship steps again on the following tick");
 
     input_reset();
     game_reset();
     feed(1, 0, 0, 1, 0);
     feed(1, 0, 0, 1, 0);
-    expect(ship_x() == 15 && pixel_get(16, 28) && !pixel_get(16, 31),
+    expect(ship_x() == 7 && pixel_get(8, 12) && !pixel_get(8, 15),
            "a diagonal steps both axes");
 
     input_reset();
     game_reset();
     feed(0, 0, 1, 1, 0);
     feed(0, 0, 1, 1, 0);
-    expect(ship_x() == 14, "opposite switches cancel that axis");
+    expect(ship_x() == 6, "opposite switches cancel that axis");
 
     input_reset();
     game_reset();
-    for (i = 0; i < 15; i++)
+    for (i = 0; i < 7; i++)
         feed(0, 0, 1, 0, 0);
     expect(ship_x() == 0, "the ship stops at the left edge");
 }
@@ -95,24 +95,24 @@ static void test_shot(void)
     game_reset();
     feed(0, 0, 0, 0, 1);
     feed(0, 0, 0, 0, 1);
-    expect(pixel_get(15, 28), "the bullet leaves the nose");
-    expect(!pixel_get(15, 27), "the bullet is one LED on the fire tick");
+    expect(pixel_get(7, 12), "the bullet leaves the nose");
+    expect(!pixel_get(7, 11), "the bullet is one LED on the fire tick");
     feed(0, 0, 0, 0, 0);
-    expect(pixel_get(15, 28) && !pixel_get(15, 27), "the bullet waits one tick");
+    expect(pixel_get(7, 12) && !pixel_get(7, 11), "the bullet waits one tick");
     feed(0, 0, 0, 0, 0);
-    expect(pixel_get(15, 27) && !pixel_get(15, 28), "the second tick climbs one LED");
+    expect(pixel_get(7, 11) && !pixel_get(7, 12), "the second tick climbs one LED");
 
     input_reset();
     game_reset();
-    rock_add(15, 24, 2, 16, 0, 30);
+    rock_add(7, 8, 2, 16, 0, 30);
     feed(0, 0, 0, 0, 1);
     feed(0, 0, 0, 0, 1);
-    expect(pixel_get(15, 28) && pixel_get(15, 24), "the shot and the rock are both on screen");
+    expect(pixel_get(7, 12) && pixel_get(7, 8), "the shot and the rock are both on screen");
     for (i = 0; i < 6; i++)
         feed(0, 0, 0, 0, 0);
-    expect(!pixel_get(15, 24) && !pixel_get(16, 25) && !pixel_get(15, 25),
+    expect(!pixel_get(7, 8) && !pixel_get(8, 9) && !pixel_get(7, 9),
            "the rock is gone after the hit");
-    expect(pixel_get(15, 29), "the ship is still there after a shot");
+    expect(pixel_get(7, 13), "the ship is still there after a shot");
 }
 
 static void advance(int n)
@@ -160,12 +160,12 @@ static void test_both_sizes(void)
     input_reset();
     game_reset();
     advance(119);
-    expect(pixel_get(11, 2) && pixel_get(12, 2) && pixel_get(11, 3) && pixel_get(12, 3),
+    expect(pixel_get(1, 3) && pixel_get(2, 3),
            "a spawned 2x2 rock is on screen");
-    expect(!pixel_get(10, 2) && !pixel_get(13, 2), "that rock is two columns wide");
-    expect(pixel_get(0, 0) && pixel_get(2, 0) && pixel_get(0, 2),
+    expect(!pixel_get(0, 3) && !pixel_get(3, 3), "that rock is two columns wide");
+    expect(pixel_get(1, 0) && pixel_get(3, 0) && pixel_get(1, 2),
            "a spawned 3x3 rock is on screen");
-    expect(!pixel_get(3, 0), "that rock is three columns wide");
+    expect(!pixel_get(0, 0) && !pixel_get(4, 0), "that rock is three columns wide");
 }
 
 static void test_crash(void)
@@ -174,19 +174,19 @@ static void test_crash(void)
 
     input_reset();
     game_reset();
-    rock_add(14, 29, 2, 16, 0, 30);
+    rock_add(6, 13, 2, 16, 0, 30);
     feed(0, 0, 0, 0, 0);
-    expect(pixel_get(12, 12) && pixel_get(13, 12) && !pixel_get(14, 12),
+    expect(pixel_get(4, 4) && pixel_get(5, 4) && !pixel_get(6, 4),
            "a crash draws the burst");
-    expect(pixel_get(19, 12) && pixel_get(13, 14) && !pixel_get(12, 14),
+    expect(pixel_get(11, 4) && pixel_get(5, 6) && !pixel_get(4, 6),
            "the burst matches the full mark");
-    expect(!pixel_get(15, 29) && !pixel_get(0, 0), "the burst replaces the field");
+    expect(!pixel_get(7, 13) && !pixel_get(0, 0), "the burst replaces the field");
 
     for (i = 0; i < 119; i++)
         feed(0, 0, 0, 0, 0);
-    expect(pixel_get(12, 12) && !pixel_get(15, 29), "the burst holds for two seconds");
+    expect(pixel_get(4, 4) && !pixel_get(7, 13), "the burst holds for two seconds");
     feed(0, 0, 0, 0, 0);
-    expect(pixel_get(15, 29) && !pixel_get(14, 29) && !pixel_get(12, 12),
+    expect(pixel_get(7, 13) && !pixel_get(6, 13) && !pixel_get(4, 4),
            "the round starts over on the ship");
 }
 

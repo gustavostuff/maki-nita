@@ -3,8 +3,9 @@
 
 /*
  * One Maki Nita board.
- * U1 is the AVR128DB28. U2 to U17 are the MAX7219 chain, row by row,
- * left to right, top to bottom. Sixteen 8x8 matrices make the 32x32 field.
+ * U1 is the AVR128DB28. U2 to U5 are the MAX7219 chain:
+ * top left, top right, bottom left, bottom right.
+ * Four 8x8 matrices make the 16x16 field.
  * PA4 is DIN, PA6 is CLK, PA7 is LOAD.
  * PD1 to PD5 are the switches, active low.
  * Segment and digit pins keep their package numbers. The lit-pixel
@@ -12,7 +13,7 @@
  * drivers scan.
  */
 
-#define NDRV 16
+#define NDRV 4
 
 #include "chips/avr128db28.h"
 #include "chips/max7219.h"

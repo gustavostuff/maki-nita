@@ -3,7 +3,7 @@
 #include "frame.h"
 #include "hal.h"
 
-#define CHAIN 16
+#define CHAIN 4
 
 static void shift_bit(int bit)
 {
@@ -44,7 +44,7 @@ static unsigned reg_word(unsigned addr, unsigned data)
 }
 
 /* Bit 0 of the row is the left pixel. Bit 7 of the driver byte is that pixel. */
-static unsigned pack_byte(uint32_t row, int origin)
+static unsigned pack_byte(uint16_t row, int origin)
 {
     unsigned byte = 0;
     int i;
@@ -88,8 +88,8 @@ void drivers_flush(void)
         int b;
 
         for (b = 0; b < CHAIN; b++) {
-            int br = b / 4;
-            int bc = b % 4;
+            int br = b / 2;
+            int bc = b % 2;
 
             word[b] = reg_word((unsigned)(d + 1),
                                pack_byte(frame[br * 8 + d], bc * 8));

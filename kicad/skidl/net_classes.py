@@ -1,7 +1,7 @@
 """KiCad net classes for the Maki Nita field.
 
-Four classes split the matrix wiring by block row, top to bottom, so the
-ratsnest can be routed as four bands. The fifth class is the 5 V rail and
+Two classes split the matrix wiring by block row, top to bottom, so the
+ratsnest can be routed as two bands. The third class is the 5 V rail and
 ground. Other nets stay in Default.
 """
 
@@ -11,7 +11,7 @@ import json
 import re
 from typing import Iterable
 
-CLASS_ROWS = ("ROW1", "ROW2", "ROW3", "ROW4")
+CLASS_ROWS = ("ROW1", "ROW2")
 CLASS_POWER = "5V_GND"
 
 _GEOM = {
@@ -30,11 +30,9 @@ _GEOM = {
     "wire_width": 6,
 }
 
-# ROW1 is the top block row (screen rows 0-7, drivers U2-U5).
+# ROW1 is the top block row (screen rows 0-7, drivers U2 and U3).
 _ROW_COLORS = (
     "rgb(214, 39, 40)",
-    "rgb(255, 127, 14)",
-    "rgb(44, 160, 44)",
     "rgb(31, 119, 180)",
 )
 
@@ -54,8 +52,8 @@ KICAD_CLASSES.append(
         "name": CLASS_POWER,
         "pcb_color": "rgb(148, 103, 189)",
         "schematic_color": "rgb(148, 103, 189)",
-        "priority": 5,
-        "track_width": 1.5,
+        "priority": 3,
+        "track_width": 0.8,
         "clearance": 0.3,
         "via_diameter": 1.2,
         "via_drill": 0.6,
@@ -72,7 +70,7 @@ PATTERNS.extend(
     ]
 )
 
-_ROW = re.compile(r"^ROW([1-4])_")
+_ROW = re.compile(r"^ROW([12])_")
 
 
 def class_for_name(name: str) -> str:

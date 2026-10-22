@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """SKiDL netlist for the Maki Nita board.
 
-Connections follow sim/board.c. U1 is the AVR128DB28. U2 to U17 are the
-MAX7219 chain, left to right, top to bottom. DS1 to DS16 are the matrices
+Connections follow sim/board.c. U1 is the AVR128DB28. U2 to U5 are the
+MAX7219 chain, left to right, top to bottom. DS1 to DS4 are the matrices
 those drivers scan. The sim keeps the picture inside each driver. Here each
 segment and digit pin lands on one matrix pad.
 
@@ -184,8 +184,8 @@ def build() -> None:
 
     drivers = []
     matrices = []
-    for index in range(16):
-        row = index // 4
+    for index in range(4):
+        row = index // 2
         ref = f"U{index + 2}"
         drv = _part("MAX7219", ref, DRV_FP, DRV_PINS, "MAX7219")
         matrix_pins = tuple((pad, f"C{col}") for col, pad in enumerate(COL_PADS))
@@ -217,7 +217,7 @@ def build() -> None:
         drivers.append(drv)
         matrices.append(matrix)
 
-    for index in range(15):
+    for index in range(3):
         link = Net(f"DOUT_{drivers[index].ref}")
         _tie(drivers[index], 24, link)
         _tie(drivers[index + 1], 1, link)
@@ -245,16 +245,16 @@ def _check(text: str) -> None:
 
     if text.count('(footprint "Package_DIP:DIP-28_W7.62mm")') != 1:
         raise SystemExit("AVR footprint missing")
-    if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 16:
-        raise SystemExit("expected 16 MAX7219 footprints")
-    if text.count(f'(footprint "{MATRIX_FP}")') != 16:
-        raise SystemExit("expected 16 matrix footprints")
+    if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
+        raise SystemExit("expected 4 MAX7219 footprints")
+    if text.count(f'(footprint "{MATRIX_FP}")') != 4:
+        raise SystemExit("expected 4 matrix footprints")
     vcc = nodes("+5V")
     gnd = nodes("GND")
     if ("U1", "20") not in vcc or ("U1", "14") not in vcc or ("U1", "6") not in vcc:
         raise SystemExit("+5V does not reach the AVR rails")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
-    if drivers_on_vcc != {f"U{n}" for n in range(2, 18)}:
+    if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
     if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
         raise SystemExit("GND does not reach both AVR ground pins")
@@ -272,9 +272,9 @@ def _check(text: str) -> None:
     row0 = nodes("ROW1_DS1_R0")
     if row0 != {("U2", "2"), ("DS1", "16")}:
         raise SystemExit(f"ROW1_DS1_R0 nodes {row0}")
-    last = nodes("ROW4_DS16_C7")
-    if last != {("U17", "17"), ("DS16", "8")}:
-        raise SystemExit(f"ROW4_DS16_C7 nodes {last}")
+    last = nodes("ROW2_DS4_C7")
+    if last != {("U5", "17"), ("DS4", "8")}:
+        raise SystemExit(f"ROW2_DS4_C7 nodes {last}")
 
 
 def _clean_strays() -> None:
