@@ -188,4 +188,4 @@ J3 is a 2x2 pin header, 2.54 mm pitch. Pin 1 is the square pad. The row with tha
 ## Still open
 
 - A case.
-- A small speaker for beeps. It plays a triangle or a sine wave at a chosen frequency. The pin and the drive circuit are still open. The other spare pins stay free.
+- Sound. TBD.
