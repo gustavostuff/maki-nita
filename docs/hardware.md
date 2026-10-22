@@ -129,4 +129,5 @@ Every switch common ties to GND. The normally open contact ties to its signal pi
 ## Still open
 
 - LED pitch and the exact outline of the board.
-- A case, a beeper, and anything else on the spare pins.
+- A case.
+- A small speaker for beeps. It plays a triangle or a sine wave at a chosen frequency. The pin and the drive circuit are still open. The other spare pins stay free.

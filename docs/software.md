@@ -112,4 +112,4 @@ It reads `in`, updates its own static state, and draws by calling `pixel` and `c
 
 ## Left out of this contract
 
-Sound, scores beyond what a game draws itself, saved data, and a loader for more than one game. Spare pins for a beeper are listed in the hardware doc. Nothing in this contract depends on them.
+Sound, scores beyond what a game draws itself, saved data, and a loader for more than one game. Sound comes later, from a small speaker that plays a triangle or a sine beep at a chosen frequency. The pin is still open in the hardware doc. Nothing in this contract depends on it.
