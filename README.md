@@ -8,7 +8,7 @@ An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 d
 
 ## Goals
 
-Simple graphics can still be fun. A few dots are enough to show a shape, and one action is enough to play. Games share that same small screen.
+Simple graphics can still be fun. A few dots are enough to show a shape, and one action is enough to play. That, plus cartridges and a sturdy design, is the spirit of Maki Nita.
 
 The build is a simple soldering job.
 
