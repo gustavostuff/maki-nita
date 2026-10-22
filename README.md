@@ -6,6 +6,8 @@ Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes fr
 
 An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 drivers on the console refresh the grid.
 
+The software is under the MIT License. The hardware design is under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
+
 ## Settled choices
 
 - Display: 16x16, four common-cathode 8x8 matrices, one bit per pixel.
@@ -19,4 +21,4 @@ An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 d
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
 - [Software](docs/software.md) covers one tick, the framebuffer, the inputs, and what a game is.
-- `tools/sim/maki-nita-ui` is the picture of the screen and the controls. `make -C tools/sim` builds it.
+- `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window.

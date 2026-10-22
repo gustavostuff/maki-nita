@@ -2,7 +2,7 @@
 
 The AVR holds the picture and reads the controls. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver or a pin.
 
-Firmware is plain avr-gcc, clocked from the internal 24 MHz oscillator. The chip is programmed over UPDI.
+Firmware is plain avr-gcc, clocked from the internal 24 MHz oscillator. The chip is programmed over UPDI. The firmware and the simulator are under the MIT License.
 
 ## One tick
 

@@ -4,6 +4,8 @@ Maki Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 fiel
 
 The stick and the button mount to the case. Their wires land on one header. Power and reset land on another.
 
+The console, the cartridge, and the rest of the hardware design are under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
+
 Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block. The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 
 ```mermaid
