@@ -99,9 +99,9 @@ The first game is a shooter. The ship sits at the bottom. Its shape points up.
 111
 ```
 
-The stick steps the ship one LED every tick, including diagonals. Opposite switches on one axis cancel. The ship stops at the edge of the field.
+The stick steps the ship one LED every two ticks, including diagonals. Opposite switches on one axis cancel. The ship stops at the left and right edges. The bottom row is the score, so the ship also stops when its bottom row touches that line.
 
-Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock moves one row every 4, 8, 12, or 16 ticks. It may also step one column every 15 or 30 ticks, to the left, to the right, or not at all. A rock that reaches a side edge stays on the field. The action button fires one bullet. The bullet is a single LED and climbs one cell every two ticks. A bullet that meets a rock removes both. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows an 8x8 burst in the center for two seconds, and the round starts over.
+Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock moves one row every 4, 8, 12, or 16 ticks. It may also step one column every 15 or 30 ticks, to the left, to the right, or not at all. A rock that reaches a side edge stays on the field. The action button fires one bullet. The bullet is a single LED and climbs one cell every two ticks. A bullet that meets a rock removes both and adds one to the score. The score is a binary count on the bottom row, up to 256. The rightmost LED is the ones bit. Nine LEDs hold the count, and the other LEDs on that row stay off. The score is drawn over anything else on that row. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows an 8x8 burst in the center for two seconds, and the round starts over with the score at zero.
 
 The tick stays at 60 Hz.
 

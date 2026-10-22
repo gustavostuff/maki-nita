@@ -8,7 +8,8 @@
  *   010
  *   111
  *   111
- * The stick steps it one LED every tick.
+ * The stick steps it one LED every two ticks.
+ * Its bottom row stops on the row above the score.
  */
 
 void player_reset(void);

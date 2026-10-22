@@ -87,7 +87,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "07330dde-27c7-4503-afaf-0a522a67a130")
-		(at 74.58 61.38)
+		(at 80.58 61.22)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U5"
@@ -310,7 +310,7 @@
 			)
 		)
 		(point
-			(at 78.39 75.35)
+			(at 84.39 75.19)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "734ed70e-465c-4abd-a954-9699e1c99339")
@@ -572,7 +572,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "3f82303d-4749-499e-a71f-497546dfd679")
-		(at 42.2 61.92)
+		(at 48.2 61.76)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U4"
@@ -795,7 +795,7 @@
 			)
 		)
 		(point
-			(at 46.01 75.89)
+			(at 52.01 75.73)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "7058bb8c-7ec0-4f2c-9b66-02419e089db1")
@@ -1057,7 +1057,7 @@
 	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "5cbb9b0d-14d7-409a-9111-9eaad19571fc")
-		(at 35.2 30)
+		(at 41.2 29.84)
 		(descr "8x8 matrix, two rows of 8 pins. Pin pitch 2.52 mm and row spacing 25 mm are unconfirmed. Pin 1 is the marked end. Pads 1 through 8 step away from the mark. Pad 16 is opposite pad 1. Drill 1 mm.")
 		(tags "THT LED matrix 8x8 2.52mm")
 		(property "Reference" "DS1"
@@ -1430,7 +1430,7 @@
 	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "ae0eb6e9-0370-4d30-a273-45062663defe")
-		(at 35.2 63)
+		(at 41.2 62.84)
 		(descr "8x8 matrix, two rows of 8 pins. Pin pitch 2.52 mm and row spacing 25 mm are unconfirmed. Pin 1 is the marked end. Pads 1 through 8 step away from the mark. Pad 16 is opposite pad 1. Drill 1 mm.")
 		(tags "THT LED matrix 8x8 2.52mm")
 		(property "Reference" "DS3"
@@ -1803,7 +1803,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "bceee842-6f4d-4349-939e-41249805e520")
-		(at 42.2 28.38)
+		(at 48.2 28.22)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U2"
@@ -1818,7 +1818,7 @@
 			)
 		)
 		(property "Value" "MAX7219"
-			(at 3.81 30.27 0)
+			(at 10 18.62 90)
 			(layer "F.Fab")
 			(uuid "ea14bc29-c89d-43f1-88dd-5bcd3338eaaa")
 			(effects
@@ -2015,7 +2015,7 @@
 			(uuid "46559337-fc99-45d9-a391-25a4abbaa127")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 13.97 90)
+			(at 10 24.62 90)
 			(layer "F.Fab")
 			(uuid "1ba5c478-7d2f-4b75-9bdc-b108e3943d6a")
 			(effects
@@ -2026,7 +2026,7 @@
 			)
 		)
 		(point
-			(at 46.01 42.35)
+			(at 52.01 42.19)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "10ce0b0e-24f1-4bad-abdd-234715b81b5a")
@@ -2288,7 +2288,7 @@
 	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "c13c026b-667c-4f08-b08d-c5535d6ad6bb")
-		(at 68.2 30)
+		(at 74.2 29.84)
 		(descr "8x8 matrix, two rows of 8 pins. Pin pitch 2.52 mm and row spacing 25 mm are unconfirmed. Pin 1 is the marked end. Pads 1 through 8 step away from the mark. Pad 16 is opposite pad 1. Drill 1 mm.")
 		(tags "THT LED matrix 8x8 2.52mm")
 		(property "Reference" "DS2"
@@ -2661,12 +2661,13 @@
 	(footprint "Package_DIP:DIP-28_W7.62mm"
 		(layer "F.Cu")
 		(uuid "cdb7dc82-8ec0-4ad4-8a46-30de3642209c")
-		(at 25.88 105.62 90)
+		(at 32.34 109.62 90)
 		(descr "28-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U1"
 			(at 4 37.32 180)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "61987f37-e382-43a1-90d6-e0f5a45658a3")
 			(effects
 				(font
@@ -2676,8 +2677,8 @@
 			)
 		)
 		(property "Value" "AVR128DB28-I/SP"
-			(at 10 17.32 180)
-			(layer "F.Fab")
+			(at 10.62 9.86 180)
+			(layer "F.SilkS")
 			(uuid "3defd449-ca3d-4320-9c13-3031bc46c050")
 			(effects
 				(font
@@ -2873,8 +2874,8 @@
 			(uuid "236646d2-9821-4680-8136-c4f01036626d")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 16.51 0)
-			(layer "F.Fab")
+			(at 10.62 -0.14 0)
+			(layer "F.SilkS")
 			(uuid "75676ac4-532d-4294-86a6-0a983410c918")
 			(effects
 				(font
@@ -2884,7 +2885,7 @@
 			)
 		)
 		(point
-			(at 42.39 101.81)
+			(at 48.85 105.81)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "844faefc-ede5-4d00-8525-5984c571df93")
@@ -3186,7 +3187,7 @@
 	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "d83f984c-195f-4896-a0b8-797c72f34cb4")
-		(at 68.2 63)
+		(at 74.2 62.84)
 		(descr "8x8 matrix, two rows of 8 pins. Pin pitch 2.52 mm and row spacing 25 mm are unconfirmed. Pin 1 is the marked end. Pads 1 through 8 step away from the mark. Pad 16 is opposite pad 1. Drill 1 mm.")
 		(tags "THT LED matrix 8x8 2.52mm")
 		(property "Reference" "DS4"
@@ -3559,7 +3560,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "fabca4b7-9d69-46ec-9811-352623141776")
-		(at 74.58 27.92)
+		(at 80.58 27.76)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U3"
@@ -3574,7 +3575,7 @@
 			)
 		)
 		(property "Value" "MAX7219"
-			(at 3.81 30.27 0)
+			(at 10.62 19.08 90)
 			(layer "F.Fab")
 			(uuid "4faf0200-6894-4c3a-a3bc-111d9cf7c2b8")
 			(effects
@@ -3771,7 +3772,7 @@
 			(uuid "4ae218ae-788e-42c1-abec-140d76789e55")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 13.97 90)
+			(at 10.62 25.08 90)
 			(layer "F.Fab")
 			(uuid "929ec2f3-4427-479c-9b03-d97cdc813afc")
 			(effects
@@ -3782,7 +3783,7 @@
 			)
 		)
 		(point
-			(at 78.39 41.89)
+			(at 84.39 41.73)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "aba798cc-7a44-4c74-877b-9ae75b7ec069")
@@ -4043,14 +4044,13 @@
 	)
 	(gr_rect
 		(start 20 20)
-		(end 110 110)
+		(end 120 120)
 		(radius 2)
 		(stroke
 			(width 0.15)
 			(type default)
 		)
 		(fill no)
-		(locked yes)
 		(layer "Edge.Cuts")
 		(uuid "b4a1cace-ddd0-4d8b-8101-591c75c8dc3e")
 	)

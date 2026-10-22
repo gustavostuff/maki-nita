@@ -5,6 +5,7 @@
 #include "entity/player.h"
 #include "entity/rock.h"
 #include "frame.h"
+#include "score.h"
 
 #define BURST_TICKS 120
 
@@ -29,6 +30,7 @@ static void draw(void)
     rock_draw();
     bullet_draw();
     player_draw();
+    score_draw();
 }
 
 static void draw_burst(void)
@@ -40,6 +42,7 @@ static void draw_burst(void)
 void game_reset(void)
 {
     over = 0;
+    score_reset();
     player_reset();
     bullet_reset();
     rock_reset();

@@ -16,6 +16,7 @@
 #define FIELD_X ((CANVAS_W - GRID * LED) / 2)
 #define CTRL_H 64
 #define CTRL_Y (CANVAS_H - CTRL_H)
+#define FIELD_Y ((CTRL_Y - GRID * LED) / 2)
 #define SCALE 4
 #define MARGIN 16
 #define BG ((Uint8)(0.0 * 255)) // fully dark
@@ -79,7 +80,7 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
 
     for (y = 0; y < GRID; y++) {
         for (x = 0; x < GRID; x++) {
-            SDL_Rect cell = {FIELD_X + x * LED, y * LED, LED, LED};
+            SDL_Rect cell = {FIELD_X + x * LED, FIELD_Y + y * LED, LED, LED};
 
             SDL_RenderCopy(renderer,
                            board_led_on(board, x, y) ? led_on : led_off,
