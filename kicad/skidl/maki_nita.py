@@ -48,7 +48,7 @@ REPO = HERE.parents[1]
 NET_PATH = HERE / "maki-nita.net"
 PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
 
-SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x18_2.54x5.08mm"
+SOCKET_FP = "MakiNita:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 MATRIX_FP = "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
 
@@ -142,11 +142,11 @@ def build() -> None:
         **switches,
     }
     socket = _part(
-        "EDAC-395-036-520-201",
+        "EDAC-345-016-520-212",
         "J1",
         SOCKET_FP,
         socket_pins(),
-        "EDAC 395-036-520-201",
+        "EDAC 345-016-520-212",
     )
     for number, side, net_name, _avr in contacts():
         pad = socket_pad(number, side)
@@ -222,6 +222,8 @@ def _check(text: str) -> None:
         chunk = text[start : start + (nxt.start() if nxt else len(text))]
         return set(re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', chunk))
 
+    if '(value "EDAC 345-016-520-212")' not in text:
+        raise SystemExit("cart socket is not the 16-contact EDAC")
     if text.count(f'(footprint "{SOCKET_FP}")') != 1:
         raise SystemExit("cart socket footprint missing")
     if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
@@ -235,16 +237,16 @@ def _check(text: str) -> None:
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
-    for pad in ("1", "2", "35", "36"):
+    for pad in ("1", "2", "15", "16"):
         if ("J1", pad) not in gnd:
             raise SystemExit(f"GND does not reach cart socket pad {pad}")
     if ("U2", "4") not in gnd or ("U2", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
-    if din != {("J1", "25"), ("U2", "1")}:
+    if din != {("J1", "13"), ("U2", "1")}:
         raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
-    if ("J1", "27") not in clk or ("U2", "13") not in clk or ("U5", "13") not in clk:
+    if ("J1", "14") not in clk or ("U2", "13") not in clk or ("U5", "13") not in clk:
         raise SystemExit(f"CLK nodes {clk}")
     load = nodes("LOAD")
     if ("J1", "5") not in load or ("U2", "12") not in load or ("U5", "12") not in load:

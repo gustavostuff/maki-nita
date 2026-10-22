@@ -41,7 +41,7 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 
 | Qty | Part | Role |
 | --- | --- | --- |
-| 1 | EDAC 395-036-520-201 | Cart socket on the console. 36 contacts, 18 a side |
+| 1 | EDAC 345-016-520-212 | Cart socket on the console. 16 contacts, 8 a side, 2.54 mm pitch |
 | 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU, on the cartridge |
 | 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
@@ -111,30 +111,20 @@ At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The package
 
 ## Cartridge
 
-The console socket is an EDAC 395-036-520-201. It is a straight card-edge connector, 2.54 mm along a row. Side A and side B are the two faces of the cartridge edge. On the socket, side A is the odd pad numbers and side B is the even pad numbers. On the cartridge fingers, side A is pads 1 to 18 and side B is pads 19 to 36.
+The console socket is an EDAC 345-016-520-212. It is a straight card-edge connector from the [345/395 series](https://files.edac.net/edac/content/series/og/English/EDAC%20345%20395%20Series%20Card%20Edge%20Connectors%20English%20Ordering%20Guide.pdf), 2.54 mm along a row and 5.08 mm between the two rows. Sixteen contacts, eight a side. Side A is the odd pad numbers and side B is the even pad numbers. Pad 1 is contact A1.
 
-VDD, AVDD, and VDDIO2 on the AVR tie to the +5 V contacts. Both AVR ground pins tie to the GND contacts.
+The cartridge is a separate board. It holds the AVR128DB28. VDD, AVDD, and VDDIO2 tie to the +5 V contacts. Both ground pins tie to the GND contacts.
 
 | Contact | Side A | Side B |
 | --- | --- | --- |
 | 1 | GND | GND |
 | 2 | +5 V | +5 V |
-| 3 | LOAD, AVR pin 1 | PC0, AVR pin 2 |
-| 4 | PC1, AVR pin 3 | PC2, AVR pin 4 |
-| 5 | PC3, AVR pin 5 | UP, AVR pin 7 |
-| 6 | DOWN, AVR pin 8 | LEFT, AVR pin 9 |
-| 7 | RIGHT, AVR pin 10 | BUTTON, AVR pin 11 |
-| 8 | PD6, AVR pin 12 | PD7, AVR pin 13 |
-| 9 | PF0, AVR pin 16 | PF1, AVR pin 17 |
-| 10 | RESET, AVR pin 18 | UPDI, AVR pin 19 |
-| 11 | PA0, AVR pin 22 | PA1, AVR pin 23 |
-| 12 | PA2, AVR pin 24 | PA3, AVR pin 25 |
-| 13 | DIN, AVR pin 26 | PA5, AVR pin 27 |
-| 14 | CLK, AVR pin 28 | open |
-| 15 | open | open |
-| 16 | open | open |
-| 17 | open | open |
-| 18 | GND | GND |
+| 3 | LOAD, AVR pin 1 | UP, AVR pin 7 |
+| 4 | DOWN, AVR pin 8 | LEFT, AVR pin 9 |
+| 5 | RIGHT, AVR pin 10 | BUTTON, AVR pin 11 |
+| 6 | RESET, AVR pin 18 | UPDI, AVR pin 19 |
+| 7 | DIN, AVR pin 26 | CLK, AVR pin 28 |
+| 8 | GND | GND |
 
 ## CPU signals
 
@@ -142,16 +132,16 @@ Port pins on the AVR128DB28. Package pin numbers are the 28-pin SPDIP numbers fr
 
 | Signal | Package pin | Contact | Port | Direction | Notes |
 | --- | --- | --- | --- | --- | --- |
-| DIN | 26 | A13 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
-| CLK | 28 | A14 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
+| DIN | 26 | A7 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
+| CLK | 28 | B7 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
 | LOAD | 1 | A3 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
-| UP | 7 | A5 | PD1 | in | Active low, internal pull-up |
-| DOWN | 8 | A6 | PD2 | in | Active low, internal pull-up |
-| LEFT | 9 | B6 | PD3 | in | Active low, internal pull-up |
-| RIGHT | 10 | A7 | PD4 | in | Active low, internal pull-up |
-| BUTTON | 11 | B7 | PD5 | in | Active low, internal pull-up |
-| RESET | 18 | A10 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
-| UPDI | 19 | B10 | UPDI | program | Programming header |
+| UP | 7 | B3 | PD1 | in | Active low, internal pull-up |
+| DOWN | 8 | A4 | PD2 | in | Active low, internal pull-up |
+| LEFT | 9 | B4 | PD3 | in | Active low, internal pull-up |
+| RIGHT | 10 | A5 | PD4 | in | Active low, internal pull-up |
+| BUTTON | 11 | B5 | PD5 | in | Active low, internal pull-up |
+| RESET | 18 | A6 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
+| UPDI | 19 | B6 | UPDI | program | Programming header |
 
 PA0, PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads.
 
@@ -165,5 +155,6 @@ Every switch common ties to GND. The normally open contact ties to its signal pi
 
 ## Still open
 
+- The cartridge edge footprint.
 - A case.
 - A small speaker for beeps. It plays a triangle or a sine wave at a chosen frequency. The pin and the drive circuit are still open. The other spare pins stay free.
