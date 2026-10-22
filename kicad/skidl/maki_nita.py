@@ -60,8 +60,8 @@ HDR_PINS = (
     (3, "UP"),
     (4, "DOWN"),
     (5, "LEFT"),
-    (6, "NC"),
-    (7, "NC2"),
+    (6, "RIGHT"),
+    (7, "BUTTON"),
     (8, "GND2"),
 )
 
@@ -136,16 +136,22 @@ def build() -> None:
     din = Net("DIN")
     clk = Net("CLK")
     load = Net("LOAD")
+    reset = Net("RESET")
+    updi = Net("UPDI")
     switches = {
         "UP": Net("UP"),
         "DOWN": Net("DOWN"),
         "LEFT": Net("LEFT"),
+        "RIGHT": Net("RIGHT"),
+        "BUTTON": Net("BUTTON"),
     }
 
     named = {
         "DIN": din,
         "CLK": clk,
         "LOAD": load,
+        "RESET": reset,
+        "UPDI": updi,
         **switches,
     }
     socket = _part(
@@ -175,8 +181,8 @@ def build() -> None:
     _tie(header, 3, switches["UP"])
     _tie(header, 4, switches["DOWN"])
     _tie(header, 5, switches["LEFT"])
-    _stub(header, 6)
-    _stub(header, 7)
+    _tie(header, 6, switches["RIGHT"])
+    _tie(header, 7, switches["BUTTON"])
 
     drivers = []
     matrices = []
@@ -251,12 +257,14 @@ def _check(text: str) -> None:
         raise SystemExit("expected 4 matrix footprints")
     vcc = nodes("+5V")
     gnd = nodes("GND")
-    if ("J1", "3") not in vcc or ("J1", "14") not in vcc or ("J2", "2") not in vcc:
-        raise SystemExit("+5V does not reach the cart socket and the header")
+    if ("J1", "3") not in vcc or ("J1", "4") not in vcc or ("J1", "16") not in vcc:
+        raise SystemExit("+5V does not reach three cart socket contacts")
+    if ("J2", "2") not in vcc:
+        raise SystemExit("+5V does not reach the header")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
-    for pad in ("1", "16"):
+    for pad in ("1", "2", "15"):
         if ("J1", pad) not in gnd:
             raise SystemExit(f"GND does not reach cart socket pad {pad}")
     if ("J2", "1") not in gnd or ("J2", "8") not in gnd:
@@ -264,17 +272,20 @@ def _check(text: str) -> None:
     if ("U2", "4") not in gnd or ("U2", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
-    if din != {("J1", "13"), ("J1", "4"), ("U2", "1")}:
+    if din != {("J1", "8"), ("U2", "1")}:
         raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
-    if ("J1", "15") not in clk or ("J1", "2") not in clk or ("U2", "13") not in clk:
+    if ("J1", "10") not in clk or ("U2", "13") not in clk:
         raise SystemExit(f"CLK nodes {clk}")
     load = nodes("LOAD")
-    if ("J1", "5") not in load or ("J1", "12") not in load or ("U2", "12") not in load:
+    if ("J1", "6") not in load or ("U2", "12") not in load:
         raise SystemExit(f"LOAD nodes {load}")
     up = nodes("UP")
-    if up != {("J1", "7"), ("J1", "10"), ("J2", "3")}:
+    if up != {("J1", "5"), ("J2", "3")}:
         raise SystemExit(f"UP nodes {up}")
+    button = nodes("BUTTON")
+    if button != {("J1", "13"), ("J2", "7")}:
+        raise SystemExit(f"BUTTON nodes {button}")
     link = nodes("DOUT_U2")
     if link != {("U2", "24"), ("U3", "1")}:
         raise SystemExit(f"DOUT_U2 nodes {link}")

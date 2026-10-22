@@ -1,30 +1,26 @@
 """Shared 16-contact cart edge.
 
 The console socket is an EDAC 345-016-520-212, eight contacts a side.
-Side A is the odd pads. Side B is the even pads. Pad 1 is contact A1.
+Side A is the odd pads and the controller face. Side B is the even pads
+and carries the display and programming signals. Pad 1 is contact A1.
 
-The cartridge can be inserted either way around. Turning it around swaps
-the two faces and reverses the ends, so side B carries side A in reverse.
+Three contacts are GND and three are +5V. The ends of the edge are power.
 A contact is (number 1..8, side, net, avr package pin or None).
-
 AVR pins 6, 14, and 20 are +5V. Pins 15 and 21 are GND.
-RIGHT, BUTTON, RESET, and UPDI are not on this edge. Eight contacts
-give eight nets once the back side repeats the front side in reverse.
 """
 
 from __future__ import annotations
 
 # (contact, A net, A avr pin, B net, B avr pin)
-# B row n is the same net as A row (9-n).
 _ROWS = (
-    (1, "GND", None, "CLK", 28),
-    (2, "+5V", None, "DIN", 26),
-    (3, "LOAD", 1, "LEFT", 9),
-    (4, "UP", 7, "DOWN", 8),
-    (5, "DOWN", 8, "UP", 7),
-    (6, "LEFT", 9, "LOAD", 1),
-    (7, "DIN", 26, "+5V", None),
-    (8, "CLK", 28, "GND", None),
+    (1, "GND", None, "GND", None),
+    (2, "+5V", None, "+5V", None),
+    (3, "UP", 7, "LOAD", 1),
+    (4, "DOWN", 8, "DIN", 26),
+    (5, "LEFT", 9, "CLK", 28),
+    (6, "RIGHT", 10, "RESET", 18),
+    (7, "BUTTON", 11, "UPDI", 19),
+    (8, "GND", None, "+5V", None),
 )
 
 

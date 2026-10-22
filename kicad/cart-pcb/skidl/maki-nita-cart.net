@@ -2,7 +2,7 @@
   (version "D")
   (design
     (source "maki_nita_cart.py")
-    (date "10/22/2026 01:05 PM")
+    (date "10/22/2026 01:15 PM")
     (tool "SKiDL (2.3.0)")
     (sheet
       (number 1)
@@ -101,7 +101,11 @@
         (pintype "PASSIVE"))
       (node
         (ref "J1")
-        (pin "B7")
+        (pin "B2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B8")
         (pintype "PASSIVE"))
       (node
         (ref "U1")
@@ -117,8 +121,60 @@
         (pintype "POWER-IN")))
     (net
       (code 2)
+      (name "BUTTON")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 3)
       (name "CLK")
       (class "Default")
+      (node
+        (ref "J1")
+        (pin "B5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "28")
+        (pintype "PASSIVE")))
+    (net
+      (code 4)
+      (name "DIN")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "B4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "26")
+        (pintype "PASSIVE")))
+    (net
+      (code 5)
+      (name "DOWN")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 6)
+      (name "GND")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A1")
+        (pintype "PASSIVE"))
       (node
         (ref "J1")
         (pin "A8")
@@ -129,54 +185,6 @@
         (pintype "PASSIVE"))
       (node
         (ref "U1")
-        (pin "28")
-        (pintype "PASSIVE")))
-    (net
-      (code 3)
-      (name "DIN")
-      (class "Default")
-      (node
-        (ref "J1")
-        (pin "A7")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "B2")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
-        (pin "26")
-        (pintype "PASSIVE")))
-    (net
-      (code 4)
-      (name "DOWN")
-      (class "Default")
-      (node
-        (ref "J1")
-        (pin "A5")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "B4")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
-        (pin "8")
-        (pintype "PASSIVE")))
-    (net
-      (code 5)
-      (name "GND")
-      (class "Default")
-      (node
-        (ref "J1")
-        (pin "A1")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "B8")
-        (pintype "PASSIVE"))
-      (node
-        (ref "U1")
         (pin "15")
         (pintype "POWER-IN"))
       (node
@@ -184,50 +192,74 @@
         (pin "21")
         (pintype "POWER-IN")))
     (net
-      (code 6)
+      (code 7)
       (name "LEFT")
       (class "Default")
       (node
         (ref "J1")
-        (pin "A6")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "B3")
+        (pin "A5")
         (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "9")
         (pintype "PASSIVE")))
     (net
-      (code 7)
+      (code 8)
       (name "LOAD")
       (class "Default")
       (node
         (ref "J1")
-        (pin "A3")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "B6")
+        (pin "B3")
         (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "1")
         (pintype "PASSIVE")))
     (net
-      (code 8)
+      (code 9)
+      (name "RESET")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "B6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 10)
+      (name "RIGHT")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 11)
       (name "UP")
       (class "Default")
       (node
         (ref "J1")
-        (pin "A4")
-        (pintype "PASSIVE"))
-      (node
-        (ref "J1")
-        (pin "B5")
+        (pin "A3")
         (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 12)
+      (name "UPDI")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "B7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "19")
         (pintype "PASSIVE")))))

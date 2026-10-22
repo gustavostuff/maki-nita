@@ -113,20 +113,18 @@ At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The package
 
 The console socket is an EDAC 345-016-520-212. It is a straight card-edge connector from the [345/395 series](https://files.edac.net/edac/content/series/og/English/EDAC%20345%20395%20Series%20Card%20Edge%20Connectors%20English%20Ordering%20Guide.pdf), 2.54 mm along a row and 5.08 mm between the two rows. Sixteen contacts, eight a side. Side A is the odd pad numbers and side B is the even pad numbers. Pad 1 is contact A1.
 
-The cartridge is a separate board. It holds the AVR128DB28 and a double-sided gold edge, eight fingers a side at 2.54 mm. Side A is the front copper. Side B is the back copper. VDD, AVDD, and VDDIO2 tie to the +5 V fingers. Both ground pins tie to the GND fingers.
-
-The edge is reversible. Side B is side A read from the other end. Turning the cartridge around swaps the faces and the ends, and each socket contact still meets the same net.
+The cartridge is a separate board. It holds the AVR128DB28 and a double-sided gold edge, eight fingers a side at 2.54 mm. Side A is the front copper and carries the stick and the button. Side B is the back copper and carries the display and the programming pins. VDD, AVDD, and VDDIO2 tie to the +5 V fingers. Both ground pins tie to the GND fingers. Three contacts are GND and three are +5 V.
 
 | Contact | Side A | Side B |
 | --- | --- | --- |
-| 1 | GND | CLK, AVR pin 28 |
-| 2 | +5 V | DIN, AVR pin 26 |
-| 3 | LOAD, AVR pin 1 | LEFT, AVR pin 9 |
-| 4 | UP, AVR pin 7 | DOWN, AVR pin 8 |
-| 5 | DOWN, AVR pin 8 | UP, AVR pin 7 |
-| 6 | LEFT, AVR pin 9 | LOAD, AVR pin 1 |
-| 7 | DIN, AVR pin 26 | +5 V |
-| 8 | CLK, AVR pin 28 | GND |
+| 1 | GND | GND |
+| 2 | +5 V | +5 V |
+| 3 | UP, AVR pin 7 | LOAD, AVR pin 1 |
+| 4 | DOWN, AVR pin 8 | DIN, AVR pin 26 |
+| 5 | LEFT, AVR pin 9 | CLK, AVR pin 28 |
+| 6 | RIGHT, AVR pin 10 | RESET, AVR pin 18 |
+| 7 | BUTTON, AVR pin 11 | UPDI, AVR pin 19 |
+| 8 | GND | +5 V |
 
 ## CPU signals
 
@@ -134,24 +132,26 @@ Port pins on the AVR128DB28. Package pin numbers are the 28-pin SPDIP numbers fr
 
 | Signal | Package pin | Contact | Port | Direction | Notes |
 | --- | --- | --- | --- | --- | --- |
-| DIN | 26 | A7 and B2 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
-| CLK | 28 | A8 and B1 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
-| LOAD | 1 | A3 and B6 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
-| UP | 7 | A4 and B5 | PD1 | in | Active low, internal pull-up |
-| DOWN | 8 | A5 and B4 | PD2 | in | Active low, internal pull-up |
-| LEFT | 9 | A6 and B3 | PD3 | in | Active low, internal pull-up |
-| RIGHT | 10 | none | PD4 | in | Active low, internal pull-up. Not on the edge |
-| BUTTON | 11 | none | PD5 | in | Active low, internal pull-up. Not on the edge |
-| RESET | 18 | none | PF6 | reset | 10 kohm pull-up. Not on the edge |
-| UPDI | 19 | none | UPDI | program | Not on the edge |
+| DIN | 26 | B4 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
+| CLK | 28 | B5 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
+| LOAD | 1 | B3 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
+| UP | 7 | A3 | PD1 | in | Active low, internal pull-up |
+| DOWN | 8 | A4 | PD2 | in | Active low, internal pull-up |
+| LEFT | 9 | A5 | PD3 | in | Active low, internal pull-up |
+| RIGHT | 10 | A6 | PD4 | in | Active low, internal pull-up |
+| BUTTON | 11 | A7 | PD5 | in | Active low, internal pull-up |
+| RESET | 18 | B6 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
+| UPDI | 19 | B7 | UPDI | program | Programming header |
 
-PA0, PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads. RIGHT, BUTTON, RESET, and UPDI stay off the edge. A reversible 8-contact edge has eight nets, and power plus the display lines plus three directions fill those eight.
+PA0, PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads.
+
+The programming header is a 1x3: UPDI, VCC, GND. The board is powered from the barrel jack during programming.
 
 ## Controls
 
 The stick is a Sanwa JLF or the same kind of part. Four independent switches. A diagonal is two switches closed at once. A square gate or an octagonal gate is a mechanical plate. The circuit is the same either way.
 
-Every switch common ties to GND. The normally open contact ties to its signal pin. The button is the same kind of switch. UP, DOWN, and LEFT leave the board on J2, a 2x4 pin header, 2.54 mm pitch, and reach the cart socket. Pin 1 is the square pad. Pins 6 and 7 are open.
+Every switch common ties to GND. The normally open contact ties to its signal pin. The button is the same kind of switch. Those five signals are PD1 through PD5. They leave the board on J2, a 2x4 pin header, 2.54 mm pitch, and reach side A of the cart socket. Pin 1 is the square pad.
 
 | Pin | Net |
 | --- | --- |
@@ -160,8 +160,8 @@ Every switch common ties to GND. The normally open contact ties to its signal pi
 | 3 | UP |
 | 4 | DOWN |
 | 5 | LEFT |
-| 6 | open |
-| 7 | open |
+| 6 | RIGHT |
+| 7 | BUTTON |
 | 8 | GND |
 
 ## Still open

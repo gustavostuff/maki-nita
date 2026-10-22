@@ -2,9 +2,9 @@
 """SKiDL netlist for a Maki Nita cartridge.
 
 The cartridge holds one AVR128DB28 and a double-sided 2x8 gold edge.
-VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins tie to GND.
-Side B of the edge repeats side A in reverse, so the cart works
-when it is inserted the other way around.
+Side A is the controller face. Side B carries the display and the
+programming pins. VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins
+tie to GND.
 """
 
 from __future__ import annotations
@@ -130,25 +130,28 @@ def _check(text: str) -> None:
     vcc = nodes("+5V")
     if ("U1", "20") not in vcc or ("U1", "14") not in vcc or ("U1", "6") not in vcc:
         raise SystemExit("+5V does not reach the AVR rails")
-    if ("J1", "A2") not in vcc or ("J1", "B7") not in vcc:
-        raise SystemExit("+5V does not reach both ends of the edge")
+    if ("J1", "A2") not in vcc or ("J1", "B2") not in vcc or ("J1", "B8") not in vcc:
+        raise SystemExit("+5V does not reach three edge contacts")
     gnd = nodes("GND")
     if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
         raise SystemExit("GND does not reach both AVR ground pins")
-    if ("J1", "A1") not in gnd or ("J1", "B8") not in gnd:
-        raise SystemExit("GND does not reach both ends of the edge")
+    if ("J1", "A1") not in gnd or ("J1", "A8") not in gnd or ("J1", "B1") not in gnd:
+        raise SystemExit("GND does not reach three edge contacts")
     din = nodes("DIN")
-    if din != {("U1", "26"), ("J1", "A7"), ("J1", "B2")}:
+    if din != {("U1", "26"), ("J1", "B4")}:
         raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
-    if clk != {("U1", "28"), ("J1", "A8"), ("J1", "B1")}:
+    if clk != {("U1", "28"), ("J1", "B5")}:
         raise SystemExit(f"CLK nodes {clk}")
     load = nodes("LOAD")
-    if load != {("U1", "1"), ("J1", "A3"), ("J1", "B6")}:
+    if load != {("U1", "1"), ("J1", "B3")}:
         raise SystemExit(f"LOAD nodes {load}")
-    left = nodes("LEFT")
-    if left != {("U1", "9"), ("J1", "A6"), ("J1", "B3")}:
-        raise SystemExit(f"LEFT nodes {left}")
+    button = nodes("BUTTON")
+    if button != {("U1", "11"), ("J1", "A7")}:
+        raise SystemExit(f"BUTTON nodes {button}")
+    updi = nodes("UPDI")
+    if updi != {("U1", "19"), ("J1", "B7")}:
+        raise SystemExit(f"UPDI nodes {updi}")
 
 
 def main() -> None:
