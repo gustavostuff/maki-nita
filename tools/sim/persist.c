@@ -11,7 +11,7 @@ static uint8_t image[EEPROM_BYTES];
 static int ready;
 static const char *path;
 
-static const char *const cand[] = {"sim/maki-nita.eep", "maki-nita.eep"};
+static const char *const cand[] = {"tools/sim/maki-nita.eep", "maki-nita.eep"};
 
 static void load(void)
 {

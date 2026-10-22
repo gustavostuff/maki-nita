@@ -1,5 +1,5 @@
 # AVR128DB28 image. Needs avr-gcc with that device.
-#   make -C fw/avr
+#   make -C tools/fw/avr
 #   pymcuprog write -d avr128db28 -t uart -u /dev/ttyACM0 --verify -f game.hex
 
 MCU = avr128db28

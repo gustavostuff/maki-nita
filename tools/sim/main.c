@@ -37,7 +37,7 @@ static SDL_Texture *load_tex(SDL_Renderer *renderer, const char *file)
         surface = NULL;
     }
     if (surface == NULL) {
-        snprintf(path, sizeof path, "sim/img/%s", file);
+        snprintf(path, sizeof path, "tools/sim/img/%s", file);
         surface = IMG_Load(path);
     }
     if (surface == NULL) {
@@ -128,7 +128,7 @@ static void present_canvas(SDL_Renderer *renderer, SDL_Texture *canvas)
 static TTF_Font *open_font(void)
 {
     const char *rels[] = {
-        "assets/fonts/proggy-tiny.ttf",
+        "tools/assets/fonts/proggy-tiny.ttf",
         "../assets/fonts/proggy-tiny.ttf",
         NULL,
     };

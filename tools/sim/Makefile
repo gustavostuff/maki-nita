@@ -1,7 +1,7 @@
 # From the repo root:
-#   make -C sim
-#   ./sim/maki-nita-ui
-#   make -C sim test
+#   make -C tools/sim
+#   ./tools/sim/maki-nita-ui
+#   make -C tools/sim test
 
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -O2 -I. -I../fw

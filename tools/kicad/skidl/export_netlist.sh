@@ -8,7 +8,7 @@ NET="$DIR/maki-nita.net"
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     echo "Usage: $0"
     echo "  Writes $NET"
-    echo "  The cartridge netlist is kicad/cart-pcb/skidl/export_netlist.sh"
+    echo "  The cartridge netlist is tools/kicad/cart-pcb/skidl/export_netlist.sh"
     exit 0
 fi
 if [[ $# -ne 0 ]]; then

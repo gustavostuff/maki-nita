@@ -16,18 +16,18 @@ __pycache__/
 *.net
 
 # Simulator EEPROM image and firmware images
-sim/maki-nita.eep
+tools/sim/maki-nita.eep
 maki-nita.eep
-sim/maki-nita-ui
-sim/makinita-ui
-sim/retrodiode-ui
-sim/test_chips
-sim/tests/test_max7219
-sim/tests/test_avr128db28
-sim/tests/test_board
-sim/tests/test_game
-fw/avr/*.elf
-fw/avr/*.hex
+tools/sim/maki-nita-ui
+tools/sim/makinita-ui
+tools/sim/retrodiode-ui
+tools/sim/test_chips
+tools/sim/tests/test_max7219
+tools/sim/tests/test_avr128db28
+tools/sim/tests/test_board
+tools/sim/tests/test_game
+tools/fw/avr/*.elf
+tools/fw/avr/*.hex
 *.o
 
 # KiCad local files

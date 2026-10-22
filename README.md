@@ -19,4 +19,4 @@ An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 d
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
 - [Software](docs/software.md) covers one tick, the framebuffer, the inputs, and what a game is.
-- `sim/maki-nita-ui` is the picture of the screen and the controls. `make -C sim` builds it.
+- `tools/sim/maki-nita-ui` is the picture of the screen and the controls. `make -C tools/sim` builds it.

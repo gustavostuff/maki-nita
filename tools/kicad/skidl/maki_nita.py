@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """SKiDL netlist for the Maki Nita console.
 
-Connections follow sim/board.c. J1 is the cart socket. The AVR128DB28
+Connections follow tools/sim/board.c. J1 is the cart socket. The AVR128DB28
 lives on the cartridge, so this board has no CPU. U2 to U5 are the
 MAX7219 chain, left to right, top to bottom. DS1 to DS4 are the matrices
 those drivers scan. The sim keeps the picture inside each driver. Here each
@@ -16,7 +16,7 @@ as the sim.
 
 Run from the repo:
 
-    python3 kicad/skidl/maki_nita.py
+    python3 tools/kicad/skidl/maki_nita.py
 """
 
 from __future__ import annotations
