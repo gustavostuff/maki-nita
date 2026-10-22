@@ -2,9 +2,25 @@
 
 <img src="img/sim.png" alt="Simulator" />
 
-Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes from maquinita, the Mexican word generally used for an arcade machine. The display is four red 8x8 matrices on one board, set as a 16x16 field. Each pixel is on or off.
+Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four red 8x8 matrices on one board, set as a 16x16 field. Each pixel is on or off.
 
 An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 drivers on the console refresh the grid.
+
+## Goals
+
+Simple graphics can still be fun. A few dots are enough to show a shape, and one action is enough to play. Games share that same small screen.
+
+The build is a simple soldering job.
+
+- The parts are through-hole, on a 2.54 mm grid.
+- The chips sit in sockets, so a bad one can be swapped.
+- Wires leave the board on two headers. One is the controls. The other is power and reset.
+
+The parts are cheap.
+
+- The boards are small 2-layer boards, which are cheap to order.
+- The screen is four 8x8 LED matrices (less than 1 USD each), and the chips are common parts.
+- Power is a normal regulated 5 V adapter.
 
 The software is under the MIT License. The hardware design is under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
 
@@ -19,7 +35,7 @@ The software is under the MIT License. The hardware design is under the CERN Ope
 
 ## PCBs
 
-These are initial designs and are subject to modifications (no copper traces yet, but the netlist is defined at the [kicad](tools/kicad) folder.
+These are early designs and are subject to modifications. No copper traces yet, but the netlist is defined in the [kicad](tools/kicad) folder.
 
 Main system PCB, 100x100mm:
 
