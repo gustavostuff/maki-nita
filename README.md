@@ -1,4 +1,4 @@
-<label style="font-size: 4rem">巻-Nita</label>
+<h1 style="font-size: 4rem">巻-Nita</h1>
 
 <img src="img/sim.png" alt="Simulator" />
 
