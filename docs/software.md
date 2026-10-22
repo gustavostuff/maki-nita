@@ -4,6 +4,16 @@ The AVR holds the picture and reads the controls. The four MAX7219 drivers store
 
 Firmware is plain avr-gcc, clocked from the internal 24 MHz oscillator. The chip is programmed over UPDI.
 
+## One tick
+
+The runtime loops at 60 Hz. Each pass reads the controls, calls the game, then flushes the frame.
+
+Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed switch reads low. The hardware doc lists the package pins. Debounce is two ticks, described below.
+
+The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
+
+That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. `make -C fw/avr` builds `fw/avr/game.hex` for the chip.
+
 ## Framebuffer
 
 Sixteen rows, sixteen columns, one bit each. Thirty-two bytes.
@@ -96,7 +106,7 @@ The stick steps the ship one LED every four ticks, including diagonals. Opposite
 
 Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock moves one row every 4, 8, 12, or 16 ticks. The action button fires one bullet. The bullet is a single LED and climbs one cell every four ticks. A bullet that meets a rock removes both. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows an 8x8 burst in the center for two seconds, and the round starts over.
 
-The tick stays at 60 Hz. The tick, the framebuffer, the input debounce, and the flush are the same C in the simulator and in the AVR image. The simulator drives the model pins. The AVR image drives PORTA. `make -C fw/avr` builds `fw/avr/game.hex` for the AVR128DB28. The internal oscillator is set to 24 MHz in that image, and the chip is programmed over UPDI.
+The tick stays at 60 Hz.
 
 ## What a game is
 

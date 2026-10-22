@@ -15,7 +15,13 @@ flowchart LR
 
 ## Who turns a pixel on
 
-The AVR keeps the frame in RAM. It sends that frame to the drivers when the picture changes. Each MAX7219 stores one 8x8 block and scans it on its own. A segment pin sources an LED anode. A digit pin sinks an LED cathode. A lit pixel is one segment bit set in that digit's register.
+The AVR reads the stick and the button, keeps the frame in RAM, and sends that frame to the drivers. It does not drive an LED pin.
+
+The five inputs are active low, with the pin's own pull-up. A closed switch ties the pin to GND. Up, down, left, right, and the button are PD1 through PD5, package pins 7 through 11.
+
+The three outputs are the display chain. DIN is PA4, package pin 26, and it idles low. CLK is PA6, package pin 28, and it idles low. A rising edge of CLK shifts one bit into every MAX7219. LOAD is PA7, package pin 1, and it idles high. A rising edge of LOAD latches the 16-bit word each driver is holding.
+
+Each MAX7219 stores one 8x8 block and scans it on its own. A segment pin sources an LED anode. A digit pin sinks an LED cathode. A lit pixel is one segment bit set in that digit's register.
 
 | Block | Columns | Rows | Place in the chain |
 | --- | --- | --- | --- |
@@ -101,20 +107,20 @@ At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The package
 
 ## CPU signals
 
-Port pins on the AVR128DB28. Package pin numbers stay with the schematic, taken from the 28-pin SPDIP figure in the datasheet.
+Port pins on the AVR128DB28. Package pin numbers are the 28-pin SPDIP numbers from the datasheet.
 
-| Signal | Pin | Direction | Notes |
-| --- | --- | --- | --- |
-| DIN | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
-| CLK | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
-| LOAD | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
-| UP | PD1 | in | Active low, internal pull-up |
-| DOWN | PD2 | in | Active low, internal pull-up |
-| LEFT | PD3 | in | Active low, internal pull-up |
-| RIGHT | PD4 | in | Active low, internal pull-up |
-| BUTTON | PD5 | in | Active low, internal pull-up |
-| RESET | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
-| UPDI | UPDI | program | Programming header |
+| Signal | Package pin | Port | Direction | Notes |
+| --- | --- | --- | --- | --- |
+| DIN | 26 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
+| CLK | 28 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
+| LOAD | 1 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
+| UP | 7 | PD1 | in | Active low, internal pull-up |
+| DOWN | 8 | PD2 | in | Active low, internal pull-up |
+| LEFT | 9 | PD3 | in | Active low, internal pull-up |
+| RIGHT | 10 | PD4 | in | Active low, internal pull-up |
+| BUTTON | 11 | PD5 | in | Active low, internal pull-up |
+| RESET | 18 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
+| UPDI | 19 | UPDI | program | Programming header |
 
 PA0, PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads.
 
@@ -124,7 +130,7 @@ The programming header is a 1x3: UPDI, VCC, GND. The board is powered from the b
 
 The stick is a Sanwa JLF or the same kind of part. Four independent switches. A diagonal is two switches closed at once. A square gate or an octagonal gate is a mechanical plate. The circuit is the same either way.
 
-Every switch common ties to GND. The normally open contact ties to its signal pin. The button is the same kind of switch. One 6-pin header on the bottom edge: GND, UP, DOWN, LEFT, RIGHT, BUTTON.
+Every switch common ties to GND. The normally open contact ties to its signal pin. The button is the same kind of switch. One 6-pin header on the bottom edge: GND, UP, DOWN, LEFT, RIGHT, BUTTON. Those five signals are PD1 through PD5.
 
 ## Still open
 
