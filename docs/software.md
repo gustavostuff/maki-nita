@@ -1,4 +1,4 @@
-# RetroDiode software
+# 巻-Nita software
 
 The AVR holds the picture and reads the controls. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver or a pin.
 

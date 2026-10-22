@@ -1,6 +1,6 @@
-# RetroDiode hardware
+# 巻-Nita hardware
 
-RetroDiode is one board. The LED field fills the top. A strip along the bottom holds the four display drivers, the CPU, the power parts, and the headers. The field is square. The strip makes the board a little taller than that square. Pitch is still open, so the outline in mm is still open.
+巻-Nita is one board. The LED field fills the top. A strip along the bottom holds the four display drivers, the CPU, the power parts, and the headers. The field is square. The strip makes the board a little taller than that square. Pitch is still open, so the outline in mm is still open.
 
 The field is 256 red 5 mm LEDs on one even pitch. Electrically it is four 8x8 blocks. The pitch does not change at the block boundaries.
 

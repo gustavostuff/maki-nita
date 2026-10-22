@@ -1,10 +1,8 @@
-<img src="img/logo/logo_v_01.png" alt="RetroDiode logo v01" />
-
----
+<label style="font-size: 4rem">巻-Nita</label>
 
 <img src="img/sim.png" alt="Simulator" />
 
-RetroDiode is a one-stick, one-button portable tabletop arcade. The display is a 16x16 grid of red 5 mm LEDs. Each pixel is on or off. The first games are small ones such as Tetris and a space shooter.
+巻-Nita is a one-stick, one-button portable tabletop arcade. The name reads Maki-Nita. 巻 can mean "roll", and Nita comes from maquinita, the Mexican word for a small arcade machine. The display is a 16x16 grid of red 5 mm LEDs. Each pixel is on or off. The first games are small ones such as Tetris and a space shooter.
 
 An AVR128DB28 runs the game and holds the picture. Four MAX7219 drivers share the same board, in a strip under the LEDs, and refresh the grid.
 
@@ -21,4 +19,4 @@ An AVR128DB28 runs the game and holds the picture. Four MAX7219 drivers share th
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
 - [Software](docs/software.md) covers one tick, the framebuffer, the inputs, and what a game is.
-- `sim/retrodiode-ui` is the picture of the screen and the controls. `make -C sim` builds it.
+- `sim/maki-nita-ui` is the picture of the screen and the controls. `make -C sim` builds it.
