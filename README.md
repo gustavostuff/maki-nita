@@ -17,6 +17,18 @@ The software is under the MIT License. The hardware design is under the CERN Ope
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
 
+## PCBs
+
+These are initial designs and are subject to modifications (no copper traces yet, but the netlist is defined at the [kicad](tools/kicad) folder.
+
+Main system PCB, 100x100mm:
+
+<img src="img/main_pcb_concept.png" alt="Main PCB concept" />
+
+Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
+
+<img src="img/main_pcb_concept.png" alt="Main PCB concept" />
+
 ## Docs
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
