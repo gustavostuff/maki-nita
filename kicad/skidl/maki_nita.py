@@ -49,8 +49,21 @@ NET_PATH = HERE / "maki-nita.net"
 PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
 
 SOCKET_FP = "MakiNita:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
+HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 MATRIX_FP = "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+
+# Pin 1 is the square pad. Odd pins are one column, even pins the other.
+HDR_PINS = (
+    (1, "GND"),
+    (2, "VCC"),
+    (3, "UP"),
+    (4, "DOWN"),
+    (5, "LEFT"),
+    (6, "NC"),
+    (7, "NC2"),
+    (8, "GND2"),
+)
 
 # Column 0 is the left pixel, bit 7, segment DP. Same order as docs/hardware.md.
 SEG_PINS = (22, 14, 16, 20, 23, 21, 15, 17)  # DP A B C D E F G
@@ -123,22 +136,16 @@ def build() -> None:
     din = Net("DIN")
     clk = Net("CLK")
     load = Net("LOAD")
-    reset = Net("RESET")
-    updi = Net("UPDI")
     switches = {
         "UP": Net("UP"),
         "DOWN": Net("DOWN"),
         "LEFT": Net("LEFT"),
-        "RIGHT": Net("RIGHT"),
-        "BUTTON": Net("BUTTON"),
     }
 
     named = {
         "DIN": din,
         "CLK": clk,
         "LOAD": load,
-        "RESET": reset,
-        "UPDI": updi,
         **switches,
     }
     socket = _part(
@@ -160,6 +167,16 @@ def build() -> None:
             _tie(socket, pad, named[net_name])
         else:
             _tie(socket, pad, Net(net_name))
+
+    header = _part("PinHeader_2x04", "J2", HDR_FP, HDR_PINS, "PinHeader 2x04")
+    _tie(header, 1, gnd)
+    _tie(header, 8, gnd)
+    _tie(header, 2, vcc)
+    _tie(header, 3, switches["UP"])
+    _tie(header, 4, switches["DOWN"])
+    _tie(header, 5, switches["LEFT"])
+    _stub(header, 6)
+    _stub(header, 7)
 
     drivers = []
     matrices = []
@@ -226,31 +243,38 @@ def _check(text: str) -> None:
         raise SystemExit("cart socket is not the 16-contact EDAC")
     if text.count(f'(footprint "{SOCKET_FP}")') != 1:
         raise SystemExit("cart socket footprint missing")
+    if text.count(f'(footprint "{HDR_FP}")') != 1:
+        raise SystemExit("control header footprint missing")
     if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
         raise SystemExit("expected 4 MAX7219 footprints")
     if text.count(f'(footprint "{MATRIX_FP}")') != 4:
         raise SystemExit("expected 4 matrix footprints")
     vcc = nodes("+5V")
     gnd = nodes("GND")
-    if ("J1", "3") not in vcc or ("J1", "4") not in vcc:
-        raise SystemExit("+5V does not reach the cart socket")
+    if ("J1", "3") not in vcc or ("J1", "14") not in vcc or ("J2", "2") not in vcc:
+        raise SystemExit("+5V does not reach the cart socket and the header")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
-    for pad in ("1", "2", "15", "16"):
+    for pad in ("1", "16"):
         if ("J1", pad) not in gnd:
             raise SystemExit(f"GND does not reach cart socket pad {pad}")
+    if ("J2", "1") not in gnd or ("J2", "8") not in gnd:
+        raise SystemExit("GND does not reach both header ground pins")
     if ("U2", "4") not in gnd or ("U2", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
-    if din != {("J1", "13"), ("U2", "1")}:
+    if din != {("J1", "13"), ("J1", "4"), ("U2", "1")}:
         raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
-    if ("J1", "14") not in clk or ("U2", "13") not in clk or ("U5", "13") not in clk:
+    if ("J1", "15") not in clk or ("J1", "2") not in clk or ("U2", "13") not in clk:
         raise SystemExit(f"CLK nodes {clk}")
     load = nodes("LOAD")
-    if ("J1", "5") not in load or ("U2", "12") not in load or ("U5", "12") not in load:
+    if ("J1", "5") not in load or ("J1", "12") not in load or ("U2", "12") not in load:
         raise SystemExit(f"LOAD nodes {load}")
+    up = nodes("UP")
+    if up != {("J1", "7"), ("J1", "10"), ("J2", "3")}:
+        raise SystemExit(f"UP nodes {up}")
     link = nodes("DOUT_U2")
     if link != {("U2", "24"), ("U3", "1")}:
         raise SystemExit(f"DOUT_U2 nodes {link}")

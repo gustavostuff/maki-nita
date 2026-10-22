@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """SKiDL netlist for a Maki Nita cartridge.
 
-The cartridge holds one AVR128DB28. The edge footprint is not in this
-netlist yet. VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins tie to GND.
+The cartridge holds one AVR128DB28 and a double-sided 2x8 gold edge.
+VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins tie to GND.
+Side B of the edge repeats side A in reverse, so the cart works
+when it is inserted the other way around.
 """
 
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 
 _SYMBOLS = "/usr/share/kicad/symbols"
@@ -23,10 +26,14 @@ for _key in (
 from skidl import KICAD10, Net, Pin, Part, SKIDL, generate_netlist
 from skidl.pin import pin_types
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "skidl"))
+from cart_edge import contacts, finger_pins
+
 HERE = Path(__file__).resolve().parent
 NET_PATH = HERE / "maki-nita-cart.net"
 
 AVR_FP = "Package_DIP:DIP-28_W7.62mm"
+FINGER_FP = "MakiNita:Cart_Edge_2x8_P2.54mm"
 
 AVR_PINS = (
     (1, "PA7"),
@@ -84,6 +91,25 @@ def build() -> None:
     for num in (15, 21):
         cpu[num] += gnd
 
+    edge = Part(
+        tool=SKIDL,
+        name="Cart_Edge_2x8",
+        ref="J1",
+        tag="J1",
+        footprint=FINGER_FP,
+        pins=[_pin(num, name) for num, name in finger_pins()],
+        value="Cart edge 2x8",
+    )
+    nets = {"+5V": vcc, "GND": gnd}
+    tied_avr = set()
+    for number, side, net_name, avr in contacts():
+        if net_name not in nets:
+            nets[net_name] = Net(net_name)
+        edge[f"{side}{number}"] += nets[net_name]
+        if avr is not None and avr not in tied_avr:
+            cpu[avr] += nets[net_name]
+            tied_avr.add(avr)
+
 
 def _check(text: str) -> None:
     import re
@@ -97,16 +123,32 @@ def _check(text: str) -> None:
         chunk = text[start : start + (nxt.start() if nxt else len(text))]
         return set(re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', chunk))
 
-    if "BUS_PCIexpress" in text:
-        raise SystemExit("PCIe edge is still in the cartridge netlist")
     if text.count(f'(footprint "{AVR_FP}")') != 1:
         raise SystemExit("AVR footprint missing")
+    if text.count(f'(footprint "{FINGER_FP}")') != 1:
+        raise SystemExit("gold finger footprint missing")
     vcc = nodes("+5V")
     if ("U1", "20") not in vcc or ("U1", "14") not in vcc or ("U1", "6") not in vcc:
         raise SystemExit("+5V does not reach the AVR rails")
+    if ("J1", "A2") not in vcc or ("J1", "B7") not in vcc:
+        raise SystemExit("+5V does not reach both ends of the edge")
     gnd = nodes("GND")
     if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
         raise SystemExit("GND does not reach both AVR ground pins")
+    if ("J1", "A1") not in gnd or ("J1", "B8") not in gnd:
+        raise SystemExit("GND does not reach both ends of the edge")
+    din = nodes("DIN")
+    if din != {("U1", "26"), ("J1", "A7"), ("J1", "B2")}:
+        raise SystemExit(f"DIN nodes {din}")
+    clk = nodes("CLK")
+    if clk != {("U1", "28"), ("J1", "A8"), ("J1", "B1")}:
+        raise SystemExit(f"CLK nodes {clk}")
+    load = nodes("LOAD")
+    if load != {("U1", "1"), ("J1", "A3"), ("J1", "B6")}:
+        raise SystemExit(f"LOAD nodes {load}")
+    left = nodes("LEFT")
+    if left != {("U1", "9"), ("J1", "A6"), ("J1", "B3")}:
+        raise SystemExit(f"LEFT nodes {left}")
 
 
 def main() -> None:

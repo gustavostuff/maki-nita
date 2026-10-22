@@ -2,7 +2,7 @@
   (version "D")
   (design
     (source "maki_nita_cart.py")
-    (date "10/22/2026 12:46 PM")
+    (date "10/22/2026 01:05 PM")
     (tool "SKiDL (2.3.0)")
     (sheet
       (number 1)
@@ -43,6 +43,30 @@
           (value "")))))
   (components
     (comp
+      (ref "J1")
+      (value "Cart edge 2x8")
+      (description "")
+      (footprint "MakiNita:Cart_Edge_2x8_P2.54mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Cart_Edge_2x8_P2.54mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "J1")
+        (field
+          (name "SKiDL Line") "maki_nita_cart.py:94"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Cart_Edge_2x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "d7608689-a7d2-514c-aa16-0f8bde5cf213"))
+    (comp
       (ref "U1")
       (value "AVR128DB28-I/SP")
       (description "")
@@ -57,7 +81,7 @@
         (field
           (name "SKiDL Tag") "U1")
         (field
-          (name "SKiDL Line") "maki_nita_cart.py:73"))
+          (name "SKiDL Line") "maki_nita_cart.py:80"))
       (libsource
         (lib "NO_LIB")
         (part "AVR128DB28-I/SP"))
@@ -72,6 +96,14 @@
       (name "+5V")
       (class "Default")
       (node
+        (ref "J1")
+        (pin "A2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B7")
+        (pintype "PASSIVE"))
+      (node
         (ref "U1")
         (pin "14")
         (pintype "POWER-IN"))
@@ -85,8 +117,64 @@
         (pintype "POWER-IN")))
     (net
       (code 2)
+      (name "CLK")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "28")
+        (pintype "PASSIVE")))
+    (net
+      (code 3)
+      (name "DIN")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "26")
+        (pintype "PASSIVE")))
+    (net
+      (code 4)
+      (name "DOWN")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 5)
       (name "GND")
       (class "Default")
+      (node
+        (ref "J1")
+        (pin "A1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B8")
+        (pintype "PASSIVE"))
       (node
         (ref "U1")
         (pin "15")
@@ -94,4 +182,52 @@
       (node
         (ref "U1")
         (pin "21")
-        (pintype "POWER-IN")))))
+        (pintype "POWER-IN")))
+    (net
+      (code 6)
+      (name "LEFT")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "9")
+        (pintype "PASSIVE")))
+    (net
+      (code 7)
+      (name "LOAD")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 8)
+      (name "UP")
+      (class "Default")
+      (node
+        (ref "J1")
+        (pin "A4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "J1")
+        (pin "B5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U1")
+        (pin "7")
+        (pintype "PASSIVE")))))
