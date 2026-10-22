@@ -1,5 +1,7 @@
 #include "score.h"
 
+#include "persist.h"
+
 #define SCORE_MAX 999
 
 static int score;
@@ -8,6 +10,15 @@ static int saved;
 void score_reset(void)
 {
     score = 0;
+}
+
+void score_load(void)
+{
+    unsigned v = persist_read();
+
+    if (v > SCORE_MAX)
+        v = 0;
+    saved = (int)v;
 }
 
 void score_clear_saved(void)
@@ -41,6 +52,9 @@ int score_judge(void)
         cmp = -1;
     else
         cmp = 0;
-    saved = score;
+    if (score > saved) {
+        saved = score;
+        persist_write((uint16_t)saved);
+    }
     return cmp;
 }

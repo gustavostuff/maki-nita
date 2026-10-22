@@ -44,7 +44,7 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | 1 | EDAC 345-016-520-212 | Cart socket on the console. 16 contacts, 8 a side, 2.54 mm pitch |
 | 1 | Pin header, 2x4, 2.54 mm | Stick and button. J2 |
 | 1 | Pin header, 2x2, 2.54 mm | Power and reset. J3 |
-| 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
+| 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 512 bytes EEPROM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU, on the cartridge |
 | 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
 | 4 | 24-pin DIP sockets, 0.3 inch | For the drivers |

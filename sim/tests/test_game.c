@@ -255,6 +255,12 @@ static void test_crash(void)
     expect(frown(), "a lower score draws the small frown");
     expect(pixel_get(1, 8) && pixel_get(1, 9) && !pixel_get(2, 9),
            "the lower score is a zero");
+
+    input_reset();
+    game_reset();
+    score_add(2);
+    die();
+    expect(flat_mouth(), "a lower score leaves the saved score in place");
 }
 
 static void test_glyphs(void)

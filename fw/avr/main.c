@@ -8,6 +8,7 @@
 #include "flush.h"
 #include "game.h"
 #include "input.h"
+#include "score.h"
 
 /*
  * OSCHFCTRLA reset is 0x0C, which is 4 MHz. FRQSEL sits in bits 5:2.
@@ -42,6 +43,7 @@ int main(void)
     clock_24mhz();
     pins_init();
     input_reset();
+    score_load();
     game_reset();
     drivers_init();
     drivers_flush();

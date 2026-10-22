@@ -15,7 +15,9 @@ __pycache__/
 # Netlists come from the SKiDL scripts
 *.net
 
-# Simulator and firmware images
+# Simulator EEPROM image and firmware images
+sim/maki-nita.eep
+maki-nita.eep
 sim/maki-nita-ui
 sim/makinita-ui
 sim/retrodiode-ui

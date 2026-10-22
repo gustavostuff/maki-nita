@@ -16,8 +16,8 @@ FW = $(GAME) ../fw/flush.c
 
 TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_board tests/test_game
 
-maki-nita-ui: main.c hal.c $(CORE) $(FW)
-	$(CC) $(CFLAGS) $(SDL_CFLAGS) -o $@ main.c hal.c $(CORE) $(FW) $(LDLIBS)
+maki-nita-ui: main.c hal.c persist.c $(CORE) $(FW)
+	$(CC) $(CFLAGS) $(SDL_CFLAGS) -o $@ main.c hal.c persist.c $(CORE) $(FW) $(LDLIBS)
 
 tests/test_max7219: tests/test_max7219.c chips/max7219.c engine/signal.c
 	$(CC) $(CFLAGS) -o $@ tests/test_max7219.c chips/max7219.c engine/signal.c
@@ -25,11 +25,11 @@ tests/test_max7219: tests/test_max7219.c chips/max7219.c engine/signal.c
 tests/test_avr128db28: tests/test_avr128db28.c chips/avr128db28.c engine/signal.c
 	$(CC) $(CFLAGS) -o $@ tests/test_avr128db28.c chips/avr128db28.c engine/signal.c
 
-tests/test_board: tests/test_board.c hal.c $(CORE) $(FW)
-	$(CC) $(CFLAGS) -o $@ tests/test_board.c hal.c $(CORE) $(FW)
+tests/test_board: tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c
+	$(CC) $(CFLAGS) -o $@ tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c
 
-tests/test_game: tests/test_game.c $(GAME)
-	$(CC) $(CFLAGS) -o $@ tests/test_game.c $(GAME)
+tests/test_game: tests/test_game.c $(GAME) ../fw/persist_ram.c
+	$(CC) $(CFLAGS) -o $@ tests/test_game.c $(GAME) ../fw/persist_ram.c
 
 test: $(TEST_BINS)
 	./tests/test_max7219

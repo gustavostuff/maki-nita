@@ -2,6 +2,7 @@
 #include "game.h"
 #include "host.h"
 #include "input.h"
+#include "score.h"
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -234,6 +235,7 @@ int main(void)
     board_init(&board);
     sim_bind(&board);
     input_reset();
+    score_load();
     game_reset();
     drivers_init();
     drivers_flush();
