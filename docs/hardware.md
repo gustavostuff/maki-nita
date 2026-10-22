@@ -36,7 +36,7 @@ DOUT of one driver feeds DIN of the next. CLK is common. LOAD is common. DOUT ch
 
 ## Parts
 
-The AVR128DB28-I/SP and the MAX7219ENG+ are in production.
+As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and Analog Devices lists the MAX7219ENG+ as in production. Neither part is end of life, and neither is discouraged for a new design.
 
 | Qty | Part | Role |
 | --- | --- | --- |
