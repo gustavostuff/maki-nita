@@ -2,7 +2,7 @@
 #define RD_BOARD_H
 
 /*
- * One 巻-Nita board.
+ * One Maki Nita board.
  * U1 is the AVR128DB28. U2 to U5 are the MAX7219 chain:
  * top left, top right, bottom left, bottom right.
  * PA4 is DIN, PA6 is CLK, PA7 is LOAD.

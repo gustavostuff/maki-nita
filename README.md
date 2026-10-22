@@ -1,8 +1,8 @@
-<h1 style="font-size: 4rem">巻-Nita</h1>
+<img src="img/logo_v_03.png" alt="Logo V2" />
 
 <img src="img/sim.png" alt="Simulator" />
 
-巻-Nita is a one-stick, one-button portable tabletop arcade. The name reads Maki-Nita. 巻 can mean "roll", and Nita comes from maquinita, the Mexican word for a small arcade machine. The display is a 16x16 grid of red 5 mm LEDs. Each pixel is on or off. The first games are small ones such as Tetris and a space shooter.
+Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes from maquinita, the Mexican word generally used for an arcade machine. The display is a 16x16 grid of red 5 mm LEDs. Each pixel is on or off.
 
 An AVR128DB28 runs the game and holds the picture. Four MAX7219 drivers share the same board, in a strip under the LEDs, and refresh the grid.
 
