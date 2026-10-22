@@ -3,7 +3,7 @@
 
 #include "input.h"
 
-/* A 3x3 block. The stick steps it. The button jumps it. */
+/* The shooter. The stick flies the ship. The button fires upward. */
 void game_reset(void);
 void game_tick(const Input *in);
 

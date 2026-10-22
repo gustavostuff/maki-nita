@@ -107,22 +107,23 @@ static void test_square_on_leds(void)
     input_reset();
     game_reset();
     show(&board);
-    expect(board_fault(&board) == MAX7219_OK, "the square flush stays inside the timings");
-    expect(board_led_on(&board, 6, 6), "the middle of the block is lit");
-    expect(!board_led_on(&board, 5, 6), "the cell left of the block is dark");
-    expect(board_led_on(&board, 8, 8), "the bottom-right of the block is lit");
+    expect(board_fault(&board) == MAX7219_OK, "the ship flush stays inside the timings");
+    expect(board_led_on(&board, 7, 13), "the nose is lit");
+    expect(!board_led_on(&board, 6, 13), "the shoulder beside the nose is dark");
+    expect(board_led_on(&board, 6, 15) && board_led_on(&board, 8, 15),
+           "the bottom row of the ship is lit");
 
     board_set_switches(&board, 0, 0, 0, 1, 0);
     input_tick(0, 0, 0, 1, 0, &in);
     game_tick(&in);
     drivers_flush();
-    expect(board_led_on(&board, 6, 6), "debounce holds the block for the first tick");
+    expect(board_led_on(&board, 6, 15), "debounce holds the ship for the first tick");
 
     input_tick(0, 0, 0, 1, 0, &in);
     game_tick(&in);
     drivers_flush();
-    expect(!board_led_on(&board, 6, 6), "the old left column turns off");
-    expect(board_led_on(&board, 9, 6), "the new right column turns on");
+    expect(!board_led_on(&board, 6, 15), "the old left column turns off");
+    expect(board_led_on(&board, 9, 15), "the new right column turns on");
 }
 
 int main(void)

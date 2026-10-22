@@ -82,11 +82,21 @@ typedef struct {
 } Input;
 ```
 
-## Square
+## Rocks
 
-The first game draws a 3x3 block. It starts near the middle of the field. The stick steps that block one cell at a time, including diagonals. Opposite switches on one axis cancel. The block stops at the edge of the field. A held direction keeps stepping, slowly enough that one tap moves a single cell. The action button jumps the block to a different cell.
+The first game is a shooter. The ship sits at the bottom. Its shape points up.
 
-The tick, the framebuffer, the input debounce, and the flush are the same C in the simulator and in the AVR image. The simulator drives the model pins. The AVR image drives PORTA. `make -C fw/avr` builds `fw/avr/square.hex` for the AVR128DB28. The internal oscillator is set to 24 MHz in that image, and the chip is programmed over UPDI.
+```
+010
+111
+111
+```
+
+The stick steps the ship one LED every four ticks, including diagonals. Opposite switches on one axis cancel. The ship stops at the edge of the field.
+
+Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock moves one row every 4, 8, 12, or 16 ticks. The action button fires one bullet. The bullet is a single LED and climbs one cell every four ticks. A bullet that meets a rock removes both. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows an 8x8 burst in the center for two seconds, and the round starts over.
+
+The tick stays at 60 Hz. The tick, the framebuffer, the input debounce, and the flush are the same C in the simulator and in the AVR image. The simulator drives the model pins. The AVR image drives PORTA. `make -C fw/avr` builds `fw/avr/game.hex` for the AVR128DB28. The internal oscillator is set to 24 MHz in that image, and the chip is programmed over UPDI.
 
 ## What a game is
 

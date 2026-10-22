@@ -9,9 +9,12 @@ SDL_CFLAGS = $(shell pkg-config --cflags sdl2 SDL2_image)
 LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image)
 
 CORE = engine/signal.c chips/max7219.c chips/avr128db28.c board.c
-FW = ../fw/frame.c ../fw/input.c ../fw/game.c ../fw/flush.c
+GAME = ../fw/frame.c ../fw/input.c ../fw/game.c \
+       ../fw/entity/base_entity.c ../fw/entity/player.c \
+       ../fw/entity/bullet.c ../fw/entity/rock.c
+FW = $(GAME) ../fw/flush.c
 
-TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_board tests/test_square
+TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_board tests/test_game
 
 retrodiode-ui: main.c hal.c $(CORE) $(FW)
 	$(CC) $(CFLAGS) $(SDL_CFLAGS) -o $@ main.c hal.c $(CORE) $(FW) $(LDLIBS)
@@ -25,13 +28,13 @@ tests/test_avr128db28: tests/test_avr128db28.c chips/avr128db28.c engine/signal.
 tests/test_board: tests/test_board.c hal.c $(CORE) $(FW)
 	$(CC) $(CFLAGS) -o $@ tests/test_board.c hal.c $(CORE) $(FW)
 
-tests/test_square: tests/test_square.c ../fw/frame.c ../fw/input.c ../fw/game.c
-	$(CC) $(CFLAGS) -o $@ tests/test_square.c ../fw/frame.c ../fw/input.c ../fw/game.c
+tests/test_game: tests/test_game.c $(GAME)
+	$(CC) $(CFLAGS) -o $@ tests/test_game.c $(GAME)
 
 test: $(TEST_BINS)
 	./tests/test_max7219
 	./tests/test_avr128db28
-	./tests/test_square
+	./tests/test_game
 	./tests/test_board
 
 clean:

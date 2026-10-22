@@ -1,0 +1,14 @@
+#ifndef FW_BULLET_H
+#define FW_BULLET_H
+
+/* One LED. It travels up one cell every four ticks. */
+
+void bullet_reset(void);
+void bullet_fire(int x, int y);
+void bullet_tick(void);
+void bullet_draw(void);
+
+/* Removes one bullet that sits inside the rectangle. Returns 1 when that happens. */
+int bullet_take_rect(int x, int y, int w, int h);
+
+#endif
