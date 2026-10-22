@@ -154,13 +154,13 @@ static void test_both_sizes(void)
 {
     input_reset();
     game_reset();
-    advance(79);
-    expect(pixel_get(5, 0) && pixel_get(6, 0) && pixel_get(5, 1) && pixel_get(6, 1),
+    advance(119);
+    expect(pixel_get(5, 3) && pixel_get(6, 3) && pixel_get(5, 2) && pixel_get(6, 2),
            "a spawned 2x2 rock is on screen");
-    expect(!pixel_get(4, 0) && !pixel_get(7, 0), "that rock is two columns wide");
-    expect(pixel_get(2, 1) && pixel_get(4, 1) && pixel_get(2, 3),
+    expect(!pixel_get(4, 3) && !pixel_get(7, 3), "that rock is two columns wide");
+    expect(pixel_get(2, 0) && pixel_get(4, 0) && pixel_get(2, 2),
            "a spawned 3x3 rock is on screen");
-    expect(!pixel_get(1, 2) && !pixel_get(5, 2), "that rock is three columns wide");
+    expect(!pixel_get(1, 0) && !pixel_get(5, 0), "that rock is three columns wide");
 }
 
 static void test_crash(void)

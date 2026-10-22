@@ -91,7 +91,8 @@ static void spawn(void)
 {
     uint16_t r = next_rand();
     int size = (r & 1u) ? 2 : 3;
-    int every = period[(r >> 1) & 3u];
+    /* The low bits of this generator count, so the pace comes from the top. */
+    int every = period[(r >> 13) & 3u];
     int x = (int)((r >> 3) % (uint16_t)(FIELD - size));
 
     rock_add(x, -size, size, every);

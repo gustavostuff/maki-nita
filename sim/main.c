@@ -14,6 +14,7 @@
 #define CANVAS_H 192
 #define SCALE 4
 #define MARGIN 16
+#define BG ((Uint8)(0.0 * 255)) // fully dark
 
 static SDL_Texture *load_tex(SDL_Renderer *renderer, const char *file)
 {
@@ -68,7 +69,7 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
         32,
     };
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, BG, BG, BG, 255);
     SDL_RenderClear(renderer);
 
     for (y = 0; y < GRID; y++) {
@@ -132,7 +133,7 @@ int main(void)
                               SDL_WINDOWPOS_CENTERED,
                               CANVAS_W * SCALE,
                               CANVAS_H * SCALE,
-                              SDL_WINDOW_HIDDEN);
+                              SDL_WINDOW_HIDDEN | SDL_WINDOW_BORDERLESS);
     if (window == NULL) {
         SDL_Log("SDL_CreateWindow failed: %s", SDL_GetError());
         IMG_Quit();
@@ -192,6 +193,22 @@ int main(void)
             if (event.type == SDL_KEYDOWN &&
                 event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
                 running = 0;
+            if (event.type == SDL_KEYDOWN &&
+                (event.key.keysym.mod & KMOD_CTRL) &&
+                !event.key.repeat) {
+                int scale = 0;
+
+                if (event.key.keysym.scancode == SDL_SCANCODE_1)
+                    scale = 1;
+                if (event.key.keysym.scancode == SDL_SCANCODE_2)
+                    scale = 2;
+                if (event.key.keysym.scancode == SDL_SCANCODE_3)
+                    scale = 3;
+                if (event.key.keysym.scancode == SDL_SCANCODE_4)
+                    scale = 4;
+                if (scale != 0)
+                    SDL_SetWindowSize(window, CANVAS_W * scale, CANVAS_H * scale);
+            }
         }
 
         keys = SDL_GetKeyboardState(NULL);
