@@ -5,8 +5,8 @@
 
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -O2 -I. -I../fw
-SDL_CFLAGS = $(shell pkg-config --cflags sdl2 SDL2_image)
-LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image)
+SDL_CFLAGS = $(shell pkg-config --cflags sdl2 SDL2_image SDL2_ttf)
+LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image SDL2_ttf)
 
 CORE = engine/signal.c chips/max7219.c chips/avr128db28.c board.c
 GAME = ../fw/frame.c ../fw/input.c ../fw/game.c \

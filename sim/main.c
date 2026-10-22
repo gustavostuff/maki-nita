@@ -5,6 +5,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 #include <stdio.h>
 
@@ -90,6 +91,84 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
     SDL_RenderCopy(renderer, button_tex, NULL, &button);
 }
 
+static TTF_Font *open_font(void)
+{
+    const char *rels[] = {
+        "assets/fonts/proggy-tiny.ttf",
+        "../assets/fonts/proggy-tiny.ttf",
+        NULL,
+    };
+    char *base = SDL_GetBasePath();
+    char path[1024];
+    int i;
+    TTF_Font *font = NULL;
+
+    if (base != NULL) {
+        snprintf(path, sizeof path, "%s../assets/fonts/proggy-tiny.ttf", base);
+        SDL_free(base);
+        font = TTF_OpenFont(path, 16);
+    }
+    for (i = 0; font == NULL && rels[i] != NULL; i++)
+        font = TTF_OpenFont(rels[i], 16);
+    if (font == NULL) {
+        SDL_Log("TTF_OpenFont failed: %s", TTF_GetError());
+        return NULL;
+    }
+    TTF_SetFontHinting(font, TTF_HINTING_MONO);
+    TTF_SetFontKerning(font, 0);
+    return font;
+}
+
+static SDL_Texture *fps_text(SDL_Renderer *renderer, TTF_Font *font, int fps,
+                             int *w, int *h)
+{
+    char buf[16];
+    SDL_Color color = {204, 204, 204, 255};
+    SDL_Surface *surface;
+    SDL_Texture *tex;
+
+    snprintf(buf, sizeof buf, "%d FPS", fps);
+    surface = TTF_RenderText_Solid(font, buf, color);
+    if (surface == NULL)
+        return NULL;
+    tex = SDL_CreateTextureFromSurface(renderer, surface);
+    if (tex != NULL) {
+        *w = surface->w;
+        *h = surface->h;
+    }
+    SDL_FreeSurface(surface);
+    return tex;
+}
+
+/* Sleep the rest of a 1/60 s frame, then spin the last slice. SDL_Delay
+ * wakes late, and that late wake is the uneven ship step. */
+static void pace(Uint64 frame_start, Uint64 freq)
+{
+    const double target = 1.0 / 60.0;
+
+    for (;;) {
+        Uint64 now = SDL_GetPerformanceCounter();
+        double left = target - (double)(now - frame_start) / (double)freq;
+
+        if (left <= 0.0)
+            return;
+        if (left > 0.002) {
+            Uint32 ms = (Uint32)((left - 0.001) * 1000.0);
+
+            if (ms > 0)
+                SDL_Delay(ms);
+        } else {
+            break;
+        }
+    }
+    for (;;) {
+        Uint64 now = SDL_GetPerformanceCounter();
+
+        if ((double)(now - frame_start) / (double)freq >= target)
+            return;
+    }
+}
+
 int main(void)
 {
     static Board board;
@@ -110,6 +189,12 @@ int main(void)
         SDL_Quit();
         return 1;
     }
+    if (TTF_Init() != 0) {
+        SDL_Log("TTF_Init failed: %s", TTF_GetError());
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
 
     /* The drivers latch the first picture before a window exists, so the
      * open does not flash an empty frame. */
@@ -122,6 +207,7 @@ int main(void)
     board_advance(&board, MAX7219_WAKE_NS);
     if (board_fault(&board) != 0) {
         SDL_Log("display bring-up saw a timing fault");
+        TTF_Quit();
         IMG_Quit();
         SDL_Quit();
         return 1;
@@ -136,6 +222,7 @@ int main(void)
                               SDL_WINDOW_HIDDEN);
     if (window == NULL) {
         SDL_Log("SDL_CreateWindow failed: %s", SDL_GetError());
+        TTF_Quit();
         IMG_Quit();
         SDL_Quit();
         return 1;
@@ -147,6 +234,7 @@ int main(void)
     if (renderer == NULL) {
         SDL_Log("SDL_CreateRenderer failed: %s", SDL_GetError());
         SDL_DestroyWindow(window);
+        TTF_Quit();
         IMG_Quit();
         SDL_Quit();
         return 1;
@@ -165,6 +253,21 @@ int main(void)
         SDL_DestroyTexture(button_tex);
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
+        TTF_Quit();
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    TTF_Font *font = open_font();
+    if (font == NULL) {
+        SDL_DestroyTexture(led_on);
+        SDL_DestroyTexture(led_off);
+        SDL_DestroyTexture(stick_tex);
+        SDL_DestroyTexture(button_tex);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
         IMG_Quit();
         SDL_Quit();
         return 1;
@@ -174,6 +277,13 @@ int main(void)
     SDL_RenderPresent(renderer);
     SDL_ShowWindow(window);
     SDL_RenderPresent(renderer);
+
+    Uint64 freq = SDL_GetPerformanceFrequency();
+    Uint64 frame_start = 0;
+    SDL_Texture *fps_tex = NULL;
+    int fps_show = -1;
+    int fps_w = 0;
+    int fps_h = 0;
 
     while (running) {
         SDL_Event event;
@@ -186,6 +296,25 @@ int main(void)
         int sx = 0;
         int sy = 0;
         int pressed;
+        Uint64 now = SDL_GetPerformanceCounter();
+
+        if (frame_start != 0 && now > frame_start) {
+            double dt = (double)(now - frame_start) / (double)freq;
+            int fps = (int)(1.0 / dt + 0.5);
+
+            if (fps > 999)
+                fps = 999;
+            if (fps != fps_show) {
+                SDL_Texture *next = fps_text(renderer, font, fps, &fps_w, &fps_h);
+
+                if (next != NULL) {
+                    SDL_DestroyTexture(fps_tex);
+                    fps_tex = next;
+                    fps_show = fps;
+                }
+            }
+        }
+        frame_start = now;
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT)
@@ -239,16 +368,29 @@ int main(void)
 
         draw(renderer, led_on, led_off, stick_tex, button_tex, &board,
              sx, sy, pressed);
+        if (fps_tex != NULL) {
+            SDL_Rect dst = {
+                CANVAS_W - fps_w - 2,
+                CANVAS_H - fps_h - 2,
+                fps_w,
+                fps_h,
+            };
+
+            SDL_RenderCopy(renderer, fps_tex, NULL, &dst);
+        }
         SDL_RenderPresent(renderer);
-        SDL_Delay(16);
+        pace(frame_start, freq);
     }
 
+    SDL_DestroyTexture(fps_tex);
     SDL_DestroyTexture(led_on);
     SDL_DestroyTexture(led_off);
     SDL_DestroyTexture(stick_tex);
     SDL_DestroyTexture(button_tex);
+    TTF_CloseFont(font);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
     return 0;

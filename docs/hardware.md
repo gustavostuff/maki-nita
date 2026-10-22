@@ -31,13 +31,13 @@ DOUT of one driver feeds DIN of the next. CLK is common. LOAD is common. DOUT ch
 
 ## Parts
 
-As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and Analog Devices lists the MAX7219ENG+ as in production. Neither part is end of life, and neither is discouraged for a new design.
+As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and Analog Devices lists the MAX7219ENG+ and the MAX7219CNG+ as in production. None of these parts is end of life, and none is discouraged for a new design.
 
 | Qty | Part | Role |
 | --- | --- | --- |
 | 1 | AVR128DB28-I/SP | CPU. 128 KB flash, 16 KB RAM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU |
-| 16 | MAX7219ENG+ | 8x8 common-cathode LED drivers, 24-pin DIP |
+| 16 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
 | 16 | 24-pin DIP sockets, 0.3 inch | For the drivers |
 | 16 | Red 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
 | 16 | 28 kohm | ISET, one per driver. About 20 mA peak per LED |
@@ -51,6 +51,8 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | 1 | 470 uF electrolytic | Bulk capacitor on the 5 V rail |
 | 16 | 10 uF electrolytic | One from each driver V+ to GND, close to the package |
 | 19 | 100 nF | One at each driver V+ pin, and at VDD, AVDD, and VDDIO2 |
+
+The MAX7219CNG+ is the commercial grade of the same narrow plastic DIP as the MAX7219ENG+. Datasheet revision 6 gives both parts one pin diagram. DIN is pin 1, LOAD is pin 12, CLK is pin 13, ISET is pin 18, V+ is pin 19, and DOUT is pin 24. The digit and segment pins match the block wiring below. The electrical limits are the same table, checked across each part's own temperature range. Analog Devices rates the CNG+ from 0 to 70 degrees C, and the ENG+ from -40 to 85 degrees C.
 
 VDD, AVDD, and VDDIO2 all tie to the 5 V rail. Port C takes power from VDDIO2. An open VDDIO2 pin leaves that port unpowered.
 
