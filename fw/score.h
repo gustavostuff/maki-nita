@@ -2,13 +2,17 @@
 #define FW_SCORE_H
 
 /*
- * The bottom row of the field. A binary count of rocks removed by a
- * bullet, drawn on the right. The rightmost LED is the ones bit.
- * The count stops at 256.
+ * The round's score. It stops at 999.
+ * score_judge compares it with the saved score, then stores it.
+ * The result is 1 when the score is higher, 0 when the two match,
+ * and -1 when the score is lower. A score of 999 against a saved
+ * 999 counts as higher.
  */
 
 void score_reset(void);
+void score_clear_saved(void);
 void score_add(int points);
-void score_draw(void);
+int score_get(void);
+int score_judge(void);
 
 #endif

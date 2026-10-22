@@ -11,7 +11,7 @@ LDFLAGS = -mmcu=$(MCU)
 
 SRCS = main.c hal.c ../frame.c ../input.c ../game.c ../flush.c \
        ../entity/base_entity.c ../entity/player.c \
-       ../entity/bullet.c ../entity/rock.c ../score.c
+       ../entity/bullet.c ../entity/rock.c ../score.c ../text.c
 
 game.elf: $(SRCS)
 	$(CC) $(CFLAGS) -o $@ $(SRCS) $(LDFLAGS)

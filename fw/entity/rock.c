@@ -27,6 +27,7 @@ static const Shape solid3 = {solid3_rows, 3, 3};
 typedef struct Rock {
     BaseEntity e;
     int size;
+    int fall;
     int dx;
     int xevery;
     int xpace;
@@ -34,7 +35,22 @@ typedef struct Rock {
 
 static Rock rock[ROCK_MAX];
 static int spawn_wait;
+static int age;
 static uint16_t rng;
+
+int rock_fall_period(int base, int age_ticks)
+{
+    int drop;
+
+    if (base <= 1)
+        return 1;
+    if (age_ticks < 0)
+        age_ticks = 0;
+    if (age_ticks > ROCK_RAMP)
+        age_ticks = ROCK_RAMP;
+    drop = (base - 1) * age_ticks / ROCK_RAMP;
+    return base - drop;
+}
 
 static const Shape *shape_of(const Rock *r)
 {
@@ -54,6 +70,7 @@ void rock_reset(void)
     for (i = 0; i < ROCK_MAX; i++)
         rock[i].e.live = 0;
     spawn_wait = 12;
+    age = 0;
     rng = 1;
 }
 
@@ -76,6 +93,7 @@ void rock_add(int x, int y, int size, int every, int dx, int xevery)
             continue;
         base_take(&rock[i].e, x, y, every);
         rock[i].size = size;
+        rock[i].fall = every;
         rock[i].dx = dx;
         rock[i].xevery = xevery;
         rock[i].xpace = 0;
@@ -117,6 +135,7 @@ int rock_tick(void)
     int i;
     int crashed = 0;
 
+    age++;
     spawn_wait--;
     if (spawn_wait <= 0) {
         spawn();
@@ -128,6 +147,7 @@ int rock_tick(void)
 
         if (!r->e.live)
             continue;
+        r->e.every = rock_fall_period(r->fall, age);
         if (base_due(&r->e))
             r->e.y++;
         if (r->dx != 0) {

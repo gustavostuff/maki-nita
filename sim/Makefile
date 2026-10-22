@@ -11,7 +11,7 @@ LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image SDL2_ttf)
 CORE = engine/signal.c chips/max7219.c chips/avr128db28.c board.c
 GAME = ../fw/frame.c ../fw/input.c ../fw/game.c \
        ../fw/entity/base_entity.c ../fw/entity/player.c \
-       ../fw/entity/bullet.c ../fw/entity/rock.c ../fw/score.c
+       ../fw/entity/bullet.c ../fw/entity/rock.c ../fw/score.c ../fw/text.c
 FW = $(GAME) ../fw/flush.c
 
 TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_board tests/test_game

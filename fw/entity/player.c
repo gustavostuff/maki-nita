@@ -16,7 +16,7 @@ static BaseEntity ship;
 
 void player_reset(void)
 {
-    base_take(&ship, 6, 12, STEP_EVERY);
+    base_take(&ship, 6, 13, STEP_EVERY);
 }
 
 void player_tick(const Input *in)
@@ -38,9 +38,6 @@ void player_tick(const Input *in)
     ship.x += dx;
     ship.y += dy;
     base_clamp(&ship, ship_shape.w, ship_shape.h);
-    /* The bottom row is the score. The ship stops when it touches that row. */
-    if (ship.y > FIELD - 1 - ship_shape.h)
-        ship.y = FIELD - 1 - ship_shape.h;
 }
 
 void player_draw(void)

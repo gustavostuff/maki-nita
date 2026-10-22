@@ -87,7 +87,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "07330dde-27c7-4503-afaf-0a522a67a130")
-		(at 80.58 61.22)
+		(at 105.58 60.38)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U5"
@@ -310,7 +310,7 @@
 			)
 		)
 		(point
-			(at 84.39 75.19)
+			(at 109.39 74.35)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "734ed70e-465c-4abd-a954-9699e1c99339")
@@ -572,7 +572,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "3f82303d-4749-499e-a71f-497546dfd679")
-		(at 48.2 61.76)
+		(at 27.2 59.92)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U4"
@@ -795,7 +795,7 @@
 			)
 		)
 		(point
-			(at 52.01 75.73)
+			(at 31.01 73.89)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "7058bb8c-7ec0-4f2c-9b66-02419e089db1")
@@ -1803,7 +1803,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "bceee842-6f4d-4349-939e-41249805e520")
-		(at 48.2 28.22)
+		(at 27.2 25.38)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U2"
@@ -2026,7 +2026,7 @@
 			)
 		)
 		(point
-			(at 52.01 42.19)
+			(at 31.01 39.35)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "10ce0b0e-24f1-4bad-abdd-234715b81b5a")
@@ -3560,7 +3560,7 @@
 	(footprint "Package_DIP:DIP-24_W7.62mm"
 		(layer "F.Cu")
 		(uuid "fabca4b7-9d69-46ec-9811-352623141776")
-		(at 80.58 27.76)
+		(at 105.58 24.84)
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U3"
@@ -3783,7 +3783,7 @@
 			)
 		)
 		(point
-			(at 84.39 41.73)
+			(at 109.39 38.81)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "aba798cc-7a44-4c74-877b-9ae75b7ec069")

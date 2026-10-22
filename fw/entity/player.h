@@ -9,7 +9,7 @@
  *   111
  *   111
  * The stick steps it one LED every two ticks.
- * Its bottom row stops on the row above the score.
+ * It can reach every edge of the field.
  */
 
 void player_reset(void);

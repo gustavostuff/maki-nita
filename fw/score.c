@@ -1,16 +1,23 @@
 #include "score.h"
 
-#include "entity/base_entity.h"
-#include "frame.h"
-
-#define SCORE_MAX 256
-#define SCORE_BITS 9
+#define SCORE_MAX 999
 
 static int score;
+static int saved;
 
 void score_reset(void)
 {
     score = 0;
+}
+
+void score_clear_saved(void)
+{
+    saved = 0;
+}
+
+int score_get(void)
+{
+    return score;
 }
 
 void score_add(int points)
@@ -22,17 +29,18 @@ void score_add(int points)
         score = SCORE_MAX;
 }
 
-void score_draw(void)
+int score_judge(void)
 {
-    int bit;
-    int value = score;
-    int x;
+    int cmp;
 
-    for (x = 0; x < FIELD; x++)
-        pixel((uint8_t)x, (uint8_t)(FIELD - 1), false);
-    for (bit = 0; bit < SCORE_BITS; bit++) {
-        if ((value & 1) != 0)
-            pixel((uint8_t)(FIELD - 1 - bit), (uint8_t)(FIELD - 1), true);
-        value >>= 1;
-    }
+    if (score == SCORE_MAX && saved == SCORE_MAX)
+        cmp = 1;
+    else if (score > saved)
+        cmp = 1;
+    else if (score < saved)
+        cmp = -1;
+    else
+        cmp = 0;
+    saved = score;
+    return cmp;
 }
