@@ -91,6 +91,34 @@ static void draw(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_o
     SDL_RenderCopy(renderer, button_tex, NULL, &button);
 }
 
+/* The canvas is 1:1 with the art. One integer scale of that whole picture
+ * keeps every source pixel the same size. Per-sprite scaling does not. */
+static void present_canvas(SDL_Renderer *renderer, SDL_Texture *canvas)
+{
+    int out_w;
+    int out_h;
+    int scale;
+    int fit_h;
+    SDL_Rect dst;
+
+    SDL_SetRenderTarget(renderer, NULL);
+    SDL_GetRendererOutputSize(renderer, &out_w, &out_h);
+    scale = out_w / CANVAS_W;
+    fit_h = out_h / CANVAS_H;
+    if (fit_h < scale)
+        scale = fit_h;
+    if (scale < 1)
+        scale = 1;
+    dst.x = (out_w - CANVAS_W * scale) / 2;
+    dst.y = (out_h - CANVAS_H * scale) / 2;
+    dst.w = CANVAS_W * scale;
+    dst.h = CANVAS_H * scale;
+    SDL_SetRenderDrawColor(renderer, BG, BG, BG, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, canvas, NULL, &dst);
+    SDL_RenderPresent(renderer);
+}
+
 static TTF_Font *open_font(void)
 {
     const char *rels[] = {
@@ -228,9 +256,11 @@ int main(void)
         return 1;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1,
+                                 SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
     if (renderer == NULL)
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+        renderer = SDL_CreateRenderer(window, -1,
+                                     SDL_RENDERER_SOFTWARE | SDL_RENDERER_TARGETTEXTURE);
     if (renderer == NULL) {
         SDL_Log("SDL_CreateRenderer failed: %s", SDL_GetError());
         SDL_DestroyWindow(window);
@@ -239,9 +269,6 @@ int main(void)
         SDL_Quit();
         return 1;
     }
-    SDL_RenderSetLogicalSize(renderer, CANVAS_W, CANVAS_H);
-    SDL_RenderSetIntegerScale(renderer, SDL_TRUE);
-
     led_on = load_tex(renderer, "led_on.png");
     led_off = load_tex(renderer, "led_off.png");
     stick_tex = load_tex(renderer, "stick.png");
@@ -259,8 +286,29 @@ int main(void)
         return 1;
     }
 
+    SDL_Texture *canvas = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,
+                                            SDL_TEXTUREACCESS_TARGET,
+                                            CANVAS_W, CANVAS_H);
+    if (canvas == NULL) {
+        SDL_Log("canvas texture failed: %s", SDL_GetError());
+        SDL_DestroyTexture(led_on);
+        SDL_DestroyTexture(led_off);
+        SDL_DestroyTexture(stick_tex);
+        SDL_DestroyTexture(button_tex);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
+    SDL_SetTextureScaleMode(canvas, SDL_ScaleModeNearest);
+    SDL_SetTextureScaleMode(led_on, SDL_ScaleModeNearest);
+    SDL_SetTextureScaleMode(led_off, SDL_ScaleModeNearest);
+
     TTF_Font *font = open_font();
     if (font == NULL) {
+        SDL_DestroyTexture(canvas);
         SDL_DestroyTexture(led_on);
         SDL_DestroyTexture(led_off);
         SDL_DestroyTexture(stick_tex);
@@ -273,10 +321,11 @@ int main(void)
         return 1;
     }
 
+    SDL_SetRenderTarget(renderer, canvas);
     draw(renderer, led_on, led_off, stick_tex, button_tex, &board, 0, 0, 0);
-    SDL_RenderPresent(renderer);
+    present_canvas(renderer, canvas);
     SDL_ShowWindow(window);
-    SDL_RenderPresent(renderer);
+    present_canvas(renderer, canvas);
 
     Uint64 freq = SDL_GetPerformanceFrequency();
     Uint64 frame_start = 0;
@@ -308,6 +357,7 @@ int main(void)
                 SDL_Texture *next = fps_text(renderer, font, fps, &fps_w, &fps_h);
 
                 if (next != NULL) {
+                    SDL_SetTextureScaleMode(next, SDL_ScaleModeNearest);
                     SDL_DestroyTexture(fps_tex);
                     fps_tex = next;
                     fps_show = fps;
@@ -366,6 +416,7 @@ int main(void)
         drivers_flush();
         board_advance(&board, 16000000);
 
+        SDL_SetRenderTarget(renderer, canvas);
         draw(renderer, led_on, led_off, stick_tex, button_tex, &board,
              sx, sy, pressed);
         if (fps_tex != NULL) {
@@ -378,11 +429,12 @@ int main(void)
 
             SDL_RenderCopy(renderer, fps_tex, NULL, &dst);
         }
-        SDL_RenderPresent(renderer);
+        present_canvas(renderer, canvas);
         pace(frame_start, freq);
     }
 
     SDL_DestroyTexture(fps_tex);
+    SDL_DestroyTexture(canvas);
     SDL_DestroyTexture(led_on);
     SDL_DestroyTexture(led_off);
     SDL_DestroyTexture(stick_tex);

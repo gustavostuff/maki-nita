@@ -1,0 +1,10 @@
+(fp_lib_table
+	(version 7)
+	(lib
+		(name "MakiNita")
+		(type "KiCad")
+		(uri "${KIPRJMOD}/library/MakiNita.pretty")
+		(options "")
+		(descr "Maki Nita matrix footprint. Pin pitch and row spacing are unconfirmed.")
+	)
+)

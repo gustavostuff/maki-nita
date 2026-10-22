@@ -1,0 +1,4448 @@
+(export 
+  (version "D")
+  (design
+    (source "maki_nita.py")
+    (date "10/22/2026 10:12 AM")
+    (tool "SKiDL (2.3.0)")
+    (sheet
+      (number 1)
+      (name "/")
+      (tstamps "/")
+      (title_block
+        (title)
+        (company)
+        (rev)
+        (date)
+        (source "../../maki_nita.py")
+        (comment
+          (number "1")
+          (value ""))
+        (comment
+          (number "2")
+          (value ""))
+        (comment
+          (number "3")
+          (value ""))
+        (comment
+          (number "4")
+          (value ""))
+        (comment
+          (number "5")
+          (value ""))
+        (comment
+          (number "6")
+          (value ""))
+        (comment
+          (number "7")
+          (value ""))
+        (comment
+          (number "8")
+          (value ""))
+        (comment
+          (number "9")
+          (value "")))))
+  (components
+    (comp
+      (ref "DS1")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS1")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "6b5538e1-348d-5031-ae03-28677b6c506b"))
+    (comp
+      (ref "DS10")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS10")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "5ee13c1f-12dc-5183-8825-ffca320aec96"))
+    (comp
+      (ref "DS11")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS11")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "c88e62ba-ec0f-5182-86ff-4bf1fc7a61fe"))
+    (comp
+      (ref "DS12")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS12")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "fad1b427-08a3-5f40-ba1e-63e5dfc8ae21"))
+    (comp
+      (ref "DS13")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS13")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "4c15f4ce-2a48-5cc2-96d8-b2630f955214"))
+    (comp
+      (ref "DS14")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS14")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "f3e19932-d908-50aa-876a-c66b5a68e17c"))
+    (comp
+      (ref "DS15")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS15")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "68c639c5-f117-5b04-9e53-c7efa00fd799"))
+    (comp
+      (ref "DS16")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS16")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "50764512-b17e-5c4e-94a6-a85c4b6f0b50"))
+    (comp
+      (ref "DS2")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS2")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "496f24b5-65eb-55f7-9d9b-edaf0bf2327b"))
+    (comp
+      (ref "DS3")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS3")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "1461e2a3-1587-50c7-8cf2-21b3d291512f"))
+    (comp
+      (ref "DS4")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS4")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "bd696a26-ce58-523e-ae7c-5f4cd916d9af"))
+    (comp
+      (ref "DS5")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS5")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "ce281a52-257b-5ba6-a5ca-b8e40f3d846b"))
+    (comp
+      (ref "DS6")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS6")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "04bc14aa-85bd-5916-a35c-63a0b7696138"))
+    (comp
+      (ref "DS7")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS7")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "e97faa4a-2c6a-55a9-98c8-3c4f860b16ed"))
+    (comp
+      (ref "DS8")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS8")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "fe8315f4-9c8c-5e1b-a183-40b4e0b84e0d"))
+    (comp
+      (ref "DS9")
+      (value "Matrix8x8")
+      (description "")
+      (footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "DS9")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "Matrix8x8"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "bbb839dc-c94e-519f-b61b-1c589144dec8"))
+    (comp
+      (ref "U1")
+      (value "AVR128DB28-I/SP")
+      (description "")
+      (footprint "Package_DIP:DIP-28_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-28_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U1")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "AVR128DB28-I/SP"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "f8fce87b-acde-5341-b554-4e93a034d648"))
+    (comp
+      (ref "U10")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U10")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "b837a9be-139d-5aa2-acfc-27896a6ee169"))
+    (comp
+      (ref "U11")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U11")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "5628e4a6-a160-5f8a-a145-fc60506ebdd3"))
+    (comp
+      (ref "U12")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U12")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "17961b9f-b52d-544b-815d-76d693295643"))
+    (comp
+      (ref "U13")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U13")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "cdcb3be2-8fff-5398-8273-cde8ec3ebf0d"))
+    (comp
+      (ref "U14")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U14")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "ddecac60-a4e9-546b-9868-8965b28b3d4d"))
+    (comp
+      (ref "U15")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U15")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "ed05584a-54d6-578e-9dcc-75250bc0c08e"))
+    (comp
+      (ref "U16")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U16")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "ac1d503f-7696-5d4e-b7d6-b257c5d4519c"))
+    (comp
+      (ref "U17")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U17")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "b2621955-bf62-57c1-8b3d-d76c898e1b28"))
+    (comp
+      (ref "U2")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U2")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "7a03e947-39e7-5554-99eb-b5f6bb184fae"))
+    (comp
+      (ref "U3")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U3")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "d29b9cd6-156c-5987-b6f9-a6a085b1d5a7"))
+    (comp
+      (ref "U4")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U4")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "b2699459-f172-5b2a-8b70-5ef993fb2f77"))
+    (comp
+      (ref "U5")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U5")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "6254ed11-c784-58f8-9988-ecfc74740e7c"))
+    (comp
+      (ref "U6")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U6")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "aee7dbbb-30a2-5780-a35b-54386b8e659f"))
+    (comp
+      (ref "U7")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U7")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "ab236476-70f8-5542-a3ab-0bc4462af286"))
+    (comp
+      (ref "U8")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U8")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "f56aafd4-c086-5584-a621-53ab2b17ba80"))
+    (comp
+      (ref "U9")
+      (value "MAX7219")
+      (description "")
+      (footprint "Package_DIP:DIP-24_W7.62mm")
+      (fields
+        (field
+          (name "Description"))
+        (field
+          (name "Footprint") "Package_DIP:DIP-24_W7.62mm")
+        (field
+          (name "Datasheet"))
+        (field
+          (name "SKiDL Tag") "U9")
+        (field
+          (name "SKiDL Line") "maki_nita.py:130"))
+      (libsource
+        (lib "NO_LIB")
+        (part "MAX7219"))
+      (sheetpath
+        (names "/")
+        (tstamps "/"))
+      (component_classes)
+      (tstamps "08ba691c-bdf8-55e7-8681-4964b6a21ce3")))
+  (nets
+    (net
+      (code 1)
+      (name "+5V") (class "5V_GND")
+      (node
+        (ref "U1")
+        (pin "14")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U1")
+        (pin "20")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U1")
+        (pin "6")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U10")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U11")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U12")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U13")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U14")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U15")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U16")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U17")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U2")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U3")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U4")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U5")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U6")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U7")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U8")
+        (pin "19")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U9")
+        (pin "19")
+        (pintype "POWER-IN")))
+    (net
+      (code 2)
+      (name "BUTTON") (class "Default")
+      (node
+        (ref "U1")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 3)
+      (name "CLK") (class "Default")
+      (node
+        (ref "U1")
+        (pin "28")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "13")
+        (pintype "PASSIVE")))
+    (net
+      (code 4)
+      (name "DIN") (class "Default")
+      (node
+        (ref "U1")
+        (pin "26")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 5)
+      (name "DOUT") (class "Default")
+      (node
+        (ref "U17")
+        (pin "24")
+        (pintype "PASSIVE")))
+    (net
+      (code 6)
+      (name "DOUT_U10") (class "Default")
+      (node
+        (ref "U10")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 7)
+      (name "DOUT_U11") (class "Default")
+      (node
+        (ref "U11")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 8)
+      (name "DOUT_U12") (class "Default")
+      (node
+        (ref "U12")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 9)
+      (name "DOUT_U13") (class "Default")
+      (node
+        (ref "U13")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 10)
+      (name "DOUT_U14") (class "Default")
+      (node
+        (ref "U14")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 11)
+      (name "DOUT_U15") (class "Default")
+      (node
+        (ref "U15")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 12)
+      (name "DOUT_U16") (class "Default")
+      (node
+        (ref "U16")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 13)
+      (name "DOUT_U2") (class "Default")
+      (node
+        (ref "U2")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 14)
+      (name "DOUT_U3") (class "Default")
+      (node
+        (ref "U3")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 15)
+      (name "DOUT_U4") (class "Default")
+      (node
+        (ref "U4")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 16)
+      (name "DOUT_U5") (class "Default")
+      (node
+        (ref "U5")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 17)
+      (name "DOUT_U6") (class "Default")
+      (node
+        (ref "U6")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 18)
+      (name "DOUT_U7") (class "Default")
+      (node
+        (ref "U7")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 19)
+      (name "DOUT_U8") (class "Default")
+      (node
+        (ref "U8")
+        (pin "24")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "1")
+        (pintype "PASSIVE")))
+    (net
+      (code 20)
+      (name "DOUT_U9") (class "Default")
+      (node
+        (ref "U10")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "24")
+        (pintype "PASSIVE")))
+    (net
+      (code 21)
+      (name "DOWN") (class "Default")
+      (node
+        (ref "U1")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 22)
+      (name "GND") (class "5V_GND")
+      (node
+        (ref "U1")
+        (pin "15")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U1")
+        (pin "21")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U10")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U10")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U11")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U11")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U12")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U12")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U13")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U13")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U14")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U14")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U15")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U15")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U16")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U16")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U17")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U17")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U2")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U2")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U3")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U3")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U4")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U4")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U5")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U5")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U6")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U6")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U7")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U7")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U8")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U8")
+        (pin "9")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U9")
+        (pin "4")
+        (pintype "POWER-IN"))
+      (node
+        (ref "U9")
+        (pin "9")
+        (pintype "POWER-IN")))
+    (net
+      (code 23)
+      (name "LEFT") (class "Default")
+      (node
+        (ref "U1")
+        (pin "9")
+        (pintype "PASSIVE")))
+    (net
+      (code 24)
+      (name "LOAD") (class "Default")
+      (node
+        (ref "U1")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "12")
+        (pintype "PASSIVE")))
+    (net
+      (code 25)
+      (name "NC_U1_12") (class "Default")
+      (node
+        (ref "U1")
+        (pin "12")
+        (pintype "PASSIVE")))
+    (net
+      (code 26)
+      (name "NC_U1_13") (class "Default")
+      (node
+        (ref "U1")
+        (pin "13")
+        (pintype "PASSIVE")))
+    (net
+      (code 27)
+      (name "NC_U1_16") (class "Default")
+      (node
+        (ref "U1")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 28)
+      (name "NC_U1_17") (class "Default")
+      (node
+        (ref "U1")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 29)
+      (name "NC_U1_2") (class "Default")
+      (node
+        (ref "U1")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 30)
+      (name "NC_U1_22") (class "Default")
+      (node
+        (ref "U1")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 31)
+      (name "NC_U1_23") (class "Default")
+      (node
+        (ref "U1")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 32)
+      (name "NC_U1_24") (class "Default")
+      (node
+        (ref "U1")
+        (pin "24")
+        (pintype "PASSIVE")))
+    (net
+      (code 33)
+      (name "NC_U1_25") (class "Default")
+      (node
+        (ref "U1")
+        (pin "25")
+        (pintype "PASSIVE")))
+    (net
+      (code 34)
+      (name "NC_U1_27") (class "Default")
+      (node
+        (ref "U1")
+        (pin "27")
+        (pintype "PASSIVE")))
+    (net
+      (code 35)
+      (name "NC_U1_3") (class "Default")
+      (node
+        (ref "U1")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 36)
+      (name "NC_U1_4") (class "Default")
+      (node
+        (ref "U1")
+        (pin "4")
+        (pintype "PASSIVE")))
+    (net
+      (code 37)
+      (name "NC_U1_5") (class "Default")
+      (node
+        (ref "U1")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 38)
+      (name "RESET") (class "Default")
+      (node
+        (ref "U1")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 39)
+      (name "RIGHT") (class "Default")
+      (node
+        (ref "U1")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 40)
+      (name "ROW1_DS1_C0") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 41)
+      (name "ROW1_DS1_C1") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 42)
+      (name "ROW1_DS1_C2") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 43)
+      (name "ROW1_DS1_C3") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 44)
+      (name "ROW1_DS1_C4") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 45)
+      (name "ROW1_DS1_C5") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 46)
+      (name "ROW1_DS1_C6") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 47)
+      (name "ROW1_DS1_C7") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 48)
+      (name "ROW1_DS1_R0") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 49)
+      (name "ROW1_DS1_R1") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 50)
+      (name "ROW1_DS1_R2") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 51)
+      (name "ROW1_DS1_R3") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 52)
+      (name "ROW1_DS1_R4") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 53)
+      (name "ROW1_DS1_R5") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 54)
+      (name "ROW1_DS1_R6") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 55)
+      (name "ROW1_DS1_R7") (class "ROW1")
+      (node
+        (ref "DS1")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U2")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 56)
+      (name "ROW1_DS2_C0") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 57)
+      (name "ROW1_DS2_C1") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 58)
+      (name "ROW1_DS2_C2") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 59)
+      (name "ROW1_DS2_C3") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 60)
+      (name "ROW1_DS2_C4") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 61)
+      (name "ROW1_DS2_C5") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 62)
+      (name "ROW1_DS2_C6") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 63)
+      (name "ROW1_DS2_C7") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 64)
+      (name "ROW1_DS2_R0") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 65)
+      (name "ROW1_DS2_R1") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 66)
+      (name "ROW1_DS2_R2") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 67)
+      (name "ROW1_DS2_R3") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 68)
+      (name "ROW1_DS2_R4") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 69)
+      (name "ROW1_DS2_R5") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 70)
+      (name "ROW1_DS2_R6") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 71)
+      (name "ROW1_DS2_R7") (class "ROW1")
+      (node
+        (ref "DS2")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U3")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 72)
+      (name "ROW1_DS3_C0") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 73)
+      (name "ROW1_DS3_C1") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 74)
+      (name "ROW1_DS3_C2") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 75)
+      (name "ROW1_DS3_C3") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 76)
+      (name "ROW1_DS3_C4") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 77)
+      (name "ROW1_DS3_C5") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 78)
+      (name "ROW1_DS3_C6") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 79)
+      (name "ROW1_DS3_C7") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 80)
+      (name "ROW1_DS3_R0") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 81)
+      (name "ROW1_DS3_R1") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 82)
+      (name "ROW1_DS3_R2") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 83)
+      (name "ROW1_DS3_R3") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 84)
+      (name "ROW1_DS3_R4") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 85)
+      (name "ROW1_DS3_R5") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 86)
+      (name "ROW1_DS3_R6") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 87)
+      (name "ROW1_DS3_R7") (class "ROW1")
+      (node
+        (ref "DS3")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U4")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 88)
+      (name "ROW1_DS4_C0") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 89)
+      (name "ROW1_DS4_C1") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 90)
+      (name "ROW1_DS4_C2") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 91)
+      (name "ROW1_DS4_C3") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 92)
+      (name "ROW1_DS4_C4") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 93)
+      (name "ROW1_DS4_C5") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 94)
+      (name "ROW1_DS4_C6") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 95)
+      (name "ROW1_DS4_C7") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 96)
+      (name "ROW1_DS4_R0") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 97)
+      (name "ROW1_DS4_R1") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 98)
+      (name "ROW1_DS4_R2") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 99)
+      (name "ROW1_DS4_R3") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 100)
+      (name "ROW1_DS4_R4") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 101)
+      (name "ROW1_DS4_R5") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 102)
+      (name "ROW1_DS4_R6") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 103)
+      (name "ROW1_DS4_R7") (class "ROW1")
+      (node
+        (ref "DS4")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U5")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 104)
+      (name "ROW2_DS5_C0") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 105)
+      (name "ROW2_DS5_C1") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 106)
+      (name "ROW2_DS5_C2") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 107)
+      (name "ROW2_DS5_C3") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 108)
+      (name "ROW2_DS5_C4") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 109)
+      (name "ROW2_DS5_C5") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 110)
+      (name "ROW2_DS5_C6") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 111)
+      (name "ROW2_DS5_C7") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 112)
+      (name "ROW2_DS5_R0") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 113)
+      (name "ROW2_DS5_R1") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 114)
+      (name "ROW2_DS5_R2") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 115)
+      (name "ROW2_DS5_R3") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 116)
+      (name "ROW2_DS5_R4") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 117)
+      (name "ROW2_DS5_R5") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 118)
+      (name "ROW2_DS5_R6") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 119)
+      (name "ROW2_DS5_R7") (class "ROW2")
+      (node
+        (ref "DS5")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U6")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 120)
+      (name "ROW2_DS6_C0") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 121)
+      (name "ROW2_DS6_C1") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 122)
+      (name "ROW2_DS6_C2") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 123)
+      (name "ROW2_DS6_C3") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 124)
+      (name "ROW2_DS6_C4") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 125)
+      (name "ROW2_DS6_C5") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 126)
+      (name "ROW2_DS6_C6") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 127)
+      (name "ROW2_DS6_C7") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 128)
+      (name "ROW2_DS6_R0") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 129)
+      (name "ROW2_DS6_R1") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 130)
+      (name "ROW2_DS6_R2") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 131)
+      (name "ROW2_DS6_R3") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 132)
+      (name "ROW2_DS6_R4") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 133)
+      (name "ROW2_DS6_R5") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 134)
+      (name "ROW2_DS6_R6") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 135)
+      (name "ROW2_DS6_R7") (class "ROW2")
+      (node
+        (ref "DS6")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U7")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 136)
+      (name "ROW2_DS7_C0") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 137)
+      (name "ROW2_DS7_C1") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 138)
+      (name "ROW2_DS7_C2") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 139)
+      (name "ROW2_DS7_C3") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 140)
+      (name "ROW2_DS7_C4") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 141)
+      (name "ROW2_DS7_C5") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 142)
+      (name "ROW2_DS7_C6") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 143)
+      (name "ROW2_DS7_C7") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 144)
+      (name "ROW2_DS7_R0") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 145)
+      (name "ROW2_DS7_R1") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 146)
+      (name "ROW2_DS7_R2") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 147)
+      (name "ROW2_DS7_R3") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 148)
+      (name "ROW2_DS7_R4") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 149)
+      (name "ROW2_DS7_R5") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 150)
+      (name "ROW2_DS7_R6") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 151)
+      (name "ROW2_DS7_R7") (class "ROW2")
+      (node
+        (ref "DS7")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U8")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 152)
+      (name "ROW2_DS8_C0") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 153)
+      (name "ROW2_DS8_C1") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 154)
+      (name "ROW2_DS8_C2") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 155)
+      (name "ROW2_DS8_C3") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 156)
+      (name "ROW2_DS8_C4") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 157)
+      (name "ROW2_DS8_C5") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 158)
+      (name "ROW2_DS8_C6") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 159)
+      (name "ROW2_DS8_C7") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 160)
+      (name "ROW2_DS8_R0") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 161)
+      (name "ROW2_DS8_R1") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 162)
+      (name "ROW2_DS8_R2") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 163)
+      (name "ROW2_DS8_R3") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 164)
+      (name "ROW2_DS8_R4") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 165)
+      (name "ROW2_DS8_R5") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 166)
+      (name "ROW2_DS8_R6") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 167)
+      (name "ROW2_DS8_R7") (class "ROW2")
+      (node
+        (ref "DS8")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U9")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 168)
+      (name "ROW3_DS10_C0") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 169)
+      (name "ROW3_DS10_C1") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 170)
+      (name "ROW3_DS10_C2") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 171)
+      (name "ROW3_DS10_C3") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 172)
+      (name "ROW3_DS10_C4") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 173)
+      (name "ROW3_DS10_C5") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 174)
+      (name "ROW3_DS10_C6") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 175)
+      (name "ROW3_DS10_C7") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 176)
+      (name "ROW3_DS10_R0") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 177)
+      (name "ROW3_DS10_R1") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 178)
+      (name "ROW3_DS10_R2") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 179)
+      (name "ROW3_DS10_R3") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 180)
+      (name "ROW3_DS10_R4") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 181)
+      (name "ROW3_DS10_R5") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 182)
+      (name "ROW3_DS10_R6") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 183)
+      (name "ROW3_DS10_R7") (class "ROW3")
+      (node
+        (ref "DS10")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U11")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 184)
+      (name "ROW3_DS11_C0") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 185)
+      (name "ROW3_DS11_C1") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 186)
+      (name "ROW3_DS11_C2") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 187)
+      (name "ROW3_DS11_C3") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 188)
+      (name "ROW3_DS11_C4") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 189)
+      (name "ROW3_DS11_C5") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 190)
+      (name "ROW3_DS11_C6") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 191)
+      (name "ROW3_DS11_C7") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 192)
+      (name "ROW3_DS11_R0") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 193)
+      (name "ROW3_DS11_R1") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 194)
+      (name "ROW3_DS11_R2") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 195)
+      (name "ROW3_DS11_R3") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 196)
+      (name "ROW3_DS11_R4") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 197)
+      (name "ROW3_DS11_R5") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 198)
+      (name "ROW3_DS11_R6") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 199)
+      (name "ROW3_DS11_R7") (class "ROW3")
+      (node
+        (ref "DS11")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U12")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 200)
+      (name "ROW3_DS12_C0") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 201)
+      (name "ROW3_DS12_C1") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 202)
+      (name "ROW3_DS12_C2") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 203)
+      (name "ROW3_DS12_C3") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 204)
+      (name "ROW3_DS12_C4") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 205)
+      (name "ROW3_DS12_C5") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 206)
+      (name "ROW3_DS12_C6") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 207)
+      (name "ROW3_DS12_C7") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 208)
+      (name "ROW3_DS12_R0") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 209)
+      (name "ROW3_DS12_R1") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 210)
+      (name "ROW3_DS12_R2") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 211)
+      (name "ROW3_DS12_R3") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 212)
+      (name "ROW3_DS12_R4") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 213)
+      (name "ROW3_DS12_R5") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 214)
+      (name "ROW3_DS12_R6") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 215)
+      (name "ROW3_DS12_R7") (class "ROW3")
+      (node
+        (ref "DS12")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U13")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 216)
+      (name "ROW3_DS9_C0") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 217)
+      (name "ROW3_DS9_C1") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 218)
+      (name "ROW3_DS9_C2") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 219)
+      (name "ROW3_DS9_C3") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 220)
+      (name "ROW3_DS9_C4") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 221)
+      (name "ROW3_DS9_C5") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 222)
+      (name "ROW3_DS9_C6") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 223)
+      (name "ROW3_DS9_C7") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 224)
+      (name "ROW3_DS9_R0") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 225)
+      (name "ROW3_DS9_R1") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 226)
+      (name "ROW3_DS9_R2") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 227)
+      (name "ROW3_DS9_R3") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 228)
+      (name "ROW3_DS9_R4") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 229)
+      (name "ROW3_DS9_R5") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 230)
+      (name "ROW3_DS9_R6") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 231)
+      (name "ROW3_DS9_R7") (class "ROW3")
+      (node
+        (ref "DS9")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U10")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 232)
+      (name "ROW4_DS13_C0") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 233)
+      (name "ROW4_DS13_C1") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 234)
+      (name "ROW4_DS13_C2") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 235)
+      (name "ROW4_DS13_C3") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 236)
+      (name "ROW4_DS13_C4") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 237)
+      (name "ROW4_DS13_C5") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 238)
+      (name "ROW4_DS13_C6") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 239)
+      (name "ROW4_DS13_C7") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 240)
+      (name "ROW4_DS13_R0") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 241)
+      (name "ROW4_DS13_R1") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 242)
+      (name "ROW4_DS13_R2") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 243)
+      (name "ROW4_DS13_R3") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 244)
+      (name "ROW4_DS13_R4") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 245)
+      (name "ROW4_DS13_R5") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 246)
+      (name "ROW4_DS13_R6") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 247)
+      (name "ROW4_DS13_R7") (class "ROW4")
+      (node
+        (ref "DS13")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U14")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 248)
+      (name "ROW4_DS14_C0") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 249)
+      (name "ROW4_DS14_C1") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 250)
+      (name "ROW4_DS14_C2") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 251)
+      (name "ROW4_DS14_C3") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 252)
+      (name "ROW4_DS14_C4") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 253)
+      (name "ROW4_DS14_C5") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 254)
+      (name "ROW4_DS14_C6") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 255)
+      (name "ROW4_DS14_C7") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 256)
+      (name "ROW4_DS14_R0") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 257)
+      (name "ROW4_DS14_R1") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 258)
+      (name "ROW4_DS14_R2") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 259)
+      (name "ROW4_DS14_R3") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 260)
+      (name "ROW4_DS14_R4") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 261)
+      (name "ROW4_DS14_R5") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 262)
+      (name "ROW4_DS14_R6") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 263)
+      (name "ROW4_DS14_R7") (class "ROW4")
+      (node
+        (ref "DS14")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U15")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 264)
+      (name "ROW4_DS15_C0") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 265)
+      (name "ROW4_DS15_C1") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 266)
+      (name "ROW4_DS15_C2") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 267)
+      (name "ROW4_DS15_C3") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 268)
+      (name "ROW4_DS15_C4") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 269)
+      (name "ROW4_DS15_C5") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 270)
+      (name "ROW4_DS15_C6") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 271)
+      (name "ROW4_DS15_C7") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 272)
+      (name "ROW4_DS15_R0") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 273)
+      (name "ROW4_DS15_R1") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 274)
+      (name "ROW4_DS15_R2") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 275)
+      (name "ROW4_DS15_R3") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 276)
+      (name "ROW4_DS15_R4") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 277)
+      (name "ROW4_DS15_R5") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 278)
+      (name "ROW4_DS15_R6") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 279)
+      (name "ROW4_DS15_R7") (class "ROW4")
+      (node
+        (ref "DS15")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U16")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 280)
+      (name "ROW4_DS16_C0") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "1")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "22")
+        (pintype "PASSIVE")))
+    (net
+      (code 281)
+      (name "ROW4_DS16_C1") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "2")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "14")
+        (pintype "PASSIVE")))
+    (net
+      (code 282)
+      (name "ROW4_DS16_C2") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "3")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "16")
+        (pintype "PASSIVE")))
+    (net
+      (code 283)
+      (name "ROW4_DS16_C3") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "4")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "20")
+        (pintype "PASSIVE")))
+    (net
+      (code 284)
+      (name "ROW4_DS16_C4") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "5")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "23")
+        (pintype "PASSIVE")))
+    (net
+      (code 285)
+      (name "ROW4_DS16_C5") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "6")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "21")
+        (pintype "PASSIVE")))
+    (net
+      (code 286)
+      (name "ROW4_DS16_C6") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "7")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "15")
+        (pintype "PASSIVE")))
+    (net
+      (code 287)
+      (name "ROW4_DS16_C7") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "8")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "17")
+        (pintype "PASSIVE")))
+    (net
+      (code 288)
+      (name "ROW4_DS16_R0") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "16")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "2")
+        (pintype "PASSIVE")))
+    (net
+      (code 289)
+      (name "ROW4_DS16_R1") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "15")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "11")
+        (pintype "PASSIVE")))
+    (net
+      (code 290)
+      (name "ROW4_DS16_R2") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "14")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "6")
+        (pintype "PASSIVE")))
+    (net
+      (code 291)
+      (name "ROW4_DS16_R3") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "13")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 292)
+      (name "ROW4_DS16_R4") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "12")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "3")
+        (pintype "PASSIVE")))
+    (net
+      (code 293)
+      (name "ROW4_DS16_R5") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "11")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "10")
+        (pintype "PASSIVE")))
+    (net
+      (code 294)
+      (name "ROW4_DS16_R6") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "10")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "5")
+        (pintype "PASSIVE")))
+    (net
+      (code 295)
+      (name "ROW4_DS16_R7") (class "ROW4")
+      (node
+        (ref "DS16")
+        (pin "9")
+        (pintype "PASSIVE"))
+      (node
+        (ref "U17")
+        (pin "8")
+        (pintype "PASSIVE")))
+    (net
+      (code 296)
+      (name "U10_ISET") (class "Default")
+      (node
+        (ref "U10")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 297)
+      (name "U11_ISET") (class "Default")
+      (node
+        (ref "U11")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 298)
+      (name "U12_ISET") (class "Default")
+      (node
+        (ref "U12")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 299)
+      (name "U13_ISET") (class "Default")
+      (node
+        (ref "U13")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 300)
+      (name "U14_ISET") (class "Default")
+      (node
+        (ref "U14")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 301)
+      (name "U15_ISET") (class "Default")
+      (node
+        (ref "U15")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 302)
+      (name "U16_ISET") (class "Default")
+      (node
+        (ref "U16")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 303)
+      (name "U17_ISET") (class "Default")
+      (node
+        (ref "U17")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 304)
+      (name "U2_ISET") (class "Default")
+      (node
+        (ref "U2")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 305)
+      (name "U3_ISET") (class "Default")
+      (node
+        (ref "U3")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 306)
+      (name "U4_ISET") (class "Default")
+      (node
+        (ref "U4")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 307)
+      (name "U5_ISET") (class "Default")
+      (node
+        (ref "U5")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 308)
+      (name "U6_ISET") (class "Default")
+      (node
+        (ref "U6")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 309)
+      (name "U7_ISET") (class "Default")
+      (node
+        (ref "U7")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 310)
+      (name "U8_ISET") (class "Default")
+      (node
+        (ref "U8")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 311)
+      (name "U9_ISET") (class "Default")
+      (node
+        (ref "U9")
+        (pin "18")
+        (pintype "PASSIVE")))
+    (net
+      (code 312)
+      (name "UP") (class "Default")
+      (node
+        (ref "U1")
+        (pin "7")
+        (pintype "PASSIVE")))
+    (net
+      (code 313)
+      (name "UPDI") (class "Default")
+      (node
+        (ref "U1")
+        (pin "19")
+        (pintype "PASSIVE")))))
