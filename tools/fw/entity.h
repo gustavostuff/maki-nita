@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 /*
- * Up to 32 sprites. The screen is columns 0..15 and rows 0..15.
+ * Up to 64 sprites. The screen is columns 0..15 and rows 0..15.
  * A one-screen margin around it makes the live area -8..23.
  * That 32 by 32 grid is where an entity may sit.
  * The picture copied into the frame is the center window.
@@ -26,7 +26,7 @@
  * An instance does not copy pixels.
  */
 
-#define ENTITY_MAX 32
+#define ENTITY_MAX 64
 #define ENTITY_LO (-8)
 #define ENTITY_HI 23
 

@@ -275,7 +275,7 @@ static void test_open(void)
 
     input_reset();
     arkaled_reset();
-    expect(arkaled_count() == 24, "the block starts with 24 pieces");
+    expect(arkaled_count() == 12, "the block starts with 12 pieces");
     expect(row_count(0) == 0 && row_count(1) == 0, "two rows above the block stay empty");
     expect(row_count(2) == 12 && row_count(3) == 12 && row_count(4) == 12 && row_count(5) == 12,
            "rows 2 through 5 hold twelve LEDs each");
@@ -299,7 +299,7 @@ static void test_open(void)
     arkaled_set(4, 1, 1);
     arkaled_set(2, 6, 1);
     feed(0, 0, 0, 0, 0);
-    expect(arkaled_count() == 24 && row_count(0) == 0 && row_count(1) == 0,
+    expect(arkaled_count() == 12 && row_count(0) == 0 && row_count(1) == 0,
            "pieces stay inside the 12 by 4 block");
 }
 
@@ -459,7 +459,7 @@ static void test_bricks(void)
     serve(8, 1);
     expect(pump(9) == 9, "the left opening reaches the block");
     at(0, 4, -1, -1, "the gutter wall and the block turn the ball");
-    expect(score_get() == 1 && !arkaled_on(2, 5) && !arkaled_on(3, 5) && arkaled_on(2, 4),
+    expect(score_get() == 1 && !arkaled_on(2, 5) && !arkaled_on(2, 4) && arkaled_on(2, 2),
            "that piece turns off");
     expect(!ended(), "the rally continues");
 
@@ -588,15 +588,11 @@ static void test_cave(void)
 
     input_reset();
     arkaled_wipe();
-    for (x = 4; x <= 10; x += 2) {
+    for (x = 2; x <= 12; x += 2)
         arkaled_set(x, 2, 1);
-        arkaled_set(x, 5, 1);
-    }
-    arkaled_set(4, 3, 1);
-    arkaled_set(10, 3, 1);
-    arkaled_set(4, 4, 1);
-    arkaled_set(10, 4, 1);
-    arkaled_load(6, 6, 4, 1, -1);
+    arkaled_set(2, 4, 1);
+    arkaled_set(12, 4, 1);
+    arkaled_load(6, 8, 6, 1, -1);
     for (i = 0; i < 400 && !ended(); i++) {
         int ddx;
         int ddy;
@@ -618,7 +614,7 @@ static void test_cave(void)
             moves++;
     }
     expect(clean && moves >= 8 && ended(), "the ball crosses the cave and then misses");
-    expect(score_get() == 6 && arkaled_count() == 6, "the cave pieces it touched turn off");
+    expect(score_get() == 2 && arkaled_count() == 6, "the cave pieces it touched turn off");
 }
 
 int main(void)

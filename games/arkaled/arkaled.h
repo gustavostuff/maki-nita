@@ -4,8 +4,8 @@
 #include "input.h"
 
 /*
- * Twenty-four pieces on rows 2 through 5. Each piece is two LEDs
- * wide and one LED tall, in columns 2 through 13. Rows 0 and 1
+ * Twelve pieces on rows 2 through 5. Each piece is two LEDs
+ * wide and two LEDs tall, in columns 2 through 13. Rows 0 and 1
  * are empty, and so are the two columns on each side. The paddle
  * is four LEDs on the bottom row. The ball waits above the paddle
  * until the paddle moves, then steps up and toward one side.
@@ -15,7 +15,7 @@
  * arkaled_seed sets the opening side. Zero becomes 1.
  * arkaled_load places a live ball and leaves the pieces as they are.
  * arkaled_fill, arkaled_wipe, and arkaled_set edit those pieces.
- * arkaled_set addresses a whole piece from either of its LEDs.
+ * arkaled_set addresses a whole piece from any of its four LEDs.
  */
 
 void arkaled_reset(void);

@@ -9,12 +9,11 @@
 #include <stdint.h>
 
 #define FIELD 16
-#define ROCK_MAX 4
-#define ASTEROID_MAX 26
+#define ROCK_MAX 32
 #define SPAWN_EVERY 36
 
-#if ROCK_MAX > ASTEROID_MAX
-#error the shooter keeps at most 26 asteroids
+#if ROCK_MAX + 8 + 1 > ENTITY_MAX
+#error the shooter does not fit in the entity table
 #endif
 
 static const int period[4] = {4, 8, 12, 16};
@@ -31,9 +30,7 @@ typedef struct Rock {
     int xpace;
 } Rock;
 
-static Rock rock[ROCK_MAX] = {
-    {.id = -1}, {.id = -1}, {.id = -1}, {.id = -1},
-};
+static Rock rock[ROCK_MAX];
 static int spawn_wait;
 static int age;
 static uint16_t rng;

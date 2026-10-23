@@ -163,9 +163,9 @@ static void test_cap(void)
         if (id != i)
             break;
     }
-    expect(i == ENTITY_MAX, "thirty-two spawns fill the table");
+    expect(i == ENTITY_MAX, "sixty-four spawns fill the table");
     expect(entity_spawn(&dot, 0, 0, 0, 0, 1, 0) < 0,
-           "a thirty-third spawn is refused");
+           "a sixty-fifth spawn is refused");
     entity_kill(7);
     again = entity_spawn(&dot, 1, 1, 0, 0, 1, 0);
     expect(again == 7, "a freed slot is used again");

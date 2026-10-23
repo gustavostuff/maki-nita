@@ -4,7 +4,7 @@ The entity world lives in `tools/fw/entity.h` and `tools/fw/entity.c`. Every car
 
 ## Slots
 
-A cart keeps up to 32 entities.
+A cart keeps up to 64 entities. A cart may use fewer. The software doc lists each cart's own limit.
 
 ```c
 int entity_spawn(const Shape *shape, int x, int y, int vx, int vy,
@@ -14,7 +14,7 @@ Entity *entity_get(int id);
 void world_reset(void);
 ```
 
-`entity_spawn` returns a slot index. It returns -1 when every slot is live, or when the shape is missing, wider or taller than 4, or has its origin outside the box. `entity_kill` frees one slot. An index outside 0..31 is ignored. `entity_get` returns the entity, and returns null when the slot is free or the index is out of range. `world_reset` frees every slot.
+`entity_spawn` returns a slot index. It returns -1 when every slot is live, or when the shape is missing, wider or taller than 4, or has its origin outside the box. `entity_kill` frees one slot. An index outside 0..63 is ignored. `entity_get` returns the entity, and returns null when the slot is free or the index is out of range. `world_reset` frees every slot.
 
 ## Coordinates
 

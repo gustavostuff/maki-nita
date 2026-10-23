@@ -3,17 +3,16 @@
 #include "entity.h"
 
 #define FIELD 16
-#define BULLET_MAX 4
-#define BULLET_SLOTS 5
+#define BULLET_MAX 8
 #define BULLET_EVERY 2
 
-#if BULLET_MAX > BULLET_SLOTS
-#error the shooter keeps at most 5 bullets
+#if BULLET_MAX + 32 + 1 > ENTITY_MAX
+#error the shooter does not fit in the entity table
 #endif
 
 static const Shape dot = SHAPE1(0, 0, "1");
 
-static int shot[BULLET_MAX] = {-1, -1, -1, -1};
+static int shot[BULLET_MAX] = {-1, -1, -1, -1, -1, -1, -1, -1};
 
 void bullet_reset(void)
 {
