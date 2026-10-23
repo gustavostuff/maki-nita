@@ -31,7 +31,21 @@ A later index on the same channel replaces the phrase there. The other channels 
 
 The three channels add into one mix, centered on DAC midscale. A quiet channel adds nothing. Three channels at level 255 together are the full mix, about 3.5 V peak to peak at the DAC pin.
 
-The shooter fills two rows. Index 1 is the laser, a triangle phrase that ends when a bullet is spawned. Index 2 is the explosion, a noise phrase that ends when a bullet removes a rock. The square channel has no shooter row. The next sound takes index 3. The software doc is the call a game makes, and the moment each of those rows is sent.
+Three indexes are filled. Index 4 through 255 are empty. The next sound takes index 4.
+
+| Index | Name | Channel | Phrase | Samples |
+| --- | --- | --- | --- | --- |
+| 1 | Laser | triangle | ends | 3500 |
+| 2 | Explosion | noise | ends | 9000 |
+| 3 | Pop | square | ends | 400 |
+
+Index 1 is the laser. Five triangle steps. The first period is 12 samples and the first level is 220. Later steps lengthen the period and lower the level. The phrase ends after 3500 samples. The shooter sends it when a bullet is spawned.
+
+Index 2 is the explosion. Four noise steps. The first period is 1 sample and the first level is 240. Later steps lengthen the period and lower the level. The phrase ends after 9000 samples. The shooter sends it when a bullet removes a rock.
+
+Index 3 is the pop. Two square steps. The first period is 20 samples and the first level is 210. The second step lengthens the period and lowers the level. The phrase ends after 400 samples. Paddle sends it for a wall or the paddle. Arkaled sends it for a wall, a brick, or the paddle. A miss sends nothing.
+
+The software doc is the call a game makes.
 
 ## Path
 

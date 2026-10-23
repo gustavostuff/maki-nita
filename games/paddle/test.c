@@ -2,7 +2,9 @@
 #include "input.h"
 #include "paddle.h"
 #include "score.h"
+#include "sound.h"
 #include "tests/report.h"
+#include "tests/sound_log.h"
 
 static void expect(int cond, const char *msg)
 {
@@ -261,6 +263,39 @@ static void test_return(void)
     expect(!pixel_get(1, 8), "the point stays off the field");
 }
 
+static void test_pop(void)
+{
+    sound_log_reset();
+    input_reset();
+    paddle_load(6, 8, 8, 1, 0);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 0, "an open step stays quiet");
+
+    sound_log_reset();
+    paddle_load(6, 15, 8, 1, 0);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "the right edge sends the pop");
+
+    sound_log_reset();
+    paddle_load(6, 8, 0, 0, -1);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "the top edge sends the pop");
+
+    sound_log_reset();
+    paddle_load(6, 1, 7, -1, 1);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "the paddle sends the pop");
+
+    sound_log_reset();
+    score_clear_saved();
+    paddle_load(6, 1, 3, -1, -1);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 0, "a miss stays quiet");
+}
+
 static void test_miss(void)
 {
     int i;
@@ -291,5 +326,6 @@ int main(void)
     test_bounce();
     test_return();
     test_miss();
+    test_pop();
     return report_end();
 }

@@ -47,7 +47,7 @@ static void test_catalog(void)
 
     synth_reset();
     synth_play(0);
-    synth_play(3);
+    synth_play(4);
     expect(!synth_on(SYNTH_SQUARE) && !synth_on(SYNTH_TRIANGLE) &&
                !synth_on(SYNTH_NOISE),
            "an empty index leaves every channel quiet");
@@ -91,6 +91,23 @@ static void test_catalog(void)
     expect(synth_on(SYNTH_TRIANGLE) && synth_on(SYNTH_NOISE) &&
                !synth_on(SYNTH_SQUARE),
            "a shot and an explosion share the mix");
+
+    synth_reset();
+    synth_play(3);
+    expect(synth_on(SYNTH_SQUARE) && !synth_on(SYNTH_TRIANGLE) &&
+               !synth_on(SYNTH_NOISE),
+           "the pop uses the square");
+    n = 0;
+    for (i = 0; i < 200; i++)
+        n = remember(seen, n, 32, synth_sample());
+    expect(n >= 4, "the square drops through more than one level");
+    guard = 200;
+    while (synth_on(SYNTH_SQUARE) && guard < 1000) {
+        synth_sample();
+        guard++;
+    }
+    expect(guard == 400, "the pop lasts 400 samples");
+    expect(!synth_on(SYNTH_SQUARE), "the pop ends on its own");
 }
 
 static void test_wire(void)

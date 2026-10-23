@@ -4,6 +4,7 @@
 #include "frame.h"
 #include "over.h"
 #include "score.h"
+#include "sound.h"
 
 #include <stdint.h>
 #if !defined(__AVR__)
@@ -210,6 +211,8 @@ static int ball_step(void)
         score_add(1);
         broke = 1;
     }
+    if (n > 0)
+        sound(SOUND_POP);
     /* The bottom row is the paddle. An open cell there is a miss. */
     if (by >= FIELD - 1)
         return 1;

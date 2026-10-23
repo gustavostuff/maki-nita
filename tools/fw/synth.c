@@ -3,7 +3,8 @@
 /*
  * Index 1 is the laser, a falling triangle.
  * Index 2 is the explosion, noise that thins out.
- * The square channel has no row yet. Index 0 and index 3 upward are free.
+ * Index 3 is the pop, a short square blip.
+ * Index 0 and index 4 upward are free.
  * A step is a period in samples, a level from 0 to 255, and a duration
  * in samples. For noise, the period is how often the shift register clocks.
  */
@@ -53,8 +54,14 @@ static const Step boom_steps[] = {
     {8, 50, 3600},
 };
 
+static const Step pop_steps[] = {
+    {20, 210, 160},
+    {48, 90, 240},
+};
+
 static const Row laser_row = {SYNTH_TRIANGLE, 0, laser_steps, 5};
 static const Row boom_row = {SYNTH_NOISE, 0, boom_steps, 4};
+static const Row pop_row = {SYNTH_SQUARE, 0, pop_steps, 2};
 
 static Chan chan[CHANS];
 
@@ -64,6 +71,8 @@ static const Row *row_of(uint8_t index)
         return &laser_row;
     if (index == 2)
         return &boom_row;
+    if (index == 3)
+        return &pop_row;
     return NULL;
 }
 

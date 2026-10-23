@@ -3,6 +3,7 @@
 #include "frame.h"
 #include "over.h"
 #include "score.h"
+#include "sound.h"
 
 #include <stdint.h>
 #if !defined(__AVR__)
@@ -115,20 +116,26 @@ static int ball_step(void)
     int from_on;
     int dest_on;
     int corner;
+    int bounced = 0;
 
     if (ny < 0 || ny >= FIELD) {
         dy = -dy;
         ny = by + dy;
+        bounced = 1;
     }
     if (nx >= FIELD) {
         dx = -dx;
         nx = bx + dx;
+        bounced = 1;
     }
     if (nx < 1) {
         from_on = on_pad(by);
         dest_on = on_pad(ny);
-        if (!from_on && !dest_on)
+        if (!from_on && !dest_on) {
+            if (bounced)
+                sound(SOUND_POP);
             return 1;
+        }
         /* An end counts when the ball arrives from outside or leaves past it. */
         corner = (from_on && !dest_on && (by == ly || by == ly + PAD_H - 1))
             || (!from_on && dest_on && (ny == ly || ny == ly + PAD_H - 1));
@@ -143,9 +150,12 @@ static int ball_step(void)
             }
         }
         score_add(1);
+        bounced = 1;
     }
     bx = nx;
     by = ny;
+    if (bounced)
+        sound(SOUND_POP);
     return 0;
 }
 

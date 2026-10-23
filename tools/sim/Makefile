@@ -39,11 +39,11 @@ tests/test_board: tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c tes
 tests/test_game: ../../games/space-shooter/test.c $(COMMON) $(SHOOTER) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ ../../games/space-shooter/test.c $(COMMON) $(SHOOTER) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 
-tests/test_paddle: ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c $(CHECK)
-	$(CC) $(CFLAGS) -o $@ ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c $(CHECK)
+tests/test_paddle: ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
+	$(CC) $(CFLAGS) -o $@ ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 
-tests/test_arkaled: ../../games/arkaled/test.c $(COMMON) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c $(CHECK)
-	$(CC) $(CFLAGS) -o $@ ../../games/arkaled/test.c $(COMMON) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c $(CHECK)
+tests/test_arkaled: ../../games/arkaled/test.c $(COMMON) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
+	$(CC) $(CFLAGS) -o $@ ../../games/arkaled/test.c $(COMMON) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 
 tests/test_cart: tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)

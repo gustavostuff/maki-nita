@@ -91,7 +91,7 @@ typedef struct {
 
 ## Sound
 
-The console AVR holds a catalog of 256 sounds. The cartridge sends one byte on EVENT. The byte is the index, from 0 through 255. The notes stay in the console image. The game image only chooses when to send an index. The audio doc lists the pin, the pulses, and the amplifier.
+The console AVR holds a catalog of 256 sounds. The cartridge sends one byte on EVENT. The byte is the index, from 0 through 255. The notes stay in the console image. The game image only chooses when to send an index. The audio doc lists the pin, the pulses, the amplifier, and the catalog.
 
 A game calls one function.
 
@@ -113,14 +113,7 @@ The three channels add into one mix, centered on DAC midscale. A quiet channel a
 
 How a game spends the channels is up to the indexes it sends. A held square and a held triangle leave the noise channel for short phrases. A game may send only phrases that end. A game may send nothing. The console has no mode for those choices.
 
-The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file. In the simulator the index reaches that file across the EVENT net.
-
-The shooter uses two rows. Index 1 is the laser. It plays on the triangle when a bullet is spawned, and the phrase ends. The period starts short and the level starts high, then both fall. Index 2 is the explosion. It plays on the noise channel when a bullet removes a rock, and the phrase ends. The noise starts dense, then the period grows and the level falls. The square channel has no shooter row. The next sound takes index 3.
-
-| Index | Moment | Phrase | Channel |
-| --- | --- | --- | --- |
-| 1 | A bullet is spawned | ends | triangle |
-| 2 | A bullet removes a rock | ends | noise |
+The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file. In the simulator the index reaches that file across the EVENT net. The audio doc lists the filled rows. Index 1 goes out when a bullet is spawned. Index 2 goes out when a bullet removes a rock. Index 3 goes out when the ball bounces. A miss sends nothing.
 
 ## Rocks
 
@@ -146,7 +139,7 @@ Paddle is a cart. One paddle stands on the field, one column wide and four LEDs 
 
 The stick moves the paddle one LED every two ticks. Up and down are the only directions that count. The action button does not move the paddle. A paddle that reaches the top or the bottom stays there until its direction points back onto the field.
 
-On the tick the paddle first moves, the ball steps toward one of the four corners. Steps after that one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `paddle_period` is that wait. `SLOW_BALL` in the paddle source is a debug switch. While it is 1, those later steps wait 30 ticks instead, which is 2 FPS. The top, bottom, and right edges reverse the ball. A ball alongside the paddle reverses its horizontal step and keeps its vertical step. A ball that meets an end from outside the paddle, or that leaves past an end, reverses both steps. Either bounce adds one to the round's score. The score stays off the field during the rally. The score stops at 999.
+On the tick the paddle first moves, the ball steps toward one of the four corners. Steps after that one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `paddle_period` is that wait. `SLOW_BALL` in the paddle source is a debug switch. While it is 1, those later steps wait 30 ticks instead, which is 2 FPS. The top, bottom, and right edges reverse the ball. A ball alongside the paddle reverses its horizontal step and keeps its vertical step. A ball that meets an end from outside the paddle, or that leaves past an end, reverses both steps. Either bounce adds one to the round's score and sends index 3. A miss sends nothing. The score stays off the field during the rally. The score stops at 999.
 
 A ball that gets past the paddle ends the round. The field then shows the same face and digits as the shooter, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the ball back at the center. The simulator keeps this cart's high score in tools/sim/paddle.eep.
 
@@ -158,7 +151,7 @@ Rows 0 and 1 are empty. Rows 2 through 5 start lit. That block is 16 columns by 
 
 Steps after the opening one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `arkaled_period` is that wait.
 
-`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A brick that blocks the step turns off and adds one to the round's score. The paddle and the walls block the ball and add nothing. The ball stays out of a blocking cell. The score stays off the field during the rally. The score stops at 999.
+`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A brick that blocks the step turns off and adds one to the round's score. The paddle and the walls block the ball and add nothing. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell. The score stays off the field during the rally. The score stops at 999.
 
 A ball that reaches the bottom row off the paddle ends the round. Clearing the last brick ends the round the same way. The field then shows the same face and digits as the other carts, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the block lit again. The simulator keeps this cart's high score in tools/sim/arkaled.eep.
 

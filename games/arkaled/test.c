@@ -3,7 +3,9 @@
 #include "frame.h"
 #include "input.h"
 #include "score.h"
+#include "sound.h"
 #include "tests/report.h"
+#include "tests/sound_log.h"
 
 #include <stddef.h>
 
@@ -497,6 +499,61 @@ static void test_miss(void)
     expect(!pixel_get(7, 13), "the ship is not part of this cart");
 }
 
+static void test_pop(void)
+{
+    sound_log_reset();
+    input_reset();
+    arkaled_wipe();
+    arkaled_load(6, 8, 10, 1, 0);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 0, "an open step stays quiet");
+
+    sound_log_reset();
+    arkaled_set(0, 2, 1);
+    arkaled_set(8, 5, 1);
+    arkaled_load(6, 8, 6, 0, -1);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "a brick sends the pop");
+
+    sound_log_reset();
+    arkaled_wipe();
+    arkaled_set(0, 2, 1);
+    arkaled_set(4, 4, 1);
+    arkaled_set(5, 3, 1);
+    arkaled_load(6, 5, 4, -1, -1);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "two bricks in one step send one pop");
+
+    sound_log_reset();
+    arkaled_load(6, 0, 8, -1, 0);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "the left edge sends the pop");
+
+    sound_log_reset();
+    arkaled_load(6, 8, 14, 0, 1);
+    feed(0, 0, 0, 0, 0);
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP && score_get() == 0,
+           "the paddle sends the pop");
+
+    sound_log_reset();
+    score_clear_saved();
+    arkaled_wipe();
+    arkaled_load(6, 0, 14, 0, 1);
+    feed(0, 0, 0, 0, 0);
+    expect(ended() && sound_log_count() == 0, "a miss stays quiet");
+
+    sound_log_reset();
+    arkaled_wipe();
+    arkaled_set(8, 5, 1);
+    arkaled_load(6, 8, 6, 0, -1);
+    feed(0, 0, 0, 0, 0);
+    expect(ended() && sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+           "the last brick still sends the pop");
+}
+
 static void test_clear(void)
 {
     input_reset();
@@ -568,6 +625,7 @@ int main(void)
     test_paddle();
     test_miss();
     test_clear();
+    test_pop();
     test_cave();
     return report_end();
 }
