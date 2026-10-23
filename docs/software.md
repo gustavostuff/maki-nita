@@ -151,9 +151,9 @@ Rows 0 and 1 are empty. Rows 2 through 5 hold twelve pieces. Each piece is two L
 
 Steps after the opening one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `arkaled_period` is that wait.
 
-`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A piece that blocks the step turns off and adds one to the round's score. The four LEDs of that piece go dark. Two pieces in one step add two and send index 3 once. The paddle and the walls block the ball and add nothing. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell. The score stays off the field during the rally. The score stops at 999.
+`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A piece that blocks the step turns off. The four LEDs of that piece go dark. Two pieces in one step send index 3 once. The paddle and the walls block the ball. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell.
 
-A ball that reaches the bottom row off the paddle ends the round. Clearing the last piece ends the round the same way. The field then shows the same face and digits as the other carts, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the block lit again. The simulator keeps this cart's high score in tools/sim/arkaled.eep.
+A ball that reaches the bottom row off the paddle starts a new round on that tick. Clearing the last piece does the same. The paddle returns to columns 6 through 9, the block lights again, and the ball waits at column 8, row 14.
 
 ## What a game is
 

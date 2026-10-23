@@ -2,8 +2,6 @@
 
 #include "collide.h"
 #include "entity.h"
-#include "over.h"
-#include "score.h"
 #include "sound.h"
 
 #include <stdint.h>
@@ -25,7 +23,6 @@ static const Shape brick_shape = SHAPE2(0, 0, "11", "11");
 static const Shape pad_shape = SHAPE1(0, 0, "1111");
 static const Shape dot = SHAPE1(0, 0, "1");
 
-static int over;
 static int pad_id = -1;
 static int ball_id = -1;
 static int piece[BRICK_ROWS][BRICK_COLS];
@@ -255,7 +252,6 @@ static int ball_step(Entity *pad, Entity *ball)
     for (i = 0; i < n; i++) {
         if (!clear_brick(hit[i].x, hit[i].y))
             continue;
-        score_add(1);
         broke = 1;
     }
     if (n > 0)
@@ -296,9 +292,6 @@ static void ready(int fill)
 {
     Entity *ball;
 
-    over = 0;
-    over_clear();
-    score_reset();
     ppace = 0;
     age = 0;
     live = 0;
@@ -348,11 +341,6 @@ void arkaled_tick(const Input *in)
     int dir = 0;
     int moved;
 
-    if (over) {
-        if (over_tick(in))
-            arkaled_reset();
-        return;
-    }
     if (pad == NULL || ball == NULL)
         return;
 
@@ -371,8 +359,7 @@ void arkaled_tick(const Input *in)
         live = 1;
         aim(ball);
         if (ball_step(pad, ball)) {
-            over = 1;
-            over_start();
+            arkaled_reset();
             return;
         }
     } else {
@@ -382,8 +369,7 @@ void arkaled_tick(const Input *in)
         if (ball->pace >= ball->every) {
             ball->pace = 0;
             if (ball_step(pad, ball)) {
-                over = 1;
-                over_start();
+                arkaled_reset();
                 return;
             }
         }

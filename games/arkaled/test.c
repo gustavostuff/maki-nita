@@ -2,7 +2,6 @@
 #include "collide.h"
 #include "frame.h"
 #include "input.h"
-#include "score.h"
 #include "sound.h"
 #include "tests/report.h"
 #include "tests/sound_log.h"
@@ -98,9 +97,15 @@ static int ended(void)
     return pixel_get(4, 0) && pixel_get(11, 0);
 }
 
-static int flat_mouth(void)
+static int fresh(void)
 {
-    return pixel_get(6, 4) && pixel_get(9, 4) && !pixel_get(5, 4) && !pixel_get(6, 5);
+    int x;
+    int y;
+    int vx;
+    int vy;
+
+    arkaled_ball(&x, &y, &vx, &vy);
+    return x == 8 && y == 14 && vx == 0 && vy == 0 && pad_x() == 6 && arkaled_count() == 12;
 }
 
 static int grid_solid(int x, int y, void *ctx)
@@ -399,9 +404,8 @@ static void test_bricks(void)
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
     at(8, 7, 0, 1, "a piece overhead sends the ball back down");
-    expect(score_get() == 1 && !arkaled_on(8, 5) && !arkaled_on(9, 5) &&
-           arkaled_on(2, 2) && !ended(),
-           "that piece turns off and scores");
+    expect(!arkaled_on(8, 5) && !arkaled_on(9, 5) && arkaled_on(2, 2) && !ended(),
+           "that piece turns off");
 
     arkaled_wipe();
     arkaled_set(2, 2, 1);
@@ -410,7 +414,7 @@ static void test_bricks(void)
     arkaled_load(6, 6, 4, -1, -1);
     feed(0, 0, 0, 0, 0);
     at(7, 5, 1, 1, "a corner of two pieces reverses both steps");
-    expect(score_get() == 2 && !arkaled_on(4, 4) && !arkaled_on(6, 3) && !ended(),
+    expect(!arkaled_on(4, 4) && !arkaled_on(6, 3) && !ended(),
            "both pieces of that corner turn off");
 
     arkaled_wipe();
@@ -419,8 +423,7 @@ static void test_bricks(void)
     arkaled_load(6, 7, 6, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(6, 7, -1, 1, "a lone diagonal piece reverses both steps");
-    expect(score_get() == 1 && !arkaled_on(8, 5) && !arkaled_on(9, 5),
-           "the diagonal piece turns off");
+    expect(!arkaled_on(8, 5) && !arkaled_on(9, 5), "the diagonal piece turns off");
 
     arkaled_wipe();
     for (x = 0; x < 16; x++)
@@ -428,14 +431,14 @@ static void test_bricks(void)
     arkaled_load(6, 8, 6, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(9, 7, 1, 1, "a ceiling keeps the horizontal step");
-    expect(score_get() == 1 && !arkaled_on(8, 5) && !arkaled_on(9, 5) && arkaled_on(10, 5),
+    expect(!arkaled_on(8, 5) && !arkaled_on(9, 5) && arkaled_on(10, 5),
            "the piece overhead turns off and the next one stays");
 
     arkaled_reset();
     arkaled_load(6, 4, 0, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(5, 1, 1, 1, "the top edge sends the ball back down");
-    expect(score_get() == 0, "the top edge scores nothing");
+    expect(arkaled_count() == 12, "the top edge leaves the block in place");
 
     arkaled_load(6, 0, 8, -1, 1);
     feed(0, 0, 0, 0, 0);
@@ -452,21 +455,20 @@ static void test_bricks(void)
     arkaled_load(6, 8, 4, 0, -1);
     expect(pump(5) == 5, "the ball reaches the gap above the block");
     at(8, 1, 0, 1, "a hole lets the ball into the two open rows");
-    expect(score_get() == 0 && !arkaled_on(8, 2) && !arkaled_on(9, 2) &&
-           arkaled_on(7, 2) && arkaled_on(10, 2),
+    expect(!arkaled_on(8, 2) && !arkaled_on(9, 2) && arkaled_on(7, 2) && arkaled_on(10, 2),
            "the hole stays open and the pieces beside it stay");
 
     serve(8, 1);
     expect(pump(9) == 9, "the left opening reaches the block");
     at(0, 4, -1, -1, "the gutter wall and the block turn the ball");
-    expect(score_get() == 1 && !arkaled_on(2, 5) && !arkaled_on(2, 4) && arkaled_on(2, 2),
+    expect(!arkaled_on(2, 5) && !arkaled_on(2, 4) && arkaled_on(2, 2),
            "that piece turns off");
     expect(!ended(), "the rally continues");
 
     serve(1, 0);
     expect(pump(8) == 8, "the right opening reaches the block");
     at(15, 7, 1, 1, "the right side of the block sends the ball down");
-    expect(score_get() == 1 && !arkaled_on(12, 5) && !arkaled_on(13, 5) && arkaled_on(10, 5),
+    expect(!arkaled_on(12, 5) && !arkaled_on(13, 5) && arkaled_on(10, 5),
            "that piece turns off");
 }
 
@@ -477,7 +479,8 @@ static void test_paddle(void)
     arkaled_load(6, 8, 14, 1, 1);
     feed(0, 0, 0, 0, 0);
     at(9, 13, 1, -1, "the body of the paddle keeps the horizontal step");
-    expect(score_get() == 0 && pad_x() == 6 && !ended(), "the paddle scores nothing");
+    expect(arkaled_count() == 12 && pad_x() == 6 && !ended(),
+           "the paddle leaves the block in place");
 
     arkaled_load(6, 9, 14, 1, 1);
     feed(0, 0, 0, 0, 0);
@@ -486,7 +489,7 @@ static void test_paddle(void)
     arkaled_load(6, 10, 14, -1, 1);
     feed(0, 0, 0, 0, 0);
     at(11, 13, 1, -1, "meeting the end from outside reverses both steps");
-    expect(score_get() == 0 && !ended(), "that corner scores nothing");
+    expect(arkaled_count() == 12 && !ended(), "that corner leaves the block in place");
 
     arkaled_load(6, 8, 12, 0, -1);
     feed(0, 0, 0, 0, 0);
@@ -495,16 +498,11 @@ static void test_paddle(void)
 
 static void test_miss(void)
 {
-    score_clear_saved();
     input_reset();
     arkaled_wipe();
     arkaled_load(6, 0, 14, 0, 1);
     feed(0, 0, 0, 0, 0);
-    expect(ended(), "a ball past the paddle shows the face");
-    expect(score_get() == 0, "a miss scores nothing");
-    expect(flat_mouth(), "a zero round draws the straight mouth");
-    expect(pixel_get(1, 8) && pixel_get(2, 8) && pixel_get(3, 8) && !pixel_get(4, 8),
-           "the end picture shows a zero");
+    expect(fresh() && !ended(), "a miss starts a new round");
     expect(!pixel_get(7, 13), "the ship is not part of this cart");
 }
 
@@ -544,22 +542,20 @@ static void test_pop(void)
     sound_log_reset();
     arkaled_load(6, 8, 14, 0, 1);
     feed(0, 0, 0, 0, 0);
-    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP && score_get() == 0,
-           "the paddle sends the pop");
+    expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP, "the paddle sends the pop");
 
     sound_log_reset();
-    score_clear_saved();
     arkaled_wipe();
     arkaled_load(6, 0, 14, 0, 1);
     feed(0, 0, 0, 0, 0);
-    expect(ended() && sound_log_count() == 0, "a miss stays quiet");
+    expect(fresh() && sound_log_count() == 0, "a miss stays quiet");
 
     sound_log_reset();
     arkaled_wipe();
     arkaled_set(8, 5, 1);
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
-    expect(ended() && sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
+    expect(fresh() && sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
            "the last piece still sends the pop");
 }
 
@@ -570,8 +566,7 @@ static void test_clear(void)
     arkaled_set(8, 5, 1);
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
-    expect(ended() && score_get() == 1 && arkaled_count() == 0,
-           "the last piece ends the round");
+    expect(fresh() && !ended(), "the last piece starts a new round");
 }
 
 static void test_cave(void)
@@ -585,6 +580,8 @@ static void test_cave(void)
     int py;
     int moves = 0;
     int clean = 1;
+    int left = -1;
+    int restarted = 0;
 
     input_reset();
     arkaled_wipe();
@@ -593,15 +590,19 @@ static void test_cave(void)
     arkaled_set(2, 4, 1);
     arkaled_set(12, 4, 1);
     arkaled_load(6, 8, 6, 1, -1);
-    for (i = 0; i < 400 && !ended(); i++) {
+    for (i = 0; i < 400 && !restarted; i++) {
         int ddx;
         int ddy;
+        int before = arkaled_count();
 
         arkaled_ball(&px, &py, &vx, &vy);
         feed(0, 0, 0, 0, 0);
-        if (ended())
-            break;
         arkaled_ball(&x, &y, &vx, &vy);
+        if (before < 12 && arkaled_count() == 12 && x == 8 && y == 14 && vx == 0 && vy == 0) {
+            left = before;
+            restarted = 1;
+            break;
+        }
         ddx = x - px;
         ddy = y - py;
         if (ddx < 0)
@@ -613,8 +614,8 @@ static void test_cave(void)
         if (x != px || y != py)
             moves++;
     }
-    expect(clean && moves >= 8 && ended(), "the ball crosses the cave and then misses");
-    expect(score_get() == 2 && arkaled_count() == 6, "the cave pieces it touched turn off");
+    expect(clean && moves >= 8 && restarted && left == 6,
+           "the ball crosses the cave and then the miss starts over");
 }
 
 int main(void)

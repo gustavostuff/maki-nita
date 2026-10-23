@@ -4,7 +4,7 @@ The entity world lives in `tools/fw/entity.h` and `tools/fw/entity.c`. Every car
 
 ## Slots
 
-A cart keeps up to 64 entities. A cart may use fewer. The software doc lists each cart's own limit.
+A cart keeps up to 64 entities but it might use may use fewer. The software doc lists each cart's own limit.
 
 ```c
 int entity_spawn(const Shape *shape, int x, int y, int vx, int vy,
