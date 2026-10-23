@@ -1,5 +1,6 @@
+#include "cart.h"
 #include "flush.h"
-#include "game.h"
+#include "persist.h"
 #include "sound.h"
 #include "host.h"
 #include "input.h"
@@ -204,6 +205,24 @@ static void pace(Uint64 frame_start, Uint64 freq)
     }
 }
 
+static int open_cart(void)
+{
+    char *base;
+    char path[1024];
+    int rc;
+
+    rc = cart_read_file("cart_placed.json");
+    if (rc >= 0)
+        return rc;
+    base = SDL_GetBasePath();
+    if (base == NULL)
+        return 0;
+    snprintf(path, sizeof path, "%s../../cart_placed.json", base);
+    SDL_free(base);
+    rc = cart_read_file(path);
+    return rc > 0;
+}
+
 int main(void)
 {
     static Board board;
@@ -214,6 +233,7 @@ int main(void)
     SDL_Texture *stick_tex;
     SDL_Texture *button_tex;
     int running = 1;
+    int loaded;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         SDL_Log("SDL_Init failed: %s", SDL_GetError());
@@ -232,22 +252,27 @@ int main(void)
     }
 
     /* The drivers latch the first picture before a window exists, so the
-     * open does not flash an empty frame. */
+     * open does not flash an empty frame. An empty socket leaves them
+     * in reset, which is a dark field. */
+    loaded = open_cart();
     board_init(&board);
     sim_bind(&board);
     sound_bind(&board);
     input_reset();
-    score_load();
-    game_reset();
-    drivers_init();
-    drivers_flush();
-    board_advance(&board, MAX7219_WAKE_NS);
-    if (board_fault(&board) != 0) {
-        SDL_Log("display bring-up saw a timing fault");
-        TTF_Quit();
-        IMG_Quit();
-        SDL_Quit();
-        return 1;
+    if (loaded) {
+        persist_bind(cart_eeprom());
+        score_load();
+        cart_reset();
+        drivers_init();
+        drivers_flush();
+        board_advance(&board, MAX7219_WAKE_NS);
+        if (board_fault(&board) != 0) {
+            SDL_Log("display bring-up saw a timing fault");
+            TTF_Quit();
+            IMG_Quit();
+            SDL_Quit();
+            return 1;
+        }
     }
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
@@ -424,8 +449,10 @@ int main(void)
                    board_sense(&board, AVR_PD4) == SIG_L,
                    board_sense(&board, AVR_PD5) == SIG_L,
                    &in);
-        game_tick(&in);
-        drivers_flush();
+        if (loaded) {
+            cart_tick(&in);
+            drivers_flush();
+        }
         board_advance(&board, 16000000);
 
         SDL_SetRenderTarget(renderer, canvas);

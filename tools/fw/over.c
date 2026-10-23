@@ -1,11 +1,7 @@
-#include "game.h"
+#include "over.h"
 
-#include "entity/bullet.h"
-#include "entity/player.h"
-#include "entity/rock.h"
 #include "frame.h"
 #include "score.h"
-#include "sound.h"
 #include "text.h"
 
 /* Rows of the end picture. Bit 0 is the left pixel.
@@ -19,8 +15,7 @@ static const uint16_t mouth[3][2] = {
 
 #define OVER_HOLD 60
 
-static int over;
-static int over_hold;
+static int hold;
 static int mark;
 
 static void paint(int y, uint16_t bits)
@@ -31,14 +26,6 @@ static void paint(int y, uint16_t bits)
         if ((bits & (uint16_t)(1u << x)) != 0)
             pixel((uint8_t)x, (uint8_t)y, true);
     }
-}
-
-static void draw(void)
-{
-    clear();
-    rock_draw();
-    bullet_draw();
-    player_draw();
 }
 
 static void draw_points(void)
@@ -70,39 +57,23 @@ static void draw_over(void)
     draw_points();
 }
 
-void game_reset(void)
+void over_clear(void)
 {
-    over = 0;
-    over_hold = 0;
-    score_reset();
-    player_reset();
-    bullet_reset();
-    rock_reset();
-    draw();
+    hold = 0;
+    mark = 0;
 }
 
-void game_tick(const Input *in)
+void over_start(void)
 {
-    if (over) {
-        draw_over();
-        if (over_hold > 0)
-            over_hold--;
-        if (over_hold == 0 && in->button_pressed)
-            game_reset();
-        return;
-    }
+    mark = score_judge();
+    hold = OVER_HOLD;
+    draw_over();
+}
 
-    player_tick(in);
-    bullet_tick();
-    if (in->button_pressed &&
-        bullet_fire(player_nose_x(), player_nose_y() - 1))
-        sound(1);
-    if (rock_tick()) {
-        mark = score_judge();
-        over = 1;
-        over_hold = OVER_HOLD;
-        draw_over();
-        return;
-    }
-    draw();
+int over_tick(const Input *in)
+{
+    draw_over();
+    if (hold > 0)
+        hold--;
+    return hold == 0 && in->button_pressed;
 }

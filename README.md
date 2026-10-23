@@ -50,4 +50,4 @@ Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
 - [Software](docs/software.md) covers one tick, the framebuffer, the inputs, the sound catalog, and what a game is.
-- `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window.
+- `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window. The cart in `cart_placed.json` is the game that runs.

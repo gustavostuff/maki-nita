@@ -12,7 +12,7 @@ Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed 
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
-That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. EVENT is a net on the board model, from game AVR pin 22 to audio AVR pin 23, with a pull-up. The simulator drives that net with the cartridge's 100 us and 200 us pulses and samples it at 40 kHz. SDL plays each index that comes off the net. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the game chip. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip.
+That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. EVENT is a net on the board model, from game AVR pin 22 to audio AVR pin 23, with a pull-up. The simulator drives that net with the cartridge's 100 us and 200 us pulses and samples it at 40 kHz. SDL plays each index that comes off the net. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the space-shooter cart. `make -C tools/fw/avr CART=paddle` builds the paddle cart. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip. The simulator reads `cart_placed.json` and runs that cart. A missing file, a missing `cart` key, or an unknown name leaves the drivers in reset.
 
 ## Framebuffer
 
@@ -140,6 +140,16 @@ Games share a set of 5 by 5 glyphs. The set holds the digits, the letters A to Z
 
 The tick stays at 60 Hz. A spawned bullet sends index 1. A bullet that removes a rock sends index 2.
 
+## Paddle
+
+Paddle is the other cart. Two paddles stand on the field, each one column wide and four LEDs tall. They start on rows 6 through 9. The left paddle is column 0. The right paddle is column 15. The ball is one LED. It starts at column 8, row 8, and steps diagonally toward the left paddle.
+
+The stick moves the left paddle one LED every two ticks. Up and down are the only directions that count. The right paddle stays put until the action button is held. While the button is held it moves one LED every two ticks. The first hold sends it upward. Releasing the button stops it. The next hold sends it downward. Each later hold swaps the direction again. A paddle that reaches the top or the bottom stays there until its direction points back onto the field.
+
+The ball waits 7 ticks between steps. Every 10 seconds that wait shrinks by one tick. At one tick per step it stays there. `paddle_period` is that wait. The top and bottom edges reverse the vertical step. A paddle reverses the horizontal step and adds one to the round's score. The score stays off the field during the rally. The score stops at 999.
+
+A ball that gets past a paddle ends the round. The field then shows the same face and digits as the shooter, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero, the right paddle at rest, and the next press aimed upward again. The simulator keeps this cart's high score in tools/sim/paddle.eep.
+
 ## What a game is
 
 A game is one function called from the 60 Hz tick.
@@ -150,8 +160,8 @@ void game_tick(const Input *in);
 
 It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
 
-`main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Picking which game runs can be a later menu. The first program can call one game directly.
+`main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Each cartridge image calls its own game. The names in `cart_placed.json` are `space-shooter` and `paddle`.
 
 ## Left out of this contract
 
-Saved data beyond the high score, and a loader for more than one game.
+Saved data beyond the high score, and a menu on the console for more than one game.

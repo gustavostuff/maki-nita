@@ -4,6 +4,11 @@
 
 static uint16_t word = 0xFFFF;
 
+void persist_bind(const char *stored)
+{
+    (void)stored;
+}
+
 uint16_t persist_read(void)
 {
     return word;

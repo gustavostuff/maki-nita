@@ -10,15 +10,34 @@
 static uint8_t image[EEPROM_BYTES];
 static int ready;
 static const char *path;
+static const char *bound;
 
 static const char *const cand[] = {"tools/sim/maki-nita.eep", "maki-nita.eep"};
+
+void persist_bind(const char *stored)
+{
+    bound = stored;
+    path = NULL;
+    ready = 0;
+}
 
 static void load(void)
 {
     int i;
+    FILE *f;
 
     memset(image, 0xFF, sizeof image);
     path = NULL;
+    ready = 1;
+    if (bound != NULL) {
+        path = bound;
+        f = fopen(bound, "rb");
+        if (f == NULL)
+            return;
+        fread(image, 1, EEPROM_BYTES, f);
+        fclose(f);
+        return;
+    }
     for (i = 0; i < 2; i++) {
         FILE *f = fopen(cand[i], "rb");
 

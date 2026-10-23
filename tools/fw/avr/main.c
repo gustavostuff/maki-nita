@@ -5,8 +5,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+#include "cart.h"
 #include "flush.h"
-#include "game.h"
 #include "input.h"
 #include "score.h"
 
