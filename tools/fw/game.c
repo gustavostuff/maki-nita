@@ -5,6 +5,7 @@
 #include "entity/rock.h"
 #include "frame.h"
 #include "score.h"
+#include "sound.h"
 #include "text.h"
 
 /* Rows of the end picture. Bit 0 is the left pixel.
@@ -93,8 +94,9 @@ void game_tick(const Input *in)
 
     player_tick(in);
     bullet_tick();
-    if (in->button_pressed)
-        bullet_fire(player_nose_x(), player_nose_y() - 1);
+    if (in->button_pressed &&
+        bullet_fire(player_nose_x(), player_nose_y() - 1))
+        sound(1);
     if (rock_tick()) {
         mark = score_judge();
         over = 1;

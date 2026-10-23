@@ -10,6 +10,8 @@
 #include "input.h"
 #include "score.h"
 
+void sound_init(void);
+
 /*
  * OSCHFCTRLA reset is 0x0C, which is 4 MHz. FRQSEL sits in bits 5:2.
  * 0x9 there is 24 MHz. The prescaler reset value already leaves it off.
@@ -43,6 +45,7 @@ int main(void)
     clock_24mhz();
     pins_init();
     input_reset();
+    sound_init();
     score_load();
     game_reset();
     drivers_init();

@@ -4,7 +4,9 @@
 /* One LED. It travels up one cell every two ticks. */
 
 void bullet_reset(void);
-void bullet_fire(int x, int y);
+
+/* Returns 1 when a bullet is spawned. */
+int bullet_fire(int x, int y);
 void bullet_tick(void);
 void bullet_draw(void);
 

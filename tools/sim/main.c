@@ -1,5 +1,6 @@
 #include "flush.h"
 #include "game.h"
+#include "sound.h"
 #include "host.h"
 #include "input.h"
 #include "score.h"
@@ -341,6 +342,9 @@ int main(void)
     int fps_w = 0;
     int fps_h = 0;
 
+    sound_open();
+    sound_render();
+
     while (running) {
         SDL_Event event;
         const Uint8 *keys;
@@ -437,8 +441,11 @@ int main(void)
             SDL_RenderCopy(renderer, fps_tex, NULL, &dst);
         }
         present_canvas(renderer, canvas);
+        sound_render();
         pace(frame_start, freq);
     }
+
+    sound_close();
 
     SDL_DestroyTexture(fps_tex);
     SDL_DestroyTexture(canvas);

@@ -3,6 +3,7 @@
 #include "game.h"
 #include "input.h"
 #include "score.h"
+#include "sound_log.h"
 #include "text.h"
 
 #include <stdio.h>
@@ -107,8 +108,11 @@ static void test_shot(void)
 
     input_reset();
     game_reset();
+    sound_log_reset();
     feed(0, 0, 0, 0, 1);
     feed(0, 0, 0, 0, 1);
+    expect(sound_log_count() == 1 && sound_log_at(0) == 1,
+           "a spawned bullet sends the laser");
     expect(pixel_get(7, 12), "the bullet leaves the nose");
     expect(!pixel_get(7, 11), "the bullet is one LED on the fire tick");
     feed(0, 0, 0, 0, 0);
@@ -118,6 +122,7 @@ static void test_shot(void)
 
     input_reset();
     game_reset();
+    sound_log_reset();
     rock_add(7, 8, 2, 16, 0, 30);
     feed(0, 0, 0, 0, 1);
     feed(0, 0, 0, 0, 1);
@@ -128,6 +133,8 @@ static void test_shot(void)
            "the rock is gone after the hit");
     expect(pixel_get(7, 13), "the ship is still there after a shot");
     expect(score_get() == 1, "the score shows one point");
+    expect(sound_log_count() == 2 && sound_log_at(0) == 1 && sound_log_at(1) == 2,
+           "the shot sends the laser and the hit sends the explosion");
 }
 
 static void advance(int n)

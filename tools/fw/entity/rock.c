@@ -4,6 +4,7 @@
 #include "bullet.h"
 #include "player.h"
 #include "score.h"
+#include "sound.h"
 
 #include <stdint.h>
 
@@ -170,6 +171,7 @@ int rock_tick(void)
         if (bullet_take_rect(r->e.x, r->e.y, r->size, r->size)) {
             r->e.live = 0;
             score_add(1);
+            sound(2);
             continue;
         }
         if (hits_player(r))

@@ -32,7 +32,7 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 - Drivers: four MAX7219ENG+ or MAX7219CNG+, one per 8x8 block.
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
-- Sound: a second AVR128DB28 on the console mixes three triangle voices. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker. A game may use music, effects, both, or neither.
+- Sound: a second AVR128DB28 on the console mixes a square wave, a triangle, and noise. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker. A game may use music, effects, both, or neither.
 
 ## PCBs
 

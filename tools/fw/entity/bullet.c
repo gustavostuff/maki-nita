@@ -18,18 +18,19 @@ void bullet_reset(void)
         shot[i].live = 0;
 }
 
-void bullet_fire(int x, int y)
+int bullet_fire(int x, int y)
 {
     int i;
 
     if (y < 0 || y >= FIELD || x < 0 || x >= FIELD)
-        return;
+        return 0;
     for (i = 0; i < BULLET_MAX; i++) {
         if (shot[i].live)
             continue;
         base_take(&shot[i], x, y, BULLET_EVERY);
-        return;
+        return 1;
     }
+    return 0;
 }
 
 void bullet_tick(void)

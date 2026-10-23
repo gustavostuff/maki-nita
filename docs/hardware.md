@@ -15,7 +15,7 @@ flowchart LR
   socket -->|data, clock, load| drivers[4x MAX7219]
   drivers -->|segment and digit lines| leds[16x16 red dots]
   socket -->|EVENT| audio[Audio AVR128DB28]
-  audio -->|triangle mix| amp[LM386]
+  audio -->|mixed sample| amp[LM386]
   amp --> speaker[8 ohm speaker]
 ```
 
@@ -208,7 +208,7 @@ J3 is a 2x2 pin header, 2.54 mm pitch. Pin 1 is the square pad. The row with tha
 
 ## Sound
 
-The console carries a second AVR128DB28 and an LM386N-1. The audio AVR mixes three triangle voices into one sample and writes that sample to its DAC. The LM386 drives an 8 ohm speaker. The speaker wires land on J4. The software doc defines the catalog and the bytes on EVENT.
+The console carries a second AVR128DB28 and an LM386N-1. The audio AVR mixes a square wave, a triangle, and noise into one sample and writes that sample to its DAC. The LM386 drives an 8 ohm speaker. The speaker wires land on J4. The software doc defines the catalog and the bytes on EVENT.
 
 The audio AVR clocks from the internal 24 MHz oscillator. PF0 and PF1 carry no loads. VDD, AVDD, and VDDIO2 tie to the 5 V rail, each with a 100 nF capacitor. RESET joins the panel switch and cart contact B6, so that switch resets both chips. J5 programs this chip. Cart contact B7 stays the game chip's UPDI.
 

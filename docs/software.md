@@ -12,7 +12,7 @@ Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed 
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
-That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions, and it does not model the audio AVR. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the game chip.
+That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. The EVENT pulse timing lives in the two chip images. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the game chip. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip.
 
 ## Framebuffer
 
@@ -99,28 +99,28 @@ A game calls one function.
 void sound(uint8_t index);
 ```
 
-The runtime drives PA0. The call does not wait for the pulses. A timer sends the byte, so the 60 Hz tick keeps its pace. A game that never calls `sound` leaves the line idle. The speaker stays quiet.
+The runtime drives PA0. The call does not wait for the pulses. A timer sends the byte, so the 60 Hz tick keeps its pace. The sender keeps a short queue, so two calls in one tick both go out. A game that never calls `sound` leaves the line idle. The speaker stays quiet.
 
-EVENT idles high. The byte goes out least significant bit first, as eight low pulses. A 0 holds the line low for 100 us. A 1 holds it low for 200 us. The line returns high for 100 us between pulses. The audio AVR times each pulse itself. The two chips share no baud rate. One byte lasts about 2 ms, and the line then sits high.
+EVENT idles high. The byte goes out least significant bit first, as eight low pulses. A 0 holds the line low for 100 us. A 1 holds it low for 200 us. The line returns high for 100 us between pulses. The audio AVR samples that line at 40 kHz and times each pulse itself. The two chips share no baud rate. One byte lasts about 2 ms, and the line then sits high. The mix is written to the DAC at 20 kHz.
 
 Each filled index is one row. An index with no row is ignored. An index keeps its number when a row is added. The next sound takes the next free index. Index 0 is free.
 
-A row names one of three voices, whether the phrase ends or holds, and a list of steps. A step is a period, a level, and a duration. The period and the duration count samples of the audio AVR. The level runs from 0 to 255. The voices are peers. A row does not label a voice as music or as an effect.
+The three channels have fixed waveforms. One is a square wave, one is a triangle, and one is noise. A row names one channel, whether the phrase ends or holds, and a list of steps. A step is a period, a level, and a duration. The period and the duration count samples at 20 kHz. For the noise channel the period is how often a new random bit is drawn. The level runs from 0 to 255. A row does not label its channel as music or as an effect.
 
-A later index whose row uses the same voice replaces the phrase on that voice. The other voices keep going. A phrase that ends leaves the voice quiet. A phrase that holds stays until another row takes the voice. Level 0 is a silent phrase, and sending that index cuts the voice.
+A later index whose row uses the same channel replaces the phrase on that channel. The other channels keep going. A phrase that ends leaves its channel quiet. A phrase that holds stays until another row takes that channel. Level 0 is a silent phrase, and sending that index cuts the channel.
 
-The three voices add into one mix, centered on DAC midscale. A quiet voice adds nothing. Three voices at level 255 together are the full mix. The hardware doc sizes the amplifier for that mix.
+The three channels add into one mix, centered on DAC midscale. A quiet channel adds nothing. Three channels at level 255 together are the full mix. The hardware doc sizes the amplifier for that mix.
 
-How a game spends the voices is up to the indexes it sends. Two held rows and one row that ends is music on two channels and an effect on the third. A game may send only phrases that end. A game may send nothing. The console has no mode for those choices.
+How a game spends the channels is up to the indexes it sends. A held square and a held triangle leave the noise channel for short phrases. A game may send only phrases that end. A game may send nothing. The console has no mode for those choices.
 
-The shooter uses four ordinary rows. Shoot and break share voice 2. Start holds voice 0 for the round. Crash is a phrase that ends on voice 0, so it replaces the round tone. Voice 0 goes quiet when the crash ends. Voice 1 is unused.
+The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file.
 
-| Index | Moment | Phrase | Voice |
+The shooter uses two rows. Index 1 is the laser. It plays on the triangle when a bullet is spawned, and the phrase ends. The period starts short and the level starts high, then both fall. Index 2 is the explosion. It plays on the noise channel when a bullet removes a rock, and the phrase ends. The noise starts dense, then the period grows and the level falls. The square channel has no shooter row. The next sound takes index 3.
+
+| Index | Moment | Phrase | Channel |
 | --- | --- | --- | --- |
-| 1 | A bullet is spawned | ends | 2 |
-| 2 | A bullet removes a rock | ends | 2 |
-| 3 | A rock meets the ship | ends | 0 |
-| 4 | A round begins | holds | 0 |
+| 1 | A bullet is spawned | ends | triangle |
+| 2 | A bullet removes a rock | ends | noise |
 
 ## Rocks
 
@@ -138,7 +138,7 @@ Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift do
 
 Games share a set of 5 by 5 glyphs. The set holds the digits, the letters A to Z, a dot, a dash, and a colon. A lowercase letter uses the capital. `text_draw` paints one line from a chosen column and row. Each glyph takes the next five columns.
 
-The tick stays at 60 Hz. The shooter sends catalog indexes 1 through 4 at the moments in the sound section.
+The tick stays at 60 Hz. A spawned bullet sends index 1. A bullet that removes a rock sends index 2.
 
 ## What a game is
 

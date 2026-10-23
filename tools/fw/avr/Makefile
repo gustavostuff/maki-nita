@@ -9,7 +9,7 @@ OBJCOPY = avr-objcopy
 CFLAGS = -std=c11 -Wall -Wextra -Os -mmcu=$(MCU) -DF_CPU=$(CLOCK)UL -I..
 LDFLAGS = -mmcu=$(MCU)
 
-SRCS = main.c hal.c ../frame.c ../input.c ../game.c ../flush.c \
+SRCS = main.c hal.c sound.c ../frame.c ../input.c ../game.c ../flush.c \
        ../entity/base_entity.c ../entity/player.c \
        ../entity/bullet.c ../entity/rock.c ../score.c ../text.c persist.c
 
