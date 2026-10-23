@@ -43,7 +43,7 @@ Main system PCB, 100x100mm:
 
 Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
 
-<img src="img/main_pcb_concept.png" alt="Main PCB concept" />
+<img src="img/cart_pcb_concept.png" alt="Main PCB concept" />
 
 ## Docs
 
