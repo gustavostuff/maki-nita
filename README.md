@@ -14,7 +14,7 @@ The build is a simple soldering job.
 
 - The parts are through-hole, on a 2.54 mm grid.
 - The chips sit in sockets, so a bad one can be swapped.
-- Wires leave the board on two headers. One is the controls. The other is power and reset.
+- Wires leave the board on headers. One is the controls. One is power and reset. One is the speaker.
 
 The parts are cheap.
 
@@ -27,11 +27,12 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 ## Settled choices
 
 - Display: 16x16, four common-cathode 8x8 matrices, one bit per pixel.
-- Board: a 2-layer console PCB and a 2-layer cartridge, each with a ground pour on both sides. The console carries the matrices, the drivers, and the cart socket.
+- Board: a 2-layer console PCB and a 2-layer cartridge, each with a ground pour on both sides. The console carries the matrices, the drivers, the cart socket, the audio AVR, and the amplifier.
 - CPU: AVR128DB28-I/SP on the cartridge, internal 24 MHz clock. The console socket is an EDAC 345-016-520-212, 16 contacts, 8 a side.
 - Drivers: four MAX7219ENG+ or MAX7219CNG+, one per 8x8 block.
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
+- Sound: a second AVR128DB28 on the console mixes three triangle voices. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker. A game may use music, effects, both, or neither.
 
 ## PCBs
 
@@ -48,5 +49,5 @@ Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
 ## Docs
 
 - [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
-- [Software](docs/software.md) covers one tick, the framebuffer, the inputs, and what a game is.
+- [Software](docs/software.md) covers one tick, the framebuffer, the inputs, the sound catalog, and what a game is.
 - `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window.

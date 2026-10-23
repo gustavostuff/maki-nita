@@ -1,8 +1,8 @@
 # Maki Nita software
 
-The AVR holds the picture and reads the controls. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver or a pin.
+The cartridge AVR holds the picture and reads the controls. The console AVR holds the sound catalog and plays it. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver, a pin, or the audio AVR.
 
-Firmware is plain avr-gcc, clocked from the internal 24 MHz oscillator. The chip is programmed over UPDI. The firmware and the simulator are under the MIT License.
+Both AVRs run plain avr-gcc from the internal 24 MHz oscillator. Each chip is programmed over its own UPDI pin. The firmware and the simulator are under the MIT License.
 
 ## One tick
 
@@ -12,7 +12,7 @@ Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed 
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
-That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the chip.
+That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions, and it does not model the audio AVR. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the game chip.
 
 ## Framebuffer
 
@@ -89,6 +89,39 @@ typedef struct {
 } Input;
 ```
 
+## Sound
+
+The console AVR holds a catalog of 256 sounds. The cartridge sends one byte on EVENT. The byte is the index, from 0 through 255. The notes stay in the console image. The game image only chooses when to send an index. The hardware doc lists the pin and the amplifier.
+
+A game calls one function.
+
+```c
+void sound(uint8_t index);
+```
+
+The runtime drives PA0. The call does not wait for the pulses. A timer sends the byte, so the 60 Hz tick keeps its pace. A game that never calls `sound` leaves the line idle. The speaker stays quiet.
+
+EVENT idles high. The byte goes out least significant bit first, as eight low pulses. A 0 holds the line low for 100 us. A 1 holds it low for 200 us. The line returns high for 100 us between pulses. The audio AVR times each pulse itself. The two chips share no baud rate. One byte lasts about 2 ms, and the line then sits high.
+
+Each filled index is one row. An index with no row is ignored. An index keeps its number when a row is added. The next sound takes the next free index. Index 0 is free.
+
+A row names one of three voices, whether the phrase ends or holds, and a list of steps. A step is a period, a level, and a duration. The period and the duration count samples of the audio AVR. The level runs from 0 to 255. The voices are peers. A row does not label a voice as music or as an effect.
+
+A later index whose row uses the same voice replaces the phrase on that voice. The other voices keep going. A phrase that ends leaves the voice quiet. A phrase that holds stays until another row takes the voice. Level 0 is a silent phrase, and sending that index cuts the voice.
+
+The three voices add into one mix, centered on DAC midscale. A quiet voice adds nothing. Three voices at level 255 together are the full mix. The hardware doc sizes the amplifier for that mix.
+
+How a game spends the voices is up to the indexes it sends. Two held rows and one row that ends is music on two channels and an effect on the third. A game may send only phrases that end. A game may send nothing. The console has no mode for those choices.
+
+The shooter uses four ordinary rows. Shoot and break share voice 2. Start holds voice 0 for the round. Crash is a phrase that ends on voice 0, so it replaces the round tone. Voice 0 goes quiet when the crash ends. Voice 1 is unused.
+
+| Index | Moment | Phrase | Voice |
+| --- | --- | --- | --- |
+| 1 | A bullet is spawned | ends | 2 |
+| 2 | A bullet removes a rock | ends | 2 |
+| 3 | A rock meets the ship | ends | 0 |
+| 4 | A round begins | holds | 0 |
+
 ## Rocks
 
 The first game is a shooter. The ship sits at the bottom. Its shape points up.
@@ -101,11 +134,11 @@ The first game is a shooter. The ship sits at the bottom. Its shape points up.
 
 The stick steps the ship one LED every two ticks, including diagonals. Opposite switches on one axis cancel. The ship stops at the edges of the field.
 
-Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock starts by moving one row every 4, 8, 12, or 16 ticks. Over one minute of the round that period shortens to one tick. The faster rocks reach one row every two ticks partway through the minute, and by the end every rock falls once a tick. `ROCK_RAMP` is that minute in 60 Hz ticks. A rock may also step one column every 15 or 30 ticks, to the left, to the right, or not at all. A rock that reaches a side edge stays on the field. The action button fires one bullet. The bullet is a single LED and climbs one cell every two ticks. A bullet that meets a rock removes both and adds one to the score. The score stops at 999. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows a face and the round's score in digits. The round's score is compared with the saved score. A higher score replaces the saved score and shows a wide smile. The saved score is one 16-bit word at the start of the AVR EEPROM. An erased word reads as no high score. The simulator keeps the 512-byte EEPROM image in tools/sim/maki-nita.eep. The same score shows a straight mouth. A score of 999 against a saved 999 also shows the wide smile. A lower score shows a small frown. The digits start at column 1, row 8. The picture stays for one second, and a press during that second does nothing. After that second, the action button starts the next round. The new round begins with the score at zero, and the saved score stays.
+Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock starts by moving one row every 4, 8, 12, or 16 ticks. Over one minute of the round that period shortens to one tick. The faster rocks reach one row every two ticks partway through the minute, and by the end every rock falls once a tick. `ROCK_RAMP` is that minute in 60 Hz ticks. A rock may also step one column every 15 or 30 ticks, to the left, to the right, or not at all. A rock that reaches a side edge stays on the field. The action button fires one bullet. The bullet is a single LED and climbs one cell every two ticks. A bullet that meets a rock removes both and adds one to the score. The score stops at 999. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows a face and the round's score in digits. The round's score is compared with the saved score. A higher score replaces the saved score and shows a wide smile. The saved score is one 16-bit word at the start of the cartridge EEPROM. An erased word reads as no high score. The simulator keeps the 512-byte EEPROM image in tools/sim/maki-nita.eep. The same score shows a straight mouth. A score of 999 against a saved 999 also shows the wide smile. A lower score shows a small frown. The digits start at column 1, row 8. The picture stays for one second, and a press during that second does nothing. After that second, the action button starts the next round. The new round begins with the score at zero, and the saved score stays.
 
 Games share a set of 5 by 5 glyphs. The set holds the digits, the letters A to Z, a dot, a dash, and a colon. A lowercase letter uses the capital. `text_draw` paints one line from a chosen column and row. Each glyph takes the next five columns.
 
-The tick stays at 60 Hz.
+The tick stays at 60 Hz. The shooter sends catalog indexes 1 through 4 at the moments in the sound section.
 
 ## What a game is
 
@@ -115,10 +148,10 @@ A game is one function called from the 60 Hz tick.
 void game_tick(const Input *in);
 ```
 
-It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
+It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
 
 `main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Picking which game runs can be a later menu. The first program can call one game directly.
 
 ## Left out of this contract
 
-Sound, saved data beyond the high score, and a loader for more than one game. Sound is TBD. Nothing in this contract depends on sound.
+Saved data beyond the high score, and a loader for more than one game.

@@ -2,9 +2,9 @@
 """SKiDL netlist for a Maki Nita cartridge.
 
 The cartridge holds one AVR128DB28 and a double-sided 2x8 gold edge.
-Side A is the controller face. Side B carries the display and the
-programming pins. VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins
-tie to GND.
+Side A is the controller face. Side B carries the display, EVENT, and
+the programming pins. VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins
+tie to GND. PA0 drives EVENT.
 """
 
 from __future__ import annotations
@@ -135,8 +135,13 @@ def _check(text: str) -> None:
     gnd = nodes("GND")
     if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
         raise SystemExit("GND does not reach both AVR ground pins")
-    if ("J1", "A1") not in gnd or ("J1", "A8") not in gnd or ("J1", "B1") not in gnd:
-        raise SystemExit("GND does not reach three edge contacts")
+    if ("J1", "A1") not in gnd or ("J1", "A8") not in gnd:
+        raise SystemExit("GND does not reach both end contacts")
+    if ("J1", "B1") in gnd:
+        raise SystemExit("B1 is EVENT")
+    event = nodes("EVENT")
+    if event != {("U1", "22"), ("J1", "B1")}:
+        raise SystemExit(f"EVENT nodes {event}")
     din = nodes("DIN")
     if din != {("U1", "26"), ("J1", "B4")}:
         raise SystemExit(f"DIN nodes {din}")

@@ -2,9 +2,11 @@
 
 The console socket is an EDAC 345-016-520-212, eight contacts a side.
 Side A is the odd pads and the controller face. Side B is the even pads
-and carries the display and programming signals. Pad 1 is contact A1.
+and carries the display, EVENT, and the programming signals. Pad 1 is
+contact A1.
 
-Three contacts are GND and three are +5V. The ends of the edge are power.
+Two contacts are GND and three are +5V. Ground sits on A1 and A8.
+B1 is EVENT, driven by AVR package pin 22.
 A contact is (number 1..8, side, net, avr package pin or None).
 AVR pins 6, 14, and 20 are +5V. Pins 15 and 21 are GND.
 """
@@ -13,7 +15,7 @@ from __future__ import annotations
 
 # (contact, A net, A avr pin, B net, B avr pin)
 _ROWS = (
-    (1, "GND", None, "GND", None),
+    (1, "GND", None, "EVENT", 22),
     (2, "+5V", None, "+5V", None),
     (3, "UP", 7, "LOAD", 1),
     (4, "DOWN", 8, "DIN", 26),

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """SKiDL netlist for the Maki Nita console.
 
-Connections follow tools/sim/board.c. J1 is the cart socket. The AVR128DB28
-lives on the cartridge, so this board has no CPU. U2 to U5 are the
-MAX7219 chain, left to right, top to bottom. DS1 to DS4 are the matrices
-those drivers scan. The sim keeps the picture inside each driver. Here each
-segment and digit pin lands on one matrix pad.
+J1 is the cart socket. The game AVR lives on the cartridge. U6 is the
+audio AVR and U7 is the LM386. U2 to U5 are the MAX7219 chain, left to
+right, top to bottom. DS1 to DS4 are the matrices those drivers scan.
+The sim keeps the picture inside each driver and does not model the
+audio AVR. Here each segment and digit pin lands on one matrix pad.
 
 The matrix package pinout is a placeholder. Pad 1 is the marked end. Pads
 1-8 step away from that mark at the footprint pitch. Pad 16 sits opposite
@@ -51,8 +51,15 @@ PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
 SOCKET_FP = "MakiNita:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
 PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
+SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+UPDI_FP = "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
+AUDIO_FP = "Package_DIP:DIP-28_W7.62mm"
+AMP_FP = "Package_DIP:DIP-8_W7.62mm"
 MATRIX_FP = "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+R_FP = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm"
+C_ELEC_FP = "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm"
+C_DISC_FP = "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
 
 # Pin 1 is the square pad. Odd pins are one column, even pins the other.
 HDR_PINS = (
@@ -110,7 +117,52 @@ DRV_PINS = (
     (24, "DOUT"),
 )
 
-POWER_NAMES = {"VDD", "VDDIO2", "AVDD", "V+", "GND", "GND2"}
+# Same 28-pin map as the cartridge. PD6 is the DAC. PA1 listens to EVENT.
+AUDIO_PINS = (
+    (1, "PA7"),
+    (2, "PC0"),
+    (3, "PC1"),
+    (4, "PC2"),
+    (5, "PC3"),
+    (6, "VDDIO2"),
+    (7, "PD1"),
+    (8, "PD2"),
+    (9, "PD3"),
+    (10, "PD4"),
+    (11, "PD5"),
+    (12, "PD6"),
+    (13, "PD7"),
+    (14, "AVDD"),
+    (15, "GND"),
+    (16, "PF0"),
+    (17, "PF1"),
+    (18, "PF6"),
+    (19, "UPDI"),
+    (20, "VDD"),
+    (21, "GND2"),
+    (22, "PA0"),
+    (23, "PA1"),
+    (24, "PA2"),
+    (25, "PA3"),
+    (26, "PA4"),
+    (27, "PA5"),
+    (28, "PA6"),
+)
+
+AMP_PINS = (
+    (1, "GAIN"),
+    (2, "INN"),
+    (3, "INP"),
+    (4, "GND"),
+    (5, "VOUT"),
+    (6, "VS"),
+    (7, "BYPASS"),
+    (8, "GAINB"),
+)
+
+TWO_PINS = ((1, "1"), (2, "2"))
+
+POWER_NAMES = {"VDD", "VDDIO2", "AVDD", "V+", "VS", "GND", "GND2"}
 
 
 def _pin(num: int, name: str) -> Pin:
@@ -139,6 +191,93 @@ def _stub(part: Part, num: int) -> None:
     _tie(part, num, Net(f"NC_{part.ref}_{num}"))
 
 
+def _passive(ref: str, footprint: str, value: str) -> Part:
+    return _part("Passive", ref, footprint, TWO_PINS, value)
+
+
+def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
+    """Console synth. PD6 feeds the LM386 through the divider in the hardware doc."""
+    cpu = _part("AVR128DB28-I/SP", "U6", AUDIO_FP, AUDIO_PINS, "AVR128DB28-I/SP")
+    for num in (20, 14, 6):
+        _tie(cpu, num, vcc)
+    for num in (15, 21):
+        _tie(cpu, num, gnd)
+    _tie(cpu, 18, reset)
+    _tie(cpu, 23, event)
+
+    updi = Net("AUDIO_UPDI")
+    _tie(cpu, 19, updi)
+    prog = _part(
+        "PinHeader_1x03",
+        "J5",
+        UPDI_FP,
+        ((1, "UPDI"), (2, "VCC"), (3, "GND")),
+        "PinHeader 1x03",
+    )
+    _tie(prog, 1, updi)
+    _tie(prog, 2, vcc)
+    _tie(prog, 3, gnd)
+
+    dac = Net("DAC")
+    _tie(cpu, 12, dac)
+    pull = _passive("R1", R_FP, "10 kohm")
+    _tie(pull, 1, event)
+    _tie(pull, 2, vcc)
+    sink = _passive("R2", R_FP, "10 kohm")
+    _tie(sink, 1, dac)
+    _tie(sink, 2, gnd)
+
+    aud = Net("AUD")
+    couple = _passive("C1", C_ELEC_FP, "1 uF")
+    _tie(couple, 1, dac)
+    _tie(couple, 2, aud)
+    audin = Net("AUDIN")
+    series = _passive("R3", R_FP, "22 kohm")
+    _tie(series, 1, aud)
+    _tie(series, 2, audin)
+    shunt = _passive("R4", R_FP, "1 kohm")
+    _tie(shunt, 1, audin)
+    _tie(shunt, 2, gnd)
+
+    amp = _part("LM386N-1", "U7", AMP_FP, AMP_PINS, "LM386N-1")
+    _tie(amp, 2, gnd)
+    _tie(amp, 3, audin)
+    _tie(amp, 4, gnd)
+    _tie(amp, 6, vcc)
+    amp_out = Net("AMP")
+    _tie(amp, 5, amp_out)
+
+    spk = Net("SPK")
+    output = _passive("C2", C_ELEC_FP, "220 uF")
+    _tie(output, 1, amp_out)
+    _tie(output, 2, spk)
+    speaker = _part(
+        "PinHeader_1x02",
+        "J4",
+        SPK_FP,
+        ((1, "SPK"), (2, "GND")),
+        "PinHeader 1x02",
+    )
+    _tie(speaker, 1, spk)
+    _tie(speaker, 2, gnd)
+
+    zobel = Net("ZOBEL")
+    zobel_r = _passive("R5", R_FP, "10 ohm")
+    _tie(zobel_r, 1, amp_out)
+    _tie(zobel_r, 2, zobel)
+    zobel_c = _passive("C3", C_DISC_FP, "47 nF")
+    _tie(zobel_c, 1, zobel)
+    _tie(zobel_c, 2, gnd)
+
+    for ref in ("C4", "C6", "C7", "C8"):
+        cap = _passive(ref, C_DISC_FP, "100 nF")
+        _tie(cap, 1, vcc)
+        _tie(cap, 2, gnd)
+    bulk = _passive("C5", C_ELEC_FP, "100 uF")
+    _tie(bulk, 1, vcc)
+    _tie(bulk, 2, gnd)
+
+
 def build() -> None:
     vcc = Net("+5V")
     gnd = Net("GND")
@@ -147,6 +286,7 @@ def build() -> None:
     load = Net("LOAD")
     reset = Net("RESET")
     updi = Net("UPDI")
+    event = Net("EVENT")
     switches = {
         "UP": Net("UP"),
         "DOWN": Net("DOWN"),
@@ -161,6 +301,7 @@ def build() -> None:
         "LOAD": load,
         "RESET": reset,
         "UPDI": updi,
+        "EVENT": event,
         **switches,
     }
     socket = _part(
@@ -198,6 +339,7 @@ def build() -> None:
     _tie(power, 2, vcc)
     _tie(power, 3, reset)
     _tie(power, 4, gnd)
+    _audio(vcc, gnd, event, reset)
 
     drivers = []
     matrices = []
@@ -283,9 +425,11 @@ def _check(text: str) -> None:
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(2, 6)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
-    for pad in ("1", "2", "15"):
+    for pad in ("1", "15"):
         if ("J1", pad) not in gnd:
             raise SystemExit(f"GND does not reach cart socket pad {pad}")
+    if ("J1", "2") in gnd:
+        raise SystemExit("cart socket pad 2 is EVENT")
     if ("J2", "1") not in gnd or ("J2", "8") not in gnd:
         raise SystemExit("GND does not reach both header ground pins")
     if ("J3", "1") not in gnd or ("J3", "4") not in gnd:
@@ -308,8 +452,74 @@ def _check(text: str) -> None:
     if button != {("J1", "13"), ("J2", "7")}:
         raise SystemExit(f"BUTTON nodes {button}")
     reset_net = nodes("RESET")
-    if reset_net != {("J1", "12"), ("J3", "3")}:
+    if reset_net != {("J1", "12"), ("J3", "3"), ("U6", "18")}:
         raise SystemExit(f"RESET nodes {reset_net}")
+    if text.count('(value "AVR128DB28-I/SP")') != 1:
+        raise SystemExit("audio AVR missing")
+    if text.count('(value "LM386N-1")') != 1:
+        raise SystemExit("LM386 missing")
+    if text.count(f'(footprint "{AUDIO_FP}")') != 1:
+        raise SystemExit("audio AVR footprint missing")
+    if text.count(f'(footprint "{AMP_FP}")') != 1:
+        raise SystemExit("LM386 footprint missing")
+    if text.count(f'(footprint "{SPK_FP}")') != 1:
+        raise SystemExit("speaker header missing")
+    if text.count(f'(footprint "{UPDI_FP}")') != 1:
+        raise SystemExit("audio UPDI header missing")
+    if text.count('(value "10 kohm")') != 2:
+        raise SystemExit("expected the EVENT pull-up and the DAC load")
+    if text.count('(value "22 kohm")') != 1 or text.count('(value "1 kohm")') != 1:
+        raise SystemExit("input divider missing")
+    if text.count('(value "10 ohm")') != 1 or text.count('(value "47 nF")') != 1:
+        raise SystemExit("zobel missing")
+    if text.count('(value "1 uF")') != 1 or text.count('(value "220 uF")') != 1:
+        raise SystemExit("coupling caps missing")
+    if text.count('(value "100 nF")') != 4 or text.count('(value "100 uF")') != 1:
+        raise SystemExit("audio bypass caps missing")
+    event = nodes("EVENT")
+    if event != {("J1", "2"), ("U6", "23"), ("R1", "1")}:
+        raise SystemExit(f"EVENT nodes {event}")
+    if ("R1", "2") not in vcc:
+        raise SystemExit("EVENT pull-up does not reach +5V")
+    dac = nodes("DAC")
+    if dac != {("U6", "12"), ("R2", "1"), ("C1", "1")}:
+        raise SystemExit(f"DAC nodes {dac}")
+    if ("R2", "2") not in gnd:
+        raise SystemExit("DAC load does not reach GND")
+    aud = nodes("AUD")
+    if aud != {("C1", "2"), ("R3", "1")}:
+        raise SystemExit(f"AUD nodes {aud}")
+    audin = nodes("AUDIN")
+    if audin != {("R3", "2"), ("R4", "1"), ("U7", "3")}:
+        raise SystemExit(f"AUDIN nodes {audin}")
+    if ("R4", "2") not in gnd or ("U7", "2") not in gnd or ("U7", "4") not in gnd:
+        raise SystemExit("LM386 grounds missing")
+    if ("U7", "6") not in vcc:
+        raise SystemExit("LM386 supply missing")
+    for num in ("20", "14", "6"):
+        if ("U6", num) not in vcc:
+            raise SystemExit(f"audio AVR pin {num} is not on +5V")
+    for num in ("15", "21"):
+        if ("U6", num) not in gnd:
+            raise SystemExit(f"audio AVR pin {num} is not ground")
+    amp = nodes("AMP")
+    if amp != {("U7", "5"), ("C2", "1"), ("R5", "1")}:
+        raise SystemExit(f"AMP nodes {amp}")
+    zobel = nodes("ZOBEL")
+    if zobel != {("R5", "2"), ("C3", "1")}:
+        raise SystemExit(f"ZOBEL nodes {zobel}")
+    if ("C3", "2") not in gnd:
+        raise SystemExit("zobel cap does not reach GND")
+    spk = nodes("SPK")
+    if spk != {("C2", "2"), ("J4", "1")}:
+        raise SystemExit(f"SPK nodes {spk}")
+    if ("J4", "2") not in gnd:
+        raise SystemExit("speaker return missing")
+    audio_updi = nodes("AUDIO_UPDI")
+    if audio_updi != {("U6", "19"), ("J5", "1")}:
+        raise SystemExit(f"AUDIO_UPDI nodes {audio_updi}")
+    if ("J5", "2") not in vcc or ("J5", "3") not in gnd:
+        raise SystemExit("audio UPDI header power missing")
     link = nodes("DOUT_U2")
     if link != {("U2", "24"), ("U3", "1")}:
         raise SystemExit(f"DOUT_U2 nodes {link}")
