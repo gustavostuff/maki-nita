@@ -2,7 +2,7 @@
 #define RD_BOARD_H
 
 /*
- * One Maki Nita board.
+ * One Maki-Nita board.
  * U1 is the game AVR128DB28. U6 is the audio AVR128DB28.
  * U2 to U5 are the MAX7219 chain:
  * top left, top right, bottom left, bottom right.

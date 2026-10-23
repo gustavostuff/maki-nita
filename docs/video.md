@@ -1,29 +1,23 @@
-# Maki Nita hardware
+# Maki-Nita video
 
-Maki Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 field, about 64 mm square. The console also carries the four display drivers, the audio AVR, the amplifier, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 and nothing else. That chip is the CPU.
+Maki-Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 field, about 64 mm square. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
 
-The stick, the button, and the speaker mount to the case. Their wires land on headers. Power and reset land on another.
+The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 
 The console, the cartridge, and the rest of the hardware design are under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
 
-Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block. The builder solders the matrices. The drivers, the audio parts, and the passives are parts on the console. The CPU is a part on the cartridge.
+Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages touch. Rows are the cathodes. Columns are the anodes. Every matrix sits in the same orientation, so the same package corner points the same way on every block.
 
 ```mermaid
 flowchart LR
-  controls[Stick and button] --> socket[Cart socket]
-  cart[AVR128DB28 cartridge] --> socket
+  cart[AVR128DB28 cartridge] --> socket[Cart socket]
   socket -->|data, clock, load| drivers[4x MAX7219]
   drivers -->|segment and digit lines| leds[16x16 red dots]
-  socket -->|EVENT| audio[Audio AVR128DB28]
-  audio -->|mixed sample| amp[LM386]
-  amp --> speaker[8 ohm speaker]
 ```
 
 ## Who turns a pixel on
 
-The AVR reads the stick and the button, keeps the frame in RAM, and sends that frame to the drivers. It does not drive an LED pin.
-
-The five inputs are active low, with the pin's own pull-up. A closed switch ties the pin to GND. Up, down, left, right, and the button are PD1 through PD5, package pins 7 through 11.
+The AVR keeps the frame in RAM and sends that frame to the drivers. It does not drive an LED pin.
 
 The three outputs are the display chain. DIN is PA4, package pin 26, and it idles low. CLK is PA6, package pin 28, and it idles low. A rising edge of CLK shifts one bit into every MAX7219. LOAD is PA7, package pin 1, and it idles high. A rising edge of LOAD latches the 16-bit word each driver is holding.
 
@@ -47,39 +41,23 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | Qty | Part | Role |
 | --- | --- | --- |
 | 1 | EDAC 345-016-520-212 | Cart socket on the console. 16 contacts, 8 a side, 2.54 mm pitch |
-| 1 | Pin header, 2x4, 2.54 mm | Stick and button. J2 |
 | 1 | Pin header, 2x2, 2.54 mm | Power and reset. J3 |
-| 1 | Pin header, 1x2, 2.54 mm | Speaker. J4 |
-| 1 | Pin header, 1x3, 2.54 mm | Audio programming. J5 |
 | 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 512 bytes EEPROM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU, on the cartridge |
-| 1 | AVR128DB28-I/SP | Audio, on the console. Same part as the CPU |
-| 1 | 28-pin DIP socket | For the audio AVR |
-| 1 | LM386N-1 | Speaker amplifier, DIP-8. Gain stays 20 |
-| 1 | 8-pin DIP socket, 0.3 inch | For the amplifier |
 | 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
 | 4 | 24-pin DIP sockets, 0.3 inch | For the drivers |
 | 4 | Red 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
 | 4 | 28 kohm | ISET, one per driver. About 20 mA peak per LED |
 | 1 | 10 kohm | RESET pull-up |
 | 1 | 10 kohm | LOAD pull-up |
-| 1 | 10 kohm | EVENT pull-up |
-| 1 | 10 kohm | DAC load, from the audio AVR PD6 to GND |
-| 1 | 22 kohm | Series resistor into the LM386 |
-| 1 | 1 kohm | Shunt at the LM386 input |
-| 1 | 10 ohm | Zobel resistor at the LM386 output |
 | 2 | 10 kohm | Pull-downs on DIN and CLK |
 | 1 | 1N5822 | Series Schottky, reverse-plug protection |
 | 1 | Polyfuse, 1.5 A hold | On the 5 V input |
 | 1 | Barrel jack, 5.5 x 2.1 mm, center positive | Regulated 5 V in |
 | 1 | SPST panel switch | Breaks the 5 V rail |
 | 1 | 100 uF electrolytic | Bulk capacitor on the 5 V rail |
-| 1 | 100 uF electrolytic | LM386 supply, close to the package |
-| 1 | 220 uF electrolytic | LM386 output coupling to the speaker |
-| 1 | 1 uF electrolytic | DAC coupling into the divider. Positive faces the DAC |
 | 4 | 10 uF electrolytic | One from each driver V+ to GND, close to the package |
-| 1 | 47 nF | Zobel capacitor, in series with the 10 ohm |
-| 11 | 100 nF | One at each driver V+ pin, at VDD, AVDD, and VDDIO2 of each AVR, and at the LM386 supply |
+| 7 | 100 nF | One at each driver V+ pin, and at VDD, AVDD, and VDDIO2 of the game AVR |
 
 The MAX7219CNG+ is the commercial grade of the same narrow plastic DIP as the MAX7219ENG+. Datasheet revision 6 gives both parts one pin diagram. DIN is pin 1, LOAD is pin 12, CLK is pin 13, ISET is pin 18, V+ is pin 19, and DOUT is pin 24. The digit and segment pins match the block wiring below. The electrical limits are the same table, checked across each part's own temperature range. Analog Devices rates the CNG+ from 0 to 70 degrees C, and the ENG+ from -40 to 85 degrees C.
 
@@ -158,42 +136,19 @@ The cartridge is a separate board. It holds the AVR128DB28 and a double-sided go
 
 ## CPU signals
 
-Port pins on the AVR128DB28. Package pin numbers are the 28-pin SPDIP numbers from the datasheet. The contact column is the cartridge edge.
+Port pins on the game AVR128DB28 that feed the display. Package pin numbers are the 28-pin SPDIP numbers from the datasheet. The contact column is the cartridge edge. The input doc lists the stick and the button. The audio doc lists EVENT.
 
 | Signal | Package pin | Contact | Port | Direction | Notes |
 | --- | --- | --- | --- | --- | --- |
 | DIN | 26 | B4 | PA4 | out | MOSI into the first MAX7219. 10 kohm pull-down. Idle low |
 | CLK | 28 | B5 | PA6 | out | Rising edge clocks one bit. 10 kohm pull-down. Idle low |
 | LOAD | 1 | B3 | PA7 | out | Rising edge latches the 16 bits in each driver's own shift register. 10 kohm pull-up. Idle high |
-| EVENT | 22 | B1 | PA0 | out | Index byte to the audio AVR. 10 kohm pull-up on the console. Idle high |
-| UP | 7 | A3 | PD1 | in | Active low, internal pull-up |
-| DOWN | 8 | A4 | PD2 | in | Active low, internal pull-up |
-| LEFT | 9 | A5 | PD3 | in | Active low, internal pull-up |
-| RIGHT | 10 | A6 | PD4 | in | Active low, internal pull-up |
-| BUTTON | 11 | A7 | PD5 | in | Active low, internal pull-up |
 | RESET | 18 | B6 | PF6 | reset | 10 kohm pull-up. Stays a reset pin |
 | UPDI | 19 | B7 | UPDI | program | Programming header |
 
-PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads.
+PA1, PA2, PA3, PA5, PC0, PC1, PC2, PC3, PD6, PD7, PF0, and PF1 stay free on the game chip. PF0 and PF1 are the 32 kHz crystal pins, so they carry no loads. PA0 is EVENT, covered in the audio doc.
 
 The game chip's programming header is a 1x3: UPDI, VCC, GND. The board is powered from the barrel jack during programming.
-
-## Controls
-
-The stick is a Sanwa JLF or the same kind of part. Four independent switches. A diagonal is two switches closed at once. A square gate or an octagonal gate is a mechanical plate. The circuit is the same either way.
-
-Every switch common ties to GND. The normally open contact ties to its signal pin. The button is the same kind of switch. Those five signals are PD1 through PD5. They leave the board on J2, a 2x4 pin header, 2.54 mm pitch, and reach side A of the cart socket. Pin 1 is the square pad.
-
-| Pin | Net |
-| --- | --- |
-| 1 | GND |
-| 2 | +5 V |
-| 3 | UP |
-| 4 | DOWN |
-| 5 | LEFT |
-| 6 | RIGHT |
-| 7 | BUTTON |
-| 8 | GND |
 
 ## Power and reset
 
@@ -205,42 +160,6 @@ J3 is a 2x2 pin header, 2.54 mm pitch. Pin 1 is the square pad. The row with tha
 | 2 | +5 V |
 | 3 | RESET |
 | 4 | GND |
-
-## Sound
-
-The console carries a second AVR128DB28 and an LM386N-1. The audio AVR mixes a square wave, a triangle, and noise into one sample and writes that sample to its DAC. The LM386 drives an 8 ohm speaker. The speaker wires land on J4. The software doc defines the catalog and the bytes on EVENT.
-
-The audio AVR clocks from the internal 24 MHz oscillator. PF0 and PF1 carry no loads. VDD, AVDD, and VDDIO2 tie to the 5 V rail, each with a 100 nF capacitor. RESET joins the panel switch and cart contact B6, so that switch resets both chips. J5 programs this chip. Cart contact B7 stays the game chip's UPDI.
-
-EVENT is cart contact B1. The game AVR drives it from PA0, push-pull, and idles high. The 10 kohm pull-up holds the net high with the cartridge removed. The audio AVR listens on PA1.
-
-The DAC pin is PD6. The 10 kohm to GND is its DC load. A 1 uF capacitor, positive toward the DAC, couples that pin to a divider. The 22 kohm is in series. The 1 kohm ties the LM386 input to GND. A full mix of about 3.5 V peak to peak at the DAC arrives as about 0.15 V at that input. LM386 pins 1 and 8 stay open, so the gain stays 20. Pin 2 ties to GND. Pin 7 stays open.
-
-The output pin feeds the 220 uF capacitor, positive toward the amplifier, and then J4 pin 1. J4 pin 2 is GND. The 10 ohm and the 47 nF sit in series from the output pin to GND. The 100 uF and a 100 nF sit from the LM386 supply pin to GND, close to the package.
-
-| Signal | Package pin | Port | Direction | Notes |
-| --- | --- | --- | --- | --- |
-| EVENT | 23 | PA1 | in | From cart contact B1. Idle high |
-| DAC | 12 | PD6 | out | DAC0. 10 kohm to GND |
-| RESET | 18 | PF6 | reset | Same net as J3 and cart contact B6 |
-| UPDI | 19 | UPDI | program | J5 |
-
-J4 is a 1x2 pin header, 2.54 mm pitch. Pin 1 is the square pad.
-
-| Pin | Net |
-| --- | --- |
-| 1 | Speaker, after the 220 uF |
-| 2 | GND |
-
-J5 is a 1x3 pin header, 2.54 mm pitch. Pin 1 is the square pad. The board is powered from the barrel jack during programming.
-
-| Pin | Net |
-| --- | --- |
-| 1 | UPDI |
-| 2 | +5 V |
-| 3 | GND |
-
-One index byte on EVENT lasts about 2 ms. The line then sits high.
 
 ## Still open
 

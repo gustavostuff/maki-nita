@@ -1,4 +1,4 @@
-"""KiCad net classes for the Maki Nita field.
+"""KiCad net classes for the Maki-Nita field.
 
 Two classes split the matrix wiring by block row, top to bottom, so the
 ratsnest can be routed as two bands. The third class is the 5 V rail and
@@ -125,7 +125,7 @@ def annotate_netlist_classes(text: str) -> str:
 
 
 def patch_kicad_pro(text: str) -> str:
-    """Insert or replace the five Maki Nita classes in a .kicad_pro."""
+    """Insert or replace the five Maki-Nita classes in a .kicad_pro."""
     data = json.loads(text)
     ns = data.get("net_settings") or {}
     classes = [c for c in (ns.get("classes") or []) if c.get("name") == "Default"]

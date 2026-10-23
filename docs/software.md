@@ -1,4 +1,4 @@
-# Maki Nita software
+# Maki-Nita software
 
 The cartridge AVR holds the picture and reads the controls. The console AVR holds the sound catalog and plays it. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver, a pin, or the audio AVR.
 
@@ -8,7 +8,7 @@ Both AVRs run plain avr-gcc from the internal 24 MHz oscillator. Each chip is pr
 
 The runtime loops at 60 Hz. Each pass reads the controls, calls the game, then flushes the frame.
 
-Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed switch reads low. The hardware doc lists the package pins. Debounce is two ticks, described below.
+Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed switch reads low. The input doc lists the package pins. Debounce is two ticks, described below.
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
@@ -48,7 +48,7 @@ For the MAX7219, CLK shifts data regardless of LOAD. The rising edge of LOAD lat
 
 Four words go out before LOAD rises. The first word reaches the bottom-right driver. The last word reaches the top-left driver. Between those, the words follow the chain in reverse. The chain itself runs left to right, then down a row.
 
-A row of eight pixels becomes one byte with the leftmost pixel in bit 7. That matches the segment wiring in the hardware doc.
+A row of eight pixels becomes one byte with the leftmost pixel in bit 7. That matches the segment wiring in the video doc.
 
 Digit address for block row `d` (0 at the top of the block) is `d + 1`, from 0x01 through 0x08. One transfer writes that same row inside every block. Screen row `br * 8 + d` feeds the two blocks of block row `br`.
 
@@ -91,7 +91,7 @@ typedef struct {
 
 ## Sound
 
-The console AVR holds a catalog of 256 sounds. The cartridge sends one byte on EVENT. The byte is the index, from 0 through 255. The notes stay in the console image. The game image only chooses when to send an index. The hardware doc lists the pin and the amplifier.
+The console AVR holds a catalog of 256 sounds. The cartridge sends one byte on EVENT. The byte is the index, from 0 through 255. The notes stay in the console image. The game image only chooses when to send an index. The audio doc lists the pin, the pulses, and the amplifier.
 
 A game calls one function.
 
@@ -109,7 +109,7 @@ The three channels have fixed waveforms. One is a square wave, one is a triangle
 
 A later index whose row uses the same channel replaces the phrase on that channel. The other channels keep going. A phrase that ends leaves its channel quiet. A phrase that holds stays until another row takes that channel. Level 0 is a silent phrase, and sending that index cuts the channel.
 
-The three channels add into one mix, centered on DAC midscale. A quiet channel adds nothing. Three channels at level 255 together are the full mix. The hardware doc sizes the amplifier for that mix.
+The three channels add into one mix, centered on DAC midscale. A quiet channel adds nothing. Three channels at level 255 together are the full mix. The audio doc sizes the amplifier for that mix.
 
 How a game spends the channels is up to the indexes it sends. A held square and a held triangle leave the noise channel for short phrases. A game may send only phrases that end. A game may send nothing. The console has no mode for those choices.
 

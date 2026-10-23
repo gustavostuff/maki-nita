@@ -1183,7 +1183,7 @@
 		(layer "Edge.Cuts")
 		(uuid "4c4eeaa2-7e46-4a79-8408-51deb8bfc278")
 	)
-	(gr_text "Maki Nita Cart PCB v0.0.1"
+	(gr_text "Maki-Nita Cart PCB v0.0.1"
 		(at 40.05119 46 0)
 		(layer "F.SilkS")
 		(uuid "47384ff7-a848-4bd2-8dc7-c7cd505c76f5")

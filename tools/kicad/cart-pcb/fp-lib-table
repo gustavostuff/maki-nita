@@ -5,6 +5,6 @@
 		(type "KiCad")
 		(uri "${KIPRJMOD}/library/MakiNita.pretty")
 		(options "")
-		(descr "Maki Nita cartridge gold fingers")
+		(descr "Maki-Nita cartridge gold fingers")
 	)
 )

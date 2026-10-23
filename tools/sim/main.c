@@ -276,7 +276,7 @@ int main(void)
     }
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-    window = SDL_CreateWindow("Maki Nita simulator",
+    window = SDL_CreateWindow("Maki-Nita simulator",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
                               CANVAS_W * SCALE,

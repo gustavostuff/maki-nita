@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SKiDL netlist for a Maki Nita cartridge.
+"""SKiDL netlist for a Maki-Nita cartridge.
 
 The cartridge holds one AVR128DB28 and a double-sided 2x8 gold edge.
 Side A is the controller face. Side B carries the display, EVENT, and

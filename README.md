@@ -2,13 +2,13 @@
 
 <img src="img/sim.png" alt="Simulator" />
 
-Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four 8x8 LED matrices, set as a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
+Maki-Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four 8x8 LED matrices, set as a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
 An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge is both the console brain and the game data). Four MAX7219 drivers refresh the screen grid.
 
 ## Goals
 
-Simple graphics can still be fun and one action is enough to play. That, plus cartridges and a sturdy design, is the spirit of Maki Nita.
+Simple graphics can still be fun and one action is enough to play. That, plus cartridges and a sturdy design, is the spirit of Maki-Nita.
 
 The build is a simple soldering job.
 
@@ -48,6 +48,8 @@ Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
 
 ## Docs
 
-- [Hardware](docs/hardware.md) covers the board, the parts, the drivers, power, and headers.
+- [Video](docs/video.md) covers the matrices, the drivers, the cart edge, and power.
+- [Audio](docs/audio.md) covers EVENT, the console AVR, the amplifier, and the speaker.
+- [Input](docs/input.md) covers the stick, the button, and their header.
 - [Software](docs/software.md) covers one tick, the framebuffer, the inputs, the sound catalog, and what a game is.
 - `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window. The cart in `cart_placed.json` is the game that runs.

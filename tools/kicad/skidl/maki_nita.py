@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SKiDL netlist for the Maki Nita console.
+"""SKiDL netlist for the Maki-Nita console.
 
 J1 is the cart socket. The game AVR lives on the cartridge. U6 is the
 audio AVR and U7 is the LM386. U2 to U5 are the MAX7219 chain, left to
@@ -81,7 +81,7 @@ PWR_PINS = (
     (4, "GND2"),
 )
 
-# Column 0 is the left pixel, bit 7, segment DP. Same order as docs/hardware.md.
+# Column 0 is the left pixel, bit 7, segment DP. Same order as docs/video.md.
 SEG_PINS = (22, 14, 16, 20, 23, 21, 15, 17)  # DP A B C D E F G
 # Row 0 is the top of the block, DIG0.
 DIG_PINS = (2, 11, 6, 7, 3, 10, 5, 8)  # DIG0 .. DIG7
@@ -196,7 +196,7 @@ def _passive(ref: str, footprint: str, value: str) -> Part:
 
 
 def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
-    """Console synth. PD6 feeds the LM386 through the divider in the hardware doc."""
+    """Console synth. PD6 feeds the LM386 through the divider in the audio doc."""
     cpu = _part("AVR128DB28-I/SP", "U6", AUDIO_FP, AUDIO_PINS, "AVR128DB28-I/SP")
     for num in (20, 14, 6):
         _tie(cpu, num, vcc)
