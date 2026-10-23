@@ -8,7 +8,7 @@ An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge 
 
 ## Goals
 
-Simple graphics can still be fun. A few dots are enough to show a shape, and one action is enough to play. That, plus cartridges and a sturdy design, is the spirit of Maki Nita.
+Simple graphics can still be fun and one action is enough to play. That, plus cartridges and a sturdy design, is the spirit of Maki Nita.
 
 The build is a simple soldering job.
 
@@ -18,11 +18,11 @@ The build is a simple soldering job.
 
 The parts are cheap.
 
-- The boards are small 2-layer boards, which are cheap to order.
-- The screen is four 8x8 LED matrices (less than 1 USD each), and the chips are common parts.
-- Power is a normal regulated 5 V adapter.
+- The boards are small 2-layer PCBs, no larger than 100x100 mm.
+- The screen is four 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available parts.
+- Power is any generic/regulated 5 V adapter.
 
-The software is under the MIT License. The hardware design is under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
+Software is under the MIT License. The hardware design is under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
 
 ## Settled choices
 
