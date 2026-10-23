@@ -5,17 +5,14 @@
 #include "host.h"
 #include "input.h"
 
+#include "tests/report.h"
+
 #include <stdio.h>
 #include <string.h>
 
-static int failures;
-
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 static void draw_border(void)
@@ -66,12 +63,15 @@ static void test_flush_border(void)
     draw_border();
     show(&board);
     if (board_fault(&board) != MAX7219_OK) {
+        char line[64];
+
         for (i = 0; i < NDRV; i++) {
-            if (board.drv[i].fault != MAX7219_OK)
-                fprintf(stderr, "fail: %s timing fault %d\n",
-                        board.drv[i].refdes, board.drv[i].fault);
+            if (board.drv[i].fault != MAX7219_OK) {
+                snprintf(line, sizeof line, "%s timing fault %d",
+                         board.drv[i].refdes, board.drv[i].fault);
+                expect(0, line);
+            }
         }
-        failures++;
         return;
     }
 
@@ -166,14 +166,10 @@ static void test_event(void)
 
 int main(void)
 {
+    report_begin("board");
     test_switches();
     test_flush_border();
     test_square_on_leds();
     test_event();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("board ok\n");
-    return 0;
+    return report_end();
 }

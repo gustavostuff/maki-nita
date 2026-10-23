@@ -2,17 +2,11 @@
 #include "input.h"
 #include "paddle.h"
 #include "score.h"
-
-#include <stdio.h>
-
-static int failures;
+#include "tests/report.h"
 
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 static void feed(int up, int down, int left, int right, int button)
@@ -285,6 +279,7 @@ static void test_miss(void)
 
 int main(void)
 {
+    report_begin("paddle");
     test_period();
     test_open();
     test_serve();
@@ -295,10 +290,5 @@ int main(void)
     test_bounce();
     test_return();
     test_miss();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("paddle ok\n");
-    return 0;
+    return report_end();
 }

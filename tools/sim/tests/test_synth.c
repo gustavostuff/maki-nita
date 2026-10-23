@@ -1,16 +1,10 @@
 #include "synth.h"
+#include "tests/report.h"
 #include "wire.h"
-
-#include <stdio.h>
-
-static int failures;
 
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 static int remember(uint16_t *seen, int n, int cap, uint16_t sample)
@@ -119,12 +113,8 @@ static void test_wire(void)
 
 int main(void)
 {
+    report_begin("synth");
     test_catalog();
     test_wire();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("synth ok\n");
-    return 0;
+    return report_end();
 }

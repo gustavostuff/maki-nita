@@ -1,16 +1,12 @@
 #include "../cart.h"
+#include "tests/report.h"
 
 #include <stdio.h>
 #include <string.h>
 
-static int failures;
-
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 static void test_id(void)
@@ -51,12 +47,8 @@ static void test_file(void)
 
 int main(void)
 {
+    report_begin("cart");
     test_id();
     test_file();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("cart ok\n");
-    return 0;
+    return report_end();
 }

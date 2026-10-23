@@ -1,18 +1,14 @@
 #include "chips/max7219.h"
+#include "tests/report.h"
 
 #include <stdio.h>
 #include <string.h>
 
 #define HALF_GAP 100u
 
-static int failures;
-
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 static const struct {
@@ -71,6 +67,7 @@ static void test_package(void)
 {
     Max7219 chip;
     int i;
+    char line[64];
 
     max7219_init(&chip, "U2");
     expect(MAX7219_DIN == 1, "DIN is package pin 1");
@@ -91,15 +88,15 @@ static void test_package(void)
         if (pin->number != package[i].number ||
             pin->dir != package[i].dir ||
             strcmp(pin->name, package[i].name) != 0) {
-            fprintf(stderr, "fail: pin %d is %s\n", package[i].number, pin->name);
-            failures++;
+            snprintf(line, sizeof line, "pin %d is %s", package[i].number, pin->name);
+            expect(0, line);
         }
         if (package[i].dir == PIN_IN) {
             if (pin->drive != SIG_Z)
                 expect(0, "an input pin does not drive the net");
         } else if (pin->drive != package[i].idle) {
-            fprintf(stderr, "fail: pin %d idle level\n", package[i].number);
-            failures++;
+            snprintf(line, sizeof line, "pin %d idle level", package[i].number);
+            expect(0, line);
         }
     }
     for (i = 0; i < 8; i++)
@@ -208,15 +205,11 @@ static void test_code_b_and_scan(void)
 
 int main(void)
 {
+    report_begin("max7219");
     test_package();
     test_shift_and_dout();
     test_latch();
     test_short_clock();
     test_code_b_and_scan();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("max7219 ok\n");
-    return 0;
+    return report_end();
 }

@@ -3,19 +3,13 @@
 #include "game.h"
 #include "input.h"
 #include "score.h"
+#include "tests/report.h"
 #include "tests/sound_log.h"
 #include "text.h"
 
-#include <stdio.h>
-
-static int failures;
-
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 static void feed(int up, int down, int left, int right, int button)
@@ -351,6 +345,7 @@ static void test_ramp(void)
 
 int main(void)
 {
+    report_begin("space-shooter");
     test_frame();
     test_ship();
     test_shot();
@@ -360,10 +355,5 @@ int main(void)
     test_score();
     test_ramp();
     test_glyphs();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("game ok\n");
-    return 0;
+    return report_end();
 }

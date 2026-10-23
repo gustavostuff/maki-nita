@@ -1,16 +1,12 @@
 #include "chips/avr128db28.h"
+#include "tests/report.h"
 
 #include <stdio.h>
 #include <string.h>
 
-static int failures;
-
 static void expect(int cond, const char *msg)
 {
-    if (!cond) {
-        fprintf(stderr, "fail: %s\n", msg);
-        failures++;
-    }
+    report_check(cond, msg);
 }
 
 /* Package numbers are the 28-pin SPDIP datasheet map, not the header macros. */
@@ -54,6 +50,7 @@ static void test_package(void)
 {
     Avr128 avr;
     int i;
+    char line[64];
 
     avr_init(&avr, "U1");
     expect(AVR_PA4 == 26, "PA4 macro is pin 26");
@@ -71,15 +68,15 @@ static void test_package(void)
         if (pin->number != package[i].number ||
             pin->dir != package[i].dir ||
             strcmp(pin->name, package[i].name) != 0) {
-            fprintf(stderr, "fail: pin %d is %s\n", package[i].number, pin->name);
-            failures++;
+            snprintf(line, sizeof line, "pin %d is %s", package[i].number, pin->name);
+            expect(0, line);
         }
         if (package[i].dir == PIN_IN) {
             if (pin->drive != SIG_Z)
                 expect(0, "an input pin does not drive the net");
         } else if (pin->drive != package[i].idle || pin->level != package[i].idle) {
-            fprintf(stderr, "fail: pin %d idle level\n", package[i].number);
-            failures++;
+            snprintf(line, sizeof line, "pin %d idle level", package[i].number);
+            expect(0, line);
         }
     }
 }
@@ -129,12 +126,8 @@ static void test_drive_and_sense(void)
 
 int main(void)
 {
+    report_begin("avr128db28");
     test_package();
     test_drive_and_sense();
-    if (failures) {
-        fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
-        return 1;
-    }
-    printf("avr128db28 ok\n");
-    return 0;
+    return report_end();
 }
