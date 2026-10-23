@@ -1,29 +1,63 @@
 #include "player.h"
 
-#include "base_entity.h"
+#include "entity.h"
 
+#define FIELD 16
 #define STEP_EVERY 2
 
-static const uint8_t ship_rows[3] = {
-    SHAPE_ROW3(0, 1, 0),
-    SHAPE_ROW3(1, 1, 1),
-    SHAPE_ROW3(1, 1, 1),
-};
+static const Shape ship_shape = SHAPE3(1, 0,
+    "010",
+    "111",
+    "111");
 
-static const Shape ship_shape = {ship_rows, 3, 3};
+static int ship_id = -1;
 
-static BaseEntity ship;
+static int hold(Entity *e, int moving)
+{
+    if (!moving) {
+        e->pace = 0;
+        return 0;
+    }
+    if (e->pace > 0) {
+        e->pace--;
+        return 0;
+    }
+    e->pace = e->every - 1;
+    return 1;
+}
+
+static void clamp_box(Entity *e)
+{
+    int left = e->x - e->shape->ox;
+    int top = e->y - e->shape->oy;
+
+    if (left < 0)
+        left = 0;
+    if (top < 0)
+        top = 0;
+    if (left > FIELD - e->shape->w)
+        left = FIELD - e->shape->w;
+    if (top > FIELD - e->shape->h)
+        top = FIELD - e->shape->h;
+    e->x = left + e->shape->ox;
+    e->y = top + e->shape->oy;
+}
 
 void player_reset(void)
 {
-    base_take(&ship, 6, 13, STEP_EVERY);
+    if (ship_id >= 0)
+        entity_kill(ship_id);
+    ship_id = entity_spawn(&ship_shape, 7, 13, 0, 0, STEP_EVERY, ENTITY_INACTIVE);
 }
 
 void player_tick(const Input *in)
 {
+    Entity *ship = entity_get(ship_id);
     int dx = 0;
     int dy = 0;
 
+    if (ship == NULL)
+        return;
     if (in->left && !in->right)
         dx = -1;
     if (in->right && !in->left)
@@ -32,30 +66,28 @@ void player_tick(const Input *in)
         dy = -1;
     if (in->down && !in->up)
         dy = 1;
-
-    if (!base_hold(&ship, dx || dy))
+    if (!hold(ship, dx || dy))
         return;
-    ship.x += dx;
-    ship.y += dy;
-    base_clamp(&ship, ship_shape.w, ship_shape.h);
-}
-
-void player_draw(void)
-{
-    base_draw(&ship, &ship_shape);
+    ship->x += dx;
+    ship->y += dy;
+    clamp_box(ship);
 }
 
 int player_nose_x(void)
 {
-    return ship.x + 1;
+    Entity *ship = entity_get(ship_id);
+
+    return ship == NULL ? 0 : ship->x;
 }
 
 int player_nose_y(void)
 {
-    return ship.y;
+    Entity *ship = entity_get(ship_id);
+
+    return ship == NULL ? 0 : ship->y;
 }
 
 int player_covers(int x, int y)
 {
-    return base_covers(&ship, &ship_shape, x, y);
+    return entity_covers(ship_id, x, y);
 }

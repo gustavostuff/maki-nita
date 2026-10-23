@@ -15,7 +15,7 @@ ifeq ($(CART),paddle)
 GAME_SRCS = $(CART_DIR)/paddle.c
 else ifeq ($(CART),space-shooter)
 GAME_SRCS = $(CART_DIR)/game.c \
-            $(CART_DIR)/entity/base_entity.c $(CART_DIR)/entity/player.c \
+            $(CART_DIR)/entity/player.c \
             $(CART_DIR)/entity/bullet.c $(CART_DIR)/entity/rock.c
 else ifeq ($(CART),arkaled)
 GAME_SRCS = $(CART_DIR)/arkaled.c ../collide.c
@@ -27,7 +27,7 @@ CFLAGS = -std=c11 -Wall -Wextra -Os -mmcu=$(MCU) -DF_CPU=$(CLOCK)UL -I$(CART_DIR
 LDFLAGS = -mmcu=$(MCU)
 
 SRCS = main.c hal.c sound.c $(GAME_SRCS) ../frame.c ../input.c ../flush.c \
-       ../score.c ../text.c ../over.c persist.c
+       ../score.c ../text.c ../over.c ../entity.c persist.c
 
 game.elf: $(SRCS)
 	$(CC) $(CFLAGS) -o $@ $(SRCS) $(LDFLAGS)

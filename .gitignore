@@ -29,6 +29,7 @@ tools/sim/retrodiode-ui
 tools/sim/test_chips
 tools/sim/tests/test_max7219
 tools/sim/tests/test_avr128db28
+tools/sim/tests/test_entity
 tools/sim/tests/test_board
 tools/sim/tests/test_game
 tools/sim/tests/test_paddle

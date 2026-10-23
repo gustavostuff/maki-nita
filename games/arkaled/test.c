@@ -275,10 +275,12 @@ static void test_open(void)
 
     input_reset();
     arkaled_reset();
-    expect(arkaled_count() == 64, "the block starts with 64 bricks");
+    expect(arkaled_count() == 24, "the block starts with 24 pieces");
     expect(row_count(0) == 0 && row_count(1) == 0, "two rows above the block stay empty");
-    expect(row_count(2) == 16 && row_count(3) == 16 && row_count(4) == 16 && row_count(5) == 16,
-           "rows 2 through 5 start full");
+    expect(row_count(2) == 12 && row_count(3) == 12 && row_count(4) == 12 && row_count(5) == 12,
+           "rows 2 through 5 hold twelve LEDs each");
+    expect(!pixel_get(0, 2) && !pixel_get(1, 2) && !pixel_get(14, 2) && !pixel_get(15, 2),
+           "two columns on each side stay empty");
     expect(row_count(6) == 0 && row_count(13) == 0, "the playfield under the block starts empty");
     expect(pad_x() == 6, "the paddle is 4 LEDs on the bottom row");
     expect(row_count(14) == 1, "the ball is the only LED on its row");
@@ -290,11 +292,15 @@ static void test_open(void)
     at(8, 14, 0, 0, "the ball waits until the paddle moves");
     expect(!ended(), "a waiting ball does not end the round");
     arkaled_set(0, 0, 1);
+    arkaled_set(0, 2, 1);
+    arkaled_set(1, 3, 1);
+    arkaled_set(14, 4, 1);
+    arkaled_set(15, 5, 1);
     arkaled_set(4, 1, 1);
     arkaled_set(2, 6, 1);
     feed(0, 0, 0, 0, 0);
-    expect(arkaled_count() == 64 && row_count(0) == 0 && row_count(1) == 0,
-           "bricks stay inside the 16 by 4 block");
+    expect(arkaled_count() == 24 && row_count(0) == 0 && row_count(1) == 0,
+           "pieces stay inside the 12 by 4 block");
 }
 
 static void serve(unsigned seed, int left)
@@ -388,31 +394,33 @@ static void test_bricks(void)
 
     input_reset();
     arkaled_wipe();
-    arkaled_set(0, 2, 1);
+    arkaled_set(2, 2, 1);
     arkaled_set(8, 5, 1);
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
-    at(8, 7, 0, 1, "a brick overhead sends the ball back down");
-    expect(score_get() == 1 && !arkaled_on(8, 5) && arkaled_on(0, 2) && !ended(),
-           "that brick turns off and scores");
+    at(8, 7, 0, 1, "a piece overhead sends the ball back down");
+    expect(score_get() == 1 && !arkaled_on(8, 5) && !arkaled_on(9, 5) &&
+           arkaled_on(2, 2) && !ended(),
+           "that piece turns off and scores");
 
     arkaled_wipe();
-    arkaled_set(0, 2, 1);
+    arkaled_set(2, 2, 1);
     arkaled_set(4, 4, 1);
-    arkaled_set(5, 3, 1);
-    arkaled_load(6, 5, 4, -1, -1);
+    arkaled_set(6, 3, 1);
+    arkaled_load(6, 6, 4, -1, -1);
     feed(0, 0, 0, 0, 0);
-    at(6, 5, 1, 1, "a corner of two bricks reverses both steps");
-    expect(score_get() == 2 && !arkaled_on(4, 4) && !arkaled_on(5, 3) && !ended(),
-           "both bricks of that corner turn off");
+    at(7, 5, 1, 1, "a corner of two pieces reverses both steps");
+    expect(score_get() == 2 && !arkaled_on(4, 4) && !arkaled_on(6, 3) && !ended(),
+           "both pieces of that corner turn off");
 
     arkaled_wipe();
-    arkaled_set(0, 2, 1);
+    arkaled_set(2, 2, 1);
     arkaled_set(8, 5, 1);
     arkaled_load(6, 7, 6, 1, -1);
     feed(0, 0, 0, 0, 0);
-    at(6, 7, -1, 1, "a lone diagonal brick reverses both steps");
-    expect(score_get() == 1 && !arkaled_on(8, 5), "the diagonal brick turns off");
+    at(6, 7, -1, 1, "a lone diagonal piece reverses both steps");
+    expect(score_get() == 1 && !arkaled_on(8, 5) && !arkaled_on(9, 5),
+           "the diagonal piece turns off");
 
     arkaled_wipe();
     for (x = 0; x < 16; x++)
@@ -420,8 +428,8 @@ static void test_bricks(void)
     arkaled_load(6, 8, 6, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(9, 7, 1, 1, "a ceiling keeps the horizontal step");
-    expect(score_get() == 1 && !arkaled_on(8, 5) && arkaled_on(9, 5),
-           "the brick overhead turns off and the next one stays");
+    expect(score_get() == 1 && !arkaled_on(8, 5) && !arkaled_on(9, 5) && arkaled_on(10, 5),
+           "the piece overhead turns off and the next one stays");
 
     arkaled_reset();
     arkaled_load(6, 4, 0, 1, -1);
@@ -444,21 +452,22 @@ static void test_bricks(void)
     arkaled_load(6, 8, 4, 0, -1);
     expect(pump(5) == 5, "the ball reaches the gap above the block");
     at(8, 1, 0, 1, "a hole lets the ball into the two open rows");
-    expect(score_get() == 0 && !arkaled_on(8, 2) && arkaled_on(7, 2) && arkaled_on(9, 2),
-           "the hole stays open and the bricks beside it stay");
+    expect(score_get() == 0 && !arkaled_on(8, 2) && !arkaled_on(9, 2) &&
+           arkaled_on(7, 2) && arkaled_on(10, 2),
+           "the hole stays open and the pieces beside it stay");
 
     serve(8, 1);
-    expect(pump(8) == 8, "the left opening reaches the block");
-    at(1, 7, 1, 1, "the left wall and the block reverse both steps");
-    expect(score_get() == 1 && !arkaled_on(0, 5) && arkaled_on(1, 5) && arkaled_on(0, 4),
-           "that corner turns off one brick");
+    expect(pump(9) == 9, "the left opening reaches the block");
+    at(0, 4, -1, -1, "the gutter wall and the block turn the ball");
+    expect(score_get() == 1 && !arkaled_on(2, 5) && !arkaled_on(3, 5) && arkaled_on(2, 4),
+           "that piece turns off");
     expect(!ended(), "the rally continues");
 
     serve(1, 0);
     expect(pump(8) == 8, "the right opening reaches the block");
-    at(13, 7, -1, 1, "the right side of the block keeps the ball moving down");
-    expect(score_get() == 1 && !arkaled_on(14, 5) && arkaled_on(15, 5),
-           "the brick under the bounce turns off");
+    at(15, 7, 1, 1, "the right side of the block sends the ball down");
+    expect(score_get() == 1 && !arkaled_on(12, 5) && !arkaled_on(13, 5) && arkaled_on(10, 5),
+           "that piece turns off");
 }
 
 static void test_paddle(void)
@@ -509,22 +518,22 @@ static void test_pop(void)
     expect(sound_log_count() == 0, "an open step stays quiet");
 
     sound_log_reset();
-    arkaled_set(0, 2, 1);
+    arkaled_set(2, 2, 1);
     arkaled_set(8, 5, 1);
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
     expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
-           "a brick sends the pop");
+           "a piece sends the pop");
 
     sound_log_reset();
     arkaled_wipe();
-    arkaled_set(0, 2, 1);
+    arkaled_set(2, 2, 1);
     arkaled_set(4, 4, 1);
-    arkaled_set(5, 3, 1);
-    arkaled_load(6, 5, 4, -1, -1);
+    arkaled_set(6, 3, 1);
+    arkaled_load(6, 6, 4, -1, -1);
     feed(0, 0, 0, 0, 0);
     expect(sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
-           "two bricks in one step send one pop");
+           "two pieces in one step send one pop");
 
     sound_log_reset();
     arkaled_load(6, 0, 8, -1, 0);
@@ -551,7 +560,7 @@ static void test_pop(void)
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
     expect(ended() && sound_log_count() == 1 && sound_log_at(0) == SOUND_POP,
-           "the last brick still sends the pop");
+           "the last piece still sends the pop");
 }
 
 static void test_clear(void)
@@ -562,7 +571,7 @@ static void test_clear(void)
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
     expect(ended() && score_get() == 1 && arkaled_count() == 0,
-           "the last brick ends the round");
+           "the last piece ends the round");
 }
 
 static void test_cave(void)
@@ -579,13 +588,13 @@ static void test_cave(void)
 
     input_reset();
     arkaled_wipe();
-    for (x = 3; x <= 10; x++) {
+    for (x = 4; x <= 10; x += 2) {
         arkaled_set(x, 2, 1);
         arkaled_set(x, 5, 1);
     }
-    arkaled_set(3, 3, 1);
+    arkaled_set(4, 3, 1);
     arkaled_set(10, 3, 1);
-    arkaled_set(3, 4, 1);
+    arkaled_set(4, 4, 1);
     arkaled_set(10, 4, 1);
     arkaled_load(6, 6, 4, 1, -1);
     for (i = 0; i < 400 && !ended(); i++) {
@@ -609,7 +618,7 @@ static void test_cave(void)
             moves++;
     }
     expect(clean && moves >= 8 && ended(), "the ball crosses the cave and then misses");
-    expect(score_get() == 7 && arkaled_count() == 13, "the cave walls it touched turn off");
+    expect(score_get() == 6 && arkaled_count() == 6, "the cave pieces it touched turn off");
 }
 
 int main(void)

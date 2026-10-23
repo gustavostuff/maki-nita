@@ -1,21 +1,28 @@
 #include "bullet.h"
 
-#include "base_entity.h"
+#include "entity.h"
 
+#define FIELD 16
 #define BULLET_MAX 4
+#define BULLET_SLOTS 5
 #define BULLET_EVERY 2
 
-static const uint8_t dot_row[1] = {SHAPE_ROW1(1)};
-static const Shape dot = {dot_row, 1, 1};
+#if BULLET_MAX > BULLET_SLOTS
+#error the shooter keeps at most 5 bullets
+#endif
 
-static BaseEntity shot[BULLET_MAX];
+static const Shape dot = SHAPE1(0, 0, "1");
+
+static int shot[BULLET_MAX] = {-1, -1, -1, -1};
 
 void bullet_reset(void)
 {
     int i;
 
-    for (i = 0; i < BULLET_MAX; i++)
-        shot[i].live = 0;
+    for (i = 0; i < BULLET_MAX; i++) {
+        entity_kill(shot[i]);
+        shot[i] = -1;
+    }
 }
 
 int bullet_fire(int x, int y)
@@ -25,10 +32,10 @@ int bullet_fire(int x, int y)
     if (y < 0 || y >= FIELD || x < 0 || x >= FIELD)
         return 0;
     for (i = 0; i < BULLET_MAX; i++) {
-        if (shot[i].live)
+        if (shot[i] >= 0 && entity_get(shot[i]) != NULL)
             continue;
-        base_take(&shot[i], x, y, BULLET_EVERY);
-        return 1;
+        shot[i] = entity_spawn(&dot, x, y, 0, -1, BULLET_EVERY, 0);
+        return shot[i] >= 0;
     }
     return 0;
 }
@@ -38,22 +45,17 @@ void bullet_tick(void)
     int i;
 
     for (i = 0; i < BULLET_MAX; i++) {
-        if (!shot[i].live)
+        Entity *e;
+
+        if (shot[i] < 0)
             continue;
-        if (!base_due(&shot[i]))
-            continue;
-        shot[i].y--;
-        if (shot[i].y < 0)
-            shot[i].live = 0;
+        entity_step(shot[i]);
+        e = entity_get(shot[i]);
+        if (e == NULL || e->y < 0) {
+            entity_kill(shot[i]);
+            shot[i] = -1;
+        }
     }
-}
-
-void bullet_draw(void)
-{
-    int i;
-
-    for (i = 0; i < BULLET_MAX; i++)
-        base_draw(&shot[i], &dot);
 }
 
 int bullet_take_rect(int x, int y, int w, int h)
@@ -61,9 +63,14 @@ int bullet_take_rect(int x, int y, int w, int h)
     int i;
 
     for (i = 0; i < BULLET_MAX; i++) {
-        if (!base_in_rect(&shot[i], x, y, w, h))
+        Entity *e = entity_get(shot[i]);
+
+        if (e == NULL)
             continue;
-        shot[i].live = 0;
+        if (e->x < x || e->x >= x + w || e->y < y || e->y >= y + h)
+            continue;
+        entity_kill(shot[i]);
+        shot[i] = -1;
         return 1;
     }
     return 0;

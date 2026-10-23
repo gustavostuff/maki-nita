@@ -4,15 +4,18 @@
 #include "input.h"
 
 /*
- * Bricks on rows 2 through 5, a two-row gap above them, and a
- * paddle of four LEDs on the bottom row. The ball waits above the
- * paddle until the paddle moves, then steps up and to one side.
- * collide_step walks that ball. A brick in the way turns off and
- * scores. The bottom row off the paddle ends the round, and so
- * does the last brick. Later steps use arkaled_period.
+ * Twenty-four pieces on rows 2 through 5. Each piece is two LEDs
+ * wide and one LED tall, in columns 2 through 13. Rows 0 and 1
+ * are empty, and so are the two columns on each side. The paddle
+ * is four LEDs on the bottom row. The ball waits above the paddle
+ * until the paddle moves, then steps up and toward one side.
+ * collide_step walks that ball. A piece in the way turns off and
+ * scores one. The bottom row off the paddle ends the round, and so
+ * does the last piece. Later steps use arkaled_period.
  * arkaled_seed sets the opening side. Zero becomes 1.
- * arkaled_load places a live ball and leaves the bricks as they are.
- * arkaled_fill, arkaled_wipe, and arkaled_set edit those bricks.
+ * arkaled_load places a live ball and leaves the pieces as they are.
+ * arkaled_fill, arkaled_wipe, and arkaled_set edit those pieces.
+ * arkaled_set addresses a whole piece from either of its LEDs.
  */
 
 void arkaled_reset(void);

@@ -8,7 +8,6 @@ void bullet_reset(void);
 /* Returns 1 when a bullet is spawned. */
 int bullet_fire(int x, int y);
 void bullet_tick(void);
-void bullet_draw(void);
 
 /* Removes one bullet that sits inside the rectangle. Returns 1 when that happens. */
 int bullet_take_rect(int x, int y, int w, int h);

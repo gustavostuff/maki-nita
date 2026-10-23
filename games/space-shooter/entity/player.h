@@ -14,7 +14,6 @@
 
 void player_reset(void);
 void player_tick(const Input *in);
-void player_draw(void);
 int player_nose_x(void);
 int player_nose_y(void);
 int player_covers(int x, int y);

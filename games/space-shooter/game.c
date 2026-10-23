@@ -1,9 +1,9 @@
 #include "game.h"
 
+#include "entity.h"
 #include "entity/bullet.h"
 #include "entity/player.h"
 #include "entity/rock.h"
-#include "frame.h"
 #include "over.h"
 #include "score.h"
 #include "sound.h"
@@ -12,10 +12,7 @@ static int over;
 
 static void draw(void)
 {
-    clear();
-    rock_draw();
-    bullet_draw();
-    player_draw();
+    world_draw();
 }
 
 void game_reset(void)
@@ -23,9 +20,10 @@ void game_reset(void)
     over = 0;
     over_clear();
     score_reset();
-    player_reset();
     bullet_reset();
     rock_reset();
+    world_reset();
+    player_reset();
     draw();
 }
 

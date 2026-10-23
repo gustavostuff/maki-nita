@@ -9,9 +9,8 @@ SDL_CFLAGS = $(shell pkg-config --cflags sdl2 SDL2_image SDL2_ttf)
 LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image SDL2_ttf)
 
 CORE = engine/signal.c chips/max7219.c chips/avr128db28.c board.c ../fw/wire.c
-COMMON = ../fw/frame.c ../fw/input.c ../fw/score.c ../fw/text.c ../fw/over.c
+COMMON = ../fw/frame.c ../fw/input.c ../fw/score.c ../fw/text.c ../fw/over.c ../fw/entity.c
 SHOOTER = ../../games/space-shooter/game.c \
-          ../../games/space-shooter/entity/base_entity.c \
           ../../games/space-shooter/entity/player.c \
           ../../games/space-shooter/entity/bullet.c \
           ../../games/space-shooter/entity/rock.c
@@ -20,7 +19,7 @@ ARKALED = ../../games/arkaled/arkaled.c
 COLLIDE = ../fw/collide.c
 FW = $(COMMON) $(SHOOTER) ../fw/flush.c
 
-TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_board tests/test_game \
+TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_entity tests/test_board tests/test_game \
             tests/test_paddle tests/test_arkaled tests/test_cart tests/test_synth
 CHECK = tests/report.c
 
@@ -32,6 +31,9 @@ tests/test_max7219: tests/test_max7219.c chips/max7219.c engine/signal.c $(CHECK
 
 tests/test_avr128db28: tests/test_avr128db28.c chips/avr128db28.c engine/signal.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ tests/test_avr128db28.c chips/avr128db28.c engine/signal.c $(CHECK)
+
+tests/test_entity: tests/test_entity.c ../fw/entity.c ../fw/frame.c $(CHECK)
+	$(CC) $(CFLAGS) -o $@ tests/test_entity.c ../fw/entity.c ../fw/frame.c $(CHECK)
 
 tests/test_board: tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
@@ -54,6 +56,7 @@ tests/test_synth: tests/test_synth.c ../fw/synth.c ../fw/wire.c $(CHECK)
 test: $(TEST_BINS)
 	./tests/test_max7219
 	./tests/test_avr128db28
+	./tests/test_entity
 	./tests/test_game
 	./tests/test_paddle
 	./tests/test_arkaled

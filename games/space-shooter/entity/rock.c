@@ -1,32 +1,29 @@
 #include "rock.h"
 
-#include "base_entity.h"
 #include "bullet.h"
+#include "entity.h"
 #include "player.h"
 #include "score.h"
 #include "sound.h"
 
 #include <stdint.h>
 
+#define FIELD 16
 #define ROCK_MAX 4
+#define ASTEROID_MAX 26
 #define SPAWN_EVERY 36
+
+#if ROCK_MAX > ASTEROID_MAX
+#error the shooter keeps at most 26 asteroids
+#endif
 
 static const int period[4] = {4, 8, 12, 16};
 
-static const uint8_t solid2_rows[2] = {
-    SHAPE_ROW2(1, 1),
-    SHAPE_ROW2(1, 1),
-};
-static const uint8_t solid3_rows[3] = {
-    SHAPE_ROW3(1, 1, 1),
-    SHAPE_ROW3(1, 1, 1),
-    SHAPE_ROW3(1, 1, 1),
-};
-static const Shape solid2 = {solid2_rows, 2, 2};
-static const Shape solid3 = {solid3_rows, 3, 3};
+static const Shape solid2 = SHAPE2(0, 0, "11", "11");
+static const Shape solid3 = SHAPE3(0, 0, "111", "111", "111");
 
 typedef struct Rock {
-    BaseEntity e;
+    int id;
     int size;
     int fall;
     int dx;
@@ -34,7 +31,9 @@ typedef struct Rock {
     int xpace;
 } Rock;
 
-static Rock rock[ROCK_MAX];
+static Rock rock[ROCK_MAX] = {
+    {.id = -1}, {.id = -1}, {.id = -1}, {.id = -1},
+};
 static int spawn_wait;
 static int age;
 static uint16_t rng;
@@ -53,9 +52,9 @@ int rock_fall_period(int base, int age_ticks)
     return base - drop;
 }
 
-static const Shape *shape_of(const Rock *r)
+static const Shape *shape_of(int size)
 {
-    return r->size == 2 ? &solid2 : &solid3;
+    return size == 2 ? &solid2 : &solid3;
 }
 
 static uint16_t next_rand(void)
@@ -68,8 +67,10 @@ void rock_reset(void)
 {
     int i;
 
-    for (i = 0; i < ROCK_MAX; i++)
-        rock[i].e.live = 0;
+    for (i = 0; i < ROCK_MAX; i++) {
+        entity_kill(rock[i].id);
+        rock[i].id = -1;
+    }
     spawn_wait = 12;
     age = 0;
     rng = 1;
@@ -78,6 +79,7 @@ void rock_reset(void)
 void rock_add(int x, int y, int size, int every, int dx, int xevery)
 {
     int i;
+    const Shape *shape;
 
     if (size != 2 && size != 3)
         return;
@@ -89,10 +91,16 @@ void rock_add(int x, int y, int size, int every, int dx, int xevery)
         return;
     if (x < 0 || x > FIELD - size)
         return;
+    shape = shape_of(size);
     for (i = 0; i < ROCK_MAX; i++) {
-        if (rock[i].e.live)
+        int id;
+
+        if (rock[i].id >= 0 && entity_get(rock[i].id) != NULL)
             continue;
-        base_take(&rock[i].e, x, y, every);
+        id = entity_spawn(shape, x, y, 0, 1, every, 0);
+        if (id < 0)
+            return;
+        rock[i].id = id;
         rock[i].size = size;
         rock[i].fall = every;
         rock[i].dx = dx;
@@ -102,15 +110,14 @@ void rock_add(int x, int y, int size, int every, int dx, int xevery)
     }
 }
 
-static int hits_player(const Rock *r)
+static int hits_player(const Entity *e, int size)
 {
-    const Shape *shape = shape_of(r);
     int dx;
     int dy;
 
-    for (dy = 0; dy < shape->h; dy++) {
-        for (dx = 0; dx < shape->w; dx++) {
-            if (player_covers(r->e.x + dx, r->e.y + dy))
+    for (dy = 0; dy < size; dy++) {
+        for (dx = 0; dx < size; dx++) {
+            if (player_covers(e->x + dx, e->y + dy))
                 return 1;
         }
     }
@@ -145,45 +152,49 @@ int rock_tick(void)
 
     for (i = 0; i < ROCK_MAX; i++) {
         Rock *r = &rock[i];
+        Entity *e;
 
-        if (!r->e.live)
+        if (r->id < 0)
             continue;
-        r->e.every = rock_fall_period(r->fall, age);
-        if (base_due(&r->e))
-            r->e.y++;
+        e = entity_get(r->id);
+        if (e == NULL) {
+            r->id = -1;
+            continue;
+        }
+        e->every = rock_fall_period(r->fall, age);
+        entity_step(r->id);
+        e = entity_get(r->id);
+        if (e == NULL) {
+            r->id = -1;
+            continue;
+        }
         if (r->dx != 0) {
             r->xpace++;
             if (r->xpace >= r->xevery) {
-                int nx = r->e.x + r->dx;
+                int nx = e->x + r->dx;
 
                 r->xpace = 0;
                 if (nx < 0)
                     nx = 0;
                 if (nx > FIELD - r->size)
                     nx = FIELD - r->size;
-                r->e.x = nx;
+                e->x = nx;
             }
         }
-        if (r->e.y >= FIELD) {
-            r->e.live = 0;
+        if (e->y >= FIELD) {
+            entity_kill(r->id);
+            r->id = -1;
             continue;
         }
-        if (bullet_take_rect(r->e.x, r->e.y, r->size, r->size)) {
-            r->e.live = 0;
+        if (bullet_take_rect(e->x, e->y, r->size, r->size)) {
+            entity_kill(r->id);
+            r->id = -1;
             score_add(1);
             sound(2);
             continue;
         }
-        if (hits_player(r))
+        if (hits_player(e, r->size))
             crashed = 1;
     }
     return crashed;
-}
-
-void rock_draw(void)
-{
-    int i;
-
-    for (i = 0; i < ROCK_MAX; i++)
-        base_draw(&rock[i].e, shape_of(&rock[i]));
 }

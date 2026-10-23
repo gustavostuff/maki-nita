@@ -1,6 +1,6 @@
 #include "paddle.h"
 
-#include "frame.h"
+#include "entity.h"
 #include "over.h"
 #include "score.h"
 #include "sound.h"
@@ -17,14 +17,13 @@
 #define RAMP (10 * 60)
 #define SLOW_BALL 0
 
+static const Shape pad_shape = SHAPE4(0, 0, "1", "1", "1", "1");
+static const Shape dot = SHAPE1(0, 0, "1");
+
 static int over;
-static int ly;
+static int pad_id = -1;
+static int ball_id = -1;
 static int lpace;
-static int bx;
-static int by;
-static int dx;
-static int dy;
-static int bpace;
 static int age;
 static int live;
 static uint32_t rng;
@@ -45,12 +44,7 @@ int paddle_period(int ticks)
 
 static void draw(void)
 {
-    int i;
-
-    clear();
-    for (i = 0; i < PAD_H; i++)
-        pixel(0, (uint8_t)(ly + i), true);
-    pixel((uint8_t)bx, (uint8_t)by, true);
+    world_draw();
 }
 
 void paddle_seed(unsigned n)
@@ -72,45 +66,49 @@ static void stir(void)
     rng = rng * 1664525u + 1013904223u;
 }
 
-static void aim(void)
+static void aim(Entity *ball)
 {
     uint32_t bits = rng >> 30;
 
-    dx = (bits & 1u) ? 1 : -1;
-    dy = (bits & 2u) ? 1 : -1;
+    ball->vx = (bits & 1u) ? 1 : -1;
+    ball->vy = (bits & 2u) ? 1 : -1;
 }
 
-static int step_pad(int *y, int *pace, int dir)
+static int step_pad(Entity *pad, int dir)
 {
     int next;
 
     if (dir == 0) {
-        *pace = 0;
+        lpace = 0;
         return 0;
     }
-    if (*pace > 0) {
-        (*pace)--;
+    if (lpace > 0) {
+        lpace--;
         return 0;
     }
-    *pace = PAD_EVERY - 1;
-    next = *y + dir;
+    lpace = PAD_EVERY - 1;
+    next = pad->y + dir;
     if (next < 0)
         next = 0;
     if (next > FIELD - PAD_H)
         next = FIELD - PAD_H;
-    if (next == *y)
+    if (next == pad->y)
         return 0;
-    *y = next;
+    pad->y = next;
     return 1;
 }
 
-static int on_pad(int y)
+static int on_pad(const Entity *pad, int y)
 {
-    return y >= ly && y < ly + PAD_H;
+    return y >= pad->y && y < pad->y + PAD_H;
 }
 
-static int ball_step(void)
+static int ball_step(Entity *pad, Entity *ball)
 {
+    int bx = ball->x;
+    int by = ball->y;
+    int dx = ball->vx;
+    int dy = ball->vy;
     int nx = bx + dx;
     int ny = by + dy;
     int from_on;
@@ -129,16 +127,18 @@ static int ball_step(void)
         bounced = 1;
     }
     if (nx < 1) {
-        from_on = on_pad(by);
-        dest_on = on_pad(ny);
+        from_on = on_pad(pad, by);
+        dest_on = on_pad(pad, ny);
         if (!from_on && !dest_on) {
             if (bounced)
                 sound(SOUND_POP);
+            ball->vx = dx;
+            ball->vy = dy;
             return 1;
         }
         /* An end counts when the ball arrives from outside or leaves past it. */
-        corner = (from_on && !dest_on && (by == ly || by == ly + PAD_H - 1))
-            || (!from_on && dest_on && (ny == ly || ny == ly + PAD_H - 1));
+        corner = (from_on && !dest_on && (by == pad->y || by == pad->y + PAD_H - 1))
+            || (!from_on && dest_on && (ny == pad->y || ny == pad->y + PAD_H - 1));
         dx = -dx;
         nx = bx + dx;
         if (corner) {
@@ -152,11 +152,21 @@ static int ball_step(void)
         score_add(1);
         bounced = 1;
     }
-    bx = nx;
-    by = ny;
+    ball->x = nx;
+    ball->y = ny;
+    ball->vx = dx;
+    ball->vy = dy;
     if (bounced)
         sound(SOUND_POP);
     return 0;
+}
+
+static void spawn_actors(int pad_y, int x, int y)
+{
+    world_reset();
+    pad_id = entity_spawn(&pad_shape, 0, pad_y, 0, 0, PAD_EVERY, ENTITY_INACTIVE);
+    ball_id = entity_spawn(&dot, x, y, 0, 0, BALL_SLOW,
+                           ENTITY_INACTIVE | ENTITY_CAN_COLLIDE);
 }
 
 void paddle_reset(void)
@@ -164,35 +174,35 @@ void paddle_reset(void)
     over = 0;
     over_clear();
     score_reset();
-    ly = (FIELD - PAD_H) / 2;
     lpace = 0;
-    bx = FIELD / 2;
-    by = FIELD / 2;
-    dx = 0;
-    dy = 0;
-    bpace = 0;
     age = 0;
     live = 0;
+    spawn_actors((FIELD - PAD_H) / 2, FIELD / 2, FIELD / 2);
     draw();
 }
 
 void paddle_load(int pad_y, int x, int y, int vx, int vy)
 {
+    Entity *ball;
+
     paddle_reset();
-    ly = pad_y;
-    bx = x;
-    by = y;
-    dx = vx;
-    dy = vy;
+    entity_get(pad_id)->y = pad_y;
+    ball = entity_get(ball_id);
+    ball->x = x;
+    ball->y = y;
+    ball->vx = vx;
+    ball->vy = vy;
     live = 1;
-    bpace = paddle_period(0) - 1;
-    if (bpace < 0)
-        bpace = 0;
+    ball->pace = paddle_period(0) - 1;
+    if (ball->pace < 0)
+        ball->pace = 0;
     draw();
 }
 
 void paddle_tick(const Input *in)
 {
+    Entity *pad = entity_get(pad_id);
+    Entity *ball = entity_get(ball_id);
     int ldir = 0;
     int moved;
 
@@ -201,13 +211,15 @@ void paddle_tick(const Input *in)
             paddle_reset();
         return;
     }
+    if (pad == NULL || ball == NULL)
+        return;
 
     stir();
     if (in->up && !in->down)
         ldir = -1;
     if (in->down && !in->up)
         ldir = 1;
-    moved = step_pad(&ly, &lpace, ldir);
+    moved = step_pad(pad, ldir);
 
     if (!live) {
         if (!moved) {
@@ -215,18 +227,19 @@ void paddle_tick(const Input *in)
             return;
         }
         live = 1;
-        aim();
-        if (ball_step()) {
+        aim(ball);
+        if (ball_step(pad, ball)) {
             over = 1;
             over_start();
             return;
         }
     } else {
         age++;
-        bpace++;
-        if (bpace >= paddle_period(age)) {
-            bpace = 0;
-            if (ball_step()) {
+        ball->every = paddle_period(age);
+        ball->pace++;
+        if (ball->pace >= ball->every) {
+            ball->pace = 0;
+            if (ball_step(pad, ball)) {
                 over = 1;
                 over_start();
                 return;

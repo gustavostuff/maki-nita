@@ -115,6 +115,27 @@ How a game spends the channels is up to the indexes it sends. A held square and 
 
 The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file. In the simulator the index reaches that file across the EVENT net. The audio doc lists the filled rows. Index 1 goes out when a bullet is spawned. Index 2 goes out when a bullet removes a rock. Index 3 goes out when the ball bounces. A miss sends nothing.
 
+## Entities
+
+A cart keeps up to 32 entities. The screen stays columns 0 through 15 and rows 0 through 15. One screen of margin around that window makes the live area run from -8 to 23 on each axis. The 32 by 32 grid is 128 bytes. `world_draw` stamps the living entities into that grid and copies the center window into `frame`.
+
+`x` and `y` are the origin, one cell of the shape's box. The ship nose is cell `(1, 0)` of its 3 by 3 box. `vx` and `vy` are the step, and each one is -1, 0, or 1. `every` is the number of 60 Hz ticks between steps. When that wait elapses, the entity moves by `vx` and `vy` together. A game may store a new `every` as a rally goes on. An inactive entity keeps the stored speed and does not step. After a step, an origin outside -8..23 frees the slot. Pixels may hang outside the grid while the origin is inside. Those pixels are clipped.
+
+A shape is one 16-bit word in flash. `SHAPE1` through `SHAPE4` pack rows written as strings of `0` and `1`. Width and height come from those strings and run from 1 to 4. An instance does not copy the pixels.
+
+```c
+static const Shape ship = SHAPE3(1, 0,
+    "010",
+    "111",
+    "111");
+```
+
+`ENTITY_CAN_COLLIDE` and `ENTITY_CAN_BE_COLLIDED` mark the two sides of a pair. `world_pairs` reports a pair once when the first flag is set on one entity, the second flag is set on the other, and any lit pixels share a cell. The report does not bounce, score, or remove either entity. The game does that.
+
+`entity_spawn` returns a slot, or -1 when all 32 are live. Hidden is true when the entity is live and no lit pixel lies on the screen. A freed slot is empty.
+
+The shooter spends that table as 1 ship, room for 5 bullets, and at most 26 asteroids. A rally in this cart holds at most 4 rocks and 4 bullets.
+
 ## Rocks
 
 The first game is a shooter. The ship sits at the bottom. Its shape points up.
@@ -147,13 +168,13 @@ A ball that gets past the paddle ends the round. The field then shows the same f
 
 Arkaled is a cart. The paddle is four LEDs on the bottom row. It starts on columns 6 through 9. Left and right move it one LED every two ticks. Up and down do nothing. The action button does nothing during the rally. A paddle that reaches the left or right edge stays there until its direction points back onto the field.
 
-Rows 0 and 1 are empty. Rows 2 through 5 start lit. That block is 16 columns by 4 rows, with two open rows above it. The ball is one LED. It starts at column 8, row 14, and waits there until the paddle moves. That move sends the ball up and toward one side.
+Rows 0 and 1 are empty. Rows 2 through 5 hold the pieces. Each piece is two LEDs wide and one LED tall. Six pieces sit on each of those rows, in columns 2 through 13. Columns 0, 1, 14, and 15 stay empty beside the block. The ball is one LED. It starts at column 8, row 14, and waits there until the paddle moves. That move sends the ball up and toward one side.
 
 Steps after the opening one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `arkaled_period` is that wait.
 
-`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A brick that blocks the step turns off and adds one to the round's score. The paddle and the walls block the ball and add nothing. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell. The score stays off the field during the rally. The score stops at 999.
+`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A piece that blocks the step turns off and adds one to the round's score. Both LEDs of that piece go dark. Two pieces in one step add two and send index 3 once. The paddle and the walls block the ball and add nothing. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell. The score stays off the field during the rally. The score stops at 999.
 
-A ball that reaches the bottom row off the paddle ends the round. Clearing the last brick ends the round the same way. The field then shows the same face and digits as the other carts, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the block lit again. The simulator keeps this cart's high score in tools/sim/arkaled.eep.
+A ball that reaches the bottom row off the paddle ends the round. Clearing the last piece ends the round the same way. The field then shows the same face and digits as the other carts, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the block lit again. The simulator keeps this cart's high score in tools/sim/arkaled.eep.
 
 ## What a game is
 
@@ -163,7 +184,7 @@ A game is one function called from the 60 Hz tick.
 void game_tick(const Input *in);
 ```
 
-It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
+It reads `in`, updates its own static state, and draws. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds the 32 entity slots, the 32 by 32 grid, and the 32-byte frame.
 
 `main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Each cartridge image calls its own game. The names in `cart_placed.json` are `space-shooter`, `paddle`, and `arkaled`.
 
