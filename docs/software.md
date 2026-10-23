@@ -32,7 +32,7 @@ void clear(void);
 
 `x` and `y` run from 0 to 15. A coordinate outside that range is ignored.
 
-This is the whole display interface. There is no per-pixel brightness, no hardware sprite, and no second layer. Driver intensity stays at full scale.
+This is the whole display interface. There is no per-pixel brightness, no hardware sprite, and no second layer. Driver intensity stays at full scale. The SDK doc is where a game places sprites into this frame.
 
 ## Timing
 
@@ -115,27 +115,6 @@ How a game spends the channels is up to the indexes it sends. A held square and 
 
 The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file. In the simulator the index reaches that file across the EVENT net. The audio doc lists the filled rows. Index 1 goes out when a bullet is spawned. Index 2 goes out when a bullet removes a rock. Index 3 goes out when the ball bounces. A miss sends nothing.
 
-## Entities
-
-A cart keeps up to 32 entities. The screen stays columns 0 through 15 and rows 0 through 15. One screen of margin around that window makes the live area run from -8 to 23 on each axis. The 32 by 32 grid is 128 bytes. `world_draw` stamps the living entities into that grid and copies the center window into `frame`.
-
-`x` and `y` are the origin, one cell of the shape's box. The ship nose is cell `(1, 0)` of its 3 by 3 box. `vx` and `vy` are the step, and each one is -1, 0, or 1. `every` is the number of 60 Hz ticks between steps. When that wait elapses, the entity moves by `vx` and `vy` together. A game may store a new `every` as a rally goes on. An inactive entity keeps the stored speed and does not step. After a step, an origin outside -8..23 frees the slot. Pixels may hang outside the grid while the origin is inside. Those pixels are clipped.
-
-A shape is one 16-bit word in flash. `SHAPE1` through `SHAPE4` pack rows written as strings of `0` and `1`. Width and height come from those strings and run from 1 to 4. An instance does not copy the pixels.
-
-```c
-static const Shape ship = SHAPE3(1, 0,
-    "010",
-    "111",
-    "111");
-```
-
-`ENTITY_CAN_COLLIDE` and `ENTITY_CAN_BE_COLLIDED` mark the two sides of a pair. `world_pairs` reports a pair once when the first flag is set on one entity, the second flag is set on the other, and any lit pixels share a cell. The report does not bounce, score, or remove either entity. The game does that.
-
-`entity_spawn` returns a slot, or -1 when all 32 are live. Hidden is true when the entity is live and no lit pixel lies on the screen. A freed slot is empty.
-
-The shooter spends that table as 1 ship, room for 5 bullets, and at most 26 asteroids. A rally in this cart holds at most 4 rocks and 4 bullets.
-
 ## Rocks
 
 The first game is a shooter. The ship sits at the bottom. Its shape points up.
@@ -146,7 +125,7 @@ The first game is a shooter. The ship sits at the bottom. Its shape points up.
 111
 ```
 
-The stick steps the ship one LED every two ticks, including diagonals. Opposite switches on one axis cancel. The ship stops at the edges of the field.
+The stick steps the ship one LED every two ticks, including diagonals. Opposite switches on one axis cancel. The ship stops at the edges of the field. The cart keeps at most 26 asteroids in memory, which leaves room for 5 bullets and the ship. A rally holds at most 4 rocks and 4 bullets.
 
 Rocks are solid 2x2 and 3x3 blocks. They enter from above the field and drift down. Each rock starts by moving one row every 4, 8, 12, or 16 ticks. Over one minute of the round that period shortens to one tick. The faster rocks reach one row every two ticks partway through the minute, and by the end every rock falls once a tick. `ROCK_RAMP` is that minute in 60 Hz ticks. A rock may also step one column every 15 or 30 ticks, to the left, to the right, or not at all. A rock that reaches a side edge stays on the field. The action button fires one bullet. The bullet is a single LED and climbs one cell every two ticks. A bullet that meets a rock removes both and adds one to the score. The score stops at 999. A rock that leaves the bottom of the field is gone. A rock that meets the ship ends the round. The field then shows a face and the round's score in digits. The round's score is compared with the saved score. A higher score replaces the saved score and shows a wide smile. The saved score is one 16-bit word at the start of the cartridge EEPROM. An erased word reads as no high score. The simulator keeps the 512-byte EEPROM image in tools/sim/maki-nita.eep. The same score shows a straight mouth. A score of 999 against a saved 999 also shows the wide smile. A lower score shows a small frown. The digits start at column 1, row 8. The picture stays for one second, and a press during that second does nothing. After that second, the action button starts the next round. The new round begins with the score at zero, and the saved score stays.
 
@@ -184,7 +163,7 @@ A game is one function called from the 60 Hz tick.
 void game_tick(const Input *in);
 ```
 
-It reads `in`, updates its own static state, and draws. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds the 32 entity slots, the 32 by 32 grid, and the 32-byte frame.
+It reads `in`, updates its own static state, and draws. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds the 32-byte frame and the entity table from the SDK doc.
 
 `main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Each cartridge image calls its own game. The names in `cart_placed.json` are `space-shooter`, `paddle`, and `arkaled`.
 
