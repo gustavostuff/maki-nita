@@ -2,9 +2,9 @@
 
 <img src="img/sim.png" alt="Simulator" />
 
-Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four red 8x8 matrices on one board, set as a 16x16 field. Each pixel is on or off.
+Maki Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four 8x8 LED matrices, set as a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
-An AVR128DB28 on a cartridge runs the game and holds the picture. Four MAX7219 drivers on the console refresh the grid.
+An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge is both the console brain and the game data). Four MAX7219 drivers refresh the screen grid.
 
 ## Goals
 
