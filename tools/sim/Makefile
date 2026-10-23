@@ -33,11 +33,11 @@ tests/test_avr128db28: tests/test_avr128db28.c chips/avr128db28.c engine/signal.
 tests/test_board: tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c tests/sound_log.c
 	$(CC) $(CFLAGS) -o $@ tests/test_board.c hal.c $(CORE) $(FW) ../fw/persist_ram.c tests/sound_log.c
 
-tests/test_game: tests/test_game.c $(COMMON) $(SHOOTER) ../fw/persist_ram.c tests/sound_log.c
-	$(CC) $(CFLAGS) -o $@ tests/test_game.c $(COMMON) $(SHOOTER) ../fw/persist_ram.c tests/sound_log.c
+tests/test_game: ../../games/space-shooter/test.c $(COMMON) $(SHOOTER) ../fw/persist_ram.c tests/sound_log.c
+	$(CC) $(CFLAGS) -o $@ ../../games/space-shooter/test.c $(COMMON) $(SHOOTER) ../fw/persist_ram.c tests/sound_log.c
 
-tests/test_paddle: tests/test_paddle.c $(COMMON) $(PADDLE) ../fw/persist_ram.c
-	$(CC) $(CFLAGS) -o $@ tests/test_paddle.c $(COMMON) $(PADDLE) ../fw/persist_ram.c
+tests/test_paddle: ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c
+	$(CC) $(CFLAGS) -o $@ ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c
 
 tests/test_cart: tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) ../fw/persist_ram.c tests/sound_log.c
 	$(CC) $(CFLAGS) -o $@ tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) ../fw/persist_ram.c tests/sound_log.c

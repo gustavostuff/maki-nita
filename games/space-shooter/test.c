@@ -3,7 +3,7 @@
 #include "game.h"
 #include "input.h"
 #include "score.h"
-#include "sound_log.h"
+#include "tests/sound_log.h"
 #include "text.h"
 
 #include <stdio.h>

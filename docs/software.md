@@ -142,13 +142,13 @@ The tick stays at 60 Hz. A spawned bullet sends index 1. A bullet that removes a
 
 ## Paddle
 
-Paddle is the other cart. Two paddles stand on the field, each one column wide and four LEDs tall. They start on rows 6 through 9. The left paddle is column 0. The right paddle is column 15. The ball is one LED. It starts at column 8, row 8, and steps diagonally toward the left paddle.
+Paddle is the other cart. One paddle stands on the field, one column wide and four LEDs tall. It starts on rows 6 through 9, in column 0. The ball is one LED. It starts at column 8, row 8, and waits there until the paddle moves.
 
-The stick moves the left paddle one LED every two ticks. Up and down are the only directions that count. The right paddle stays put until the action button is held. While the button is held it moves one LED every two ticks. The first hold sends it upward. Releasing the button stops it. The next hold sends it downward. Each later hold swaps the direction again. A paddle that reaches the top or the bottom stays there until its direction points back onto the field.
+The stick moves the paddle one LED every two ticks. Up and down are the only directions that count. The action button does not move the paddle. A paddle that reaches the top or the bottom stays there until its direction points back onto the field.
 
-The ball waits 7 ticks between steps. Every 10 seconds that wait shrinks by one tick. At one tick per step it stays there. `paddle_period` is that wait. The top and bottom edges reverse the vertical step. A paddle reverses the horizontal step and adds one to the round's score. The score stays off the field during the rally. The score stops at 999.
+On the tick the paddle first moves, the ball steps toward one of the four corners. Steps after that one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `paddle_period` is that wait. `SLOW_BALL` in the paddle source is a debug switch. While it is 1, those later steps wait 30 ticks instead, which is 2 FPS. The top, bottom, and right edges reverse the ball. A ball alongside the paddle reverses its horizontal step and keeps its vertical step. A ball that meets an end from outside the paddle, or that leaves past an end, reverses both steps. Either bounce adds one to the round's score. The score stays off the field during the rally. The score stops at 999.
 
-A ball that gets past a paddle ends the round. The field then shows the same face and digits as the shooter, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero, the right paddle at rest, and the next press aimed upward again. The simulator keeps this cart's high score in tools/sim/paddle.eep.
+A ball that gets past the paddle ends the round. The field then shows the same face and digits as the shooter, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the ball back at the center. The simulator keeps this cart's high score in tools/sim/paddle.eep.
 
 ## What a game is
 
