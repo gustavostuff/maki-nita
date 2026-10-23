@@ -8,7 +8,7 @@ CFLAGS = -std=c11 -Wall -Wextra -O2 -I../fw -I.
 SDL_CFLAGS = $(shell pkg-config --cflags sdl2 SDL2_image SDL2_ttf)
 LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image SDL2_ttf)
 
-CORE = engine/signal.c chips/max7219.c chips/avr128db28.c board.c
+CORE = engine/signal.c chips/max7219.c chips/avr128db28.c board.c ../fw/wire.c
 GAME = ../fw/frame.c ../fw/input.c ../fw/game.c \
        ../fw/entity/base_entity.c ../fw/entity/player.c \
        ../fw/entity/bullet.c ../fw/entity/rock.c ../fw/score.c ../fw/text.c

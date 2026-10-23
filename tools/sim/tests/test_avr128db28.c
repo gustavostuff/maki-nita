@@ -105,6 +105,11 @@ static void test_drive_and_sense(void)
     expect(avr.pin[AVR_PA6 - 1].drive == SIG_H, "PA6 accepts a high");
     avr_drive(&avr, AVR_PA7, SIG_L);
     expect(avr.pin[AVR_PA7 - 1].drive == SIG_L, "PA7 accepts a low");
+    avr_output(&avr, AVR_PA0, SIG_H);
+    expect(avr.pin[AVR_PA0 - 1].dir == PIN_OUT && avr.pin[AVR_PA0 - 1].drive == SIG_H,
+           "PA0 can drive EVENT and idles high");
+    avr_drive(&avr, AVR_PA0, SIG_L);
+    expect(avr.pin[AVR_PA0 - 1].drive == SIG_L, "PA0 accepts a low");
 
     net_init(&sw, "UP", SIG_H);
     contact.name = "UP";

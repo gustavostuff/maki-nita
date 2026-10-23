@@ -6,6 +6,7 @@
 #include "input.h"
 
 #include <stdio.h>
+#include <string.h>
 
 static int failures;
 
@@ -122,11 +123,53 @@ static void test_square_on_leds(void)
     expect(board_led_on(&board, 9, 15), "the new right column turns on");
 }
 
+static uint8_t heard[4];
+static int nheard;
+
+static void hear(uint8_t index)
+{
+    if (nheard < 4)
+        heard[nheard++] = index;
+}
+
+static void test_event(void)
+{
+    Board board;
+
+    board_init(&board);
+    expect(avr_sense(&board.audio, AVR_PA1) == SIG_H, "EVENT idles high at the audio pin");
+    expect(strcmp(board.audio.refdes, "U6") == 0, "the audio AVR is U6");
+    expect(board.cpu.pin[AVR_PA0 - 1].net == &board.event &&
+               board.audio.pin[AVR_PA1 - 1].net == &board.event,
+           "pin 22 and pin 23 share EVENT");
+
+    board_drive(&board, AVR_PA0, SIG_Z);
+    board_eval(&board);
+    expect(avr_sense(&board.audio, AVR_PA1) == SIG_H, "the pull-up holds EVENT with PA0 released");
+    expect(avr_sense(&board.cpu, AVR_PA0) == SIG_H, "the game pin sees that same high");
+
+    nheard = 0;
+    board_on_index(&board, hear);
+    board_send(&board, 0xA5);
+    board_advance(&board, 1000);
+    expect(nheard == 0, "a queued index waits for the pulse ticks");
+    board_advance(&board, 5000000);
+    expect(nheard == 1 && heard[0] == 0xA5, "pin 23 decodes the byte on EVENT");
+
+    nheard = 0;
+    board_send(&board, 1);
+    board_send(&board, 2);
+    board_advance(&board, 16000000);
+    expect(nheard == 2 && heard[0] == 1 && heard[1] == 2,
+           "a laser and an explosion both cross the net");
+}
+
 int main(void)
 {
     test_switches();
     test_flush_border();
     test_square_on_leds();
+    test_event();
     if (failures) {
         fprintf(stderr, "%d failure%s\n", failures, failures == 1 ? "" : "s");
         return 1;

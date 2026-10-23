@@ -18,6 +18,7 @@ __pycache__/
 # Simulator EEPROM image and firmware images
 tools/sim/maki-nita.eep
 maki-nita.eep
+unit-tests.sh
 tools/sim/maki-nita-ui
 tools/sim/makinita-ui
 tools/sim/retrodiode-ui

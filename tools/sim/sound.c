@@ -4,6 +4,8 @@
 
 #include <SDL.h>
 
+static Board *audio_board;
+
 #define RING 8192
 
 static uint16_t ring[RING];
@@ -14,9 +16,16 @@ static int dev_rate;
 static int spread;
 static int frame_err;
 
+void sound_bind(Board *board)
+{
+    audio_board = board;
+    board_on_index(board, synth_play);
+}
+
 void sound(uint8_t index)
 {
-    synth_play(index);
+    if (audio_board != 0)
+        board_send(audio_board, index);
 }
 
 static void push(uint16_t sample)

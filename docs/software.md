@@ -12,7 +12,7 @@ Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed 
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
-That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. The EVENT pulse timing lives in the two chip images. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the game chip. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip.
+That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. EVENT is a net on the board model, from game AVR pin 22 to audio AVR pin 23, with a pull-up. The simulator drives that net with the cartridge's 100 us and 200 us pulses and samples it at 40 kHz. SDL plays each index that comes off the net. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the game chip. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip.
 
 ## Framebuffer
 
@@ -113,7 +113,7 @@ The three channels add into one mix, centered on DAC midscale. A quiet channel a
 
 How a game spends the channels is up to the indexes it sends. A held square and a held triangle leave the noise channel for short phrases. A game may send only phrases that end. A game may send nothing. The console has no mode for those choices.
 
-The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file.
+The rows live in `tools/fw/synth.c`. The console image and the simulator both play that file. In the simulator the index reaches that file across the EVENT net.
 
 The shooter uses two rows. Index 1 is the laser. It plays on the triangle when a bullet is spawned, and the phrase ends. The period starts short and the level starts high, then both fall. Index 2 is the explosion. It plays on the noise channel when a bullet removes a rock, and the phrase ends. The noise starts dense, then the period grows and the level falls. The square channel has no shooter row. The next sound takes index 3.
 

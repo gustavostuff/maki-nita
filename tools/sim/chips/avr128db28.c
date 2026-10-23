@@ -69,6 +69,17 @@ Pin *avr_pin(Avr128 *avr, int number)
     return &avr->pin[number - 1];
 }
 
+void avr_output(Avr128 *avr, int number, Sig level)
+{
+    Pin *pin = avr_pin(avr, number);
+
+    if (pin == 0 || pin->dir == PIN_PWR)
+        return;
+    pin->dir = PIN_OUT;
+    pin->drive = level;
+    pin->level = level;
+}
+
 void avr_drive(Avr128 *avr, int number, Sig level)
 {
     Pin *pin = avr_pin(avr, number);

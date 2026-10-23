@@ -1,5 +1,11 @@
 #include "board.h"
 
+#include "wire.h"
+
+/* 40 kHz on the listener. 100 us on the sender. 100 us is four samples. */
+#define SAMPLE_NS 25000ULL
+#define SEND_NS 100000ULL
+
 static const int sw_pin[5] = {
     AVR_PD1, AVR_PD2, AVR_PD3, AVR_PD4, AVR_PD5,
 };
@@ -20,6 +26,7 @@ static void settle_all(Board *board)
     net_settle(&board->dout);
     net_settle(&board->reset);
     net_settle(&board->updi);
+    net_settle(&board->event);
     for (i = 0; i < NDRV - 1; i++)
         net_settle(&board->cascade[i]);
     for (i = 0; i < 5; i++)
@@ -40,9 +47,100 @@ void board_eval(Board *board)
         max7219_pins(&board->drv[i], board->now_ns);
 }
 
+static void event_level(Board *board, int low)
+{
+    avr_drive(&board->cpu, AVR_PA0, low ? SIG_L : SIG_H);
+}
+
+static void event_start_bit(Board *board)
+{
+    EventWire *wire = &board->event_wire;
+    uint8_t one = (uint8_t)((wire->cur >> wire->bit) & 1u);
+
+    wire->low_left = one ? 2 : 1;
+    wire->phase = 1;
+    event_level(board, 1);
+}
+
+/* One cart tick. A 0 is low for one tick, a 1 for two, then high for one. */
+static void event_tick(Board *board)
+{
+    EventWire *wire = &board->event_wire;
+
+    if (wire->phase == 1) {
+        wire->low_left--;
+        if (wire->low_left == 0) {
+            event_level(board, 0);
+            wire->phase = 2;
+        }
+        return;
+    }
+    if (wire->phase == 2) {
+        wire->bit++;
+        if (wire->bit < 8) {
+            event_start_bit(board);
+            return;
+        }
+        wire->phase = 0;
+    }
+    if (wire->n == 0)
+        return;
+    wire->cur = wire->q[wire->r];
+    wire->r = (uint8_t)((wire->r + 1) % EVENT_Q);
+    wire->n--;
+    wire->bit = 0;
+    event_start_bit(board);
+}
+
+static void event_listen(Board *board)
+{
+    int index;
+
+    wire_sample(avr_sense(&board->audio, AVR_PA1) == SIG_H);
+    index = wire_take();
+    if (index >= 0 && board->event_wire.on_index != 0)
+        board->event_wire.on_index((uint8_t)index);
+}
+
+void board_send(Board *board, uint8_t index)
+{
+    EventWire *wire = &board->event_wire;
+
+    if (wire->n >= EVENT_Q)
+        return;
+    wire->q[wire->w] = index;
+    wire->w = (uint8_t)((wire->w + 1) % EVENT_Q);
+    wire->n++;
+}
+
+void board_on_index(Board *board, void (*fn)(uint8_t index))
+{
+    board->event_wire.on_index = fn;
+}
+
 void board_advance(Board *board, uint64_t ns)
 {
-    board->now_ns += ns;
+    uint64_t end = board->now_ns + ns;
+
+    for (;;) {
+        uint64_t next = board->event_wire.next_sample_ns;
+
+        if (board->event_wire.next_send_ns < next)
+            next = board->event_wire.next_send_ns;
+        if (next > end)
+            break;
+        board->now_ns = next;
+        if (board->now_ns == board->event_wire.next_send_ns) {
+            event_tick(board);
+            board->event_wire.next_send_ns += SEND_NS;
+        }
+        board_eval(board);
+        if (board->now_ns == board->event_wire.next_sample_ns) {
+            event_listen(board);
+            board->event_wire.next_sample_ns += SAMPLE_NS;
+        }
+    }
+    board->now_ns = end;
     board_eval(board);
 }
 
@@ -73,6 +171,8 @@ void board_init(Board *board)
     int i;
 
     avr_init(&board->cpu, "U1");
+    avr_init(&board->audio, "U6");
+    avr_output(&board->cpu, AVR_PA0, SIG_H);
     for (i = 0; i < NDRV; i++)
         max7219_init(&board->drv[i], refdes[i]);
 
@@ -93,6 +193,7 @@ void board_init(Board *board)
     net_init(&board->dout, "DOUT", SIG_L);
     net_init(&board->reset, "RESET", SIG_H);
     net_init(&board->updi, "UPDI", SIG_H);
+    net_init(&board->event, "EVENT", SIG_H);
     for (i = 0; i < NDRV - 1; i++)
         net_init(&board->cascade[i], "CASCADE", SIG_L);
     for (i = 0; i < 5; i++)
@@ -108,6 +209,14 @@ void board_init(Board *board)
     net_tie(&board->load, avr_pin(&board->cpu, AVR_PA7));
     net_tie(&board->reset, avr_pin(&board->cpu, AVR_PF6));
     net_tie(&board->updi, avr_pin(&board->cpu, AVR_UPDI));
+    net_tie(&board->event, avr_pin(&board->cpu, AVR_PA0));
+    net_tie(&board->event, avr_pin(&board->audio, AVR_PA1));
+    net_tie(&board->vcc, avr_pin(&board->audio, AVR_VDD));
+    net_tie(&board->vcc, avr_pin(&board->audio, AVR_AVDD));
+    net_tie(&board->vcc, avr_pin(&board->audio, AVR_VDDIO2));
+    net_tie(&board->gnd, avr_pin(&board->audio, AVR_GND1));
+    net_tie(&board->gnd, avr_pin(&board->audio, AVR_GND2));
+    net_tie(&board->reset, avr_pin(&board->audio, AVR_PF6));
 
     net_tie(&board->din, max7219_pin(&board->drv[0], MAX7219_DIN));
     for (i = 0; i < NDRV; i++)
@@ -123,7 +232,15 @@ void board_init(Board *board)
         net_tie(&board->sw[i], &board->contact[i]);
     }
 
+    board->event_wire.n = 0;
+    board->event_wire.r = 0;
+    board->event_wire.w = 0;
+    board->event_wire.phase = 0;
+    board->event_wire.on_index = 0;
+    board->event_wire.next_sample_ns = SAMPLE_NS;
+    board->event_wire.next_send_ns = SEND_NS;
     board->now_ns = 0;
+    wire_reset();
     board_eval(board);
 }
 

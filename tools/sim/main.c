@@ -235,6 +235,7 @@ int main(void)
      * open does not flash an empty frame. */
     board_init(&board);
     sim_bind(&board);
+    sound_bind(&board);
     input_reset();
     score_load();
     game_reset();

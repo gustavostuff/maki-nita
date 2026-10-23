@@ -47,6 +47,9 @@ typedef struct Avr128 {
 } Avr128;
 
 void avr_init(Avr128 *avr, const char *refdes);
+
+/* Turns a GPIO into a push-pull output and drives it. */
+void avr_output(Avr128 *avr, int number, Sig level);
 void avr_drive(Avr128 *avr, int number, Sig level);
 Sig avr_sense(const Avr128 *avr, int number);
 Pin *avr_pin(Avr128 *avr, int number);
