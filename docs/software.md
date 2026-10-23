@@ -12,7 +12,7 @@ Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed 
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
-That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. EVENT is a net on the board model, from game AVR pin 22 to audio AVR pin 23, with a pull-up. The simulator drives that net with the cartridge's 100 us and 200 us pulses and samples it at 40 kHz. SDL plays each index that comes off the net. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the space-shooter cart. `make -C tools/fw/avr CART=paddle` builds the paddle cart. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip. The simulator reads `cart_placed.json` and runs that cart. A missing file, a missing `cart` key, or an unknown name leaves the drivers in reset.
+That loop is the same C in the simulator and in the AVR image. The simulator drives a model of those pins and reads the model back. The AVR image reads PORTD and drives PORTA. The simulator does not run AVR instructions. It plays the same catalog as the console image. EVENT is a net on the board model, from game AVR pin 22 to audio AVR pin 23, with a pull-up. The simulator drives that net with the cartridge's 100 us and 200 us pulses and samples it at 40 kHz. SDL plays each index that comes off the net. `make -C tools/fw/avr` builds `tools/fw/avr/game.hex` for the space-shooter cart. `make -C tools/fw/avr CART=paddle` builds the paddle cart. `make -C tools/fw/avr CART=arkaled` builds the arkaled cart. `make -C tools/fw/audio` builds `tools/fw/audio/audio.hex` for the console chip. The simulator reads `cart_placed.json` and runs that cart. A missing file, a missing `cart` key, or an unknown name leaves the drivers in reset.
 
 ## Framebuffer
 
@@ -142,13 +142,25 @@ The tick stays at 60 Hz. A spawned bullet sends index 1. A bullet that removes a
 
 ## Paddle
 
-Paddle is the other cart. One paddle stands on the field, one column wide and four LEDs tall. It starts on rows 6 through 9, in column 0. The ball is one LED. It starts at column 8, row 8, and waits there until the paddle moves.
+Paddle is a cart. One paddle stands on the field, one column wide and four LEDs tall. It starts on rows 6 through 9, in column 0. The ball is one LED. It starts at column 8, row 8, and waits there until the paddle moves.
 
 The stick moves the paddle one LED every two ticks. Up and down are the only directions that count. The action button does not move the paddle. A paddle that reaches the top or the bottom stays there until its direction points back onto the field.
 
 On the tick the paddle first moves, the ball steps toward one of the four corners. Steps after that one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `paddle_period` is that wait. `SLOW_BALL` in the paddle source is a debug switch. While it is 1, those later steps wait 30 ticks instead, which is 2 FPS. The top, bottom, and right edges reverse the ball. A ball alongside the paddle reverses its horizontal step and keeps its vertical step. A ball that meets an end from outside the paddle, or that leaves past an end, reverses both steps. Either bounce adds one to the round's score. The score stays off the field during the rally. The score stops at 999.
 
 A ball that gets past the paddle ends the round. The field then shows the same face and digits as the shooter, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the ball back at the center. The simulator keeps this cart's high score in tools/sim/paddle.eep.
+
+## Arkaled
+
+Arkaled is a cart. The paddle is four LEDs on the bottom row. It starts on columns 6 through 9. Left and right move it one LED every two ticks. Up and down do nothing. The action button does nothing during the rally. A paddle that reaches the left or right edge stays there until its direction points back onto the field.
+
+Rows 0 and 1 are empty. Rows 2 through 5 start lit. That block is 16 columns by 4 rows, with two open rows above it. The ball is one LED. It starts at column 8, row 14, and waits there until the paddle moves. That move sends the ball up and toward one side.
+
+Steps after the opening one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `arkaled_period` is that wait.
+
+`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A brick that blocks the step turns off and adds one to the round's score. The paddle and the walls block the ball and add nothing. The ball stays out of a blocking cell. The score stays off the field during the rally. The score stops at 999.
+
+A ball that reaches the bottom row off the paddle ends the round. Clearing the last brick ends the round the same way. The field then shows the same face and digits as the other carts, and the same comparison with the saved score. The picture stays for one second. After that second, the action button starts the next round. The new round begins with the score at zero and the block lit again. The simulator keeps this cart's high score in tools/sim/arkaled.eep.
 
 ## What a game is
 
@@ -160,7 +172,7 @@ void game_tick(const Input *in);
 
 It reads `in`, updates its own static state, and draws by calling `pixel` and `clear`. It may call `sound` with a catalog index. No heap. The 16 KB of RAM holds a piece queue, a small enemy list, and the 32-byte frame.
 
-`main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Each cartridge image calls its own game. The names in `cart_placed.json` are `space-shooter` and `paddle`.
+`main` configures the pins, initializes the drivers, clears the frame, and then loops on the 60 Hz tick. The flush runs after `game_tick` returns. Each cartridge image calls its own game. The names in `cart_placed.json` are `space-shooter`, `paddle`, and `arkaled`.
 
 ## Left out of this contract
 

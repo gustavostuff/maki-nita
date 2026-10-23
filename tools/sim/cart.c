@@ -1,5 +1,6 @@
 #include "cart.h"
 
+#include "arkaled.h"
 #include "game.h"
 #include "paddle.h"
 
@@ -40,6 +41,8 @@ static const char *known(const char *name)
         return "paddle";
     if (strcmp(name, "space-shooter") == 0)
         return "space-shooter";
+    if (strcmp(name, "arkaled") == 0)
+        return "arkaled";
     return NULL;
 }
 
@@ -84,6 +87,8 @@ static void select_name(const char *name)
         which = 2;
     else if (strcmp(name, "space-shooter") == 0)
         which = 1;
+    else if (strcmp(name, "arkaled") == 0)
+        which = 3;
     else
         which = 0;
 }
@@ -113,6 +118,8 @@ const char *cart_eeprom(void)
 {
     if (which == 2)
         return "tools/sim/paddle.eep";
+    if (which == 3)
+        return "tools/sim/arkaled.eep";
     return NULL;
 }
 
@@ -122,6 +129,8 @@ void cart_reset(void)
         game_reset();
     else if (which == 2)
         paddle_reset();
+    else if (which == 3)
+        arkaled_reset();
 }
 
 void cart_tick(const Input *in)
@@ -130,4 +139,6 @@ void cart_tick(const Input *in)
         game_tick(in);
     else if (which == 2)
         paddle_tick(in);
+    else if (which == 3)
+        arkaled_tick(in);
 }

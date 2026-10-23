@@ -1,6 +1,7 @@
 # AVR128DB28 image. Needs avr-gcc with that device.
 #   make -C tools/fw/avr
 #   make -C tools/fw/avr CART=paddle
+#   make -C tools/fw/avr CART=arkaled
 #   pymcuprog write -d avr128db28 -t uart -u /dev/ttyACM0 --verify -f game.hex
 
 MCU = avr128db28
@@ -16,8 +17,10 @@ else ifeq ($(CART),space-shooter)
 GAME_SRCS = $(CART_DIR)/game.c \
             $(CART_DIR)/entity/base_entity.c $(CART_DIR)/entity/player.c \
             $(CART_DIR)/entity/bullet.c $(CART_DIR)/entity/rock.c
+else ifeq ($(CART),arkaled)
+GAME_SRCS = $(CART_DIR)/arkaled.c ../collide.c
 else
-$(error CART must be space-shooter or paddle)
+$(error CART must be space-shooter, paddle, or arkaled)
 endif
 
 CFLAGS = -std=c11 -Wall -Wextra -Os -mmcu=$(MCU) -DF_CPU=$(CLOCK)UL -I$(CART_DIR) -I..

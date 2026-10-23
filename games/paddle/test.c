@@ -67,10 +67,11 @@ static int flat_mouth(void)
 
 static void test_period(void)
 {
-    expect(paddle_period(0) == 30 && paddle_period(599) == 30,
-           "SLOW_BALL holds the opening pace at 2 FPS");
-    expect(paddle_period(600) == 30 && paddle_period(3600) == 30,
-           "SLOW_BALL keeps that pace for the whole rally");
+    expect(paddle_period(0) == 7 && paddle_period(599) == 7,
+           "the opening pace waits 7 ticks");
+    expect(paddle_period(600) == 6, "ten seconds trims one tick from the wait");
+    expect(paddle_period(3000) == 2 && paddle_period(3600) == 1,
+           "the wait stops shrinking at one tick");
 }
 
 static void test_open(void)
@@ -113,9 +114,9 @@ static void test_serve(void)
     paddle_reset();
     feed(1, 0, 0, 0, 0);
     feed(1, 0, 0, 0, 0);
-    for (i = 0; i < 29; i++)
+    for (i = 0; i < 6; i++)
         feed(1, 0, 0, 0, 0);
-    expect(find_ball(&x, &y) == 1 && x == 7 && y == 7, "2 FPS waits 30 ticks between steps");
+    expect(find_ball(&x, &y) == 1 && x == 7 && y == 7, "the ball waits 7 ticks between steps");
     feed(1, 0, 0, 0, 0);
     expect(find_ball(&x, &y) == 1 && x == 6 && y == 6, "the next tick steps the ball");
 }
@@ -162,11 +163,11 @@ static void test_wall(void)
     input_reset();
     paddle_seed(1);
     paddle_reset();
-    for (i = 0; i < 182; i++)
+    for (i = 0; i < 44; i++)
         feed(1, 0, 0, 0, 0);
     expect(find_ball(&x, &y) == 1 && x == 15 && y == 1, "the ball reaches the right edge");
     expect(score_get() == 0 && !pixel_get(4, 0), "the wall is not a miss");
-    for (i = 0; i < 30; i++)
+    for (i = 0; i < 7; i++)
         feed(1, 0, 0, 0, 0);
     expect(find_ball(&x, &y) == 1 && x == 14 && y == 0, "the right edge sends the ball back");
 }
@@ -180,7 +181,7 @@ static void test_corner(void)
     input_reset();
     paddle_seed(8);
     paddle_reset();
-    for (i = 0; i < 212; i++)
+    for (i = 0; i < 51; i++)
         feed(1, 0, 0, 0, 0);
     expect(score_get() == 1 && !pixel_get(4, 0), "the end of the paddle still scores");
     expect(find_ball(&x, &y) == 1 && x == 2 && y == 0,

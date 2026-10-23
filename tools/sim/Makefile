@@ -4,7 +4,7 @@
 #   make -C tools/sim test
 
 CC = gcc
-CFLAGS = -std=c11 -Wall -Wextra -O2 -I../fw -I../../games/space-shooter -I../../games/paddle -I.
+CFLAGS = -std=c11 -Wall -Wextra -O2 -I../fw -I../../games/space-shooter -I../../games/paddle -I../../games/arkaled -I.
 SDL_CFLAGS = $(shell pkg-config --cflags sdl2 SDL2_image SDL2_ttf)
 LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image SDL2_ttf)
 
@@ -16,14 +16,16 @@ SHOOTER = ../../games/space-shooter/game.c \
           ../../games/space-shooter/entity/bullet.c \
           ../../games/space-shooter/entity/rock.c
 PADDLE = ../../games/paddle/paddle.c
+ARKALED = ../../games/arkaled/arkaled.c
+COLLIDE = ../fw/collide.c
 FW = $(COMMON) $(SHOOTER) ../fw/flush.c
 
 TEST_BINS = tests/test_max7219 tests/test_avr128db28 tests/test_board tests/test_game \
-            tests/test_paddle tests/test_cart tests/test_synth
+            tests/test_paddle tests/test_arkaled tests/test_cart tests/test_synth
 CHECK = tests/report.c
 
-maki-nita-ui: main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) ../fw/synth.c
-	$(CC) $(CFLAGS) $(SDL_CFLAGS) -o $@ main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) ../fw/synth.c $(LDLIBS)
+maki-nita-ui: main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) $(ARKALED) $(COLLIDE) ../fw/synth.c
+	$(CC) $(CFLAGS) $(SDL_CFLAGS) -o $@ main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) $(ARKALED) $(COLLIDE) ../fw/synth.c $(LDLIBS)
 
 tests/test_max7219: tests/test_max7219.c chips/max7219.c engine/signal.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ tests/test_max7219.c chips/max7219.c engine/signal.c $(CHECK)
@@ -40,8 +42,11 @@ tests/test_game: ../../games/space-shooter/test.c $(COMMON) $(SHOOTER) ../fw/per
 tests/test_paddle: ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ ../../games/paddle/test.c $(COMMON) $(PADDLE) ../fw/persist_ram.c $(CHECK)
 
-tests/test_cart: tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
-	$(CC) $(CFLAGS) -o $@ tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
+tests/test_arkaled: ../../games/arkaled/test.c $(COMMON) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c $(CHECK)
+	$(CC) $(CFLAGS) -o $@ ../../games/arkaled/test.c $(COMMON) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c $(CHECK)
+
+tests/test_cart: tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
+	$(CC) $(CFLAGS) -o $@ tests/test_cart.c cart.c $(COMMON) $(SHOOTER) $(PADDLE) $(ARKALED) $(COLLIDE) ../fw/persist_ram.c tests/sound_log.c $(CHECK)
 
 tests/test_synth: tests/test_synth.c ../fw/synth.c ../fw/wire.c $(CHECK)
 	$(CC) $(CFLAGS) -o $@ tests/test_synth.c ../fw/synth.c ../fw/wire.c $(CHECK)
@@ -51,6 +56,7 @@ test: $(TEST_BINS)
 	./tests/test_avr128db28
 	./tests/test_game
 	./tests/test_paddle
+	./tests/test_arkaled
 	./tests/test_cart
 	./tests/test_board
 	./tests/test_synth

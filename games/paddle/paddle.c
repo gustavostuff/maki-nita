@@ -14,7 +14,7 @@
 #define PAD_EVERY 2
 #define BALL_SLOW 7
 #define RAMP (10 * 60)
-#define SLOW_BALL 1
+#define SLOW_BALL 0
 
 static int over;
 static int ly;
