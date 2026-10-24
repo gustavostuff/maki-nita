@@ -1,6 +1,6 @@
 # Maki-Nita hardware
 
-The console is one 100 mm square 2-layer board. The four matrices, the four drivers, the cart socket, the audio AVR, the amplifier, and the headers sit on that board. The game AVR sits on the cartridge. That board's U1 is the CPU. Console ICs start at U1. The video doc is the display chain and the cart edge. The audio doc is EVENT, the catalog, and the amplifier. The input doc is the stick and the button.
+The console is one 100 mm by 160 mm 2-layer board. That size is Eurocard 3U, the common rack card in DIN 41494 and IEC 60297. The four matrices, the four drivers, the cart socket, the audio AVR, the amplifier, and the headers sit on that board. The game AVR sits on the cartridge. That board's U1 is the CPU. Console ICs start at U1. The video doc is the display chain and the cart edge. The audio doc is EVENT, the catalog, and the amplifier. The input doc is the stick and the button.
 
 The console, the cartridge, and the rest of the hardware design are under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
 
@@ -17,7 +17,7 @@ The netlist is `tools/kicad/skidl/maki_nita.py`. The board is `tools/kicad/main-
 
 ## Board
 
-The outline is 100 mm by 100 mm, corners radiused 2 mm. Both sides carry a ground pour. Vias stitch the two pours. There is no +5 V pour. The 5 V rail is tracks.
+The outline is 100 mm by 160 mm, corners radiused 2 mm. That is a single Eurocard 3U board, as DIN 41494 and IEC 60297 define it. Cases, card guides, and front panels for that size are common. Both sides carry a ground pour. Vias stitch the two pours. There is no +5 V pour. The 5 V rail is tracks.
 
 Every part is through-hole. Chips sit in sockets. Axial resistors stand vertical on a 2.54 mm pitch.
 
