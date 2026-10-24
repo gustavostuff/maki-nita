@@ -14,12 +14,16 @@
 #define PAD_EVERY 2
 #define BRICK_X 2
 #define BRICK_Y 2
-#define BRICK_COLS 6
-#define BRICK_ROWS 2
+#define BRICK_COLS 12
+#define BRICK_ROWS 4
+
+#if BRICK_COLS * BRICK_ROWS + 2 > ENTITY_MAX
+#error the arkaled block does not fit in the entity table
+#endif
 #define BALL_SLOW 7
 #define RAMP (10 * 60)
 
-static const Shape brick_shape = SHAPE2(0, 0, "11", "11");
+static const Shape brick_shape = SHAPE1(0, 0, "1");
 static const Shape pad_shape = SHAPE1(0, 0, "1111");
 static const Shape dot = SHAPE1(0, 0, "1");
 
@@ -46,12 +50,12 @@ int arkaled_period(int ticks)
 
 static int piece_at(int x, int y, int *col, int *row)
 {
-    if (y < BRICK_Y || y >= BRICK_Y + BRICK_ROWS * 2)
+    if (y < BRICK_Y || y >= BRICK_Y + BRICK_ROWS)
         return 0;
-    if (x < BRICK_X || x >= BRICK_X + BRICK_COLS * 2)
+    if (x < BRICK_X || x >= BRICK_X + BRICK_COLS)
         return 0;
-    *row = (y - BRICK_Y) / 2;
-    *col = (x - BRICK_X) / 2;
+    *row = y - BRICK_Y;
+    *col = x - BRICK_X;
     return 1;
 }
 
@@ -77,8 +81,8 @@ int arkaled_count(void)
 
 static int spawn_piece(int col, int row)
 {
-    int x = BRICK_X + col * 2;
-    int y = BRICK_Y + row * 2;
+    int x = BRICK_X + col;
+    int y = BRICK_Y + row;
 
     piece[row][col] = entity_spawn(&brick_shape, x, y, 0, 0, 1,
                                    ENTITY_INACTIVE | ENTITY_CAN_BE_COLLIDED);

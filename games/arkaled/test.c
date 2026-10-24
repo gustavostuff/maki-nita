@@ -105,7 +105,7 @@ static int fresh(void)
     int vy;
 
     arkaled_ball(&x, &y, &vx, &vy);
-    return x == 8 && y == 14 && vx == 0 && vy == 0 && pad_x() == 6 && arkaled_count() == 12;
+    return x == 8 && y == 14 && vx == 0 && vy == 0 && pad_x() == 6 && arkaled_count() == 48;
 }
 
 static int grid_solid(int x, int y, void *ctx)
@@ -280,7 +280,7 @@ static void test_open(void)
 
     input_reset();
     arkaled_reset();
-    expect(arkaled_count() == 12, "the block starts with 12 pieces");
+    expect(arkaled_count() == 48, "the block starts with 48 pieces");
     expect(row_count(0) == 0 && row_count(1) == 0, "two rows above the block stay empty");
     expect(row_count(2) == 12 && row_count(3) == 12 && row_count(4) == 12 && row_count(5) == 12,
            "rows 2 through 5 hold twelve LEDs each");
@@ -304,7 +304,7 @@ static void test_open(void)
     arkaled_set(4, 1, 1);
     arkaled_set(2, 6, 1);
     feed(0, 0, 0, 0, 0);
-    expect(arkaled_count() == 12 && row_count(0) == 0 && row_count(1) == 0,
+    expect(arkaled_count() == 48 && row_count(0) == 0 && row_count(1) == 0,
            "pieces stay inside the 12 by 4 block");
 }
 
@@ -404,17 +404,17 @@ static void test_bricks(void)
     arkaled_load(6, 8, 6, 0, -1);
     feed(0, 0, 0, 0, 0);
     at(8, 7, 0, 1, "a piece overhead sends the ball back down");
-    expect(!arkaled_on(8, 5) && !arkaled_on(9, 5) && arkaled_on(2, 2) && !ended(),
+    expect(!arkaled_on(8, 5) && arkaled_on(2, 2) && !ended(),
            "that piece turns off");
 
     arkaled_wipe();
     arkaled_set(2, 2, 1);
-    arkaled_set(4, 4, 1);
+    arkaled_set(5, 4, 1);
     arkaled_set(6, 3, 1);
     arkaled_load(6, 6, 4, -1, -1);
     feed(0, 0, 0, 0, 0);
     at(7, 5, 1, 1, "a corner of two pieces reverses both steps");
-    expect(!arkaled_on(4, 4) && !arkaled_on(6, 3) && !ended(),
+    expect(!arkaled_on(5, 4) && !arkaled_on(6, 3) && arkaled_on(2, 2) && !ended(),
            "both pieces of that corner turn off");
 
     arkaled_wipe();
@@ -423,7 +423,7 @@ static void test_bricks(void)
     arkaled_load(6, 7, 6, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(6, 7, -1, 1, "a lone diagonal piece reverses both steps");
-    expect(!arkaled_on(8, 5) && !arkaled_on(9, 5), "the diagonal piece turns off");
+    expect(!arkaled_on(8, 5) && arkaled_on(2, 2), "the diagonal piece turns off");
 
     arkaled_wipe();
     for (x = 0; x < 16; x++)
@@ -431,14 +431,14 @@ static void test_bricks(void)
     arkaled_load(6, 8, 6, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(9, 7, 1, 1, "a ceiling keeps the horizontal step");
-    expect(!arkaled_on(8, 5) && !arkaled_on(9, 5) && arkaled_on(10, 5),
+    expect(!arkaled_on(8, 5) && arkaled_on(9, 5) && arkaled_on(10, 5),
            "the piece overhead turns off and the next one stays");
 
     arkaled_reset();
     arkaled_load(6, 4, 0, 1, -1);
     feed(0, 0, 0, 0, 0);
     at(5, 1, 1, 1, "the top edge sends the ball back down");
-    expect(arkaled_count() == 12, "the top edge leaves the block in place");
+    expect(arkaled_count() == 48, "the top edge leaves the block in place");
 
     arkaled_load(6, 0, 8, -1, 1);
     feed(0, 0, 0, 0, 0);
@@ -455,20 +455,20 @@ static void test_bricks(void)
     arkaled_load(6, 8, 4, 0, -1);
     expect(pump(5) == 5, "the ball reaches the gap above the block");
     at(8, 1, 0, 1, "a hole lets the ball into the two open rows");
-    expect(!arkaled_on(8, 2) && !arkaled_on(9, 2) && arkaled_on(7, 2) && arkaled_on(10, 2),
+    expect(!arkaled_on(8, 2) && arkaled_on(9, 2) && arkaled_on(7, 2) && arkaled_on(10, 2),
            "the hole stays open and the pieces beside it stay");
 
     serve(8, 1);
     expect(pump(9) == 9, "the left opening reaches the block");
     at(0, 4, -1, -1, "the gutter wall and the block turn the ball");
-    expect(!arkaled_on(2, 5) && !arkaled_on(2, 4) && arkaled_on(2, 2),
+    expect(!arkaled_on(2, 5) && arkaled_on(2, 4) && arkaled_on(3, 5),
            "that piece turns off");
     expect(!ended(), "the rally continues");
 
     serve(1, 0);
     expect(pump(8) == 8, "the right opening reaches the block");
     at(15, 7, 1, 1, "the right side of the block sends the ball down");
-    expect(!arkaled_on(12, 5) && !arkaled_on(13, 5) && arkaled_on(10, 5),
+    expect(!arkaled_on(13, 5) && arkaled_on(12, 5) && arkaled_on(10, 5),
            "that piece turns off");
 }
 
@@ -479,7 +479,7 @@ static void test_paddle(void)
     arkaled_load(6, 8, 14, 1, 1);
     feed(0, 0, 0, 0, 0);
     at(9, 13, 1, -1, "the body of the paddle keeps the horizontal step");
-    expect(arkaled_count() == 12 && pad_x() == 6 && !ended(),
+    expect(arkaled_count() == 48 && pad_x() == 6 && !ended(),
            "the paddle leaves the block in place");
 
     arkaled_load(6, 9, 14, 1, 1);
@@ -489,7 +489,7 @@ static void test_paddle(void)
     arkaled_load(6, 10, 14, -1, 1);
     feed(0, 0, 0, 0, 0);
     at(11, 13, 1, -1, "meeting the end from outside reverses both steps");
-    expect(arkaled_count() == 12 && !ended(), "that corner leaves the block in place");
+    expect(arkaled_count() == 48 && !ended(), "that corner leaves the block in place");
 
     arkaled_load(6, 8, 12, 0, -1);
     feed(0, 0, 0, 0, 0);
@@ -526,7 +526,7 @@ static void test_pop(void)
     sound_log_reset();
     arkaled_wipe();
     arkaled_set(2, 2, 1);
-    arkaled_set(4, 4, 1);
+    arkaled_set(5, 4, 1);
     arkaled_set(6, 3, 1);
     arkaled_load(6, 6, 4, -1, -1);
     feed(0, 0, 0, 0, 0);
@@ -585,11 +585,15 @@ static void test_cave(void)
 
     input_reset();
     arkaled_wipe();
-    for (x = 2; x <= 12; x += 2)
+    for (x = 4; x <= 10; x++) {
         arkaled_set(x, 2, 1);
-    arkaled_set(2, 4, 1);
-    arkaled_set(12, 4, 1);
-    arkaled_load(6, 8, 6, 1, -1);
+        arkaled_set(x, 5, 1);
+    }
+    arkaled_set(4, 3, 1);
+    arkaled_set(4, 4, 1);
+    arkaled_set(10, 3, 1);
+    arkaled_set(10, 4, 1);
+    arkaled_load(6, 6, 4, 1, -1);
     for (i = 0; i < 400 && !restarted; i++) {
         int ddx;
         int ddy;
@@ -598,7 +602,7 @@ static void test_cave(void)
         arkaled_ball(&px, &py, &vx, &vy);
         feed(0, 0, 0, 0, 0);
         arkaled_ball(&x, &y, &vx, &vy);
-        if (before < 12 && arkaled_count() == 12 && x == 8 && y == 14 && vx == 0 && vy == 0) {
+        if (before < 48 && arkaled_count() == 48 && x == 8 && y == 14 && vx == 0 && vy == 0) {
             left = before;
             restarted = 1;
             break;
@@ -614,7 +618,7 @@ static void test_cave(void)
         if (x != px || y != py)
             moves++;
     }
-    expect(clean && moves >= 8 && restarted && left == 6,
+    expect(clean && moves >= 8 && restarted && left == 11,
            "the ball crosses the cave and then the miss starts over");
 }
 

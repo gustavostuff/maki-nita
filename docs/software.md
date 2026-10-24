@@ -147,11 +147,11 @@ A ball that gets past the paddle ends the round. The field then shows the same f
 
 Arkaled is a cart. The paddle is four LEDs on the bottom row. It starts on columns 6 through 9. Left and right move it one LED every two ticks. Up and down do nothing. The action button does nothing during the rally. A paddle that reaches the left or right edge stays there until its direction points back onto the field.
 
-Rows 0 and 1 are empty. Rows 2 through 5 hold twelve pieces. Each piece is two LEDs wide and two LEDs tall. Six pieces fill columns 2 through 13 on rows 2 and 3, and six fill those columns on rows 4 and 5. Columns 0, 1, 14, and 15 stay empty beside the block. The ball is one LED. It starts at column 8, row 14, and waits there until the paddle moves. That move sends the ball up and toward one side.
+Rows 0 and 1 are empty. Rows 2 through 5 hold forty-eight pieces. Each piece is one LED. Twelve pieces sit on each of those rows, in columns 2 through 13. Columns 0, 1, 14, and 15 stay empty beside the block. The ball is one LED. It starts at column 8, row 14, and waits there until the paddle moves. That move sends the ball up and toward one side.
 
 Steps after the opening one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `arkaled_period` is that wait.
 
-`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A piece that blocks the step turns off. The four LEDs of that piece go dark. Two pieces in one step send index 3 once. The paddle and the walls block the ball. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell.
+`collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A piece that blocks the step turns off. That LED goes dark. Two pieces in one step send index 3 once. The paddle and the walls block the ball. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell.
 
 A ball that reaches the bottom row off the paddle starts a new round on that tick. Clearing the last piece does the same. The paddle returns to columns 6 through 9, the block lights again, and the ball waits at column 8, row 14.
 
