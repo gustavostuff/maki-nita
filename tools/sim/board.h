@@ -11,6 +11,8 @@
  * PD1 to PD5 are the switches, active low.
  * EVENT is cart contact B1. U1 pin 22 drives it. U6 pin 23 listens.
  * A pull-up holds EVENT high while the pin is released.
+ * J4 is the 2x2 speaker header. Pins 2 and 3 share the speaker net.
+ * Pins 1 and 4 are ground. The amplifier stays off this model.
  * Segment and digit pins keep their package numbers. The lit-pixel
  * query is the latched picture, which is what the eye sees while the
  * drivers scan.
@@ -56,6 +58,8 @@ typedef struct Board {
     Net reset;
     Net updi;
     Net event;
+    Net spk;
+    Pin speaker[4];
     EventWire event_wire;
     uint64_t now_ns;
 } Board;

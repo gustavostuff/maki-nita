@@ -111,7 +111,7 @@ At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The package
 
 ## Layers
 
-The console and the cartridge are 2-layer boards. Both sides carry a ground pour, and vias stitch the pours together. The segment and digit traces of one matrix stay close to each other. DIN, CLK, and LOAD run over the pour.
+The console and the cartridge are 2-layer boards. Both sides carry a ground pour, and vias stitch the pours together. The segment and digit traces of one matrix stay close to each other. DIN, CLK, and LOAD run over the pour. The audio doc is the placement of U6 and U7 on that pour.
 
 The frame flushes once per 60 Hz tick. One flush is 512 rising edges of CLK, about 31,000 edges a second. The burst lasts about a millisecond at a few hundred kilohertz. CLK and DIN then sit low, and LOAD sits high.
 

@@ -600,6 +600,34 @@
       {
         "netclass": "5V_GND",
         "pattern": "GND"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U6AVDD"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U6GNDA"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U6GNDB"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U6IO"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U6VDD"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U7GND"
+      },
+      {
+        "netclass": "5V_GND",
+        "pattern": "U7VS"
       }
     ]
   },

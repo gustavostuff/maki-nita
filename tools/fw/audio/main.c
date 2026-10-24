@@ -22,9 +22,10 @@ static void clock_24mhz(void)
 
 static void dac_init(void)
 {
-    /* REFSEL = VDD. OUTEN is bit 6. ENABLE is bit 0.
+    /* REFSEL = 2V500. The sample stays off the 5 V rail.
+     * OUTEN is bit 6. ENABLE is bit 0.
      * ISC = INPUT_DISABLE keeps the digital buffer off the DAC pin. */
-    VREF.DAC0REF = 0x05;
+    VREF.DAC0REF = 0x03;
     DAC0.DATA = 512;
     DAC0.CTRLA = (uint8_t)((1u << 6) | 1u);
     PORTD.PIN6CTRL = 0x04;

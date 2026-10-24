@@ -14,6 +14,10 @@ static const char *sw_name[5] = {
     "UP", "DOWN", "LEFT", "RIGHT", "BUTTON",
 };
 
+static const char *spk_name[4] = {
+    "GND", "SPK", "SPK", "GND",
+};
+
 static void settle_all(Board *board)
 {
     int i;
@@ -27,6 +31,7 @@ static void settle_all(Board *board)
     net_settle(&board->reset);
     net_settle(&board->updi);
     net_settle(&board->event);
+    net_settle(&board->spk);
     for (i = 0; i < NDRV - 1; i++)
         net_settle(&board->cascade[i]);
     for (i = 0; i < 5; i++)
@@ -194,6 +199,7 @@ void board_init(Board *board)
     net_init(&board->reset, "RESET", SIG_H);
     net_init(&board->updi, "UPDI", SIG_H);
     net_init(&board->event, "EVENT", SIG_H);
+    net_init(&board->spk, "SPK", SIG_Z);
     for (i = 0; i < NDRV - 1; i++)
         net_init(&board->cascade[i], "CASCADE", SIG_L);
     for (i = 0; i < 5; i++)
@@ -231,6 +237,19 @@ void board_init(Board *board)
         net_tie(&board->sw[i], avr_pin(&board->cpu, sw_pin[i]));
         net_tie(&board->sw[i], &board->contact[i]);
     }
+
+    for (i = 0; i < 4; i++) {
+        board->speaker[i].name = spk_name[i];
+        board->speaker[i].number = i + 1;
+        board->speaker[i].dir = PIN_IN;
+        board->speaker[i].drive = SIG_Z;
+        board->speaker[i].level = SIG_Z;
+        board->speaker[i].net = 0;
+    }
+    net_tie(&board->gnd, &board->speaker[0]);
+    net_tie(&board->spk, &board->speaker[1]);
+    net_tie(&board->spk, &board->speaker[2]);
+    net_tie(&board->gnd, &board->speaker[3]);
 
     board->event_wire.n = 0;
     board->event_wire.r = 0;

@@ -1,3 +1,6 @@
+# Local notes and scratch. Stays off the remote.
+temp/
+
 # SKiDL writes these beside the script, including the repo root
 skidl.log
 skidl.erc
