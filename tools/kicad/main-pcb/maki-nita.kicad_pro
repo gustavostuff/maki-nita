@@ -70,7 +70,13 @@
           "thermal_relief_spoke_width": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "filename": "board_design_settings.json",
@@ -209,7 +215,11 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0,
+        0.25,
+        0.8
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -236,7 +246,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false,
       "zones_use_no_outline": true
     },
@@ -525,14 +540,13 @@
         "bus_width": 12,
         "clearance": 0.3,
         "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "5V",
         "pcb_color": "rgb(148, 103, 189)",
-        "priority": 1,
+        "priority": 0,
         "schematic_color": "rgb(148, 103, 189)",
         "track_width": 0.8,
         "tuning_profile": "",
@@ -544,14 +558,13 @@
         "bus_width": 12,
         "clearance": 0.2,
         "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "AUDIO",
         "pcb_color": "rgb(44, 160, 44)",
-        "priority": 2,
+        "priority": 1,
         "schematic_color": "rgb(44, 160, 44)",
         "track_width": 0.4,
         "tuning_profile": "",
@@ -563,14 +576,13 @@
         "bus_width": 12,
         "clearance": 0.2,
         "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "MATRIX",
-        "pcb_color": "rgb(214, 39, 40)",
-        "priority": 3,
+        "pcb_color": "rgb(214, 195, 24)",
+        "priority": 2,
         "schematic_color": "rgb(214, 39, 40)",
         "track_width": 0.4,
         "tuning_profile": "",
