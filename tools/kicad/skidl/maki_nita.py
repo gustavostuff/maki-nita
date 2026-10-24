@@ -45,7 +45,12 @@ from skidl.pin import pin_types
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from cart_edge import contacts, socket_pad, socket_pins
-from net_classes import annotate_netlist_classes, apply_netclasses, patch_kicad_pro
+from net_classes import (
+    annotate_netlist_classes,
+    apply_netclasses,
+    assignments_for,
+    patch_kicad_pro,
+)
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -397,7 +402,6 @@ def build() -> None:
     drivers = []
     matrices = []
     for index in range(4):
-        row = index // 2
         ref = f"U{index + 1}"
         drv = _part("MAX7219", ref, DRV_FP, DRV_PINS, "MAX7219")
         matrix_pins = tuple((pad, f"C{col}") for col, pad in enumerate(COL_PADS))
@@ -428,13 +432,12 @@ def build() -> None:
         _tie(bulk_n, 2, gnd)
         if index == 0:
             _tie(drv, 1, din)
-        klass = f"ROW{row + 1}"
         for col, (seg_pin, pad) in enumerate(zip(SEG_PINS, COL_PADS)):
-            net = Net(f"{klass}_{matrix.ref}_C{col}")
+            net = Net(f"{matrix.ref}_C{col}")
             _tie(drv, seg_pin, net)
             _tie(matrix, pad, net)
         for block_row, (dig_pin, pad) in enumerate(zip(DIG_PINS, ROW_PADS)):
-            net = Net(f"{klass}_{matrix.ref}_R{block_row}")
+            net = Net(f"{matrix.ref}_R{block_row}")
             _tie(drv, dig_pin, net)
             _tie(matrix, pad, net)
         drivers.append(drv)
@@ -629,15 +632,15 @@ def _check(text: str) -> None:
     link = nodes("DOUT_U1")
     if link != {("U1", "24"), ("U2", "1")}:
         raise SystemExit(f"DOUT_U1 nodes {link}")
-    col0 = nodes("ROW1_DS1_C0")
+    col0 = nodes("DS1_C0")
     if col0 != {("U1", "22"), ("DS1", "1")}:
-        raise SystemExit(f"ROW1_DS1_C0 nodes {col0}")
-    row0 = nodes("ROW1_DS1_R0")
+        raise SystemExit(f"DS1_C0 nodes {col0}")
+    row0 = nodes("DS1_R0")
     if row0 != {("U1", "2"), ("DS1", "16")}:
-        raise SystemExit(f"ROW1_DS1_R0 nodes {row0}")
-    last = nodes("ROW2_DS4_C7")
+        raise SystemExit(f"DS1_R0 nodes {row0}")
+    last = nodes("DS4_C7")
     if last != {("U4", "17"), ("DS4", "8")}:
-        raise SystemExit(f"ROW2_DS4_C7 nodes {last}")
+        raise SystemExit(f"DS4_C7 nodes {last}")
 
 
 def _clean_strays() -> None:
@@ -662,8 +665,9 @@ def main() -> None:
     NET_PATH.write_text(text, encoding="utf-8")
     _check(text)
     if PRO_PATH.is_file():
+        names = {getattr(net, "name", "") or "" for net in nets}
         old = PRO_PATH.read_text(encoding="utf-8")
-        new = patch_kicad_pro(old)
+        new = patch_kicad_pro(old, assignments_for(names))
         if new != old:
             PRO_PATH.write_text(new, encoding="utf-8")
     print(f"wrote {NET_PATH}")

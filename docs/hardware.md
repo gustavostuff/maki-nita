@@ -75,6 +75,8 @@ The audio doc is the catalog, the pulses, and the amplifier values.
 
 Both pours stay one ground. Vias stitch them around U1 through U6. A via fence around the audio pair is enough. A split analog island that meets digital ground far away puts the LED pulse in series with the sample.
 
+Four net classes sit on the board. 5V is the rail, 0.8 mm. AUDIO is DAC, AUD, AUDIN, AMP, SPK, ZOBEL, and BYPASS. MATRIX is the segment and digit lines from each driver to its block. Other nets stay in Default. GND is the pour.
+
 A bypass cap joins the IC it sits on. The +5 V net has many pads. The nearest leftover pad on that net is not always the pin that cap belongs to.
 
 AUD and AUDIN stay off DIN, CLK, and LOAD. A ferrite in the 5 V feed does not stop an 800 Hz tone from the drivers.

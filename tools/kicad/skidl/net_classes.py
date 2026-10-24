@@ -1,8 +1,8 @@
-"""KiCad net classes for the Maki-Nita field.
+"""KiCad net classes for the Maki-Nita console.
 
-Two classes split the matrix wiring by block row, top to bottom, so the
-ratsnest can be routed as two bands. The third class is the 5 V rail and
-ground. Other nets stay in Default.
+5V is the rail. AUDIO is the analog path around U5 and U6. MATRIX is
+every segment and digit net from a MAX7219 to its 8x8 block. Other
+nets stay in Default. GND is the pour.
 """
 
 from __future__ import annotations
@@ -11,8 +11,13 @@ import json
 import re
 from typing import Iterable
 
-CLASS_ROWS = ("ROW1", "ROW2")
-CLASS_POWER = "5V_GND"
+CLASS_5V = "5V"
+CLASS_AUDIO = "AUDIO"
+CLASS_MATRIX = "MATRIX"
+
+AUDIO_NETS = frozenset(
+    ("DAC", "AUD", "AUDIN", "AMP", "SPK", "ZOBEL", "BYPASS")
+)
 
 _GEOM = {
     "bus_width": 12,
@@ -30,55 +35,54 @@ _GEOM = {
     "wire_width": 6,
 }
 
-# ROW1 is the top block row (screen rows 0-7, drivers U1 and U2).
-_ROW_COLORS = (
-    "rgb(214, 39, 40)",
-    "rgb(31, 119, 180)",
-)
-
+# 5V is purple. AUDIO is green. MATRIX is red.
 KICAD_CLASSES = [
     {
         **_GEOM,
-        "name": name,
-        "pcb_color": color,
-        "schematic_color": color,
-        "priority": index + 1,
-    }
-    for index, (name, color) in enumerate(zip(CLASS_ROWS, _ROW_COLORS))
-]
-KICAD_CLASSES.append(
-    {
-        **_GEOM,
-        "name": CLASS_POWER,
+        "name": CLASS_5V,
         "pcb_color": "rgb(148, 103, 189)",
         "schematic_color": "rgb(148, 103, 189)",
-        "priority": 3,
+        "priority": 1,
         "track_width": 0.8,
         "clearance": 0.3,
         "via_diameter": 1.2,
         "via_drill": 0.6,
-    }
-)
+    },
+    {
+        **_GEOM,
+        "name": CLASS_AUDIO,
+        "pcb_color": "rgb(44, 160, 44)",
+        "schematic_color": "rgb(44, 160, 44)",
+        "priority": 2,
+    },
+    {
+        **_GEOM,
+        "name": CLASS_MATRIX,
+        "pcb_color": "rgb(214, 39, 40)",
+        "schematic_color": "rgb(214, 39, 40)",
+        "priority": 3,
+    },
+]
 
 PATTERNS = [
-    {"netclass": name, "pattern": f"{name}_*"} for name in CLASS_ROWS
+    {"netclass": CLASS_5V, "pattern": "+5V"},
+    *({"netclass": CLASS_AUDIO, "pattern": name} for name in sorted(AUDIO_NETS)),
+    {"netclass": CLASS_MATRIX, "pattern": "DS1_*"},
+    {"netclass": CLASS_MATRIX, "pattern": "DS2_*"},
+    {"netclass": CLASS_MATRIX, "pattern": "DS3_*"},
+    {"netclass": CLASS_MATRIX, "pattern": "DS4_*"},
 ]
-PATTERNS.extend(
-    [
-        {"netclass": CLASS_POWER, "pattern": "+5V"},
-        {"netclass": CLASS_POWER, "pattern": "GND"},
-    ]
-)
 
-_ROW = re.compile(r"^ROW([12])_")
+_MATRIX = re.compile(r"^DS[1-4]_")
 
 
 def class_for_name(name: str) -> str:
-    if name in ("+5V", "GND"):
-        return CLASS_POWER
-    match = _ROW.match(name)
-    if match:
-        return f"ROW{match.group(1)}"
+    if name == "+5V":
+        return CLASS_5V
+    if name in AUDIO_NETS:
+        return CLASS_AUDIO
+    if _MATRIX.match(name):
+        return CLASS_MATRIX
     return "Default"
 
 
@@ -124,8 +128,18 @@ def annotate_netlist_classes(text: str) -> str:
     return class_re.sub(repl, text)
 
 
-def patch_kicad_pro(text: str) -> str:
-    """Insert or replace the five Maki-Nita classes in a .kicad_pro."""
+def assignments_for(names: Iterable[str]) -> dict[str, str]:
+    """Map each net that is not Default onto its class."""
+    out = {}
+    for name in names:
+        cls = class_for_name(name)
+        if cls != "Default":
+            out[name] = cls
+    return dict(sorted(out.items()))
+
+
+def patch_kicad_pro(text: str, assignments: dict[str, str] | None = None) -> str:
+    """Insert or replace the console classes in a .kicad_pro."""
     data = json.loads(text)
     ns = data.get("net_settings") or {}
     classes = [c for c in (ns.get("classes") or []) if c.get("name") == "Default"]
@@ -138,12 +152,13 @@ def patch_kicad_pro(text: str) -> str:
                 "pcb_color": "rgba(0, 0, 0, 0.000)",
                 "schematic_color": "rgba(0, 0, 0, 0.000)",
                 "priority": 2147483647,
-                "track_width": 0.2,
             },
         )
     classes.extend(dict(spec) for spec in KICAD_CLASSES)
     ns["classes"] = classes
     ns["netclass_patterns"] = list(PATTERNS)
+    if assignments is not None:
+        ns["netclass_assignments"] = assignments
     data["net_settings"] = ns
     start = text.find('"net_settings"')
     if start < 0:
