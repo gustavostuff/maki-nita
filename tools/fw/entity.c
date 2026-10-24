@@ -266,6 +266,11 @@ void world_draw(void)
     }
 }
 
+int world_lit(int x, int y)
+{
+    return grid_on(x, y);
+}
+
 void world_pairs(void (*fn)(int a, int b, void *user), void *user)
 {
     int a;

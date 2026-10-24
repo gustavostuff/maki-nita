@@ -95,6 +95,9 @@ int entity_overlaps(int a, int b);
 void world_tick(void);
 void world_draw(void);
 
+/* 1 when that cell of the 32 by 32 grid is lit. x and y run from -8 to 23. */
+int world_lit(int x, int y);
+
 void world_pairs(void (*fn)(int a, int b, void *user), void *user);
 
 #endif

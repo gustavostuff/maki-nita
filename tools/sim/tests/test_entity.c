@@ -54,6 +54,8 @@ static void test_window(void)
            "a pixel on the right edge is drawn");
     expect(entity_covers(id, 15, 0) && entity_covers(id, 16, 0),
            "the second pixel hangs past the screen");
+    expect(world_lit(15, 0) && world_lit(16, 0) && !world_lit(14, 0),
+           "vram keeps the pixel past the screen");
     expect(!entity_hidden(id), "one lit screen pixel keeps the entity visible");
 
     world_reset();
@@ -61,6 +63,8 @@ static void test_window(void)
     world_draw();
     expect(!pixel_get(15, 0) && entity_hidden(id) && entity_get(id) != 0,
            "an origin in the margin is hidden and still live");
+    expect(world_lit(16, 0) && !world_lit(15, 0),
+           "vram keeps a sprite that misses the screen");
 }
 
 static void test_hidden_dead(void)
@@ -70,6 +74,9 @@ static void test_hidden_dead(void)
     world_reset();
     id = entity_spawn(&dot, -8, -8, 0, 0, 1, 0);
     expect(entity_hidden(id), "a sprite in the far margin is hidden");
+    world_draw();
+    expect(world_lit(-8, -8) && !world_lit(-9, -8) && !world_lit(24, 0),
+           "vram holds the far corner and stops at the margin");
     entity_kill(id);
     expect(entity_get(id) == 0 && !entity_hidden(id),
            "a freed slot is dead");

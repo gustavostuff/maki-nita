@@ -1,4 +1,5 @@
 #include "cart.h"
+#include "entity.h"
 #include "flush.h"
 #include "persist.h"
 #include "sound.h"
@@ -23,6 +24,11 @@
 #define SCALE 4
 #define MARGIN 16
 #define BG ((Uint8)(0.0 * 255)) // fully dark
+#define VRAM_N 32
+#define VRAM_CELL 8
+#define VRAM_DOT 4
+#define VRAM_PX (VRAM_N * VRAM_CELL)
+#define VRAM_GAP 12
 
 static SDL_Texture *load_tex(SDL_Renderer *renderer, const char *file)
 {
@@ -127,6 +133,86 @@ static void present_canvas(SDL_Renderer *renderer, SDL_Texture *canvas)
     SDL_RenderPresent(renderer);
 }
 
+/* The center 16 by 16 cells are the screen. The rest is the one-screen margin. */
+static void draw_vram(SDL_Renderer *renderer)
+{
+    int col;
+    int row;
+    int origin = (VRAM_N - GRID) / 2;
+    SDL_Rect screen = {
+        origin * VRAM_CELL,
+        origin * VRAM_CELL,
+        GRID * VRAM_CELL,
+        GRID * VRAM_CELL,
+    };
+
+    SDL_SetRenderDrawColor(renderer, BG, BG, BG, 255);
+    SDL_RenderClear(renderer);
+    for (row = 0; row < VRAM_N; row++) {
+        for (col = 0; col < VRAM_N; col++) {
+            int on = world_lit(col + ENTITY_LO, row + ENTITY_LO);
+            SDL_Rect dot = {
+                col * VRAM_CELL + (VRAM_CELL - VRAM_DOT) / 2,
+                row * VRAM_CELL + (VRAM_CELL - VRAM_DOT) / 2,
+                VRAM_DOT,
+                VRAM_DOT,
+            };
+
+            if (on)
+                SDL_SetRenderDrawColor(renderer, 187, 49, 66, 255);
+            else
+                SDL_SetRenderDrawColor(renderer, 51, 51, 51, 255);
+            SDL_RenderFillRect(renderer, &dot);
+        }
+    }
+    SDL_SetRenderDrawColor(renderer, 102, 102, 102, 255);
+    SDL_RenderDrawRect(renderer, &screen);
+    SDL_RenderPresent(renderer);
+}
+
+static void place_vram(SDL_Window *parent, SDL_Window *vram)
+{
+    int x;
+    int y;
+    int w;
+    int h;
+
+    if (vram == NULL)
+        return;
+    SDL_GetWindowPosition(parent, &x, &y);
+    SDL_GetWindowSize(parent, &w, &h);
+    SDL_SetWindowPosition(vram, x + w + VRAM_GAP, y);
+}
+
+static SDL_Window *open_vram(SDL_Window *parent, SDL_Renderer **out)
+{
+    SDL_Window *vram;
+    SDL_Renderer *renderer;
+
+    vram = SDL_CreateWindow("VRAM",
+                            SDL_WINDOWPOS_UNDEFINED,
+                            SDL_WINDOWPOS_UNDEFINED,
+                            VRAM_PX, VRAM_PX,
+                            SDL_WINDOW_UTILITY | SDL_WINDOW_SKIP_TASKBAR |
+                            SDL_WINDOW_HIDDEN);
+    if (vram == NULL) {
+        SDL_Log("VRAM window failed: %s", SDL_GetError());
+        return NULL;
+    }
+    SDL_SetWindowModalFor(vram, parent);
+    place_vram(parent, vram);
+    renderer = SDL_CreateRenderer(vram, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == NULL)
+        renderer = SDL_CreateRenderer(vram, -1, SDL_RENDERER_SOFTWARE);
+    if (renderer == NULL) {
+        SDL_Log("VRAM renderer failed: %s", SDL_GetError());
+        SDL_DestroyWindow(vram);
+        return NULL;
+    }
+    *out = renderer;
+    return vram;
+}
+
 static TTF_Font *open_font(void)
 {
     const char *rels[] = {
@@ -228,6 +314,8 @@ int main(void)
     static Board board;
     SDL_Window *window;
     SDL_Renderer *renderer;
+    SDL_Window *vram = NULL;
+    SDL_Renderer *vram_renderer = NULL;
     SDL_Texture *led_on;
     SDL_Texture *led_off;
     SDL_Texture *stick_tex;
@@ -358,8 +446,15 @@ int main(void)
     SDL_SetRenderTarget(renderer, canvas);
     draw(renderer, led_on, led_off, stick_tex, button_tex, &board, 0, 0, 0);
     present_canvas(renderer, canvas);
+    vram = open_vram(window, &vram_renderer);
+    if (vram != NULL)
+        draw_vram(vram_renderer);
     SDL_ShowWindow(window);
+    if (vram != NULL)
+        SDL_ShowWindow(vram);
+    SDL_RaiseWindow(window);
     present_canvas(renderer, canvas);
+    place_vram(window, vram);
 
     Uint64 freq = SDL_GetPerformanceFrequency();
     Uint64 frame_start = 0;
@@ -406,9 +501,34 @@ int main(void)
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT)
                 running = 0;
+            if (event.type == SDL_WINDOWEVENT &&
+                event.window.event == SDL_WINDOWEVENT_CLOSE) {
+                if (event.window.windowID == SDL_GetWindowID(window))
+                    running = 0;
+                else if (vram != NULL &&
+                         event.window.windowID == SDL_GetWindowID(vram))
+                    SDL_HideWindow(vram);
+            }
+            if (event.type == SDL_WINDOWEVENT &&
+                event.window.windowID == SDL_GetWindowID(window) &&
+                (event.window.event == SDL_WINDOWEVENT_MOVED ||
+                 event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED))
+                place_vram(window, vram);
             if (event.type == SDL_KEYDOWN &&
                 event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
                 running = 0;
+            if (event.type == SDL_KEYDOWN && !event.key.repeat &&
+                event.key.keysym.scancode == SDL_SCANCODE_V &&
+                (event.key.keysym.mod & (KMOD_CTRL | KMOD_ALT)) == 0 &&
+                vram != NULL) {
+                if (SDL_GetWindowFlags(vram) & SDL_WINDOW_SHOWN)
+                    SDL_HideWindow(vram);
+                else {
+                    place_vram(window, vram);
+                    SDL_ShowWindow(vram);
+                    SDL_RaiseWindow(window);
+                }
+            }
             if (event.type == SDL_KEYDOWN &&
                 (event.key.keysym.mod & KMOD_CTRL) &&
                 !event.key.repeat) {
@@ -422,8 +542,10 @@ int main(void)
                     scale = 3;
                 if (event.key.keysym.scancode == SDL_SCANCODE_4)
                     scale = 4;
-                if (scale != 0)
+                if (scale != 0) {
                     SDL_SetWindowSize(window, CANVAS_W * scale, CANVAS_H * scale);
+                    place_vram(window, vram);
+                }
             }
         }
         keys = SDL_GetKeyboardState(NULL);
@@ -469,6 +591,8 @@ int main(void)
             SDL_RenderCopy(renderer, fps_tex, NULL, &dst);
         }
         present_canvas(renderer, canvas);
+        if (vram != NULL && (SDL_GetWindowFlags(vram) & SDL_WINDOW_SHOWN))
+            draw_vram(vram_renderer);
         sound_render();
         pace(frame_start, freq);
     }
@@ -476,6 +600,10 @@ int main(void)
     sound_close();
 
     SDL_DestroyTexture(fps_tex);
+    if (vram_renderer != NULL)
+        SDL_DestroyRenderer(vram_renderer);
+    if (vram != NULL)
+        SDL_DestroyWindow(vram);
     SDL_DestroyTexture(canvas);
     SDL_DestroyTexture(led_on);
     SDL_DestroyTexture(led_off);

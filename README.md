@@ -53,4 +53,4 @@ Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
 - [Input](docs/input.md) covers the stick, the button, and their header.
 - [Software](docs/software.md) covers one tick, the framebuffer, the inputs, the sound catalog, and what a game is.
 - [SDK](docs/sdk.md) covers entities, shapes, and collision.
-- `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window. The cart in `cart_placed.json` is the game that runs.
+- `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the window. A smaller window beside it shows the 32 by 32 grid. The cart in `cart_placed.json` is the game that runs.

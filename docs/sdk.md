@@ -4,7 +4,7 @@ The entity world lives in `tools/fw/entity.h` and `tools/fw/entity.c`. Every car
 
 ## Slots
 
-A cart keeps up to 64 entities but it might use may use fewer. The software doc lists each cart's own limit.
+A cart keeps up to 64 entities. A cart may use fewer. The software doc lists each cart's own limit.
 
 ```c
 int entity_spawn(const Shape *shape, int x, int y, int vx, int vy,
@@ -18,7 +18,7 @@ void world_reset(void);
 
 ## Coordinates
 
-The screen is columns 0..15 and rows 0..15. A one-screen margin around it makes the live area -8..23 on each axis. That 32 by 32 grid is 128 bytes. `world_draw` clears the grid, stamps every living entity, and copies the center window into `frame`.
+The screen is columns 0..15 and rows 0..15. A one-screen margin around it makes the live area -8..23 on each axis. That 32 by 32 grid is 128 bytes. `world_draw` clears the grid, stamps every living entity, and copies the center window into `frame`. `world_lit` reads one cell of that grid. `x` and `y` run from -8 to 23.
 
 `x` and `y` are the origin, one cell of the shape box. The cell may be lit or dark. Pixels may hang outside the grid while the origin is inside. Those pixels are clipped.
 
