@@ -54,7 +54,6 @@ HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
 PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
 SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
 UPDI_FP = "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-TIE_FP = "NetTie:NetTie-2_THT_Pad1.0mm"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 AUDIO_FP = "Package_DIP:DIP-28_W7.62mm"
 AMP_FP = "Package_DIP:DIP-8_W7.62mm"
@@ -206,13 +205,6 @@ def _passive(ref: str, footprint: str, value: str, description: str = "") -> Par
     return _part("Passive", ref, footprint, TWO_PINS, value, description)
 
 
-def _span(local: Net, rail: Net, ref: str) -> None:
-    """Copper short from a pin's own net to the board rail."""
-    tie = _part("NetTie_2", ref, TIE_FP, ((1, "1"), (2, "2")), "Tie", "Net tie")
-    _tie(tie, 1, local)
-    _tie(tie, 2, rail)
-
-
 def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     """Console synth. PD6 feeds the LM386 through the divider in the audio doc."""
     cpu = _part(
@@ -223,22 +215,10 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
         "Audio AVR",
         "AVR128DB28-I/SP",
     )
-    # C4 across pins 20 and 21. C6 across pins 14 and 15. C7 from pin 6 to pin 21.
-    vdd = Net("U6VDD")
-    avdd = Net("U6AVDD")
-    vio = Net("U6IO")
-    gnd_a = Net("U6GNDA")
-    gnd_b = Net("U6GNDB")
-    _tie(cpu, 20, vdd)
-    _tie(cpu, 14, avdd)
-    _tie(cpu, 6, vio)
-    _tie(cpu, 21, gnd_a)
-    _tie(cpu, 15, gnd_b)
-    _span(vdd, vcc, "NT1")
-    _span(avdd, vcc, "NT2")
-    _span(vio, vcc, "NT3")
-    _span(gnd_a, gnd, "NT5")
-    _span(gnd_b, gnd, "NT6")
+    for num in (20, 14, 6):
+        _tie(cpu, num, vcc)
+    for num in (15, 21):
+        _tie(cpu, num, gnd)
     _tie(cpu, 18, reset)
     _tie(cpu, 23, event)
 
@@ -278,14 +258,10 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     _tie(shunt, 2, gnd)
 
     amp = _part("LM386N-1", "U7", AMP_FP, AMP_PINS, "LM386", "LM386N-1 speaker amplifier")
-    vs = Net("U7VS")
-    agnd = Net("U7GND")
     _tie(amp, 2, gnd)
     _tie(amp, 3, audin)
-    _tie(amp, 4, agnd)
-    _tie(amp, 6, vs)
-    _span(vs, vcc, "NT4")
-    _span(agnd, gnd, "NT7")
+    _tie(amp, 4, gnd)
+    _tie(amp, 6, vcc)
     bypass = Net("BYPASS")
     _tie(amp, 7, bypass)
     amp_out = Net("AMP")
@@ -316,27 +292,28 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     _tie(zobel_c, 1, zobel)
     _tie(zobel_c, 2, gnd)
 
-    c4 = _passive("C4", C_DISC_FP, "100n VDD", "100 nF on U6 VDD")
-    _tie(c4, 1, vdd)
-    _tie(c4, 2, gnd_a)
-    c6 = _passive("C6", C_DISC_FP, "100n AVDD", "100 nF on U6 AVDD")
-    _tie(c6, 1, avdd)
-    _tie(c6, 2, gnd_b)
-    c7 = _passive("C7", C_DISC_FP, "100n IO", "100 nF on U6 VDDIO2")
-    _tie(c7, 1, vio)
-    _tie(c7, 2, gnd_a)
-    c8 = _passive("C8", C_DISC_FP, "100n AMP", "100 nF on the LM386 supply")
-    _tie(c8, 1, vs)
-    _tie(c8, 2, agnd)
-    bulk = _passive("C5", C_ELEC_FP, "100u AMP", "100 uF on the LM386 supply")
-    _tie(bulk, 1, vs)
-    _tie(bulk, 2, agnd)
-    c9 = _passive("C9", C_ELEC_FP, "10u BYP", "10 uF on LM386 pin 7")
+    c4 = _passive("C4", C_DISC_FP, "U6 VDD", "100 nF on U6 pins 20 and 21")
+    _tie(c4, 1, vcc)
+    _tie(c4, 2, gnd)
+    c6 = _passive("C6", C_DISC_FP, "U6 AVDD", "100 nF on U6 pins 14 and 15")
+    _tie(c6, 1, vcc)
+    _tie(c6, 2, gnd)
+    c7 = _passive("C7", C_DISC_FP, "U6 IO", "100 nF on U6 pins 6 and 21")
+    _tie(c7, 1, vcc)
+    _tie(c7, 2, gnd)
+    c8 = _passive("C8", C_DISC_FP, "U7 VS", "100 nF on U7 pins 6 and 4")
+    _tie(c8, 1, vcc)
+    _tie(c8, 2, gnd)
+    bulk = _passive("C5", C_ELEC_FP, "U7 VS", "100 uF on U7 pins 6 and 4")
+    _tie(bulk, 1, vcc)
+    _tie(bulk, 2, gnd)
+    c9 = _passive("C9", C_ELEC_FP, "U7 BYP", "10 uF on U7 pins 7 and 4")
     _tie(c9, 1, bypass)
-    _tie(c9, 2, agnd)
+    _tie(c9, 2, gnd)
 
 
 def build() -> None:
+    # Two global power nets. Every rail pin and every decoupling cap lands here.
     vcc = Net("+5V")
     gnd = Net("GND")
     din = Net("DIN")
@@ -473,6 +450,10 @@ def _check(text: str) -> None:
         raise SystemExit("expected 4 MAX7219 footprints")
     if text.count(f'(footprint "{MATRIX_FP}")') != 4:
         raise SystemExit("expected 4 matrix footprints")
+    if text.count('(name "+5V")') != 1:
+        raise SystemExit("expected one global +5V net")
+    if text.count('(name "GND")') != 1:
+        raise SystemExit("expected one global GND net")
     vcc = nodes("+5V")
     gnd = nodes("GND")
     if ("J1", "3") not in vcc or ("J1", "4") not in vcc or ("J1", "16") not in vcc:
@@ -531,10 +512,12 @@ def _check(text: str) -> None:
         raise SystemExit("zobel missing")
     if text.count('(value "1u DAC")') != 1 or text.count('(value "220u SPK")') != 1:
         raise SystemExit("coupling caps missing")
-    if text.count('(value "10u BYP")') != 1:
-        raise SystemExit("LM386 bypass cap missing")
-    if text.count(f'(footprint "{TIE_FP}")') != 7:
-        raise SystemExit("expected 7 net ties")
+    if text.count('(value "U6 VDD")') != 1 or text.count('(value "U6 AVDD")') != 1:
+        raise SystemExit("U6 bypass caps missing")
+    if text.count('(value "U6 IO")') != 1:
+        raise SystemExit("U6 IO bypass missing")
+    if text.count('(value "U7 VS")') != 2 or text.count('(value "U7 BYP")') != 1:
+        raise SystemExit("U7 supply caps missing")
     event = nodes("EVENT")
     if event != {("J1", "2"), ("U6", "23"), ("R1", "1")}:
         raise SystemExit(f"EVENT nodes {event}")
@@ -551,43 +534,26 @@ def _check(text: str) -> None:
     audin = nodes("AUDIN")
     if audin != {("R3", "2"), ("R4", "1"), ("U7", "3")}:
         raise SystemExit(f"AUDIN nodes {audin}")
-    if ("R4", "2") not in gnd or ("U7", "2") not in gnd:
-        raise SystemExit("LM386 input ground missing")
-    u6vdd = nodes("U6VDD")
-    if u6vdd != {("U6", "20"), ("C4", "1"), ("NT1", "1")}:
-        raise SystemExit(f"U6VDD nodes {u6vdd}")
-    u6avdd = nodes("U6AVDD")
-    if u6avdd != {("U6", "14"), ("C6", "1"), ("NT2", "1")}:
-        raise SystemExit(f"U6AVDD nodes {u6avdd}")
-    u6io = nodes("U6IO")
-    if u6io != {("U6", "6"), ("C7", "1"), ("NT3", "1")}:
-        raise SystemExit(f"U6IO nodes {u6io}")
-    u6gnda = nodes("U6GNDA")
-    if u6gnda != {("U6", "21"), ("C4", "2"), ("C7", "2"), ("NT5", "1")}:
-        raise SystemExit(f"U6GNDA nodes {u6gnda}")
-    u6gndb = nodes("U6GNDB")
-    if u6gndb != {("U6", "15"), ("C6", "2"), ("NT6", "1")}:
-        raise SystemExit(f"U6GNDB nodes {u6gndb}")
-    u7vs = nodes("U7VS")
-    if u7vs != {("U7", "6"), ("C8", "1"), ("C5", "1"), ("NT4", "1")}:
-        raise SystemExit(f"U7VS nodes {u7vs}")
-    u7gnd = nodes("U7GND")
-    if u7gnd != {("U7", "4"), ("C8", "2"), ("C5", "2"), ("C9", "2"), ("NT7", "1")}:
-        raise SystemExit(f"U7GND nodes {u7gnd}")
+    if ("R4", "2") not in gnd or ("U7", "2") not in gnd or ("U7", "4") not in gnd:
+        raise SystemExit("LM386 grounds missing")
+    if ("U7", "6") not in vcc:
+        raise SystemExit("LM386 supply missing")
+    for num in ("20", "14", "6"):
+        if ("U6", num) not in vcc:
+            raise SystemExit(f"audio AVR pin {num} is not on +5V")
+    for num in ("15", "21"):
+        if ("U6", num) not in gnd:
+            raise SystemExit(f"audio AVR pin {num} is not ground")
+    for ref in ("C4", "C6", "C7", "C8", "C5"):
+        if (ref, "1") not in vcc or (ref, "2") not in gnd:
+            raise SystemExit(f"{ref} is not across +5V and GND")
     bypass_net = nodes("BYPASS")
     if bypass_net != {("U7", "7"), ("C9", "1")}:
         raise SystemExit(f"BYPASS nodes {bypass_net}")
-    for ref, pin, rail in (
-        ("NT1", "2", vcc),
-        ("NT2", "2", vcc),
-        ("NT3", "2", vcc),
-        ("NT4", "2", vcc),
-        ("NT5", "2", gnd),
-        ("NT6", "2", gnd),
-        ("NT7", "2", gnd),
-    ):
-        if (ref, pin) not in rail:
-            raise SystemExit(f"{ref} pin {pin} is not on the rail")
+    if ("C9", "2") not in gnd:
+        raise SystemExit("LM386 bypass return missing")
+    if "NetTie" in text or '(ref "NT' in text:
+        raise SystemExit("net ties must stay out of the netlist")
     amp = nodes("AMP")
     if amp != {("U7", "5"), ("C2", "1"), ("R5", "1")}:
         raise SystemExit(f"AMP nodes {amp}")

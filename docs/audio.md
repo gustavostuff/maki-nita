@@ -55,7 +55,9 @@ The DAC pin is PD6. The 10 kohm to GND is its DC load. A 1 uF capacitor, positiv
 
 The output pin feeds the 220 uF capacitor, positive toward the amplifier, and then J4 pins 2 and 3. J4 pins 1 and 4 are GND. The 10 ohm and the 47 nF sit in series from the output pin to GND. C5, 100 uF, and C8, 100 nF, sit from LM386 pin 6 to pin 4, close to the package.
 
-C4, 100 nF, sits across audio AVR pins 20 and 21. C6, 100 nF, sits across pins 14 and 15. C7, 100 nF, sits from pin 6 to pin 21. A net tie joins each of those capacitor nets to the 5 V rail or to ground. The tie is copper on the board. No part is soldered on it.
+C4, 100 nF, sits across audio AVR pins 20 and 21. C6, 100 nF, sits across pins 14 and 15. C7, 100 nF, sits from pin 6 to pin 21. Silk on those three is U6 VDD, U6 AVDD, and U6 IO. C5 and C8 sit on U7. Silk on those two is U7 VS. C9 silk is U7 BYP.
+
+One leg of C4, C5, C6, C7, and C8 is the global +5V net. The other leg is the global GND net. C9 sits from the LM386 bypass pin to GND.
 
 ## Rail noise
 
@@ -73,9 +75,7 @@ U6 and U7 sit next to each other. The DAC pin, the divider, and the LM386 input 
 
 Vias stitch the two pours around U6, U7, and the four drivers. A via fence around the audio pair is enough. The pour stays one ground. A split analog island that meets digital ground far away puts the LED pulse in series with the sample.
 
-Each net tie sits next to the pin it serves. NT1 through NT3 and NT5 and NT6 sit on the audio AVR. NT4 and NT7 sit on the LM386. The tie is copper. A missing tie leaves that supply pin open.
-
-C4 sits across U6 pins 20 and 21. C6 sits across pins 14 and 15. C7 sits from pin 6 to pin 21. C5, C8, and C9 sit on the LM386, pins 6, 7, and 4. AVDD is tied to VDD inside the chip, so C6 cannot isolate the analog rail.
+C4 sits across U6 pins 20 and 21. C6 sits across pins 14 and 15. C7 sits from pin 6 to pin 21. C5 and C8 sit across U7 pins 6 and 4. C9 sits from pin 7 to pin 4. AVDD is tied to VDD inside the chip, so C6 cannot isolate the analog rail.
 
 C1 is electrolytic. The positive pad faces the DAC. C2 is electrolytic. The positive pad faces the LM386 output. C9 is electrolytic. The positive pad faces pin 7.
 
@@ -107,7 +107,6 @@ The check is a 2-layer board with a full-white field and a quiet sound, or silen
 | 1 | 100 nF | C7. Audio AVR VDDIO2, pin 6, to GND pin 21 |
 | 1 | 100 nF | C8. LM386 supply, from pin 6 to pin 4 |
 | 1 | 10 uF electrolytic | C9. LM386 pin 7 to pin 4 |
-| 7 | Net tie | Copper short from a bypass net to the 5 V rail or to ground |
 
 ## Signals
 

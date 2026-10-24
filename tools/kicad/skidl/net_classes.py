@@ -60,17 +60,6 @@ KICAD_CLASSES.append(
     }
 )
 
-# Local supply nets. A net tie joins each one to +5V or GND.
-_LOCAL_POWER = {
-    "U6VDD",
-    "U6AVDD",
-    "U6IO",
-    "U6GNDA",
-    "U6GNDB",
-    "U7VS",
-    "U7GND",
-}
-
 PATTERNS = [
     {"netclass": name, "pattern": f"{name}_*"} for name in CLASS_ROWS
 ]
@@ -80,15 +69,12 @@ PATTERNS.extend(
         {"netclass": CLASS_POWER, "pattern": "GND"},
     ]
 )
-PATTERNS.extend(
-    {"netclass": CLASS_POWER, "pattern": name} for name in sorted(_LOCAL_POWER)
-)
 
 _ROW = re.compile(r"^ROW([12])_")
 
 
 def class_for_name(name: str) -> str:
-    if name in ("+5V", "GND") or name in _LOCAL_POWER:
+    if name in ("+5V", "GND"):
         return CLASS_POWER
     match = _ROW.match(name)
     if match:
