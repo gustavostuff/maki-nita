@@ -2,10 +2,13 @@
 #define FW_ROCK_H
 
 /*
- * Solid 2x2 and 3x3 rocks. They enter above the field and drift down.
+ * Solid 2x2 and 3x3 rocks. A new rock appears on a random row from
+ * the top of the 32 by 32 grid through the top row of the screen, and
+ * the whole rock fits in that band. It drifts down.
  * A new rock falls every 4, 8, 12, or 16 ticks. Over ROCK_RAMP ticks
- * of the round that period shortens to 1. A sideways step, if any,
- * comes every 15 or 30 ticks and is one column left or right.
+ * of the round that period shortens until every rock falls once a tick.
+ * A sideways step, if any, comes every 15 or 30 ticks and is one column
+ * left or right.
  * rock_tick returns 1 when a rock meets the ship.
  */
 

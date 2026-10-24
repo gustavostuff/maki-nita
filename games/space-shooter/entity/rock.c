@@ -121,18 +121,29 @@ static int hits_player(const Entity *e, int size)
     return 0;
 }
 
+/* The rock fits in the rows from the top of the 32 by 32 grid through
+ * the top row of the screen. */
+static int spawn_row(uint16_t r, int size)
+{
+    int band = 0 - ENTITY_LO + 1;
+    int room = band - size + 1;
+
+    return ENTITY_LO + (int)((r >> 1) % (uint16_t)room);
+}
+
 static void spawn(void)
 {
     uint16_t r = next_rand();
     int size = (r & 1u) ? 2 : 3;
-    /* Low bits of this generator count. The fall period stays in bits
+    /* Low bits of this generator count. Bit 0 picks the size. The margin
+     * row uses the bits just above that. The fall period stays in bits
      * 13 and 14. The sideways step uses the bits just under those. */
     int every = period[(r >> 13) & 3u];
     int xevery = (r & 0x8000u) ? 15 : 30;
     int dx = (int)(((r >> 10) & 7u) % 3u) - 1;
     int x = (int)((r >> 3) % (uint16_t)(FIELD - size));
 
-    rock_add(x, -size, size, every, dx, xevery);
+    rock_add(x, spawn_row(r, size), size, every, dx, xevery);
 }
 
 int rock_tick(void)

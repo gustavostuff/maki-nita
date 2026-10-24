@@ -176,12 +176,13 @@ static void test_both_sizes(void)
     input_reset();
     game_reset();
     advance(119);
-    expect(pixel_get(1, 3) && pixel_get(2, 3),
+    expect(pixel_get(1, 3) && pixel_get(2, 3) && pixel_get(1, 4),
            "a spawned 2x2 rock is on screen");
     expect(!pixel_get(0, 3) && !pixel_get(3, 3), "that rock is two columns wide");
-    expect(pixel_get(1, 0) && pixel_get(3, 0) && pixel_get(1, 2),
-           "a spawned 3x3 rock is on screen");
-    expect(!pixel_get(0, 0) && !pixel_get(4, 0), "that rock is three columns wide");
+    expect(pixel_get(1, 0) && pixel_get(3, 0) && pixel_get(1, 1),
+           "a spawned 3x3 rock reaches the top row");
+    expect(!pixel_get(0, 0) && !pixel_get(4, 0) && !pixel_get(1, 2),
+           "that rock is three columns wide and still crosses into the margin");
 }
 
 static void die(void)
@@ -338,8 +339,9 @@ static void test_ramp(void)
            "a new round keeps the slow fall");
     expect(rock_fall_period(4, mid) == 2, "the fast rocks reach 30 FPS during the minute");
     expect(rock_fall_period(16, mid) > 2, "the slow rocks are still slower then");
-    expect(rock_fall_period(4, ROCK_RAMP) == 1 && rock_fall_period(16, ROCK_RAMP) == 1,
-           "every rock falls once a tick after one minute");
+    expect(rock_fall_period(4, ROCK_RAMP) == 1 && rock_fall_period(8, ROCK_RAMP) == 1 &&
+           rock_fall_period(12, ROCK_RAMP) == 1 && rock_fall_period(16, ROCK_RAMP) == 1,
+           "every rock falls once a tick by the end of one minute");
     expect(rock_fall_period(8, ROCK_RAMP + 50) == 1, "the pace stays at one tick");
 }
 
