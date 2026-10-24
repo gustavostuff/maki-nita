@@ -11,12 +11,10 @@ one matrix pad.
 A part that sits on Un uses n. A second part on that IC adds 10, a
 third adds 20. C1 and R1 sit on U1. C5 and R5 sit on U5.
 
-The matrix package pinout is a placeholder. Pad 1 is the marked end. Pads
-1-8 step away from that mark at the footprint pitch. Pad 16 sits opposite
-pad 1. Until a datasheet confirms the part, pads 1-8 are columns 0-7 and
-pads 16-9 are rows 0-7, so column 0 and row 0 are both at the marked end.
-Column 0 is segment DP. Row 0 is DIG0. That is the same left and top rule
-as the sim.
+Each matrix footprint is two PinSocket_1x08 strips composed in
+Matrix8x8_2x8_P2.52mm_R25mm. Pads 1-8 are columns 0-7. Pads 16-9 are rows
+0-7. Pin 1 is the marked end on the column strip. Column 0 is segment DP.
+Row 0 is DIG0. That is the same left and top rule as the sim.
 
 Run from the repo:
 
@@ -103,7 +101,7 @@ SEG_PINS = (22, 14, 16, 20, 23, 21, 15, 17)  # DP A B C D E F G
 # Row 0 is the top of the block, DIG0.
 DIG_PINS = (2, 11, 6, 7, 3, 10, 5, 8)  # DIG0 .. DIG7
 
-# Placeholder pad numbers. See the module docstring.
+# Pad numbers on the composed matrix footprint. See the module docstring.
 COL_PADS = (1, 2, 3, 4, 5, 6, 7, 8)
 ROW_PADS = (16, 15, 14, 13, 12, 11, 10, 9)
 

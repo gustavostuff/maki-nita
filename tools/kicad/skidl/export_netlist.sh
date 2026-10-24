@@ -25,4 +25,5 @@ if ! python3 -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_s
     exit 1
 fi
 
+python3 "$DIR/../scripts/compose_matrix_footprint.py"
 python3 "$DIR/maki_nita.py"

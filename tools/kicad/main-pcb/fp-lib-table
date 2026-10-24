@@ -5,6 +5,6 @@
 		(type "KiCad")
 		(uri "${KIPRJMOD}/library/MakiNita.pretty")
 		(options "")
-		(descr "Maki-Nita matrix footprint. Pin pitch and row spacing are unconfirmed.")
+		(descr "Maki-Nita console footprints (matrix, cart socket, cart edge).")
 	)
 )
