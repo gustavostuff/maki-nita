@@ -264,11 +264,12 @@ static void test_step(void)
 
 static void test_period(void)
 {
-    expect(arkaled_period(0) == 7 && arkaled_period(599) == 7,
-           "the opening pace waits 7 ticks");
-    expect(arkaled_period(600) == 6, "ten seconds trims one tick from the wait");
-    expect(arkaled_period(3000) == 2 && arkaled_period(3600) == 1,
-           "the wait stops shrinking at one tick");
+    expect(arkaled_period(0) == 15 && arkaled_period(119) == 15,
+           "the opening pace waits 15 ticks");
+    expect(arkaled_period(120) == 14, "two seconds trims one tick from the wait");
+    expect(arkaled_period(240) == 13, "four seconds trims the wait to 13 ticks");
+    expect(arkaled_period(14 * 120) == 1 && arkaled_period(14 * 120 + 50) == 1,
+           "the wait reaches one tick and stays there");
 }
 
 static void test_open(void)
@@ -329,9 +330,9 @@ static void test_serve(void)
     serve(8, 1);
     at(7, 13, -1, -1, "the first paddle step sends the ball up and left");
     expect(pad_x() == 5, "that step moves the paddle left");
-    for (i = 0; i < 6; i++)
+    for (i = 0; i < 14; i++)
         feed(0, 0, 0, 0, 0);
-    at(7, 13, -1, -1, "the ball waits 7 ticks between steps");
+    at(7, 13, -1, -1, "the ball waits 15 ticks between steps");
     feed(0, 0, 0, 0, 0);
     at(6, 12, -1, -1, "the next tick steps the ball");
 
@@ -496,6 +497,57 @@ static void test_paddle(void)
     at(8, 11, 0, -1, "a ball moving away from the paddle does not bounce");
 }
 
+static void test_carry(void)
+{
+    int i;
+
+    input_reset();
+    arkaled_wipe();
+    arkaled_load(6, 8, 14, 0, 0);
+    feed(0, 0, 0, 0, 0);
+    feed(0, 0, 0, 1, 0);
+    feed(0, 0, 0, 1, 0);
+    at(9, 14, 0, 0, "a moving paddle carries a ball on contact");
+    expect(pad_x() == 7, "that step moves the paddle under the ball");
+
+    input_reset();
+    arkaled_wipe();
+    arkaled_load(6, 8, 14, 0, 0);
+    feed(0, 0, 0, 0, 0);
+    feed(0, 0, 1, 0, 0);
+    feed(0, 0, 1, 0, 0);
+    at(7, 14, 0, 0, "the paddle carries the ball to the left");
+    expect(pad_x() == 5, "that step moves the paddle left under the ball");
+
+    input_reset();
+    arkaled_wipe();
+    arkaled_load(6, 10, 14, 0, 0);
+    feed(0, 0, 0, 0, 0);
+    feed(0, 0, 0, 1, 0);
+    feed(0, 0, 0, 1, 0);
+    at(10, 14, 0, 0, "a ball beside the paddle stays in its column");
+
+    input_reset();
+    arkaled_wipe();
+    arkaled_load(6, 8, 12, 0, 0);
+    feed(0, 0, 0, 0, 0);
+    feed(0, 0, 0, 1, 0);
+    feed(0, 0, 0, 1, 0);
+    at(8, 12, 0, 0, "a ball above the paddle stays in its column");
+
+    input_reset();
+    arkaled_wipe();
+    arkaled_load(6, 8, 13, 0, 1);
+    feed(0, 0, 0, 0, 0);
+    at(8, 14, 0, 1, "the ball arrives on the paddle");
+    feed(0, 0, 0, 1, 0);
+    feed(0, 0, 0, 1, 0);
+    at(9, 14, 0, 1, "the paddle carries the ball before the bounce");
+    for (i = 0; i < 13; i++)
+        feed(0, 0, 0, 0, 0);
+    at(9, 13, 0, -1, "the bounce leaves from the carried column");
+}
+
 static void test_miss(void)
 {
     input_reset();
@@ -633,6 +685,7 @@ int main(void)
     test_button();
     test_bricks();
     test_paddle();
+    test_carry();
     test_miss();
     test_clear();
     test_pop();

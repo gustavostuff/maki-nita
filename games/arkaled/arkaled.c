@@ -20,8 +20,8 @@
 #if BRICK_COLS * BRICK_ROWS + 2 > ENTITY_MAX
 #error the arkaled block does not fit in the entity table
 #endif
-#define BALL_SLOW 7
-#define RAMP (10 * 60)
+#define BALL_EVERY 15
+#define RAMP (2 * 60)
 
 static const Shape brick_shape = SHAPE1(0, 0, "1");
 static const Shape pad_shape = SHAPE1(0, 0, "1111");
@@ -42,7 +42,7 @@ int arkaled_period(int ticks)
 
     if (ticks < 0)
         ticks = 0;
-    p = BALL_SLOW - ticks / RAMP;
+    p = BALL_EVERY - ticks / RAMP;
     if (p < 1)
         p = 1;
     return p;
@@ -200,6 +200,26 @@ static void aim(Entity *ball)
     ball->vy = -1;
 }
 
+static int on_paddle(const Entity *ball, int pad_x)
+{
+    return ball->y == FIELD - 2 && ball->x >= pad_x && ball->x < pad_x + PAD_W;
+}
+
+static void carry(Entity *pad, Entity *ball, int from_x)
+{
+    int dx = pad->x - from_x;
+    int nx;
+
+    if (!on_paddle(ball, from_x))
+        return;
+    nx = ball->x + dx;
+    if (nx < 0)
+        nx = 0;
+    if (nx >= FIELD)
+        nx = FIELD - 1;
+    ball->x = nx;
+}
+
 static int step_pad(Entity *pad, int dir)
 {
     int next;
@@ -276,7 +296,7 @@ static void spawn_actors(int pad_x, int x, int y)
         entity_kill(ball_id);
     pad_id = entity_spawn(&pad_shape, pad_x, FIELD - 1, 0, 0, PAD_EVERY,
                           ENTITY_INACTIVE | ENTITY_CAN_BE_COLLIDED);
-    ball_id = entity_spawn(&dot, x, y, 0, 0, BALL_SLOW,
+    ball_id = entity_spawn(&dot, x, y, 0, 0, BALL_EVERY,
                            ENTITY_INACTIVE | ENTITY_CAN_COLLIDE);
 }
 
@@ -343,6 +363,7 @@ void arkaled_tick(const Input *in)
     Entity *pad = entity_get(pad_id);
     Entity *ball = entity_get(ball_id);
     int dir = 0;
+    int from_x;
     int moved;
 
     if (pad == NULL || ball == NULL)
@@ -353,6 +374,7 @@ void arkaled_tick(const Input *in)
         dir = -1;
     if (in->right && !in->left)
         dir = 1;
+    from_x = pad->x;
     moved = step_pad(pad, dir);
 
     if (!live) {
@@ -367,6 +389,8 @@ void arkaled_tick(const Input *in)
             return;
         }
     } else {
+        if (moved)
+            carry(pad, ball, from_x);
         age++;
         ball->every = arkaled_period(age);
         ball->pace++;

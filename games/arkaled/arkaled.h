@@ -11,7 +11,9 @@
  * until the paddle moves, then steps up and toward one side.
  * collide_step walks that ball. A piece in the way turns off.
  * The bottom row off the paddle starts a new round, and so does
- * the last piece. Later steps use arkaled_period.
+ * the last piece. Later steps start at 15 ticks. Every 2 seconds
+ * that wait shrinks by one tick, down to one. A ball on the row
+ * above the paddle moves with the paddle.
  * arkaled_seed sets the opening side. Zero becomes 1.
  * arkaled_load places a live ball and leaves the pieces as they are.
  * arkaled_fill, arkaled_wipe, and arkaled_set edit those pieces.

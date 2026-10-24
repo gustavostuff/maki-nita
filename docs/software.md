@@ -149,7 +149,7 @@ Arkaled is a cart. The paddle is four LEDs on the bottom row. It starts on colum
 
 Rows 0 and 1 are empty. Rows 2 through 5 hold forty-eight pieces. Each piece is one LED. Twelve pieces sit on each of those rows, in columns 2 through 13. Columns 0, 1, 14, and 15 stay empty beside the block. The ball is one LED. It starts at column 8, row 14, and waits there until the paddle moves. That move sends the ball up and toward one side.
 
-Steps after the opening one wait 7 ticks. Every 10 seconds of the rally that wait shrinks by one tick. At one tick per step it stays there. `arkaled_period` is that wait.
+Steps after the opening one wait 15 ticks, which is 4 steps a second. Every 2 seconds of the rally that wait shrinks by one tick, through 14, 13, and so on. At one tick per step it stays there. `arkaled_period` is that wait. A ball in the row above the paddle, in a column the paddle occupies, steps sideways with the paddle. A bounce on that tick starts from the new column.
 
 `collide_step` moves the ball one cell. It reads the horizontal neighbor, the vertical neighbor, and the diagonal cell. A blocking neighbor reverses that axis. When both neighbors block, or only the diagonal cell blocks, both axes reverse. The horizontal part of the step lands before the vertical part, and only when that landing cell is open. A piece that blocks the step turns off. That LED goes dark. Two pieces in one step send index 3 once. The paddle and the walls block the ball. Any of those blocks sends index 3. A miss sends nothing. The ball stays out of a blocking cell.
 
