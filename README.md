@@ -54,6 +54,7 @@ Cartridge PCB, 44x47mm. Designed to fit inside a 50x50mm cart case:
 
 ## Docs
 
+- [Hardware](docs/hardware.md) covers the console PCB, the pours, and where each part sits.
 - [Video](docs/video.md) covers the matrices, the drivers, the cart edge, and power.
 - [Audio](docs/audio.md) covers EVENT, the console AVR, the amplifier, and the speaker.
 - [Input](docs/input.md) covers the stick, the button, and their header.

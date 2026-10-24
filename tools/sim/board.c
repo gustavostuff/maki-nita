@@ -171,12 +171,12 @@ static void tie_chip_rails(Board *board, Max7219 *chip)
 void board_init(Board *board)
 {
     static const char *refdes[NDRV] = {
-        "U2", "U3", "U4", "U5",
+        "U1", "U2", "U3", "U4",
     };
     int i;
 
     avr_init(&board->cpu, "U1");
-    avr_init(&board->audio, "U6");
+    avr_init(&board->audio, "U5");
     avr_output(&board->cpu, AVR_PA0, SIG_H);
     for (i = 0; i < NDRV; i++)
         max7219_init(&board->drv[i], refdes[i]);

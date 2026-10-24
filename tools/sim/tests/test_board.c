@@ -138,7 +138,7 @@ static void test_event(void)
 
     board_init(&board);
     expect(avr_sense(&board.audio, AVR_PA1) == SIG_H, "EVENT idles high at the audio pin");
-    expect(strcmp(board.audio.refdes, "U6") == 0, "the audio AVR is U6");
+    expect(strcmp(board.audio.refdes, "U5") == 0, "the audio AVR is U5");
     expect(board.cpu.pin[AVR_PA0 - 1].net == &board.event &&
                board.audio.pin[AVR_PA1 - 1].net == &board.event,
            "pin 22 and pin 23 share EVENT");

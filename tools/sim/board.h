@@ -3,13 +3,14 @@
 
 /*
  * One Maki-Nita board.
- * U1 is the game AVR128DB28. U6 is the audio AVR128DB28.
- * U2 to U5 are the MAX7219 chain:
+ * The cartridge CPU is U1 on the cart board.
+ * U5 is the audio AVR128DB28 on the console.
+ * U1 to U4 are the MAX7219 chain on the console:
  * top left, top right, bottom left, bottom right.
  * Four 8x8 matrices make the 16x16 field.
  * PA4 is DIN, PA6 is CLK, PA7 is LOAD.
  * PD1 to PD5 are the switches, active low.
- * EVENT is cart contact B1. U1 pin 22 drives it. U6 pin 23 listens.
+ * EVENT is cart contact B1. The cart CPU pin 22 drives it. U5 pin 23 listens.
  * A pull-up holds EVENT high while the pin is released.
  * J4 is the 2x2 speaker header. Pins 2 and 3 share the speaker net.
  * Pins 1 and 4 are ground. The amplifier stays off this model.
@@ -27,7 +28,7 @@
 
 #define EVENT_Q 8
 
-/* Cart sender on U1 PA0, and the 40 kHz sample clock for U6 PA1. */
+/* Cart sender on the game AVR PA0, and the 40 kHz sample clock for U5 PA1. */
 typedef struct EventWire {
     uint8_t q[EVENT_Q];
     uint8_t n;

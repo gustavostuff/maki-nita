@@ -1,6 +1,6 @@
 # Maki-Nita video
 
-Maki-Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 field, about 64 mm square. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
+Maki-Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 field, about 64 mm square. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. The hardware doc is the console PCB. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
 
 The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 
@@ -44,10 +44,10 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | 1 | Pin header, 2x2, 2.54 mm | Power and reset. J3 |
 | 1 | AVR128DB28-I/SP | CPU, on the cartridge. 128 KB flash, 16 KB RAM, 512 bytes EEPROM, 28-pin SPDIP |
 | 1 | 28-pin DIP socket | For the CPU, on the cartridge |
-| 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP |
+| 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP. U1 to U4 |
 | 4 | 24-pin DIP sockets, 0.3 inch | For the drivers |
 | 4 | Red 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
-| 4 | 28 kohm | ISET, one per driver. About 20 mA peak per LED |
+| 4 | 28 kohm | ISET. R1 to R4, one per driver. About 20 mA peak per LED |
 | 1 | 10 kohm | RESET pull-up |
 | 1 | 10 kohm | LOAD pull-up |
 | 2 | 10 kohm | Pull-downs on DIN and CLK |
@@ -56,8 +56,9 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | 1 | Barrel jack, 5.5 x 2.1 mm, center positive | Regulated 5 V in |
 | 1 | SPST panel switch | Breaks the 5 V rail |
 | 1 | 100 uF electrolytic | Bulk capacitor on the 5 V rail |
-| 4 | 10 uF electrolytic | One from each driver V+ to GND, close to the package |
-| 7 | 100 nF | One at each driver V+ pin, and at VDD, AVDD, and VDDIO2 of the game AVR |
+| 4 | 10 uF electrolytic | C11 to C14. One from each driver V+ to GND, close to the package |
+| 4 | 100 nF | C1 to C4. One at each driver V+ pin |
+| 3 | 100 nF | Game AVR VDD, AVDD, and VDDIO2, on the cartridge |
 
 The MAX7219CNG+ is the commercial grade of the same narrow plastic DIP as the MAX7219ENG+. Datasheet revision 6 gives both parts one pin diagram. DIN is pin 1, LOAD is pin 12, CLK is pin 13, ISET is pin 18, V+ is pin 19, and DOUT is pin 24. The digit and segment pins match the block wiring below. The electrical limits are the same table, checked across each part's own temperature range. Analog Devices rates the CNG+ from 0 to 70 degrees C, and the ENG+ from -40 to 85 degrees C.
 
@@ -111,7 +112,7 @@ At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The package
 
 ## Layers
 
-The console and the cartridge are 2-layer boards. Both sides carry a ground pour, and vias stitch the pours together. The segment and digit traces of one matrix stay close to each other. DIN, CLK, and LOAD run over the pour. The audio doc is the placement of U6 and U7 on that pour.
+The console and the cartridge are 2-layer boards. Both sides carry a ground pour, and vias stitch the pours together. The segment and digit traces of one matrix stay close to each other. DIN, CLK, and LOAD run over the pour. The hardware doc is where each of those parts sits on the console.
 
 The frame flushes once per 60 Hz tick. One flush is 512 rising edges of CLK, about 31,000 edges a second. The burst lasts about a millisecond at a few hundred kilohertz. CLK and DIN then sit low, and LOAD sits high.
 

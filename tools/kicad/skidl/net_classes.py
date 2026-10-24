@@ -30,7 +30,7 @@ _GEOM = {
     "wire_width": 6,
 }
 
-# ROW1 is the top block row (screen rows 0-7, drivers U2 and U3).
+# ROW1 is the top block row (screen rows 0-7, drivers U1 and U2).
 _ROW_COLORS = (
     "rgb(214, 39, 40)",
     "rgb(31, 119, 180)",

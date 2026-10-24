@@ -1,6 +1,6 @@
 # Maki-Nita input
 
-The stick and the button are the controls. They mount to the case. Their wires land on J2 and reach side A of the cart socket. The video doc lists the rest of that edge.
+The stick and the button are the controls. They mount to the case. Their wires land on J2 and reach side A of the cart socket. The video doc lists the rest of that edge. The hardware doc is where J2 sits on the console.
 
 ```mermaid
 flowchart LR

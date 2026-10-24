@@ -1,6 +1,6 @@
 # Maki-Nita audio
 
-The console carries a second AVR128DB28 and an LM386N-1. The audio AVR holds a catalog of 256 sounds. It mixes a square wave, a triangle, and noise into one sample and writes that sample to its DAC. The LM386 drives an 8 ohm speaker. The speaker wires land on J4.
+The console carries a second AVR128DB28 and an LM386N-1. The audio AVR holds a catalog of 256 sounds. It mixes a square wave, a triangle, and noise into one sample and writes that sample to its DAC. The LM386 drives an 8 ohm speaker. The speaker wires land on J4. The hardware doc is where those parts sit on the console.
 
 The notes stay on the console. The cartridge sends one index byte and nothing else. A game may send music, effects, both, or neither. A game that sends nothing leaves the speaker quiet.
 
@@ -51,35 +51,31 @@ The software doc is the call a game makes.
 
 The LM386 is the speaker amplifier. The DAC pin cannot drive an 8 ohm speaker. The amplifier takes the DAC sample and supplies the speaker current.
 
-The DAC pin is PD6. The 10 kohm to GND is its DC load. A 1 uF capacitor, positive toward the DAC, couples that pin to a divider. The 22 kohm is in series. The 1 kohm ties the LM386 input to GND. The full mix arrives as about 0.11 V at that input. LM386 pins 1 and 8 stay open, so the gain stays 20. Pin 2 ties to GND. Pin 7 is the bypass pin. C9, 10 uF, sits from that pin to pin 4.
+The DAC pin is PD6. The 10 kohm to GND is its DC load. A 1 uF capacitor, positive toward the DAC, couples that pin to a divider. The 22 kohm is in series. The 1 kohm ties the LM386 input to GND. The full mix arrives as about 0.11 V at that input. LM386 pins 1 and 8 stay open, so the gain stays 20. Pin 2 ties to GND. Pin 7 is the bypass pin. C26, 10 uF, sits from that pin to pin 4.
 
-The output pin feeds the 220 uF capacitor, positive toward the amplifier, and then J4 pins 2 and 3. J4 pins 1 and 4 are GND. The 10 ohm and the 47 nF sit in series from the output pin to GND. C5, 100 uF, and C8, 100 nF, sit from LM386 pin 6 to pin 4, close to the package.
+The output pin feeds the 220 uF capacitor, positive toward the amplifier, and then J4 pins 2 and 3. J4 pins 1 and 4 are GND. The 10 ohm and the 47 nF sit in series from the output pin to GND. C16, 100 uF, and C6, 100 nF, sit from LM386 pin 6 to pin 4, close to the package.
 
-C4, 100 nF, sits across audio AVR pins 20 and 21. C6, 100 nF, sits across pins 14 and 15. C7, 100 nF, sits from pin 6 to pin 21. Silk on those three is U6 VDD, U6 AVDD, and U6 IO. C5 and C8 sit on U7. Silk on those two is U7 VS. C9 silk is U7 BYP.
+C5, 100 nF, sits across audio AVR pins 20 and 21. C15, 100 nF, sits across pins 14 and 15. C25, 100 nF, sits from pin 6 to pin 21. Silk on those three is U5 VDD, U5 AVDD, and U5 IO. C6 and C16 sit on U6. Silk on those two is U6 VS. C26 silk is U6 BYP.
 
-One leg of C4, C5, C6, C7, and C8 is the global +5V net. The other leg is the global GND net. C9 sits from the LM386 bypass pin to GND.
+One leg of C5, C15, C25, C6, and C16 is the global +5V net. The other leg is the global GND net. C26 sits from the LM386 bypass pin to GND.
 
 ## Rail noise
 
 The display drivers share the 5 V rail and the ground pour with the audio parts. Each driver scans its block at about 800 Hz. A full row is about 160 mA peak. Those pulses move the rail and the ground.
 
-The DAC reference is the internal 2.5 V source, so the sample does not follow the rail. C9 is the 10 uF the LM386 datasheet uses for supply rejection at the gain of 20. The path that remains is a ground shift between the audio AVR and the LM386 when LED current crosses the pour.
+The DAC reference is the internal 2.5 V source, so the sample does not follow the rail. C26 is the 10 uF the LM386 datasheet uses for supply rejection at the gain of 20. The path that remains is a ground shift between the audio AVR and the LM386 when LED current crosses the pour.
 
 A loud tone into the 8 ohm speaker can add up to about 200 mA. The video doc counts that draw in the console budget. The 1.5 A fuse stays closed, and the 2 A adapter still covers a full-white frame plus that tone.
 
 ## Layout
 
-The console is a 2-layer board. Both sides carry a ground pour. A 4-layer board with inner ground planes does not take the scan out of the sample. The firmware reference and C9 do that. A 4-layer stack is a later step, and only if a 2-layer prototype still plays the field in a quiet sound.
+The hardware doc is the console PCB. U5 and U6 sit together. The DAC pin, the divider, and the LM386 input form one short chain.
 
-U6 and U7 sit next to each other. The DAC pin, the divider, and the LM386 input form one short chain. LED return current does not cross the ground between those two packages. J4 sits next to U7 so the speaker return lands on pin 4.
+C5 sits across U5 pins 20 and 21. C15 sits across pins 14 and 15. C25 sits from pin 6 to pin 21. C6 and C16 sit across U6 pins 6 and 4. C26 sits from pin 7 to pin 4. AVDD is tied to VDD inside the chip, so C15 cannot isolate the analog rail.
 
-Vias stitch the two pours around U6, U7, and the four drivers. A via fence around the audio pair is enough. The pour stays one ground. A split analog island that meets digital ground far away puts the LED pulse in series with the sample.
+C35 is electrolytic. The positive pad faces the DAC. C36 is electrolytic. The positive pad faces the LM386 output. C26 is electrolytic. The positive pad faces pin 7.
 
-C4 sits across U6 pins 20 and 21. C6 sits across pins 14 and 15. C7 sits from pin 6 to pin 21. C5 and C8 sit across U7 pins 6 and 4. C9 sits from pin 7 to pin 4. AVDD is tied to VDD inside the chip, so C6 cannot isolate the analog rail.
-
-C1 is electrolytic. The positive pad faces the DAC. C2 is electrolytic. The positive pad faces the LM386 output. C9 is electrolytic. The positive pad faces pin 7.
-
-AUD and AUDIN stay off DIN, CLK, and LOAD. A ferrite in the 5 V feed does not stop an 800 Hz tone. The 4.096 V internal DAC reference sits too close to the rail after the Schottky, about 4.6 V. The 2.5 V source is the one in the image.
+A ferrite in the 5 V feed does not stop an 800 Hz tone. The 4.096 V internal DAC reference sits too close to the rail after the Schottky, about 4.6 V. The 2.5 V source is the one in the image.
 
 The check is a 2-layer board with a full-white field and a quiet sound, or silence. The field in the speaker is the remaining ground shift. A loud phrase covers it.
 
@@ -89,24 +85,24 @@ The check is a 2-layer board with a full-white field and a quiet sound, or silen
 | --- | --- | --- |
 | 1 | Pin header, 2x2, 2.54 mm | Speaker. J4 |
 | 1 | Pin header, 1x3, 2.54 mm | Audio programming. J5 |
-| 1 | AVR128DB28-I/SP | Audio, on the console. Same part as the CPU |
+| 1 | AVR128DB28-I/SP | Audio, on the console. U5. Same part as the CPU |
 | 1 | 28-pin DIP socket | For the audio AVR |
-| 1 | LM386N-1 | Speaker amplifier, DIP-8. Gain stays 20 |
+| 1 | LM386N-1 | Speaker amplifier, DIP-8. U6. Gain stays 20 |
 | 1 | 8-pin DIP socket, 0.3 inch | For the amplifier |
-| 1 | 10 kohm | R1. EVENT pull-up |
-| 1 | 10 kohm | R2. DAC load, from PD6 to GND |
-| 1 | 22 kohm | R3. Series resistor into the LM386 |
-| 1 | 1 kohm | R4. Shunt at the LM386 input |
-| 1 | 10 ohm | R5. Zobel resistor at the LM386 output |
-| 1 | 100 uF electrolytic | C5. LM386 supply, from pin 6 to pin 4 |
-| 1 | 220 uF electrolytic | C2. LM386 output coupling to the speaker |
-| 1 | 1 uF electrolytic | C1. DAC coupling into the divider. Positive faces the DAC |
-| 1 | 47 nF | C3. Zobel capacitor, in series with the 10 ohm |
-| 1 | 100 nF | C4. Audio AVR VDD, pin 20, to GND pin 21 |
-| 1 | 100 nF | C6. Audio AVR AVDD, pin 14, to GND pin 15 |
-| 1 | 100 nF | C7. Audio AVR VDDIO2, pin 6, to GND pin 21 |
-| 1 | 100 nF | C8. LM386 supply, from pin 6 to pin 4 |
-| 1 | 10 uF electrolytic | C9. LM386 pin 7 to pin 4 |
+| 1 | 10 kohm | R5. EVENT pull-up |
+| 1 | 10 kohm | R15. DAC load, from PD6 to GND |
+| 1 | 22 kohm | R6. Series resistor into the LM386 |
+| 1 | 1 kohm | R16. Shunt at the LM386 input |
+| 1 | 10 ohm | R26. Zobel resistor at the LM386 output |
+| 1 | 100 nF | C5. Audio AVR VDD, pin 20, to GND pin 21 |
+| 1 | 100 nF | C15. Audio AVR AVDD, pin 14, to GND pin 15 |
+| 1 | 100 nF | C25. Audio AVR VDDIO2, pin 6, to GND pin 21 |
+| 1 | 100 nF | C6. LM386 supply, from pin 6 to pin 4 |
+| 1 | 100 uF electrolytic | C16. LM386 supply, from pin 6 to pin 4 |
+| 1 | 10 uF electrolytic | C26. LM386 pin 7 to pin 4 |
+| 1 | 1 uF electrolytic | C35. DAC coupling into the divider. Positive faces the DAC |
+| 1 | 220 uF electrolytic | C36. LM386 output coupling to the speaker |
+| 1 | 47 nF | C46. Zobel capacitor, in series with the 10 ohm |
 
 ## Signals
 
