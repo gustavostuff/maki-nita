@@ -53,7 +53,7 @@ When the marquee is seated, background illumination for the playfield turns on. 
 
 The cartridge inserts behind the marquee. The cart label or edge shows in the header area when a game is loaded, like a cabinet name above the glass. J1 stays on the console PCB. The case routes the cart into the marquee bay instead of leaving only the edge flush with the front face.
 
-The visible cartridge outline in that bay is about 50 mm wide by 40 mm tall. The cartridge PCB and case follow that bay once the marquee depth and window are fixed.
+The plastic cartridge case is 50 mm by 40 mm. The cartridge PCB is 44 mm by 37 mm.
 
 ## Cart edge
 

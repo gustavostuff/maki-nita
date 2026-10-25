@@ -122,7 +122,7 @@ Each driver scans its block at about 800 Hz. A full row is about 160 mA peak. Th
 
 The console socket is an EDAC 345-016-520-212. It is a straight card-edge connector from the [345/395 series](https://files.edac.net/edac/content/series/og/English/EDAC%20345%20395%20Series%20Card%20Edge%20Connectors%20English%20Ordering%20Guide.pdf), 2.54 mm along a row and 5.08 mm between the two rows. Sixteen contacts, eight a side. Side A is the odd pad numbers and side B is the even pad numbers. Pad 1 is contact A1.
 
-The cartridge is a separate board. It holds the AVR128DB28 and a double-sided gold edge, eight fingers a side at 2.54 mm. Side A is the front copper and carries the stick and the button. Side B is the back copper and carries the display, EVENT, and the programming pins. VDD, AVDD, and VDDIO2 tie to the +5 V fingers. Both ground pins tie to the GND fingers. Two contacts are GND and three are +5 V. Ground sits at both ends of the edge, on A1 and A8.
+The cartridge is a separate board, 44 mm by 37 mm. The plastic case is 50 mm by 40 mm. It holds the AVR128DB28 and a double-sided gold edge, eight fingers a side at 2.54 mm. Side A is the front copper and carries the stick and the button. Side B is the back copper and carries the display, EVENT, and the programming pins. VDD, AVDD, and VDDIO2 tie to the +5 V fingers. Both ground pins tie to the GND fingers. Two contacts are GND and three are +5 V. Ground sits at both ends of the edge, on A1 and A8.
 
 | Contact | Side A | Side B |
 | --- | --- | --- |
@@ -166,4 +166,3 @@ J3 is a 2x2 pin header, 2.54 mm pitch. Pin 1 is the square pad. The row with tha
 
 - Case mechanics, marquee backlight LEDs, playfield background LEDs, and marquee-present sense. The hardware doc lists the cabinet.
 - Overlay faceplate dimensions and a published mechanical template. The overlays doc lists overlay styles.
-- Final cartridge PCB outline for the about 50 mm by 40 mm marquee bay.

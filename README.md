@@ -34,7 +34,7 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
 - Sound: a second AVR128DB28 on the console mixes a square wave, a triangle, and noise. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker on a 2x2 header. A game may use music, effects, both, or neither.
-- Cabinet: magnetic marquee with a few backlight LEDs. Playfield background LEDs turn on when the marquee is seated. The cartridge shows in the marquee bay, about 50 mm by 40 mm. Details are in [hardware](docs/hardware.md).
+- Cabinet: magnetic marquee with a few backlight LEDs. Playfield background LEDs turn on when the marquee is seated. The cartridge case in the marquee bay is 50 mm by 40 mm. Details are in [hardware](docs/hardware.md).
 
 ## PCBs
 
@@ -44,7 +44,7 @@ Main system PCB, 100x160mm Eurocard 3U (DIN 41494, IEC 60297):
 
 <img src="img/main_pcb_concept.png" alt="Main PCB concept" />
 
-Cartridge PCB, sized for the marquee bay (about 50 mm by 40 mm visible):
+Cartridge PCB, 44 mm by 37 mm (50 mm by 40 mm plastic case):
 
 <img src="img/cart_pcb_concept.png" alt="Cart PCB concept" />
 
