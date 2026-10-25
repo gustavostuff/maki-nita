@@ -546,7 +546,9 @@
     },
     "net_colors": null,
     "netclass_assignments": {
-      "+5V": "5V"
+      "+5V": [
+        "5V"
+      ]
     },
     "netclass_patterns": [
       {

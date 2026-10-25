@@ -2946,6 +2946,7 @@
 			)
 		)
 		(model "/home/g/Repos/maki-nita/tools/kicad/3d_models/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -10254,6 +10255,7 @@
 			)
 		)
 		(model "/home/g/Repos/maki-nita/tools/kicad/3d_models/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -16819,6 +16821,7 @@
 			)
 		)
 		(model "/home/g/Repos/maki-nita/tools/kicad/3d_models/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -18063,6 +18066,7 @@
 			)
 		)
 		(model "/home/g/Repos/maki-nita/tools/kicad/3d_models/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
