@@ -1,6 +1,6 @@
 # Maki-Nita video
 
-Maki-Nita is a console and a cartridge. Four red 8x8 matrices form a 2 by 2 field, about 64 mm square. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. The hardware doc is the console PCB. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
+Maki-Nita is a console and a cartridge. Four white or neutral-white 8x8 common-cathode matrices form a 2 by 2 field, about 64 mm square. The overlays doc is the colored sheet in front of that field. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. The hardware doc is the console PCB, the cabinet, and the marquee. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
 
 The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 
@@ -12,7 +12,7 @@ Each matrix is a 16-pin common-cathode part, about 32 mm square. The packages to
 flowchart LR
   cart[AVR128DB28 cartridge] --> socket[Cart socket]
   socket -->|data, clock, load| drivers[4x MAX7219]
-  drivers -->|segment and digit lines| leds[16x16 red dots]
+  drivers -->|segment and digit lines| leds[16x16 dots]
 ```
 
 ## Who turns a pixel on
@@ -46,7 +46,7 @@ As of October 2026, Microchip lists the AVR128DB28-I/SP as in production, and An
 | 1 | 28-pin DIP socket | For the CPU, on the cartridge |
 | 4 | MAX7219ENG+ or MAX7219CNG+ | 8x8 common-cathode LED drivers, 24-pin narrow DIP. U1 to U4 |
 | 4 | 24-pin DIP sockets, 0.3 inch | For the drivers |
-| 4 | Red 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
+| 4 | White or neutral-white 8x8 matrix, common cathode, about 32 mm square | The field. 16 pins |
 | 4 | 28 kohm | ISET. R1 to R4, one per driver. About 20 mA peak per LED |
 | 1 | 10 kohm | RESET pull-up |
 | 1 | 10 kohm | LOAD pull-up |
@@ -68,7 +68,7 @@ Each driver has two GND pins, 4 and 9. Both tie to ground. The 10 uF and the 100
 
 DIN, CLK, and LOAD are logic inputs with a high threshold of 3.5 V and a low threshold of 0.8 V. The AVR drives them from the same rail as the drivers.
 
-Each ISET resistor sits between that driver's V+ and its ISET pin. For a red LED near 2 V, 28 kohm sets the peak segment current near 20 mA. The drivers also have a global intensity register. It stays at full scale (31/32). Games do not change it. A lit pixel then averages about 2.4 mA, because the driver scans one row of its block at a time.
+Each ISET resistor sits between that driver's V+ and its ISET pin. For a white LED near 3 V, 28 kohm sets the peak segment current near 20 mA. The drivers also have a global intensity register. It stays at full scale (31/32). Games do not change it. A lit pixel then averages about 2.4 mA, because the driver scans one row of its block at a time.
 
 ## Block wiring
 
@@ -108,7 +108,7 @@ A full-white frame turns on every LED. Each driver lights one of its eight rows 
 
 The jack takes a regulated 5 V supply, 2 A. Center positive. The polyfuse, then the Schottky, then the panel switch, then the bulk capacitor. The polyfuse holds 1.5 A, so a full-white frame plus a loud tone leaves it closed. The Schottky drops about 0.4 V. The drivers are specified from 4.0 V to 5.5 V, so the rail near 4.6 V is in range. That rail enters the console on J3.
 
-At 20 mA and a red LED near 2 V, each DIP dissipates well under 1 W. The packages stay within their thermal rating on a full-white frame.
+At 20 mA and a white LED near 3 V, each DIP dissipates well under 1 W. The packages stay within their thermal rating on a full-white frame.
 
 ## Layers
 
@@ -164,4 +164,6 @@ J3 is a 2x2 pin header, 2.54 mm pitch. Pin 1 is the square pad. The row with tha
 
 ## Still open
 
-- A case.
+- Case mechanics, marquee backlight LEDs, playfield background LEDs, and marquee-present sense. The hardware doc lists the cabinet.
+- Overlay faceplate dimensions and a published mechanical template. The overlays doc lists overlay styles.
+- Final cartridge PCB outline for the about 50 mm by 40 mm marquee bay.

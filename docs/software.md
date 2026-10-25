@@ -1,6 +1,6 @@
 # Maki-Nita software
 
-The cartridge AVR holds the picture and reads the controls. The console AVR holds the sound catalog and plays it. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver, a pin, or the audio AVR.
+The cartridge AVR holds the picture and reads the controls. The console AVR holds the sound catalog and plays it. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver, a pin, or the audio AVR. The framebuffer stays 1-bit. Color and scenery on the field come from the physical overlay in the overlays doc.
 
 Both AVRs run plain avr-gcc from the internal 24 MHz oscillator. Each chip is programmed over its own UPDI pin. The firmware and the simulator are under the MIT License.
 

@@ -15,6 +15,8 @@ flowchart TB
 
 The netlist is `tools/kicad/skidl/maki_nita.py`. The board is `tools/kicad/main-pcb`.
 
+The overlays doc is the colored sheet in front of the field. The field uses white or neutral-white matrices so that sheet can filter color. The cabinet section covers the marquee and the cart bay.
+
 ## Board
 
 The outline is 100 mm by 160 mm, corners radiused 2 mm. That is a single Eurocard 3U board, as DIN 41494 and IEC 60297 define it. Cases, card guides, and front panels for that size are common. Both sides carry a ground pour. Vias stitch the two pours. There is no +5 V pour. The 5 V rail is tracks.
@@ -31,6 +33,8 @@ A 4-layer stack with inner ground planes is a later step. The first board is thi
 
 DS1, DS2, DS3, and DS4 form a 2 by 2 field, about 64 mm square. The packages touch. Every matrix sits in the same orientation. DS1 is the top left. DS2 is the top right. DS3 is the bottom left. DS4 is the bottom right.
 
+Each block is a white or neutral-white common-cathode 8x8 matrix. That emitter color feeds the overlay in the overlays doc.
+
 The matrix body covers that 32 mm square. No other part sits under a matrix body. The sixteen pins are the only copper that belongs in that square.
 
 U1 sits beside DS1. U2 sits beside DS2. U3 sits beside DS3. U4 sits beside DS4. Each driver owns the segment and digit traces of its own block. Those traces stay next to that pair. They do not cross the field to reach another block, and they do not wander through the audio chain.
@@ -39,11 +43,23 @@ Each driver has its own ISET resistor, one 10 uF, and one 100 nF. R1, C1, and C1
 
 DIN, CLK, and LOAD leave J1 and enter U1. DOUT of one driver feeds DIN of the next. That chain runs left to right, then down a row. Those three nets run over the pour. They stay off AUD and AUDIN.
 
+## Cabinet
+
+The case layout is a small tabletop arcade. The playfield sits in the center. A marquee strip runs along the top. Controls sit below or beside the field.
+
+The marquee is a removable panel, likely magnetic, like a mini arcade header. A few extra LEDs on the console backlight translucent art on that panel. Count, placement, drive, and diffuser are open.
+
+When the marquee is seated, background illumination for the playfield turns on. That path uses white or neutral-white LEDs behind or around the matrices. Those LEDs stay off until the panel is in place. The sheet in [overlays](overlays.md) supplies color. The backlight supplies even white through the windows. Presence is likely sensed with a magnet in the marquee and a reed or Hall device on the console.
+
+The cartridge inserts behind the marquee. The cart label or edge shows in the header area when a game is loaded, like a cabinet name above the glass. J1 stays on the console PCB. The case routes the cart into the marquee bay instead of leaving only the edge flush with the front face.
+
+The visible cartridge outline in that bay is about 50 mm wide by 40 mm tall. The cartridge PCB and case follow that bay once the marquee depth and window are fixed.
+
 ## Cart edge
 
 J1, J2, and J3 sit on one edge so the cartridge and the case wires leave the board.
 
-J1 is the EDAC 345 socket. The cart inserts from that edge. Side A faces the same way on the board as on the cartridge.
+J1 is the EDAC 345 socket. The cart inserts from that edge. Side A faces the same way on the board as on the cartridge. The visible cart face sits in the marquee region above the field.
 
 J2 sits next to J1. The stick and button wires are short. Pins 1 and 8 are GND, so those two wires leave beside ground.
 
@@ -96,6 +112,8 @@ J4 does not sit away from U6.
 Driver ISET and driver bypass parts do not sit in the audio cluster.
 
 A 4-layer stack is not the first board.
+
+Marquee backlight LEDs, marquee-present sense, and playfield background LEDs are absent from the console netlist in `tools/kicad/skidl/maki_nita.py`.
 
 ## Refs
 
