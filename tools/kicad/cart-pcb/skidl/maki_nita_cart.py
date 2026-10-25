@@ -142,6 +142,38 @@ def build() -> None:
             cpu[num] += Net(f"NC_U1_{num}")
 
 
+CLASS_5V = "5V"
+CLASS_SIDE_A = "SIDE_A"
+CLASS_SIDE_B = "SIDE_B"
+
+SIDE_A_NETS = frozenset(("BUTTON", "DOWN", "LEFT", "RIGHT", "UP"))
+SIDE_B_NETS = frozenset(("CLK", "DIN", "EVENT", "LOAD", "RESET", "UPDI"))
+
+
+def class_for_name(name: str) -> str:
+    if name == "+5V":
+        return CLASS_5V
+    if name in SIDE_A_NETS:
+        return CLASS_SIDE_A
+    if name in SIDE_B_NETS:
+        return CLASS_SIDE_B
+    return "Default"
+
+
+def annotate_netlist_classes(text: str) -> str:
+    import re
+
+    class_re = re.compile(
+        r'(\(code\s+\d+\)\s*)\(name "([^"]+)"\)(?:\s*\(class "[^"]*"\))?'
+    )
+
+    def repl(match: re.Match) -> str:
+        name = match.group(2)
+        return f'{match.group(1)}(name "{name}") (class "{class_for_name(name)}")'
+
+    return class_re.sub(repl, text)
+
+
 def _check(text: str) -> None:
     import re
 
@@ -200,12 +232,22 @@ def _check(text: str) -> None:
         nc = nodes(f"NC_U1_{num}")
         if nc != {("U1", str(num))}:
             raise SystemExit(f"NC_U1_{num} mismatch: {nc}")
+    for name in SIDE_A_NETS:
+        if f'(name "{name}") (class "SIDE_A")' not in text:
+            raise SystemExit(f"missing SIDE_A class on {name}")
+    for name in SIDE_B_NETS:
+        if f'(name "{name}") (class "SIDE_B")' not in text:
+            raise SystemExit(f"missing SIDE_B class on {name}")
+    if '(name "+5V") (class "5V")' not in text:
+        raise SystemExit("missing 5V class on +5V")
 
 
 def main() -> None:
     build()
     generate_netlist(file_=str(NET_PATH), do_backup=False, tool=KICAD10)
     text = NET_PATH.read_text(encoding="utf-8")
+    text = annotate_netlist_classes(text)
+    NET_PATH.write_text(text, encoding="utf-8")
     _check(text)
     print(f"wrote {NET_PATH}")
 
