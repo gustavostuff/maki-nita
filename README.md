@@ -8,7 +8,7 @@ An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge 
 
 ## Goals
 
-Simple graphics can still be fun and one action is enough to play. That, plus cartridges and a sturdy design, is the spirit of Maki-Nita.
+Simple graphics can still be fun, and one stick + a button is all that's needed. Sometimes just the stick. That, together with cartridges and a sturdy design, is the spirit of Maki-Nita.
 
 The build is a simple soldering job.
 
