@@ -32,19 +32,19 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
 - Sound: a second AVR128DB28 on the console mixes a square wave, a triangle, and noise. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker on a 2x2 header. A game may use music, effects, both, or neither.
-- Cabinet: magnetic marquee with a few backlight LEDs. Playfield background LEDs turn on when the marquee is seated. The cartridge case in the marquee bay is 50 mm by 40 mm. Details are in [hardware](docs/hardware.md).
+- Cabinet: magnetic marquee with a few backlight LEDs. Playfield background LEDs turn on when the marquee is seated. The cartridge case in the marquee bay is 50x40 mm. Details are in [hardware](docs/hardware.md).
 
 ## PCBs
 
 These are early designs and are subject to modifications. Copper traces are not finished yet. That said, the [full netlist](tools/kicad) is already defined and in constant review.
 
-Main system PCB, 100x160mm Eurocard 3U (DIN 41494, IEC 60297). With and without the LED matrices:
+Main system PCB, 100x160 mm Eurocard 3U (DIN 41494, IEC 60297). With and without the LED matrices:
 
 <img src="img/main_pcb_concept.png" alt="Main PCB concept" />
 
 <img src="img/main_pcb_concept_no_matrices.png" alt="Main PCB concept" />
 
-Cartridge PCB, 44 mm by 37 mm (50 mm by 40 mm plastic case):
+Cartridge PCB, 44x37 mm (50x40 mm plastic case):
 
 <img src="img/cart_pcb_concept.png" alt="Cart PCB concept" />
 
@@ -58,7 +58,7 @@ So the app is a **simulator**, not only an emulator: the same game C as the cart
 
 The console circuit is also written in **SKiDL** (`tools/kicad/skidl/maki_nita.py`). `tools/kicad/skidl/export_netlist.sh` exports the KiCad netlist and net classes into `tools/kicad/skidl`, which seeds the base schematic and PCB structure. Component placement, copper traces, etc, are still manual work on top of that import.
 
-Sound on EVENT uses the same pulse timing as hardware (100 us and 200 us lows, sampled at 40 kHz). SDL drives the speaker net from that model. A second small window shows the 32 by 32 VRAM grid and the center 16x16 region is the picture sent to the matrices.
+Sound on EVENT uses the same pulse timing as hardware (100 us and 200 us lows, sampled at 40 kHz). SDL drives the speaker net from that model. A second small window shows the 32x32 VRAM grid and the center 16x16 region is the picture sent to the matrices.
 
 `./sim.sh` builds `tools/sim/maki-nita-ui` and opens the UI. The active cart comes from `cart_placed.json` (for now only `space-shooter`, `paddle`, or `arkaled`). More detail is in [software](docs/software.md).
 

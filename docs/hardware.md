@@ -1,6 +1,6 @@
 # Maki-Nita hardware
 
-The console is one 100 mm by 160 mm 2-layer board. That size is Eurocard 3U, the common rack card in DIN 41494 and IEC 60297. The four matrices, the four drivers, the cart socket, the audio AVR, the amplifier, and the headers sit on that board. The game AVR sits on the cartridge. That board's U1 is the CPU. Console ICs start at U1. The video doc is the display chain and the cart edge. The audio doc is EVENT, the catalog, and the amplifier. The input doc is the stick and the button.
+The console is one 100x160 mm 2-layer board. That size is Eurocard 3U, the common rack card in DIN 41494 and IEC 60297. The four matrices, the four drivers, the cart socket, the audio AVR, the amplifier, and the headers sit on that board. The game AVR sits on the cartridge. That board's U1 is the CPU. Console ICs start at U1. The video doc is the display chain and the cart edge. The audio doc is EVENT, the catalog, and the amplifier. The input doc is the stick and the button.
 
 The console, the cartridge, and the rest of the hardware design are under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
 
@@ -19,7 +19,7 @@ The overlays doc is the colored sheet in front of the field. The field uses whit
 
 ## Board
 
-The outline is 100 mm by 160 mm, corners radiused 2 mm. That is a single Eurocard 3U board, as DIN 41494 and IEC 60297 define it. Cases, card guides, and front panels for that size are common. Both sides carry a ground pour. Vias stitch the two pours. There is no +5 V pour. The 5 V rail is tracks.
+The outline is 100x160 mm, corners radiused 2 mm. That is a single Eurocard 3U board, as DIN 41494 and IEC 60297 define it. Cases, card guides, and front panels for that size are common. Both sides carry a ground pour. Vias stitch the two pours. There is no +5 V pour. The 5 V rail is tracks.
 
 Every part is through-hole. Chips sit in sockets. Axial resistors stand vertical on a 2.54 mm pitch.
 
@@ -53,7 +53,7 @@ When the marquee is seated, background illumination for the playfield turns on. 
 
 The cartridge inserts behind the marquee. The cart label or edge shows in the header area when a game is loaded, like a cabinet name above the glass. J1 stays on the console PCB. The case routes the cart into the marquee bay instead of leaving only the edge flush with the front face.
 
-The plastic cartridge case is 50 mm by 40 mm. The cartridge PCB is 44 mm by 37 mm.
+The plastic cartridge case is 50x40 mm. The cartridge PCB is 44x37 mm.
 
 ## Cart edge
 
