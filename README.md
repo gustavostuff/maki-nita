@@ -40,19 +40,15 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 These are early designs and are subject to modifications. No copper traces yet, but the netlist is defined in the [kicad](tools/kicad) folder.
 
-Main system PCB, 100x160mm Eurocard 3U (DIN 41494, IEC 60297):
+Main system PCB, 100x160mm Eurocard 3U (DIN 41494, IEC 60297). With and without the LED matrices:
 
 <img src="img/main_pcb_concept.png" alt="Main PCB concept" />
+
+<img src="img/main_pcb_concept_no_matrices.png" alt="Main PCB concept" />
 
 Cartridge PCB, 44 mm by 37 mm (50 mm by 40 mm plastic case):
 
 <img src="img/cart_pcb_concept.png" alt="Cart PCB concept" />
-
-8x8 matrix:
-
-<img src="img/matriz_front.png" alt="Matrix front" />
-
-<img src="img/matriz_back.png" alt="Matrix back" />
 
 ## Docs
 
