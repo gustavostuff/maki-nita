@@ -1,5 +1,5 @@
 #ifndef F_CPU
-#define F_CPU 24000000UL
+#define F_CPU 20000000UL
 #endif
 
 #include "synth.h"
@@ -15,9 +15,9 @@
  * rate stays SYNTH_RATE.
  */
 
-static void clock_24mhz(void)
+static void clock_20mhz(void)
 {
-    _PROTECTED_WRITE(CLKCTRL.OSCHFCTRLA, (uint8_t)(0x9u << 2));
+    _PROTECTED_WRITE(CLKCTRL.OSCHFCTRLA, (uint8_t)(0xAu << 2));
 }
 
 static void dac_init(void)
@@ -33,8 +33,8 @@ static void dac_init(void)
 
 static void timer_init(void)
 {
-    /* 24 MHz / 600 = 40 kHz. */
-    TCB0.CCMP = 599;
+    /* 20 MHz / 500 = 40 kHz. */
+    TCB0.CCMP = 499;
     TCB0.CTRLB = TCB_CNTMODE_INT_gc;
     TCB0.INTCTRL = TCB_CAPT_bm;
     TCB0.CTRLA = TCB_ENABLE_bm;
@@ -60,7 +60,7 @@ ISR(TCB0_INT_vect)
 
 int main(void)
 {
-    clock_24mhz();
+    clock_20mhz();
     dac_init();
     wire_reset();
     synth_reset();

@@ -3,6 +3,8 @@
 #include "flush.h"
 #include "persist.h"
 #include "sound.h"
+#include "clocks.h"
+#include "clocks.h"
 #include "host.h"
 #include "input.h"
 #include "score.h"
@@ -575,7 +577,7 @@ int main(void)
             cart_tick(&in);
             drivers_flush();
         }
-        board_advance(&board, 16000000);
+        board_advance(&board, TICK_NS);
 
         SDL_SetRenderTarget(renderer, canvas);
         draw(renderer, led_on, led_off, stick_tex, button_tex, &board,

@@ -23,7 +23,15 @@ The five inputs are active low. The pin's own pull-up holds the line high. A clo
 | RIGHT | 10 | A6 | PD4 |
 | BUTTON | 11 | A7 | PD5 |
 
-Debounce is two ticks of the 60 Hz loop. The software doc describes that count and the `Input` struct.
+## Debouncing
+
+Every switch input uses the same rule at 60 Hz. Each tick samples the pin once. While the raw level matches the stable level, a counter stays at zero. When raw and stable disagree, the counter counts up. After two disagreeing ticks in a row, stable moves to raw and a pressed or released edge is recorded. That is about 33 ms of bounce before a change counts.
+
+The game AVR applies this to the four stick directions and the action button through `input_tick` in `tools/fw/input.c`. The console AVR applies the same rule to the Bright button and to Up and Down while Bright is held for brightness. Left, Right, and the action button are ignored for brightness while Bright is down. The software doc lists the `Input` fields those edges feed.
+
+## Brightness
+
+Global matrix brightness is a console control, not a cart signal. A Bright button sits on the main board next to the stick wiring. While Bright is held, debounced Up steps to the next brighter level and debounced Down steps to the next dimmer level. The eight levels are 1, 3, 5, 7, 9, 11, 13, and 15 on the MAX7219 Intensity register. Zero is not offered. When Bright is released, Up, Down, Left, Right, and the action button return to the game on the cartridge. The audio AVR on U5 writes intensity to all four drivers when the level changes. During normal play the stick and button nets on J2 still reach the game AVR as in the table above.
 
 ## Header
 

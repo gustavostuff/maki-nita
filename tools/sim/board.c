@@ -3,7 +3,11 @@
 #include "wire.h"
 
 /* 40 kHz on the listener. 100 us on the sender. 100 us is four samples. */
-#define SAMPLE_NS 25000ULL
+#include "clocks.h"
+
+/* 40 kHz EVENT sample period (console AVR at 20 MHz). */
+#define SAMPLE_NS (1000000000ULL / 40000ULL)
+/* 100 us low time for a 0 bit (cart EVENT timer at 12 MHz). */
 #define SEND_NS 100000ULL
 
 static const int sw_pin[5] = {

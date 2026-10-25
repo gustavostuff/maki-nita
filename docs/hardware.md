@@ -77,6 +77,8 @@ J4 sits next to U6. The speaker return lands on pin 4. J4 does not sit on the fa
 
 J5 sits next to U5. The board is powered from the barrel jack during programming.
 
+U5 also owns global display brightness. A Bright button on the console ties to a free pin on U5, active low like the stick switches. While Bright is held, debounced Up and Down on J2 step through eight intensity values: 1, 3, 5, 7, 9, 11, 13, and 15. U5 writes that value to the Intensity register on all four MAX7219 parts when the level changes. The game AVR keeps sending digit and segment data over the cart edge. U5 only updates intensity, and only when the Bright control says so. Bright wiring, shared use of DIN, CLK, and LOAD, and the exact U5 pin are absent from the console netlist.
+
 R5 sits on EVENT, near U5 pin 23 and cart contact B1. R15 sits on the DAC pin. R6 and R16 sit between C35 and U6 pin 3. R26 and C46 sit on the LM386 output. Those resistors stand vertical.
 
 C5 sits across U5 pins 20 and 21. C15 sits across pins 14 and 15. C25 sits from pin 6 to pin 21. C6 and C16 sit across U6 pins 6 and 4. C26 sits from pin 7 to pin 4. Each +5 V pad joins the nearby IC pin with a short track. That pad does not take a long walk to a distant pad on the same net. The GND pad may use the pour. The return stays next to the IC ground pin.
@@ -113,7 +115,7 @@ Driver ISET and driver bypass parts do not sit in the audio cluster.
 
 A 4-layer stack is not the first board.
 
-Marquee backlight LEDs, marquee-present sense, and playfield background LEDs are absent from the console netlist in `tools/kicad/skidl/maki_nita.py`.
+Marquee backlight LEDs, marquee-present sense, playfield background LEDs, and the Bright control are absent from the console netlist in `tools/kicad/skidl/maki_nita.py`.
 
 ## Refs
 

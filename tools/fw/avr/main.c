@@ -1,5 +1,5 @@
 #ifndef F_CPU
-#define F_CPU 24000000UL
+#define F_CPU 12000000UL
 #endif
 
 #include <avr/io.h>
@@ -14,11 +14,11 @@ void sound_init(void);
 
 /*
  * OSCHFCTRLA reset is 0x0C, which is 4 MHz. FRQSEL sits in bits 5:2.
- * 0x9 there is 24 MHz. The prescaler reset value already leaves it off.
+ * 0x8 there is 12 MHz. The prescaler reset value already leaves it off.
  */
-static void clock_24mhz(void)
+static void clock_12mhz(void)
 {
-    _PROTECTED_WRITE(CLKCTRL.OSCHFCTRLA, (uint8_t)(0x9u << 2));
+    _PROTECTED_WRITE(CLKCTRL.OSCHFCTRLA, (uint8_t)(0x8u << 2));
 }
 
 static int closed(uint8_t mask)
@@ -42,7 +42,7 @@ int main(void)
 {
     Input in;
 
-    clock_24mhz();
+    clock_12mhz();
     pins_init();
     input_reset();
     sound_init();

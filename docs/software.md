@@ -2,13 +2,17 @@
 
 The cartridge AVR holds the picture and reads the controls. The console AVR holds the sound catalog and plays it. The four MAX7219 drivers store the blocks and scan them. A game never talks to a driver, a pin, or the audio AVR. The framebuffer stays 1-bit. Color and scenery on the field come from the physical overlay in the overlays doc.
 
-Both AVRs run plain avr-gcc from the internal 24 MHz oscillator. Each chip is programmed over its own UPDI pin. The firmware and the simulator are under the MIT License.
+Both AVRs run plain avr-gcc from the internal oscillator. Each chip is programmed over its own UPDI pin. The firmware and the simulator are under the MIT License.
+
+The cartridge AVR runs at 12 MHz. The 60 Hz loop and the MAX7219 flush have ample headroom at that rate with lower active current on the game chip. The console audio AVR runs at 20 MHz. Its 40 kHz EVENT sample and 20 kHz DAC update then land on round timer periods (500 and 1000 cycles). The two chips only talk over the asynchronous EVENT line, so the clocks do not need to match.
+
+Brightness is a console-side feature. The audio AVR on the main board reads a debounced Bright button and debounced Up or Down while Bright is held, then writes the MAX7219 Intensity register on all four drivers. Allowed levels are 1, 3, 5, 7, 9, 11, 13, and 15 only. The cartridge edge and game firmware stay focused on the picture. The simulator keeps full-scale intensity and does not model Bright.
 
 ## One tick
 
 The runtime loops at 60 Hz. Each pass reads the controls, calls the game, then flushes the frame.
 
-Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed switch reads low. The input doc lists the package pins. Debounce is two ticks, described below.
+Up, down, left, right, and the button are PD1, PD2, PD3, PD4, and PD5. A closed switch reads low. The input doc lists the package pins and the debouncing rule for stick, button, and Bright.
 
 The flush leaves on three port A pins. PA4 is DIN, PA6 is CLK, and PA7 is LOAD. The four MAX7219 drivers take that serial stream, latch one 8x8 block each, and scan the LEDs on their own. The bit order is in the flush section below.
 
@@ -32,7 +36,7 @@ void clear(void);
 
 `x` and `y` run from 0 to 15. A coordinate outside that range is ignored.
 
-This is the whole display interface. There is no per-pixel brightness, no hardware sprite, and no second layer. Driver intensity stays at full scale. The SDK doc is where a game places sprites into this frame.
+This is the whole display interface. There is no per-pixel brightness in the framebuffer, no hardware sprite, and no second layer. Global driver intensity is one of eight console levels (1, 3, 5, 7, 9, 11, 13, 15), not in game RAM. The SDK doc is where a game places sprites into this frame.
 
 ## Timing
 

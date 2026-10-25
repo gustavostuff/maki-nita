@@ -75,8 +75,8 @@ void sound_init(void)
 {
     PORTA.OUTSET = PIN0_bm;
     PORTA.DIRSET = PIN0_bm;
-    /* 24 MHz / 2400 = 10 kHz, one tick per 100 us. */
-    TCB0.CCMP = 2399;
+    /* 12 MHz / 1200 = 10 kHz, one tick per 100 us. */
+    TCB0.CCMP = 1199;
     TCB0.CTRLB = TCB_CNTMODE_INT_gc;
     TCB0.INTCTRL = TCB_CAPT_bm;
     TCB0.CTRLA = TCB_ENABLE_bm;

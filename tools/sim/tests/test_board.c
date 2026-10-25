@@ -1,4 +1,5 @@
 #include "board.h"
+#include "clocks.h"
 #include "flush.h"
 #include "frame.h"
 #include "game.h"
@@ -164,7 +165,7 @@ static void test_event(void)
     nheard = 0;
     board_send(&board, 1);
     board_send(&board, 2);
-    board_advance(&board, 16000000);
+    board_advance(&board, TICK_NS);
     expect(nheard == 2 && heard[0] == 1 && heard[1] == 2,
            "a laser and an explosion both cross the net");
 }

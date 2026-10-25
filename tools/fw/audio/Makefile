@@ -3,7 +3,7 @@
 #   pymcuprog write -d avr128db28 -t uart -u /dev/ttyACM0 --verify -f audio.hex
 
 MCU = avr128db28
-CLOCK = 24000000
+CLOCK = 20000000
 CC = avr-gcc
 OBJCOPY = avr-objcopy
 CFLAGS = -std=c11 -Wall -Wextra -Os -mmcu=$(MCU) -DF_CPU=$(CLOCK)UL -I..

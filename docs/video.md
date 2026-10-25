@@ -1,6 +1,6 @@
 # Maki-Nita video
 
-Maki-Nita is a console and a cartridge. Four white or neutral-white 8x8 common-cathode matrices form a 2 by 2 field, about 64 mm square. The overlays doc is the colored sheet in front of that field. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. The hardware doc is the console PCB, the cabinet, and the marquee. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
+Maki-Nita is a console and a cartridge. Four white or neutral-white 8x8 common-cathode matrices form a 2 by 2 field, about 64 mm square. The overlays doc is the colored sheet in front of that field. The console carries the four display drivers, the cart socket, the power parts, and the headers. The cartridge carries the AVR128DB28 that holds the picture. That chip is the CPU. It runs at 12 MHz from the internal oscillator. The hardware doc is the console PCB, the cabinet, and the marquee. The audio doc covers the console AVR and the amplifier. The input doc covers the stick and the button.
 
 The builder solders the matrices. The drivers and the passives are parts on the console. The CPU is a part on the cartridge.
 

@@ -4,7 +4,7 @@ The console carries a second AVR128DB28 and an LM386N-1. The audio AVR holds a c
 
 The notes stay on the console. The cartridge sends one index byte and nothing else. A game may send music, effects, both, or neither. A game that sends nothing leaves the speaker quiet.
 
-The audio AVR clocks from the internal 24 MHz oscillator. PF0 and PF1 carry no loads. VDD, AVDD, and VDDIO2 tie to the 5 V rail, each with a 100 nF capacitor. RESET joins the panel switch and cart contact B6, so that switch resets both chips. J5 programs this chip. Cart contact B7 stays the game chip's UPDI.
+The audio AVR clocks from the internal 20 MHz oscillator. TCB0 ticks at 40 kHz on PA1 for EVENT. Every other tick writes the mix to the DAC at 20 kHz. PF0 and PF1 carry no loads. VDD, AVDD, and VDDIO2 tie to the 5 V rail, each with a 100 nF capacitor. RESET joins the panel switch and cart contact B6, so that switch resets both chips. J5 programs this chip. Cart contact B7 stays the game chip's UPDI.
 
 ```mermaid
 flowchart LR
