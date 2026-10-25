@@ -24,12 +24,30 @@ PITCH = 4.0
 GRID_SPAN = 28.0
 ORIGIN = (SIZE - GRID_SPAN) / 2  # 2 mm
 
+# Empirical alignment for Matrix8x8 footprint (F.Fab 0..32 mm, sockets at y=7).
+# Same as KiCad model offset (0, -32, 8.5) mm with zero offset on the footprint.
+FOOTPRINT_OFFSET_MM = (0.0, -32.0, 8.5)
+
+LIB_WRL = (
+    Path(__file__).resolve().parents[1]
+    / "main-pcb/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+)
+
 # KiCad multiplies VRML coords by 2.54 unless a top-level scale is present.
 KICAD_WRL_PER_MM = 1.0 / 2.54
 
 
 def wrl(v: float) -> float:
     return v * KICAD_WRL_PER_MM
+
+
+def shift_pts(
+    pts: list[tuple[float, float, float]],
+    dx: float,
+    dy: float,
+    dz: float,
+) -> list[tuple[float, float, float]]:
+    return [(x + dx, y + dy, z + dz) for x, y, z in pts]
 
 
 def box_faces(x0: float, y0: float, z0: float, x1: float, y1: float, z1: float) -> tuple[list, list]:
@@ -121,8 +139,14 @@ coordIndex [
 
 
 def main() -> None:
+    ox, oy, oz = FOOTPRINT_OFFSET_MM
     parts: list[tuple[list, list, tuple[float, float, float]]] = []
-    parts.append((*box_faces(0, 0, 0, SIZE, SIZE, BODY_H), BODY))
+    parts.append(
+        (
+            *box_faces(0, 0, 0, SIZE, SIZE, BODY_H),
+            BODY,
+        )
+    )
 
     z_top = BODY_H + LED_PROUD
     z_bot = z_top - LED_H
@@ -131,6 +155,10 @@ def main() -> None:
             cx = ORIGIN + col * PITCH
             cy = ORIGIN + row * PITCH
             parts.append((*cylinder_z(cx, cy, z_bot, z_top, LED_R), LED))
+
+    parts = [
+        (shift_pts(pts, ox, oy, oz), faces, color) for pts, faces, color in parts
+    ]
 
     # One mesh per color group for KiCad material clarity
     by_color: dict[tuple[float, float, float], list] = {}
@@ -146,7 +174,7 @@ def main() -> None:
 
     wrl = f"""#VRML V2.0 utf8
 # NFM-12881xx 8x8 LED matrix (body + LED dots, no pins)
-# Coords in KiCad legacy VRML units (mm/2.54). Origin = F.Fab (0,0); +Z off PCB.
+# Coords in KiCad legacy VRML units (mm/2.54). Aligned to Matrix8x8 F.Fab; +Z off PCB.
 
 Group {{
 children [
@@ -154,8 +182,10 @@ children [
 ]
 }}
 """
-    OUT.write_text(wrl, encoding="utf-8")
-    print(f"Wrote {OUT} ({OUT.stat().st_size} bytes)")
+    for path in (OUT, LIB_WRL):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(wrl, encoding="utf-8")
+        print(f"Wrote {path} ({path.stat().st_size} bytes)")
 
 
 if __name__ == "__main__":

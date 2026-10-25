@@ -24,6 +24,7 @@ PINSOCK_STEP = (
     "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/"
     "PinSocket_1x08_P2.54mm_Vertical.step"
 )
+MATRIX_WRL = "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
 PITCH = 2.54
 # PinSocket footprint: pad 1 at y=0, pad 8 at y=17.78 mm. In the composed
 # matrix, model offset must match pad 1 at (ox, oy). The Vertical STEP mesh
@@ -98,6 +99,20 @@ def model_block(ox: float, oy: float, y_from_pad1: float) -> str:
     return f"""\t(model "{PINSOCK_STEP}"
 \t\t(offset
 \t\t\t(xyz {ox} {my} 0)
+\t\t)
+\t\t(scale
+\t\t\t(xyz 1 1 1)
+\t\t)
+\t\t(rotate
+\t\t\t(xyz 0 0 0)
+\t\t)
+\t)"""
+
+
+def matrix_body_model_block() -> str:
+    return f"""\t(model "{MATRIX_WRL}"
+\t\t(offset
+\t\t\t(xyz 0 0 0)
 \t\t)
 \t\t(scale
 \t\t\t(xyz 1 1 1)
@@ -217,6 +232,7 @@ def main() -> None:
 {chr(10).join(out_pads)}
 {chr(10).join(out_lines)}
 {chr(10).join(models)}
+{matrix_body_model_block()}
 \t(embedded_fonts no)
 )
 """
