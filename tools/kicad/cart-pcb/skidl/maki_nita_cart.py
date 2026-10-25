@@ -26,14 +26,16 @@ for _key in (
 from skidl import KICAD10, Net, Pin, Part, SKIDL, generate_netlist
 from skidl.pin import pin_types
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "skidl"))
-from cart_edge import contacts, finger_pins
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from tools.kicad.skidl.cart_edge import contacts, finger_pins
 
 HERE = Path(__file__).resolve().parent
 NET_PATH = HERE / "maki-nita-cart.net"
 
 AVR_FP = "Package_DIP:DIP-28_W7.62mm"
 FINGER_FP = "MakiNita:Cart_Edge_2x8_P2.54mm"
+C_FP = "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm"
+TWO_PINS = ((1, "1"), (2, "2"))
 
 AVR_PINS = (
     (1, "PA7"),
@@ -74,6 +76,19 @@ def _pin(num, name: str) -> Pin:
     return Pin(num=num, name=name, func=func)
 
 
+def _passive(ref: str, footprint: str, value: str, description: str = "") -> Part:
+    return Part(
+        tool=SKIDL,
+        name="Passive",
+        ref=ref,
+        tag=ref,
+        footprint=footprint,
+        pins=[_pin(num, name) for num, name in TWO_PINS],
+        value=value,
+        description=description or value,
+    )
+
+
 def build() -> None:
     vcc = Net("+5V")
     gnd = Net("GND")
@@ -90,6 +105,18 @@ def build() -> None:
         cpu[num] += vcc
     for num in (15, 21):
         cpu[num] += gnd
+
+    c1 = _passive("C1", C_FP, "100 nF", "100 nF VDD")
+    c1[1] += vcc
+    c1[2] += gnd
+
+    c2 = _passive("C2", C_FP, "100 nF", "100 nF AVDD")
+    c2[1] += vcc
+    c2[2] += gnd
+
+    c3 = _passive("C3", C_FP, "100 nF", "100 nF VDDIO2")
+    c3[1] += vcc
+    c3[2] += gnd
 
     edge = Part(
         tool=SKIDL,
@@ -110,6 +137,10 @@ def build() -> None:
             cpu[avr] += nets[net_name]
             tied_avr.add(avr)
 
+    for num, _name in AVR_PINS:
+        if cpu[num].net is None:
+            cpu[num] += Net(f"NC_U1_{num}")
+
 
 def _check(text: str) -> None:
     import re
@@ -127,16 +158,24 @@ def _check(text: str) -> None:
         raise SystemExit("AVR footprint missing")
     if text.count(f'(footprint "{FINGER_FP}")') != 1:
         raise SystemExit("gold finger footprint missing")
+    if text.count(f'(footprint "{C_FP}")') != 3:
+        raise SystemExit("Capacitor footprint count mismatch")
     vcc = nodes("+5V")
     if ("U1", "20") not in vcc or ("U1", "14") not in vcc or ("U1", "6") not in vcc:
         raise SystemExit("+5V does not reach the AVR rails")
     if ("J1", "A2") not in vcc or ("J1", "B2") not in vcc or ("J1", "B8") not in vcc:
         raise SystemExit("+5V does not reach three edge contacts")
+    for ref in ("C1", "C2", "C3"):
+        if (ref, "1") not in vcc:
+            raise SystemExit(f"{ref} pin 1 not on +5V")
     gnd = nodes("GND")
     if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
         raise SystemExit("GND does not reach both AVR ground pins")
     if ("J1", "A1") not in gnd or ("J1", "A8") not in gnd:
         raise SystemExit("GND does not reach both end contacts")
+    for ref in ("C1", "C2", "C3"):
+        if (ref, "2") not in gnd:
+            raise SystemExit(f"{ref} pin 2 not on GND")
     if ("J1", "B1") in gnd:
         raise SystemExit("B1 is EVENT")
     event = nodes("EVENT")
@@ -157,6 +196,10 @@ def _check(text: str) -> None:
     updi = nodes("UPDI")
     if updi != {("U1", "19"), ("J1", "B7")}:
         raise SystemExit(f"UPDI nodes {updi}")
+    for num in (2, 3, 4, 5, 12, 13, 16, 17, 23, 24, 25, 27):
+        nc = nodes(f"NC_U1_{num}")
+        if nc != {("U1", str(num))}:
+            raise SystemExit(f"NC_U1_{num} mismatch: {nc}")
 
 
 def main() -> None:
