@@ -99,6 +99,13 @@ A bypass cap joins the IC it sits on. The +5 V net has many pads. The nearest le
 
 AUD and AUDIN stay off DIN, CLK, and LOAD. A ferrite in the 5 V feed does not stop an 800 Hz tone from the drivers.
 
+Traces from distinct signal classes do not run parallel or overlap across layers:
+
+- High-speed digital lines (CLK, DIN, LOAD, DOUT) stay separated from sensitive audio traces (DAC, AUD, AUDIN, AMP) and driver bias pins (ISET). Parallel runs couple digital switching transients into the speaker and display current mirrors.
+- Pulsed matrix lines (segment anodes and digit cathodes) carry up to 160 mA switched current. They stay confined to their local block and do not run beside audio traces or SPI control lines.
+- Where digital control lines or matrix tracks must cross audio or ISET traces on the opposing copper layer, they cross strictly at 90 degrees. Parallel broadside routing on opposing layers is avoided to prevent capacitive crosstalk.
+- High-impedance analog lines, including the DAC divider and LM386 inputs, stay as short as possible and remain shielded by the copper ground pour.
+
 ## Keep off the console
 
 The game AVR does not sit on this board.
