@@ -16,7 +16,7 @@ Stick and action button nets reach PD1 through PD5 on the cart. Each switch is a
 
 Every switch uses the same rule in `tools/fw/input.c`: one sample per 60 Hz tick, two consecutive disagreeing ticks before stable changes, then a pressed or released edge. That is about 33 ms.
 
-The planned console brightness control uses the same debouncing on a Bright button and on Up and Down while Bright is held. Levels are 1, 3, 5, 7, 9, 11, 13, and 15 on all four MAX7219 parts. Zero is not used. Bright and intensity writes are not in the SKiDL netlist yet. The simulator does not model Bright.
+The planned console brightness control uses the same debouncing on a Bright button and on Up and Down while Bright is held. Levels are 1, 3, 5, 7, 9, 11, 13, and 15 on all four MAX7219 parts. Zero is not used. Bright and intensity writes are not in the SKiDL netlist yet. The simulator does not model Brightness.
 
 ## Sound
 
@@ -28,7 +28,7 @@ Games may use `tools/fw/entity.c` for moving shapes. Up to 64 slots. A 32 by 32 
 
 ## Carts
 
-Each cart implements `void game_tick(const Input *in)`. Names in `cart_placed.json` are `space-shooter`, `paddle`, and `arkaled`. Build with `make -C tools/fw/avr` or `CART=paddle` / `CART=arkaled`. Console audio is `make -C tools/fw/audio`.
+Each cart implements `void game_tick(const Input *in)`. Names in `cart_placed.json` are `space-shooter`, `paddle`, and `arkaled` (test games so far). Build with `make -C tools/fw/avr` or `CART=paddle` / `CART=arkaled`. Console audio is `make -C tools/fw/audio`.
 
 Game rules and scoring live in `games/` and in the cart sources, not in this doc.
 
