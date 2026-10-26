@@ -96,7 +96,7 @@ SPK_PINS = (
     (4, "GND2"),
 )
 
-# Column 0 is the left pixel, bit 7, segment DP. Same order as docs/video.md.
+# Column 0 is the left pixel, bit 7, segment DP. Same order as docs/design.md.
 SEG_PINS = (22, 14, 16, 20, 23, 21, 15, 17)  # DP A B C D E F G
 # Row 0 is the top of the block, DIG0.
 DIG_PINS = (2, 11, 6, 7, 3, 10, 5, 8)  # DIG0 .. DIG7

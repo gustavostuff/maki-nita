@@ -2,7 +2,7 @@
 #define RD_CLOCKS_H
 
 /*
- * Target oscillator rates from docs/software.md.
+ * Target oscillator rates from docs/firmware.md.
  * The game loop on the host stays 60 Hz. EVENT timing in board.c uses
  * wall-clock 100 us / 200 us pulses and a 40 kHz sample cadence, which
  * match the 20 MHz console AVR timer setup.
