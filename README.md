@@ -1,6 +1,8 @@
 <img src="img/logo_v_03.png" alt="Logo V2" />
 
-Maki-Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF). Magnavox Odyssey-style colored sheets in front of that field carry scenery and color (the overlay is an extension of the cartridge, part of the game experience). A magnetic marquee runs along the top and the cartridge sits behind that header. The [overlays](docs/overlays.md) and [hardware](docs/hardware.md) docs describe the sheet and the cabinet.
+Maki-Nita is a one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
+
+On a similar spirit as the Magnavox Odyssey, Maki-Nita uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. Also, a magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [hardware](docs/hardware.md) docs describe the sheet and the cabinet.
 
 An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge is both the console brain and the game data). Four MAX7219 drivers refresh the screen grid.
 
