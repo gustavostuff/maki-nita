@@ -16,7 +16,7 @@ The build is a simple soldering job.
 
 The parts are cheap.
 
-- The console is a 100x160 mm Eurocard 3U board (DIN 41494, IEC 60297). That size is a common rack standard. The cartridge is a small 2-layer board.
+- The console is a 100x100 mm board. The cartridge is a small 2-layer board.
 - The screen is four white/neutral-white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available parts.
 
 - Power is any generic/regulated 5 V adapter.
@@ -39,11 +39,9 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 These are early designs and are subject to modifications. Copper traces are not finished yet. That said, the [full netlist](tools/kicad) is already defined and in constant review.
 
-Main system PCB, 100x160 mm Eurocard 3U (DIN 41494, IEC 60297). With and without the LED matrices:
+Main system PCB, 100x100 mm.
 
 <img src="img/main_pcb_concept.png" alt="Main PCB concept" />
-
-<img src="img/main_pcb_concept_no_matrices.png" alt="Main PCB concept" />
 
 Cartridge PCB, 44x37 mm (50x40 mm plastic case):
 
