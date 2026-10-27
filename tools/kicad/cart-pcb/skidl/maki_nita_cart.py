@@ -225,20 +225,20 @@ def _check(text: str) -> None:
     clk = nodes("CLK")
     if clk != {("U1", "28"), ("J1", "B1")}:
         raise SystemExit(f"CLK nodes {clk}")
-    din = nodes("DIN")
-    if din != {("U1", "26"), ("J1", "B2")}:
-        raise SystemExit(f"DIN nodes {din}")
     load = nodes("LOAD")
-    if load != {("U1", "27"), ("J1", "B3")}:
+    if load != {("U1", "27"), ("J1", "B2")}:
         raise SystemExit(f"LOAD nodes {load}")
+    din = nodes("DIN")
+    if din != {("U1", "26"), ("J1", "B3")}:
+        raise SystemExit(f"DIN nodes {din}")
     updi = nodes("UPDI")
-    if updi != {("U1", "19"), ("J1", "B6")}:
+    if updi != {("U1", "22"), ("J1", "B6")}:
         raise SystemExit(f"UPDI nodes {updi}")
     reset_node = nodes("RESET")
-    if reset_node != {("U1", "18"), ("J1", "B7")}:
+    if reset_node != {("U1", "19"), ("J1", "B7")}:
         raise SystemExit(f"RESET nodes {reset_node}")
     event = nodes("EVENT")
-    if event != {("U1", "22"), ("J1", "B8")}:
+    if event != {("U1", "18"), ("J1", "B8")}:
         raise SystemExit(f"EVENT nodes {event}")
     p1_up = nodes("P1_UP")
     if p1_up != {("U1", "1"), ("J1", "A1")}:

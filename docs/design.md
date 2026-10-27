@@ -60,8 +60,8 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 | Contact | Side A | Side B |
 | --- | --- | --- |
 | 1 | P1_UP | CLK |
-| 2 | P1_DOWN | DIN |
-| 3 | P1_LEFT | LOAD |
+| 2 | P1_DOWN | LOAD |
+| 3 | P1_LEFT | DIN |
 | 4 | P1_RIGHT | GND |
 | 5 | P1_BTN | GND |
 | 6 | P2_UP | UPDI |

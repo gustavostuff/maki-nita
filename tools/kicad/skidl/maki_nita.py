@@ -521,13 +521,13 @@ def _check(text: str) -> None:
     if ("U1", "4") not in gnd or ("U1", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
-    if din != {("J1", "4"), ("U1", "1")}:
+    if din != {("J1", "6"), ("U1", "1")}:
         raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
     if ("J1", "2") not in clk or ("U1", "13") not in clk:
         raise SystemExit(f"CLK nodes {clk}")
     load = nodes("LOAD")
-    if ("J1", "6") not in load or ("U1", "12") not in load:
+    if ("J1", "4") not in load or ("U1", "12") not in load:
         raise SystemExit(f"LOAD nodes {load}")
     p1_right = nodes("P1_RIGHT")
     if p1_right != {("J1", "7"), ("J2", "5")}:
