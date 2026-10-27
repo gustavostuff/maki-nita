@@ -45,7 +45,7 @@ Main system PCB, 100x100 mm:
 
 <img src="img/main_pcb_concept.png" alt="Main PCB concept" />
 
-Cartridge PCB:
+Cartridge PCB, 44x37 mm:
 
 <img src="img/cart_pcb_concept.png" alt="Cart PCB concept" />
 
