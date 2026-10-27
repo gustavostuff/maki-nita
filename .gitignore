@@ -29,6 +29,7 @@ unit-tests.sh
 tools/sim/maki-nita-ui
 tools/sim/makinita-ui
 tools/sim/retrodiode-ui
+tools/acetate_sim/acetate-sim
 tools/sim/test_chips
 tools/sim/tests/test_max7219
 tools/sim/tests/test_avr128db28
