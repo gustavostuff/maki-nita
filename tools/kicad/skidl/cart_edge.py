@@ -1,28 +1,25 @@
-"""Shared 16-contact cart edge.
+"""Shared 20-contact cart edge.
 
-The console socket is an EDAC 345-016-520-212, eight contacts a side.
-Side A is the odd pads and the controller face. Side B is the even pads
-and carries the display, EVENT, and the programming signals. Pad 1 is
-contact A1.
-
-Two contacts are GND and three are +5V. Ground sits on A1 and A8.
-B1 is EVENT, driven by AVR package pin 22.
-A contact is (number 1..8, side, net, avr package pin or None).
-AVR pins 6, 14, and 20 are +5V. Pins 15 and 21 are GND.
+The console socket is an EDAC 395-020-520-202, ten contacts a side.
+Side A sits at the bottom of the connector on the main PCB, carrying
+player inputs. Side B sits at the top of the connector on the main PCB,
+carrying power, audio events, reset, programming, and display signals.
 """
 
 from __future__ import annotations
 
 # (contact, A net, A avr pin, B net, B avr pin)
 _ROWS = (
-    (1, "GND", None, "EVENT", 22),
-    (2, "+5V", None, "+5V", None),
-    (3, "UP", 7, "LOAD", 1),
-    (4, "DOWN", 8, "DIN", 26),
-    (5, "LEFT", 9, "CLK", 28),
-    (6, "RIGHT", 10, "RESET", 18),
-    (7, "BUTTON", 11, "UPDI", 19),
-    (8, "GND", None, "+5V", None),
+    (1, "P1_LEFT", None, "+5V", None),
+    (2, "P1_RIGHT", None, "GND", None),
+    (3, "P1_UP", None, "EVENT", 22),
+    (4, "P1_DOWN", None, "RESET", 18),
+    (5, "P1_BTN", None, "UPDI", 19),
+    (6, "P2_LEFT", None, "GND", None),
+    (7, "P2_RIGHT", None, "GND", None),
+    (8, "P2_UP", None, "LOAD", 1),
+    (9, "P2_DOWN", None, "DIN", 26),
+    (10, "P2_BTN", None, "CLK", 28),
 )
 
 

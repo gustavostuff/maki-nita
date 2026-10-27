@@ -5,7 +5,7 @@ J1 is the cart socket. The game AVR lives on the cartridge. U5 is the
 audio AVR and U6 is the LM386. U1 to U4 are the MAX7219 chain, left to
 right, top to bottom. DS1 to DS4 are the matrices those drivers scan.
 The sim keeps the picture inside each driver. It models the audio AVR
-on EVENT, and it models J4. Here each segment and digit pin lands on
+on EVENT, and it models J5. Here each segment and digit pin lands on
 one matrix pad.
 
 A part that sits on Un uses n. A second part on that IC adds 10, a
@@ -55,8 +55,8 @@ REPO = HERE.parents[1]
 NET_PATH = HERE / "maki-nita.net"
 PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
 
-SOCKET_FP = "MakiNita:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
-HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
+SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
+HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
 PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
 SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
 UPDI_FP = "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
@@ -68,16 +68,17 @@ R_FP = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 C_ELEC_FP = "Capacitor_THT:CP_Radial_D5.0mm_P2.50mm"
 C_DISC_FP = "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
 
-# Pin 1 is the square pad. Odd pins are one column, even pins the other.
+# 2x3 player header (four directions, button, and GND).
+# Pin 1 is the square pad.
+# Pins 1, 3, 5 are the top row: DOWN, LEFT, RIGHT.
+# Pins 2, 4, 6 are the bottom row: UP, GND, BUTTON.
 HDR_PINS = (
-    (1, "GND"),
-    (2, "VCC"),
-    (3, "UP"),
-    (4, "DOWN"),
-    (5, "LEFT"),
-    (6, "RIGHT"),
-    (7, "BUTTON"),
-    (8, "GND2"),
+    (1, "DOWN"),
+    (2, "UP"),
+    (3, "LEFT"),
+    (4, "GND"),
+    (5, "RIGHT"),
+    (6, "BUTTON"),
 )
 
 # Pin 1 is the square pad. The row with pin 1 is power. The other row is reset.
@@ -242,7 +243,7 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     _tie(cpu, 19, updi)
     prog = _part(
         "PinHeader_1x03",
-        "J5",
+        "J6",
         UPDI_FP,
         ((1, "UPDI"), (2, "VCC"), (3, "GND")),
         "UPDI",
@@ -289,7 +290,7 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     _tie(output, 2, spk)
     speaker = _part(
         "PinHeader_2x02",
-        "J4",
+        "J5",
         SPK_FP,
         SPK_PINS,
         "Speaker",
@@ -342,12 +343,19 @@ def build() -> None:
     reset = Net("RESET")
     updi = Net("UPDI")
     event = Net("EVENT")
-    switches = {
-        "UP": Net("UP"),
-        "DOWN": Net("DOWN"),
-        "LEFT": Net("LEFT"),
-        "RIGHT": Net("RIGHT"),
-        "BUTTON": Net("BUTTON"),
+    p1_switches = {
+        "P1_UP": Net("P1_UP"),
+        "P1_DOWN": Net("P1_DOWN"),
+        "P1_LEFT": Net("P1_LEFT"),
+        "P1_RIGHT": Net("P1_RIGHT"),
+        "P1_BTN": Net("P1_BTN"),
+    }
+    p2_switches = {
+        "P2_UP": Net("P2_UP"),
+        "P2_DOWN": Net("P2_DOWN"),
+        "P2_LEFT": Net("P2_LEFT"),
+        "P2_RIGHT": Net("P2_RIGHT"),
+        "P2_BTN": Net("P2_BTN"),
     }
 
     named = {
@@ -357,15 +365,16 @@ def build() -> None:
         "RESET": reset,
         "UPDI": updi,
         "EVENT": event,
-        **switches,
+        **p1_switches,
+        **p2_switches,
     }
     socket = _part(
-        "EDAC-345-016-520-212",
+        "EDAC-395-020-520-202",
         "J1",
         SOCKET_FP,
         socket_pins(),
         "Cart",
-        "EDAC 345-016-520-212",
+        "EDAC 395-020-520-202",
     )
     for number, side, net_name, _avr in contacts():
         pad = socket_pad(number, side)
@@ -380,17 +389,23 @@ def build() -> None:
         else:
             _tie(socket, pad, Net(net_name))
 
-    header = _part("PinHeader_2x04", "J2", HDR_FP, HDR_PINS, "Controls", "Stick and button")
-    _tie(header, 1, gnd)
-    _tie(header, 8, gnd)
-    _tie(header, 2, vcc)
-    _tie(header, 3, switches["UP"])
-    _tie(header, 4, switches["DOWN"])
-    _tie(header, 5, switches["LEFT"])
-    _tie(header, 6, switches["RIGHT"])
-    _tie(header, 7, switches["BUTTON"])
+    p1_hdr = _part("PinHeader_2x03", "J2", HDR_FP, HDR_PINS, "P1 Controls", "Player 1 controls")
+    _tie(p1_hdr, 1, p1_switches["P1_DOWN"])
+    _tie(p1_hdr, 2, p1_switches["P1_UP"])
+    _tie(p1_hdr, 3, p1_switches["P1_LEFT"])
+    _tie(p1_hdr, 4, gnd)
+    _tie(p1_hdr, 5, p1_switches["P1_RIGHT"])
+    _tie(p1_hdr, 6, p1_switches["P1_BTN"])
 
-    power = _part("PinHeader_2x02", "J3", PWR_FP, PWR_PINS, "Power", "5 V and reset")
+    p2_hdr = _part("PinHeader_2x03", "J3", HDR_FP, HDR_PINS, "P2 Controls", "Player 2 controls")
+    _tie(p2_hdr, 1, p2_switches["P2_DOWN"])
+    _tie(p2_hdr, 2, p2_switches["P2_UP"])
+    _tie(p2_hdr, 3, p2_switches["P2_LEFT"])
+    _tie(p2_hdr, 4, gnd)
+    _tie(p2_hdr, 5, p2_switches["P2_RIGHT"])
+    _tie(p2_hdr, 6, p2_switches["P2_BTN"])
+
+    power = _part("PinHeader_2x02", "J4", PWR_FP, PWR_PINS, "Power", "5 V and reset")
     _tie(power, 1, gnd)
     _tie(power, 2, vcc)
     _tie(power, 3, reset)
@@ -467,12 +482,12 @@ def _check(text: str) -> None:
         chunk = text[start : start + (nxt.start() if nxt else len(text))]
         return set(re.findall(r'\(ref "([^"]+)"\)\s*\(pin "([^"]+)"\)', chunk))
 
-    if '(value "Cart")' not in text or '(description "EDAC 345-016-520-212")' not in text:
-        raise SystemExit("cart socket is not the 16-contact EDAC")
+    if '(value "Cart")' not in text or '(description "EDAC 395-020-520-202")' not in text:
+        raise SystemExit("cart socket is not the 20-contact EDAC")
     if text.count(f'(footprint "{SOCKET_FP}")') != 1:
         raise SystemExit("cart socket footprint missing")
-    if text.count(f'(footprint "{HDR_FP}")') != 1:
-        raise SystemExit("control header footprint missing")
+    if text.count(f'(footprint "{HDR_FP}")') != 2:
+        raise SystemExit("expected 2 player control header footprints")
     if text.count(f'(footprint "{PWR_FP}")') != 2:
         raise SystemExit("expected the power header and the speaker header")
     if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
@@ -485,43 +500,65 @@ def _check(text: str) -> None:
         raise SystemExit("expected one global GND net")
     vcc = nodes("+5V")
     gnd = nodes("GND")
-    if ("J1", "3") not in vcc or ("J1", "4") not in vcc or ("J1", "16") not in vcc:
-        raise SystemExit("+5V does not reach three cart socket contacts")
-    if ("J2", "2") not in vcc:
-        raise SystemExit("+5V does not reach the header")
-    if ("J3", "2") not in vcc:
+    if ("J1", "2") not in vcc:
+        raise SystemExit("+5V does not reach cart socket contact B1")
+    if ("J4", "2") not in vcc:
         raise SystemExit("+5V does not reach the power header")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
     if drivers_on_vcc != {f"U{n}" for n in range(1, 5)}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
-    for pad in ("1", "15"):
+    for pad in ("4", "12", "14"):
         if ("J1", pad) not in gnd:
             raise SystemExit(f"GND does not reach cart socket pad {pad}")
-    if ("J1", "2") in gnd:
-        raise SystemExit("cart socket pad 2 is EVENT")
-    if ("J2", "1") not in gnd or ("J2", "8") not in gnd:
-        raise SystemExit("GND does not reach both header ground pins")
-    if ("J3", "1") not in gnd or ("J3", "4") not in gnd:
+    if ("J1", "6") in gnd:
+        raise SystemExit("cart socket pad 6 is EVENT")
+    if ("J2", "4") not in gnd or ("J3", "4") not in gnd:
+        raise SystemExit("GND does not reach player header ground pins")
+    if ("J4", "1") not in gnd or ("J4", "4") not in gnd:
         raise SystemExit("GND does not reach both power header ground pins")
     if ("U1", "4") not in gnd or ("U1", "9") not in gnd:
         raise SystemExit("GND does not reach both MAX7219 ground pins")
     din = nodes("DIN")
-    if din != {("J1", "8"), ("U1", "1")}:
+    if din != {("J1", "18"), ("U1", "1")}:
         raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
-    if ("J1", "10") not in clk or ("U1", "13") not in clk:
+    if ("J1", "20") not in clk or ("U1", "13") not in clk:
         raise SystemExit(f"CLK nodes {clk}")
     load = nodes("LOAD")
-    if ("J1", "6") not in load or ("U1", "12") not in load:
+    if ("J1", "16") not in load or ("U1", "12") not in load:
         raise SystemExit(f"LOAD nodes {load}")
-    up = nodes("UP")
-    if up != {("J1", "5"), ("J2", "3")}:
-        raise SystemExit(f"UP nodes {up}")
-    button = nodes("BUTTON")
-    if button != {("J1", "13"), ("J2", "7")}:
-        raise SystemExit(f"BUTTON nodes {button}")
+    p1_up = nodes("P1_UP")
+    if p1_up != {("J1", "5"), ("J2", "2")}:
+        raise SystemExit(f"P1_UP nodes {p1_up}")
+    p1_down = nodes("P1_DOWN")
+    if p1_down != {("J1", "7"), ("J2", "1")}:
+        raise SystemExit(f"P1_DOWN nodes {p1_down}")
+    p1_left = nodes("P1_LEFT")
+    if p1_left != {("J1", "1"), ("J2", "3")}:
+        raise SystemExit(f"P1_LEFT nodes {p1_left}")
+    p1_right = nodes("P1_RIGHT")
+    if p1_right != {("J1", "3"), ("J2", "5")}:
+        raise SystemExit(f"P1_RIGHT nodes {p1_right}")
+    p1_btn = nodes("P1_BTN")
+    if p1_btn != {("J1", "9"), ("J2", "6")}:
+        raise SystemExit(f"P1_BTN nodes {p1_btn}")
+    p2_up = nodes("P2_UP")
+    if p2_up != {("J1", "15"), ("J3", "2")}:
+        raise SystemExit(f"P2_UP nodes {p2_up}")
+    p2_down = nodes("P2_DOWN")
+    if p2_down != {("J1", "17"), ("J3", "1")}:
+        raise SystemExit(f"P2_DOWN nodes {p2_down}")
+    p2_left = nodes("P2_LEFT")
+    if p2_left != {("J1", "11"), ("J3", "3")}:
+        raise SystemExit(f"P2_LEFT nodes {p2_left}")
+    p2_right = nodes("P2_RIGHT")
+    if p2_right != {("J1", "13"), ("J3", "5")}:
+        raise SystemExit(f"P2_RIGHT nodes {p2_right}")
+    p2_btn = nodes("P2_BTN")
+    if p2_btn != {("J1", "19"), ("J3", "6")}:
+        raise SystemExit(f"P2_BTN nodes {p2_btn}")
     reset_net = nodes("RESET")
-    if reset_net != {("J1", "12"), ("J3", "3"), ("U5", "18")}:
+    if reset_net != {("J1", "8"), ("J4", "3"), ("U5", "18")}:
         raise SystemExit(f"RESET nodes {reset_net}")
     if text.count('(value "Audio AVR")') != 1 or text.count('(description "AVR128DB28-I/SP")') != 1:
         raise SystemExit("audio AVR missing")
@@ -563,7 +600,7 @@ def _check(text: str) -> None:
             if (ref, "1") not in vcc or (ref, "2") not in gnd:
                 raise SystemExit(f"{ref} is not across +5V and GND")
     event = nodes("EVENT")
-    if event != {("J1", "2"), ("U5", "23"), ("R5", "1")}:
+    if event != {("J1", "6"), ("U5", "23"), ("R5", "1")}:
         raise SystemExit(f"EVENT nodes {event}")
     if ("R5", "2") not in vcc:
         raise SystemExit("EVENT pull-up does not reach +5V")
@@ -607,14 +644,14 @@ def _check(text: str) -> None:
     if ("C46", "2") not in gnd:
         raise SystemExit("zobel cap does not reach GND")
     spk = nodes("SPK")
-    if spk != {("C36", "2"), ("J4", "2"), ("J4", "3")}:
+    if spk != {("C36", "2"), ("J5", "2"), ("J5", "3")}:
         raise SystemExit(f"SPK nodes {spk}")
-    if ("J4", "1") not in gnd or ("J4", "4") not in gnd:
+    if ("J5", "1") not in gnd or ("J5", "4") not in gnd:
         raise SystemExit("speaker return missing")
     audio_updi = nodes("AUDIO_UPDI")
-    if audio_updi != {("U5", "19"), ("J5", "1")}:
+    if audio_updi != {("U5", "19"), ("J6", "1")}:
         raise SystemExit(f"AUDIO_UPDI nodes {audio_updi}")
-    if ("J5", "2") not in vcc or ("J5", "3") not in gnd:
+    if ("J6", "2") not in vcc or ("J6", "3") not in gnd:
         raise SystemExit("audio UPDI header power missing")
     used_u5 = {6, 12, 14, 15, 18, 19, 20, 21, 23}
     for num, _name in AUDIO_PINS:
