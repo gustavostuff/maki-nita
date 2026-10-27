@@ -64,3 +64,14 @@ SKiDL export writes `tools/kicad/skidl/maki-nita.net` and updates net classes in
 - [Design](docs/design.md) is the console netlist, cart edge, display chain, and audio wiring from SKiDL and KiCad.
 - [Firmware](docs/firmware.md) is the game loop, inputs, sound, SDK, and simulator.
 - [Overlays](docs/overlays.md) is the colored sheet in front of the field.
+
+## Future plans
+
+Once the base design has been proven/tested, these are the next things to look at:
+
+* Two player support by adding a 20 pin cart connector. An external controller would connect through some port with 6 pins.
+* Translucent art for the marquees and backlight LEDs.
+* Better audio quality by using the AKWF (Adventure Kid Waveforms) library. Samples would live in the Audio AVR and triggered via the already defined EVENT signal.
+* USB C power port as an alternative to the barrel (maybe a switch to pick one or the other, or priority-based).
+* In the long run, maybe a "high-res" version of the Maki-Nita system (16 matrices, 32x32 screen). It could be retro-compatible with 16x16 games, by doubling pixels to 2x2 regions.
+* 
