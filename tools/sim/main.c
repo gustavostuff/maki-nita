@@ -136,7 +136,7 @@ static void present_canvas(SDL_Renderer *renderer, SDL_Texture *canvas)
 }
 
 /* The center 16 by 16 cells are the screen. The rest is the 8-pixel margin. */
-static void draw_vram(SDL_Renderer *renderer)
+static void draw_vram(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_off)
 {
     int col;
     int row;
@@ -160,11 +160,7 @@ static void draw_vram(SDL_Renderer *renderer)
                 VRAM_DOT,
             };
 
-            if (on)
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-            else
-                SDL_SetRenderDrawColor(renderer, 51, 51, 51, 255);
-            SDL_RenderFillRect(renderer, &dot);
+            SDL_RenderCopy(renderer, on ? led_on : led_off, NULL, &dot);
         }
     }
     SDL_SetRenderDrawColor(renderer, 102, 102, 102, 255);
@@ -318,6 +314,8 @@ int main(void)
     SDL_Renderer *renderer;
     SDL_Window *vram = NULL;
     SDL_Renderer *vram_renderer = NULL;
+    SDL_Texture *vram_led_on = NULL;
+    SDL_Texture *vram_led_off = NULL;
     SDL_Texture *led_on;
     SDL_Texture *led_off;
     SDL_Texture *stick_tex;
@@ -449,8 +447,15 @@ int main(void)
     draw(renderer, led_on, led_off, stick_tex, button_tex, &board, 0, 0, 0);
     present_canvas(renderer, canvas);
     vram = open_vram(window, &vram_renderer);
-    if (vram != NULL)
-        draw_vram(vram_renderer);
+    if (vram != NULL) {
+        vram_led_on = load_tex(vram_renderer, "led_on.png");
+        vram_led_off = load_tex(vram_renderer, "led_off.png");
+        if (vram_led_on != NULL)
+            SDL_SetTextureScaleMode(vram_led_on, SDL_ScaleModeNearest);
+        if (vram_led_off != NULL)
+            SDL_SetTextureScaleMode(vram_led_off, SDL_ScaleModeNearest);
+        draw_vram(vram_renderer, vram_led_on, vram_led_off);
+    }
     SDL_ShowWindow(window);
     if (vram != NULL)
         SDL_ShowWindow(vram);
@@ -594,7 +599,7 @@ int main(void)
         }
         present_canvas(renderer, canvas);
         if (vram != NULL && (SDL_GetWindowFlags(vram) & SDL_WINDOW_SHOWN))
-            draw_vram(vram_renderer);
+            draw_vram(vram_renderer, vram_led_on, vram_led_off);
         sound_render();
         pace(frame_start, freq);
     }
@@ -602,6 +607,10 @@ int main(void)
     sound_close();
 
     SDL_DestroyTexture(fps_tex);
+    if (vram_led_on != NULL)
+        SDL_DestroyTexture(vram_led_on);
+    if (vram_led_off != NULL)
+        SDL_DestroyTexture(vram_led_off);
     if (vram_renderer != NULL)
         SDL_DestroyRenderer(vram_renderer);
     if (vram != NULL)
