@@ -10,16 +10,16 @@ from __future__ import annotations
 
 # (contact, A net, A avr pin, B net, B avr pin)
 _ROWS = (
-    (1, "P1_LEFT", None, "+5V", None),
-    (2, "P1_RIGHT", None, "GND", None),
-    (3, "P1_UP", None, "EVENT", 22),
-    (4, "P1_DOWN", None, "RESET", 18),
-    (5, "P1_BTN", None, "UPDI", 19),
-    (6, "P2_LEFT", None, "GND", None),
-    (7, "P2_RIGHT", None, "GND", None),
-    (8, "P2_UP", None, "LOAD", 1),
-    (9, "P2_DOWN", None, "DIN", 26),
-    (10, "P2_BTN", None, "CLK", 28),
+    (1, "P2_BTN", None, "CLK", 28),
+    (2, "P2_DOWN", None, "DIN", 26),
+    (3, "P2_UP", None, "LOAD", 1),
+    (4, "P2_RIGHT", None, "GND", None),
+    (5, "P2_LEFT", None, "GND", None),
+    (6, "P1_BTN", None, "UPDI", 19),
+    (7, "P1_DOWN", None, "RESET", 18),
+    (8, "P1_UP", None, "EVENT", 22),
+    (9, "P1_RIGHT", None, "GND", None),
+    (10, "P1_LEFT", None, "+5V", None),
 )
 
 

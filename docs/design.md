@@ -59,24 +59,24 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 
 | Contact | Side A | Side B |
 | --- | --- | --- |
-| 1 | P1_LEFT | +5V |
-| 2 | P1_RIGHT | GND |
-| 3 | P1_UP | EVENT |
-| 4 | P1_DOWN | RESET |
-| 5 | P1_BTN | UPDI |
-| 6 | P2_LEFT | GND |
-| 7 | P2_RIGHT | GND |
-| 8 | P2_UP | LOAD |
-| 9 | P2_DOWN | DIN |
-| 10 | P2_BTN | CLK |
+| 1 | P2_BTN | CLK |
+| 2 | P2_DOWN | DIN |
+| 3 | P2_UP | LOAD |
+| 4 | P2_RIGHT | GND |
+| 5 | P2_LEFT | GND |
+| 6 | P1_BTN | UPDI |
+| 7 | P1_DOWN | RESET |
+| 8 | P1_UP | EVENT |
+| 9 | P1_RIGHT | GND |
+| 10 | P1_LEFT | +5V |
 
-Player 1 cabinet stick and button wires land on J2 (a 2x3 header with four directions, button, and GND) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with four directions, button, and GND) and route to cart contacts A6 through A10. RESET on J4 ties to cart contact B4 and U5 reset.
+Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A6 through A10. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A1 through A5. RESET on J4 ties to cart contact B7 and U5 reset.
 
 ## Audio (U5, U6, J5)
 
 U5 sits along the left edge of the board. U6 and the speaker header J5 sit along the right edge.
 
-The cart drives EVENT on contact B3 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the console. The mix updates at 20 kHz.
+The cart drives EVENT on contact B8 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the console. The mix updates at 20 kHz.
 
 ## Net classes
 
