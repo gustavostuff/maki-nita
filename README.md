@@ -34,8 +34,8 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
 - Controls: one arcade stick (four switches) and one 30 mm button.
 - Sound: a second AVR128DB28 on the console mixes a square wave, a triangle, and noise. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker on a 2x2 header. A game may use music, effects, both, or neither.
-- Brightness: tap the Bright button to step brightness up to the next level (wrapping around to minimum). Holding the Bright button while tapping stick Up or Down also steps through the eight levels (1, 3, 5, 7, 9, 11, 13, 15) on all four MAX7219 drivers. The cart edge is unchanged.
-- Marquee: removable magnetic panel along the top. Simple magnets hold the panel. The playfield is the 256 matrix LEDs only.
+- Brightness: tap the Bright button to step brightness up to the next level (wrapping around to minimum). Holding the Bright button while tapping stick Up or Down also steps through the eight levels (1, 3, 5, 7, 9, 11, 13, 15) on all four MAX7219 drivers.
+- Marquee: removable magnetic panel along the top, with game-specific art.
 
 ## PCBs
 
