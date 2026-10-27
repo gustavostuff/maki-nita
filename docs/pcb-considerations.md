@@ -72,6 +72,25 @@ Layout and routing rules for the console PCB and the cartridge PCB focus on nois
 - Routing rules:
   - Maintain ground separation between SPI digital lines and the controller input traces leading to the edge fingers.
 
+## Critical short traces
+
+Beyond power rail decoupling capacitors, three high-sensitivity paths must stay strictly constrained in physical length:
+
+### 1. MAX7219 ISET resistors (U1 to U4, pin 18)
+- Target length: Under 5 to 10 mm.
+- Rationale: Pin 18 is a high-impedance current reference node pulled to 5 V through 28 kohm. Long traces act as antennas that pick up local matrix switching transients, modulating the internal current mirrors and causing visible display brightness flicker.
+- Rule: Position R1 through R4 directly beside pin 18 of each MAX7219 package.
+
+### 2. LM386 audio input and bypass (U6, pins 2, 3, and 7)
+- Target length: Under 5 to 10 mm.
+- Rationale: The LM386 has up to 46 dB of voltage gain. Long traces between the DAC divider resistors (R6, R15, R16) and pin 3, or between pin 7 and bypass capacitor C6, readily pick up matrix scan pulses and inject a loud buzz into the speaker output.
+- Rule: Cluster R6, R15, R16, and C6 immediately beside U6.
+
+### 3. LM386 Zobel snubber network (U6, pin 5 to R26 and C46)
+- Target length: Under 10 to 15 mm.
+- Rationale: The series 10 ohm resistor (R26) and 47 nF capacitor (C46) suppress high-frequency parasitic RF oscillation in the amplifier power output stage. Excess trace inductance between the output pin and the snubber degrades amplifier stability.
+- Rule: Place R26 and C46 directly at pin 5 with an immediate return to the ground pour.
+
 ## Primary layout priority
 
 The single most critical layout constraint across both boards is isolating the analog audio input path from the MAX7219 matrix scan lines and SPI lines on the main PCB.

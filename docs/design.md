@@ -59,18 +59,18 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 
 | Contact | Side A | Side B |
 | --- | --- | --- |
-| 1 | P2_BTN | CLK |
-| 2 | P2_DOWN | DIN |
-| 3 | P2_UP | LOAD |
-| 4 | P2_RIGHT | GND |
-| 5 | P2_LEFT | GND |
-| 6 | P1_BTN | UPDI |
-| 7 | P1_DOWN | RESET |
-| 8 | P1_UP | EVENT |
-| 9 | P1_RIGHT | GND |
-| 10 | P1_LEFT | +5V |
+| 1 | P1_UP | CLK |
+| 2 | P1_DOWN | DIN |
+| 3 | P1_LEFT | LOAD |
+| 4 | P1_RIGHT | GND |
+| 5 | P1_BTN | GND |
+| 6 | P2_UP | UPDI |
+| 7 | P2_DOWN | RESET |
+| 8 | P2_LEFT | EVENT |
+| 9 | P2_RIGHT | GND |
+| 10 | P2_BTN | +5V |
 
-Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A6 through A10. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A1 through A5. RESET on J4 ties to cart contact B7 and U5 reset.
+Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on J4 ties to cart contact B7 and U5 reset.
 
 ## Audio (U5, U6, J5)
 

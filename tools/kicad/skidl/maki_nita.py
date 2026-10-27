@@ -530,34 +530,34 @@ def _check(text: str) -> None:
     if ("J1", "6") not in load or ("U1", "12") not in load:
         raise SystemExit(f"LOAD nodes {load}")
     p1_right = nodes("P1_RIGHT")
-    if p1_right != {("J1", "17"), ("J2", "5")}:
+    if p1_right != {("J1", "7"), ("J2", "5")}:
         raise SystemExit(f"P1_RIGHT nodes {p1_right}")
     p1_left = nodes("P1_LEFT")
-    if p1_left != {("J1", "19"), ("J2", "6")}:
+    if p1_left != {("J1", "5"), ("J2", "6")}:
         raise SystemExit(f"P1_LEFT nodes {p1_left}")
     p1_up = nodes("P1_UP")
-    if p1_up != {("J1", "15"), ("J2", "3")}:
+    if p1_up != {("J1", "1"), ("J2", "3")}:
         raise SystemExit(f"P1_UP nodes {p1_up}")
     p1_down = nodes("P1_DOWN")
-    if p1_down != {("J1", "13"), ("J2", "1")}:
+    if p1_down != {("J1", "3"), ("J2", "1")}:
         raise SystemExit(f"P1_DOWN nodes {p1_down}")
     p1_btn = nodes("P1_BTN")
-    if p1_btn != {("J1", "11"), ("J2", "2")}:
+    if p1_btn != {("J1", "9"), ("J2", "2")}:
         raise SystemExit(f"P1_BTN nodes {p1_btn}")
     p2_up = nodes("P2_UP")
-    if p2_up != {("J1", "5"), ("J3", "3")}:
+    if p2_up != {("J1", "11"), ("J3", "3")}:
         raise SystemExit(f"P2_UP nodes {p2_up}")
     p2_down = nodes("P2_DOWN")
-    if p2_down != {("J1", "3"), ("J3", "1")}:
+    if p2_down != {("J1", "13"), ("J3", "1")}:
         raise SystemExit(f"P2_DOWN nodes {p2_down}")
     p2_left = nodes("P2_LEFT")
-    if p2_left != {("J1", "9"), ("J3", "6")}:
+    if p2_left != {("J1", "15"), ("J3", "6")}:
         raise SystemExit(f"P2_LEFT nodes {p2_left}")
     p2_right = nodes("P2_RIGHT")
-    if p2_right != {("J1", "7"), ("J3", "5")}:
+    if p2_right != {("J1", "17"), ("J3", "5")}:
         raise SystemExit(f"P2_RIGHT nodes {p2_right}")
     p2_btn = nodes("P2_BTN")
-    if p2_btn != {("J1", "1"), ("J3", "2")}:
+    if p2_btn != {("J1", "19"), ("J3", "2")}:
         raise SystemExit(f"P2_BTN nodes {p2_btn}")
     reset_net = nodes("RESET")
     if reset_net != {("J1", "14"), ("J4", "3"), ("U5", "18")}:

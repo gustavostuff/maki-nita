@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """SKiDL netlist for a Maki-Nita cartridge.
 
-The cartridge holds one AVR128DB28 and a double-sided 2x8 gold edge.
-Side A is the controller face. Side B carries the display, EVENT, and
-the programming pins. VDD, AVDD, and VDDIO2 tie to +5V. Both ground pins
-tie to GND. PA0 drives EVENT.
+The cartridge holds one AVR128DB28 and a double-sided 2x10 gold edge.
+Side A is the controller face (Player 1 and Player 2). Side B carries
+the display, EVENT, power, reset, and the programming pins. VDD, AVDD,
+and VDDIO2 tie to +5V. Both ground pins tie to GND. PA0 drives EVENT.
 """
 
 from __future__ import annotations
@@ -26,14 +26,14 @@ for _key in (
 from skidl import KICAD10, Net, Pin, Part, SKIDL, generate_netlist
 from skidl.pin import pin_types
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
 from tools.kicad.skidl.cart_edge import contacts, finger_pins
 
 HERE = Path(__file__).resolve().parent
 NET_PATH = HERE / "maki-nita-cart.net"
 
 AVR_FP = "Package_DIP:DIP-28_W7.62mm"
-FINGER_FP = "MakiNita:Cart_Edge_2x8_P2.54mm"
+FINGER_FP = "MakiNita:Cart_Edge_2x10_P2.54mm"
 C_FP = "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm"
 TWO_PINS = ((1, "1"), (2, "2"))
 
@@ -120,12 +120,12 @@ def build() -> None:
 
     edge = Part(
         tool=SKIDL,
-        name="Cart_Edge_2x8",
+        name="Cart_Edge_2x10",
         ref="J1",
         tag="J1",
         footprint=FINGER_FP,
         pins=[_pin(num, name) for num, name in finger_pins()],
-        value="Cart edge 2x8",
+        value="Cart edge 2x10",
     )
     nets = {"+5V": vcc, "GND": gnd}
     tied_avr = set()
@@ -146,7 +146,20 @@ CLASS_5V = "5V"
 CLASS_SIDE_A = "SIDE_A"
 CLASS_SIDE_B = "SIDE_B"
 
-SIDE_A_NETS = frozenset(("BUTTON", "DOWN", "LEFT", "RIGHT", "UP"))
+SIDE_A_NETS = frozenset(
+    (
+        "P1_UP",
+        "P1_DOWN",
+        "P1_LEFT",
+        "P1_RIGHT",
+        "P1_BTN",
+        "P2_UP",
+        "P2_DOWN",
+        "P2_LEFT",
+        "P2_RIGHT",
+        "P2_BTN",
+    )
+)
 SIDE_B_NETS = frozenset(("CLK", "DIN", "EVENT", "LOAD", "RESET", "UPDI"))
 
 
@@ -195,40 +208,69 @@ def _check(text: str) -> None:
     vcc = nodes("+5V")
     if ("U1", "20") not in vcc or ("U1", "14") not in vcc or ("U1", "6") not in vcc:
         raise SystemExit("+5V does not reach the AVR rails")
-    if ("J1", "A2") not in vcc or ("J1", "B2") not in vcc or ("J1", "B8") not in vcc:
-        raise SystemExit("+5V does not reach three edge contacts")
+    if ("J1", "B10") not in vcc:
+        raise SystemExit("+5V does not reach edge contact B10")
     for ref in ("C1", "C2", "C3"):
         if (ref, "1") not in vcc:
             raise SystemExit(f"{ref} pin 1 not on +5V")
     gnd = nodes("GND")
     if ("U1", "15") not in gnd or ("U1", "21") not in gnd:
         raise SystemExit("GND does not reach both AVR ground pins")
-    if ("J1", "A1") not in gnd or ("J1", "A8") not in gnd:
-        raise SystemExit("GND does not reach both end contacts")
+    for pad in ("B4", "B5", "B9"):
+        if ("J1", pad) not in gnd:
+            raise SystemExit(f"GND does not reach edge contact {pad}")
     for ref in ("C1", "C2", "C3"):
         if (ref, "2") not in gnd:
             raise SystemExit(f"{ref} pin 2 not on GND")
-    if ("J1", "B1") in gnd:
-        raise SystemExit("B1 is EVENT")
-    event = nodes("EVENT")
-    if event != {("U1", "22"), ("J1", "B1")}:
-        raise SystemExit(f"EVENT nodes {event}")
-    din = nodes("DIN")
-    if din != {("U1", "26"), ("J1", "B4")}:
-        raise SystemExit(f"DIN nodes {din}")
     clk = nodes("CLK")
-    if clk != {("U1", "28"), ("J1", "B5")}:
+    if clk != {("U1", "28"), ("J1", "B1")}:
         raise SystemExit(f"CLK nodes {clk}")
+    din = nodes("DIN")
+    if din != {("U1", "26"), ("J1", "B2")}:
+        raise SystemExit(f"DIN nodes {din}")
     load = nodes("LOAD")
-    if load != {("U1", "1"), ("J1", "B3")}:
+    if load != {("U1", "27"), ("J1", "B3")}:
         raise SystemExit(f"LOAD nodes {load}")
-    button = nodes("BUTTON")
-    if button != {("U1", "11"), ("J1", "A7")}:
-        raise SystemExit(f"BUTTON nodes {button}")
     updi = nodes("UPDI")
-    if updi != {("U1", "19"), ("J1", "B7")}:
+    if updi != {("U1", "19"), ("J1", "B6")}:
         raise SystemExit(f"UPDI nodes {updi}")
-    for num in (2, 3, 4, 5, 12, 13, 16, 17, 23, 24, 25, 27):
+    reset_node = nodes("RESET")
+    if reset_node != {("U1", "18"), ("J1", "B7")}:
+        raise SystemExit(f"RESET nodes {reset_node}")
+    event = nodes("EVENT")
+    if event != {("U1", "22"), ("J1", "B8")}:
+        raise SystemExit(f"EVENT nodes {event}")
+    p1_up = nodes("P1_UP")
+    if p1_up != {("U1", "1"), ("J1", "A1")}:
+        raise SystemExit(f"P1_UP nodes {p1_up}")
+    p1_down = nodes("P1_DOWN")
+    if p1_down != {("U1", "2"), ("J1", "A2")}:
+        raise SystemExit(f"P1_DOWN nodes {p1_down}")
+    p1_left = nodes("P1_LEFT")
+    if p1_left != {("U1", "3"), ("J1", "A3")}:
+        raise SystemExit(f"P1_LEFT nodes {p1_left}")
+    p1_right = nodes("P1_RIGHT")
+    if p1_right != {("U1", "4"), ("J1", "A4")}:
+        raise SystemExit(f"P1_RIGHT nodes {p1_right}")
+    p1_btn = nodes("P1_BTN")
+    if p1_btn != {("U1", "5"), ("J1", "A5")}:
+        raise SystemExit(f"P1_BTN nodes {p1_btn}")
+    p2_up = nodes("P2_UP")
+    if p2_up != {("U1", "7"), ("J1", "A6")}:
+        raise SystemExit(f"P2_UP nodes {p2_up}")
+    p2_down = nodes("P2_DOWN")
+    if p2_down != {("U1", "8"), ("J1", "A7")}:
+        raise SystemExit(f"P2_DOWN nodes {p2_down}")
+    p2_left = nodes("P2_LEFT")
+    if p2_left != {("U1", "9"), ("J1", "A8")}:
+        raise SystemExit(f"P2_LEFT nodes {p2_left}")
+    p2_right = nodes("P2_RIGHT")
+    if p2_right != {("U1", "10"), ("J1", "A9")}:
+        raise SystemExit(f"P2_RIGHT nodes {p2_right}")
+    p2_btn = nodes("P2_BTN")
+    if p2_btn != {("U1", "11"), ("J1", "A10")}:
+        raise SystemExit(f"P2_BTN nodes {p2_btn}")
+    for num in (12, 13, 16, 17, 23, 24, 25):
         nc = nodes(f"NC_U1_{num}")
         if nc != {("U1", str(num))}:
             raise SystemExit(f"NC_U1_{num} mismatch: {nc}")
