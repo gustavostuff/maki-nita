@@ -1,6 +1,6 @@
 <img src="img/logo_v_03.png" alt="Logo V2" />
 
-Maki-Nita is a cartridge-based, one-stick, one-button portable tabletop arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
+Maki-Nita is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
 On a similar spirit as the Magnavox Odyssey, Maki-Nita uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. A magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [design](docs/design.md) docs cover the sheet and the console netlist.
 
@@ -14,7 +14,7 @@ The build is a simple soldering job.
 
 - The parts are through-hole, on a 2.54 mm grid.
 - The chips sit in sockets, so a bad one can be swapped.
-- Wires leave the board on headers. One for the stick and button, another one for power/reset, and one more for the speaker.
+- Wires leave the board on headers. Two for player controls, another one for power/reset, and one more for the speaker.
 
 The parts are cheap.
 
@@ -29,10 +29,10 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 - Display: 16x16, four common-cathode 8x8 white matrices, one bit per pixel. Colored [overlays](docs/overlays.md) sit in front of the field.
 - Board: a 2-layer console PCB and a 2-layer cartridge, each with a ground pour on both sides. The console carries the matrices, the drivers, the cart socket, the audio AVR, and the audio amplifier.
-- CPU: AVR128DB28-I/SP on the cartridge at 12 MHz. Console audio AVR on the main board at 20 MHz. The console socket is an EDAC 345-016-520-212, 16 contacts, 8 a side.
+- CPU: AVR128DB28-I/SP on the cartridge at 12 MHz. Console audio AVR on the main board at 20 MHz. The console socket is an EDAC 395-020-520-202, 20 contacts, 10 a side.
 - Drivers: four MAX7219ENG+ or MAX7219CNG+, one per 8x8 block.
 - Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
-- Controls: one arcade stick (four switches) and one 30 mm button.
+- Controls: two arcade sticks (four switches each) and two 30 mm buttons, with one stick and one button per player. Player 1 controls are built into the cabinet. Because the cabinet is small, the second player controller connects on the side. Each player connects through a 2x3 header (four directions, button, and GND).
 - Sound: a second AVR128DB28 on the console mixes a square wave, a triangle, and noise. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker on a 2x2 header. A game may use music, effects, both, or neither.
 - Brightness: tap the Bright button to step brightness up to the next level (wrapping around to minimum). Holding the Bright button while tapping stick Up or Down also steps through the eight levels (1, 3, 5, 7, 9, 11, 13, 15) on all four MAX7219 drivers.
 - Marquee: removable magnetic panel along the top, with game-specific art.
@@ -69,7 +69,6 @@ SKiDL export writes `tools/kicad/skidl/maki-nita.net` and updates net classes in
 
 Once the base design has been proven/tested, these are the next things to look at:
 
-* Two player support by adding a 20 pin cart connector. An external controller would connect through some port with 6 pins.
 * Translucent art for the marquees and backlight LEDs to make it shine, as in real classic arcades.
 * Better audio quality by using the AKWF (Adventure Kid Waveforms) library. Samples would live in the Audio AVR and be triggered via the already defined EVENT signal.
 * USB C power port as an alternative to the barrel (maybe a switch to pick one or the other, or priority-based).

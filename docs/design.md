@@ -6,15 +6,16 @@ The electrical source of truth is `tools/kicad/skidl/maki_nita.py`. `tools/kicad
 
 The console is a 100x100 mm 2-layer board with ground pours on both sides. Parts are through-hole on a 2.54 mm grid. The game AVR is on the cartridge PCB. Six M3 (3.2 mm) mounting holes (H1 to H6) secure the corners and top edge.
 
-All external headers and the cart socket (J1 to J5) sit along the top area of the board. The 16x16 display field occupies the central and lower area.
+All external headers and the cart socket (J1 to J6) sit along the top area of the board. The 16x16 display field occupies the central and lower area.
 
 | Ref | Role |
 | --- | --- |
-| J1 | EDAC 345 cart socket, 16 contacts |
-| J2 | 2x4 header, stick and button |
-| J3 | 2x2 header, 5 V and reset |
-| J4 | 2x2 header, speaker |
-| J5 | 1x3 header, audio AVR UPDI |
+| J1 | EDAC 395 cart socket, 20 contacts |
+| J2 | 2x3 header, Player 1 controls (four directions, button, GND) |
+| J3 | 2x3 header, Player 2 controls (four directions, button, GND) |
+| J4 | 2x2 header, 5 V and reset |
+| J5 | 2x2 header, speaker |
+| J6 | 1x3 header, audio AVR UPDI |
 | U1 to U4 | MAX7219, one per 8x8 block |
 | U5 | AVR128DB28, audio and planned brightness control |
 | U6 | LM386N-1 amplifier |
@@ -27,7 +28,7 @@ A part on "UN" uses "N" as part of its silkscreen label. A second part on that I
 
 R1 to R4 are horizontal axial resistors on a 10.16 mm pitch. Audio and event resistors stand vertical on a 2.54 mm pitch.
 
-Power enters on J3. The barrel jack, polyfuse, Schottky, and panel switch are off the board (design TBD).
+Power enters on J4. The barrel jack, polyfuse, Schottky, and panel switch are off the board (design TBD).
 
 ## Display
 
@@ -52,26 +53,30 @@ The MAX7219 multiplexes its eight rows using an autonomous internal oscillator a
 
 ## Cart edge (J1)
 
-Side A is odd contacts. Side B is even contacts. Pad 1 is A1.
+The cart socket is an EDAC 395-020-520-202 with 20 contacts (10 contacts per side, 2.54 mm pitch).
+
+Side A pins sit at the bottom part of the connector on the main PCB, carrying player inputs. Side B pins sit at the top part of the connector on the main PCB, carrying power, audio events, reset, programming, and display signals.
 
 | Contact | Side A | Side B |
 | --- | --- | --- |
-| 1 | GND | EVENT to U5 |
-| 2 | +5 V | +5 V |
-| 3 | UP | LOAD |
-| 4 | DOWN | DIN |
-| 5 | LEFT | CLK |
-| 6 | RIGHT | RESET |
-| 7 | BUTTON | UPDI (game AVR) |
-| 8 | GND | +5 V |
+| 1 | P1_LEFT | +5V |
+| 2 | P1_RIGHT | GND |
+| 3 | P1_UP | EVENT |
+| 4 | P1_DOWN | RESET |
+| 5 | P1_BTN | UPDI |
+| 6 | P2_LEFT | GND |
+| 7 | P2_RIGHT | GND |
+| 8 | P2_UP | LOAD |
+| 9 | P2_DOWN | DIN |
+| 10 | P2_BTN | CLK |
 
-Stick and button wires land on J2 and share the A-side nets with J1. RESET on J3 ties to cart contact B6 and U5 reset.
+Player 1 cabinet stick and button wires land on J2 (a 2x3 header with four directions, button, and GND) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with four directions, button, and GND) and route to cart contacts A6 through A10. RESET on J4 ties to cart contact B4 and U5 reset.
 
-## Audio (U5, U6, J4)
+## Audio (U5, U6, J5)
 
-U5 sits along the left edge of the board. U6 and the speaker header J4 sit along the right edge.
+U5 sits along the left edge of the board. U6 and the speaker header J5 sit along the right edge.
 
-The cart drives EVENT on contact B1 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J4. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the console. The mix updates at 20 kHz.
+The cart drives EVENT on contact B3 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the console. The mix updates at 20 kHz.
 
 ## Net classes
 

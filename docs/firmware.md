@@ -25,7 +25,7 @@ In relation to the 60 Hz game loop:
 
 ## Inputs and debouncing
 
-Stick and action button nets reach PD1 through PD5 on the cartridge. Each switch is active low with an internal pull-up.
+Player 1 and Player 2 stick and action button nets reach dedicated input pins on the cartridge AVR (ten switch inputs in total). Each switch is active low with an internal pull-up.
 
 Debouncing in `tools/fw/input.c` samples inputs once per 60 Hz tick. Two consecutive disagreeing ticks are required before a state change registers, providing approximately 33 ms of noise immunity.
 
@@ -47,4 +47,4 @@ Each cart implements `void game_tick(const Input *in)`. Test carts configured in
 
 ## Simulator
 
-`./sim.sh` builds and launches `tools/sim/maki-nita-ui`. The netlist model connects simulated cartridge pins to U1 through U4, EVENT, and J4. Host simulation runs at 60 Hz with 12 MHz and 20 MHz timing constants defined in `tools/sim/clocks.h`.
+`./sim.sh` builds and launches `tools/sim/maki-nita-ui`. The netlist model connects simulated cartridge pins to U1 through U4, EVENT, and J5. Host simulation runs at 60 Hz with 12 MHz and 20 MHz timing constants defined in `tools/sim/clocks.h`.
