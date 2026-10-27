@@ -19,7 +19,7 @@ The build is a simple soldering job.
 The parts are cheap.
 
 - The console is a 100x100 mm board. The cartridge is an even smaller, two-layer board.
-- The screen is four white/neutral-white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available parts.
+- The screen is four white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available parts.
 
 - Power is any generic/regulated 5 V adapter.
 
@@ -27,7 +27,7 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 ## Settled choices
 
-- Display: 16x16, four common-cathode 8x8 white or neutral-white matrices, one bit per pixel. Colored [overlays](docs/overlays.md) sit in front of the field.
+- Display: 16x16, four common-cathode 8x8 white matrices, one bit per pixel. Colored [overlays](docs/overlays.md) sit in front of the field.
 - Board: a 2-layer console PCB and a 2-layer cartridge, each with a ground pour on both sides. The console carries the matrices, the drivers, the cart socket, the audio AVR, and the audio amplifier.
 - CPU: AVR128DB28-I/SP on the cartridge at 12 MHz. Console audio AVR on the main board at 20 MHz. The console socket is an EDAC 345-016-520-212, 16 contacts, 8 a side.
 - Drivers: four MAX7219ENG+ or MAX7219CNG+, one per 8x8 block.

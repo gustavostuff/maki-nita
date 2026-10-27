@@ -31,7 +31,7 @@ Power enters on J3. The barrel jack, polyfuse, Schottky, and panel switch are of
 
 ## Display
 
-Four white or neutral-white matrices form a 16x16 field. DS1 is top left, DS2 top right, DS3 bottom left, DS4 bottom right. 
+Four white matrices form a 16x16 field. DS1 is top left, DS2 top right, DS3 bottom left, DS4 bottom right. 
 
 Each matrix sits in two elevated 1x8 female pin socket strips. Its MAX7219 driver (U1 to U4) and 100 nF ceramic bypass capacitor (C1 to C4) sit nested directly underneath the matrix body between the socket rows. Bulk 10 uF electrolytic capacitors (C11 to C14) sit slightly outside the matrix area.
 
