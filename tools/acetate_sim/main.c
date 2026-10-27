@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define GRID 16
 #define LED 4
@@ -59,10 +60,128 @@ static const Uint8 FONT_COPIED[6][5] = {
     {0b110, 0b101, 0b101, 0b101, 0b110},
 };
 
+typedef struct {
+    int x;
+    int y;
+} Point;
+
 static Uint8 leds[GRID][GRID];
 static Uint8 acetate[GRID][GRID];
 static int active_color = 1; // default to Red
 static int copied_timer = 0; // frames to display "COPIED" notification
+
+static int get_line_points(int x0, int y0, int x1, int y1, Point *pts, int max_pts)
+{
+    int count = 0;
+    int dx = abs(x1 - x0);
+    int sx = x0 < x1 ? 1 : -1;
+    int dy = -abs(y1 - y0);
+    int sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy;
+
+    while (1) {
+        if (x0 >= 0 && x0 < GRID && y0 >= 0 && y0 < GRID) {
+            if (count < max_pts) {
+                pts[count].x = x0;
+                pts[count].y = y0;
+                count++;
+            }
+        }
+        if (x0 == x1 && y0 == y1)
+            break;
+        int e2 = 2 * err;
+        if (e2 >= dy) {
+            err += dy;
+            x0 += sx;
+        }
+        if (e2 <= dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
+    return count;
+}
+
+static void flood_fill_leds(int start_x, int start_y)
+{
+    Uint8 target = leds[start_y][start_x];
+    Uint8 replacement = !target;
+
+    int qx[GRID * GRID];
+    int qy[GRID * GRID];
+    int head = 0;
+    int tail = 0;
+    bool visited[GRID][GRID] = {{false}};
+
+    qx[tail] = start_x;
+    qy[tail] = start_y;
+    tail++;
+    visited[start_y][start_x] = true;
+
+    while (head < tail) {
+        int cx = qx[head];
+        int cy = qy[head];
+        head++;
+
+        leds[cy][cx] = replacement;
+
+        const int dx[] = {1, -1, 0, 0};
+        const int dy[] = {0, 0, 1, -1};
+        for (int i = 0; i < 4; i++) {
+            int nx = cx + dx[i];
+            int ny = cy + dy[i];
+            if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID) {
+                if (!visited[ny][nx] && leds[ny][nx] == target) {
+                    visited[ny][nx] = true;
+                    qx[tail] = nx;
+                    qy[tail] = ny;
+                    tail++;
+                }
+            }
+        }
+    }
+}
+
+static void flood_fill_acetate(int start_x, int start_y, Uint8 new_color)
+{
+    Uint8 target = acetate[start_y][start_x];
+    if (target == new_color)
+        return;
+
+    int qx[GRID * GRID];
+    int qy[GRID * GRID];
+    int head = 0;
+    int tail = 0;
+    bool visited[GRID][GRID] = {{false}};
+
+    qx[tail] = start_x;
+    qy[tail] = start_y;
+    tail++;
+    visited[start_y][start_x] = true;
+
+    while (head < tail) {
+        int cx = qx[head];
+        int cy = qy[head];
+        head++;
+
+        acetate[cy][cx] = new_color;
+
+        const int dx[] = {1, -1, 0, 0};
+        const int dy[] = {0, 0, 1, -1};
+        for (int i = 0; i < 4; i++) {
+            int nx = cx + dx[i];
+            int ny = cy + dy[i];
+            if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID) {
+                if (!visited[ny][nx] && acetate[ny][nx] == target) {
+                    visited[ny][nx] = true;
+                    qx[tail] = nx;
+                    qy[tail] = ny;
+                    tail++;
+                }
+            }
+        }
+    }
+}
 
 static SDL_Texture *create_fallback_led(SDL_Renderer *renderer, bool is_on)
 {
@@ -151,7 +270,9 @@ static void draw_copied_badge(SDL_Renderer *renderer)
     }
 }
 
-static void render_scene(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_off)
+static void render_scene(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_off,
+                         bool line_active, int lx0, int ly0, int lx1, int ly1,
+                         Uint8 l_button, Uint8 l_led_state)
 {
     // Background
     SDL_SetRenderDrawColor(renderer, BG_R, BG_G, BG_B, 255);
@@ -162,12 +283,31 @@ static void render_scene(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Textur
     SDL_SetRenderDrawColor(renderer, 24, 24, 28, 255);
     SDL_RenderDrawRect(renderer, &bezel);
 
+    // Build visible state (including live line preview if active)
+    Uint8 cur_leds[GRID][GRID];
+    Uint8 cur_acetate[GRID][GRID];
+    memcpy(cur_leds, leds, sizeof(leds));
+    memcpy(cur_acetate, acetate, sizeof(acetate));
+
+    if (line_active) {
+        Point pts[64];
+        int count = get_line_points(lx0, ly0, lx1, ly1, pts, 64);
+        for (int i = 0; i < count; i++) {
+            int px = pts[i].x;
+            int py = pts[i].y;
+            if (l_button == SDL_BUTTON_LEFT)
+                cur_leds[py][px] = l_led_state;
+            else if (l_button == SDL_BUTTON_RIGHT)
+                cur_acetate[py][px] = (Uint8)active_color;
+        }
+    }
+
     // LEDs and acetate layers
     for (int y = 0; y < GRID; y++) {
         for (int x = 0; x < GRID; x++) {
             SDL_Rect cell = {FIELD_X + x * LED, FIELD_Y + y * LED, LED, LED};
-            Uint8 c_idx = acetate[y][x];
-            bool on = leds[y][x] != 0;
+            Uint8 c_idx = cur_acetate[y][x];
+            bool on = cur_leds[y][x] != 0;
 
             if (on) {
                 if (c_idx == 0) {
@@ -187,19 +327,19 @@ static void render_scene(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Textur
                 }
             } else {
                 if (c_idx > 0) {
-                    // Subtle tint on the unlit dot, clear subtle film sheen (not opaque/muddy)
+                    // Show unlit LED dot through the colored acetate with subtle tint
                     const AcetateColor *ac = &PALETTE[c_idx];
                     SDL_SetTextureColorMod(
                         led_off,
-                        (Uint8)(40 + ac->r / 10),
-                        (Uint8)(40 + ac->g / 10),
-                        (Uint8)(40 + ac->b / 10)
+                        (Uint8)(160 + ac->r / 3),
+                        (Uint8)(160 + ac->g / 3),
+                        (Uint8)(160 + ac->b / 3)
                     );
                     SDL_RenderCopy(renderer, led_off, NULL, &cell);
 
-                    // Very light, clean film sheen
+                    // Clean, transparent acetate film wash
                     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-                    SDL_SetRenderDrawColor(renderer, ac->r, ac->g, ac->b, 20);
+                    SDL_SetRenderDrawColor(renderer, ac->r, ac->g, ac->b, 28);
                     SDL_RenderFillRect(renderer, &cell);
                 } else {
                     SDL_SetTextureColorMod(led_off, 255, 255, 255);
@@ -346,6 +486,17 @@ int main(void)
     bool running = true;
     bool left_down = false;
     bool right_down = false;
+    bool holding_f = false;
+    bool holding_l = false;
+
+    bool line_active = false;
+    int line_start_x = 0;
+    int line_start_y = 0;
+    int line_end_x = 0;
+    int line_end_y = 0;
+    Uint8 line_button = 0;
+    Uint8 line_led_state = 1;
+
     bool trigger_screenshot = false;
     Uint8 paint_led_state = 1;
     int scale = initial_scale;
@@ -366,6 +517,12 @@ int main(void)
                 case SDLK_ESCAPE:
                 case SDLK_q:
                     running = false;
+                    break;
+                case SDLK_f:
+                    holding_f = true;
+                    break;
+                case SDLK_l:
+                    holding_l = true;
                     break;
                 case SDLK_s:
                     // Screenshot & clipboard on 's' or 'Ctrl + s'
@@ -393,14 +550,27 @@ int main(void)
                         for (int x = 0; x < GRID; x++)
                             acetate[y][x] = 0;
                     break;
-                case SDLK_f:
-                    // Fill all acetate with active color
-                    for (int y = 0; y < GRID; y++)
-                        for (int x = 0; x < GRID; x++)
-                            acetate[y][x] = (Uint8)active_color;
-                    break;
                 default:
                     break;
+                }
+                break;
+
+            case SDL_KEYUP:
+                if (event.key.keysym.sym == SDLK_f)
+                    holding_f = false;
+                if (event.key.keysym.sym == SDLK_l) {
+                    holding_l = false;
+                    if (line_active) {
+                        Point pts[64];
+                        int count = get_line_points(line_start_x, line_start_y, line_end_x, line_end_y, pts, 64);
+                        for (int i = 0; i < count; i++) {
+                            if (line_button == SDL_BUTTON_LEFT)
+                                leds[pts[i].y][pts[i].x] = line_led_state;
+                            else if (line_button == SDL_BUTTON_RIGHT)
+                                acetate[pts[i].y][pts[i].x] = (Uint8)active_color;
+                        }
+                        line_active = false;
+                    }
                 }
                 break;
 
@@ -427,19 +597,48 @@ int main(void)
                     int gx = (cx - FIELD_X) / LED;
                     int gy = (cy - FIELD_Y) / LED;
 
-                    if (event.button.button == SDL_BUTTON_LEFT) {
-                        left_down = true;
-                        leds[gy][gx] = !leds[gy][gx];
-                        paint_led_state = leds[gy][gx];
-                    } else if (event.button.button == SDL_BUTTON_RIGHT) {
-                        right_down = true;
-                        acetate[gy][gx] = (Uint8)active_color;
+                    if (holding_f) {
+                        // Flood fill
+                        if (event.button.button == SDL_BUTTON_LEFT)
+                            flood_fill_leds(gx, gy);
+                        else if (event.button.button == SDL_BUTTON_RIGHT)
+                            flood_fill_acetate(gx, gy, (Uint8)active_color);
+                    } else if (holding_l) {
+                        // Start straight line
+                        line_active = true;
+                        line_start_x = gx;
+                        line_start_y = gy;
+                        line_end_x = gx;
+                        line_end_y = gy;
+                        line_button = event.button.button;
+                        line_led_state = !leds[gy][gx];
+                    } else {
+                        // Regular click & drag paint
+                        if (event.button.button == SDL_BUTTON_LEFT) {
+                            left_down = true;
+                            leds[gy][gx] = !leds[gy][gx];
+                            paint_led_state = leds[gy][gx];
+                        } else if (event.button.button == SDL_BUTTON_RIGHT) {
+                            right_down = true;
+                            acetate[gy][gx] = (Uint8)active_color;
+                        }
                     }
                 }
                 break;
             }
 
             case SDL_MOUSEBUTTONUP:
+                if (line_active && event.button.button == line_button) {
+                    Point pts[64];
+                    int count = get_line_points(line_start_x, line_start_y, line_end_x, line_end_y, pts, 64);
+                    for (int i = 0; i < count; i++) {
+                        if (line_button == SDL_BUTTON_LEFT)
+                            leds[pts[i].y][pts[i].x] = line_led_state;
+                        else if (line_button == SDL_BUTTON_RIGHT)
+                            acetate[pts[i].y][pts[i].x] = (Uint8)active_color;
+                    }
+                    line_active = false;
+                }
                 if (event.button.button == SDL_BUTTON_LEFT)
                     left_down = false;
                 else if (event.button.button == SDL_BUTTON_RIGHT)
@@ -452,11 +651,18 @@ int main(void)
                 int cx = (mx - dst_rect.x) / scale;
                 int cy = (my - dst_rect.y) / scale;
 
-                if (cx >= FIELD_X && cx < FIELD_X + FIELD_SIZE &&
-                    cy >= FIELD_Y && cy < FIELD_Y + FIELD_SIZE) {
-                    int gx = (cx - FIELD_X) / LED;
-                    int gy = (cy - FIELD_Y) / LED;
+                int gx = (cx - FIELD_X) / LED;
+                int gy = (cy - FIELD_Y) / LED;
+                if (gx < 0) gx = 0;
+                if (gx >= GRID) gx = GRID - 1;
+                if (gy < 0) gy = 0;
+                if (gy >= GRID) gy = GRID - 1;
 
+                if (line_active) {
+                    line_end_x = gx;
+                    line_end_y = gy;
+                } else if (cx >= FIELD_X && cx < FIELD_X + FIELD_SIZE &&
+                           cy >= FIELD_Y && cy < FIELD_Y + FIELD_SIZE) {
                     if (left_down)
                         leds[gy][gx] = paint_led_state;
                     if (right_down)
@@ -469,7 +675,9 @@ int main(void)
 
         // Render scene to canvas texture
         SDL_SetRenderTarget(renderer, canvas);
-        render_scene(renderer, led_on, led_off);
+        render_scene(renderer, led_on, led_off,
+                     line_active, line_start_x, line_start_y, line_end_x, line_end_y,
+                     line_button, line_led_state);
 
         // Present canvas with integer pixel scale to window
         present_canvas(renderer, canvas, &scale, &dst_rect, &win_w, &win_h);
