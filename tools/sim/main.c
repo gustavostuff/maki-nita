@@ -135,7 +135,7 @@ static void present_canvas(SDL_Renderer *renderer, SDL_Texture *canvas)
     SDL_RenderPresent(renderer);
 }
 
-/* The center 16 by 16 cells are the screen. The rest is the one-screen margin. */
+/* The center 16 by 16 cells are the screen. The rest is the 8-pixel margin. */
 static void draw_vram(SDL_Renderer *renderer)
 {
     int col;
@@ -161,7 +161,7 @@ static void draw_vram(SDL_Renderer *renderer)
             };
 
             if (on)
-                SDL_SetRenderDrawColor(renderer, 187, 49, 66, 255);
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             else
                 SDL_SetRenderDrawColor(renderer, 51, 51, 51, 255);
             SDL_RenderFillRect(renderer, &dot);

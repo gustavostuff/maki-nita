@@ -2,8 +2,6 @@
 
 The electrical source of truth is `tools/kicad/skidl/maki_nita.py`. `tools/kicad/skidl/export_netlist.sh` writes `tools/kicad/skidl/maki-nita.net` and patches net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. The schematic and PCB live under `tools/kicad/main-pcb/`. The cartridge netlist is `tools/kicad/cart-pcb/skidl/`.
 
-The console, the cartridge, and the rest of the hardware design are under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
-
 ## Console board
 
 The console is a 100x100 mm 2-layer board with ground pours on both sides. Parts are through-hole on a 2.54 mm grid. The game AVR is on the cartridge PCB. Six M3 (3.2 mm) mounting holes (H1 to H6) secure the corners and top edge.
@@ -43,6 +41,8 @@ DIN, CLK, and LOAD come from the cart through J1 into U1. DOUT chains U1 to U2 t
 
 The cart AVR keeps the frame and shifts it over DIN, CLK, and LOAD at 12 MHz. Each MAX7219 scans its block. Segment pins source anodes. Digit pins sink cathodes.
 
+The MAX7219 multiplexes its eight rows using an autonomous internal oscillator at ~800 Hz (~1.25 ms per full 8-row cycle). This scan frequency is fixed in hardware and cannot be reconfigured in software. During each 16.67 ms (60 Hz) game frame, the display completes roughly 13 full refresh cycles. Because driver registers update atomically on the rising edge of LOAD, frame flushes remain clean without tearing or flicker.
+
 | Block | Screen columns | Screen rows | Chain order |
 | --- | --- | --- | --- |
 | DS1 | 0 to 7 | 0 to 7 | First |
@@ -75,10 +75,8 @@ The cart drives EVENT on contact B1 from PA0. U5 listens on PA1 and plays rows f
 
 ## Net classes
 
-From `tools/kicad/skidl/net_classes.py`: 5V is 0.8 mm track width. MATRIX is segment and digit nets per driver block. AUDIO is DAC, AUD, AUDIN, AMP, SPK, ZOBEL, and BYPASS. Default is 0.25 mm. GND is the pour.
+From `tools/kicad/skidl/net_classes.py`: 5V is 0.8 mm track width. MATRIX is segment and digit nets per driver block, routed at 0.4 mm width instead of the default 0.25 mm. Each digit pin sinks up to eight LEDs simultaneously, carrying peak return currents around 160 mA. The 0.4 mm width lowers line resistance and voltage drop across the scan cycle, keeping LED brightness uniform between digits and reducing switching noise into adjacent lines. AUDIO is DAC, AUD, AUDIN, AMP, SPK, ZOBEL, and BYPASS. Default is 0.25 mm. GND is the pour.
 
 ## Not in the SKiDL netlist yet
 
-Global brightness (Bright button, console AVR writing MAX7219 intensity) and extra console wiring for that feature. The playfield is the 256 LEDs from the four matrices only.
-
-Product notes from the README (magnetic marquee, colored overlays, cart behind the header) are mechanical and are not fixed in KiCad.
+Global brightness (Bright button with tap-to-increment and hold-plus-stick adjustment, console AVR writing MAX7219 intensity) and extra console wiring for that feature. The playfield is the 256 LEDs from the four matrices only.
