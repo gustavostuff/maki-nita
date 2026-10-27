@@ -39,7 +39,7 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 ## PCBs
 
-Copper tracing is pretty much done but still needs to be double-checked (EMI considerations, noise, test points, etc). The [SKiDL netlist](tools/kicad/skidl/maki_nita.py) and KiCad files are under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/`.  
+Copper tracing is pretty much done but still needs to be double-checked (EMI considerations, noise, test points, etc). The [SKiDL netlist](tools/kicad/skidl/maki_nita.py) and KiCad files are under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/`. See [PCB considerations](docs/pcb-considerations.md) for critical trace routing and noise isolation rules.
 
 Main system PCB, 100x100 mm:
 

@@ -1,0 +1,79 @@
+Note: This doc is for the design-phase only and will be removed once the PCBs are fabricated and tested.
+
+# PCB routing considerations
+
+Layout and routing rules for the console PCB and the cartridge PCB focus on noise isolation between high-current pulsed matrix lines, fast digital clocks, sensitive high-impedance analog audio paths, and timing-critical pulse trains.
+
+## Main PCB
+
+### Audio analog versus display SPI and matrix lines
+
+- Signals: `DAC`, `AUDIN` (LM386 pin 3), `BYPASS` (LM386 pin 7), `AMP`, `SPK` versus `CLK`, `DIN`, `LOAD`, and matrix `DS1_*` through `DS4_*` tracks.
+- Why critical:
+  - The LM386 amplifier operates with high voltage gain (up to 46 dB). At its high-impedance non-inverting input, millivolt-level coupled noise is amplified directly into the speaker output.
+  - The four MAX7219 matrix drivers scan at approximately 800 Hz, with digit cathode pins sinking up to 160 mA of pulse current. Fast switching rise and fall times generate strong electromagnetic and capacitive fields.
+  - When digital clock or matrix tracks run parallel to audio inputs, or overlap them on adjacent copper layers (broadside coupling), parasitic capacitance between layers injects switching transients and the 800 Hz scan frequency into the audio path. Power rail filtering and bypass capacitors cannot eliminate noise that couples directly into high-impedance signal nodes.
+- Routing rules:
+  - Audio components and tracks stay strictly confined to the right edge around U5 and U6, isolated over an unbroken ground pour.
+  - Digital control signals and matrix lines must not run parallel to or overlap analog audio traces on opposing layers.
+  - Where crossing is unavoidable, tracks cross strictly at 90-degree angles to minimize mutual capacitive and inductive coupling.
+
+### MAX7219 ISET current references versus matrix and clock lines
+
+- Signals: `U1_ISET`, `U2_ISET`, `U3_ISET`, `U4_ISET` versus matrix segment and digit tracks and `CLK`.
+- Why critical:
+  - The ISET pin sets the reference current for the internal current mirrors that govern LED segment brightness. The pin operates as a high-impedance node pulled up to +5 V through a 28 kohm resistor.
+  - Capacitive noise injected into the ISET trace directly modulates the reference current mirror, translating into visible LED brightness flicker, display shimmer, or ghosting across scanned digits.
+- Routing rules:
+  - Resistors R1 through R4 sit directly beside their respective MAX7219 packages to keep ISET traces as short as possible.
+  - Matrix lines and SPI clock lines must never run under or parallel to ISET tracks.
+
+### EVENT audio trigger versus display SPI and matrix lines
+
+- Signals: `EVENT` versus `CLK`, `DIN`, `LOAD`, and matrix tracks.
+- Why critical:
+  - `EVENT` conveys sound command bytes from the cartridge AVR to the console audio AVR using a single-wire, active-low pulse protocol where bit values depend on pulse width (100 us versus 200 us).
+  - The audio AVR samples this line at 40 kHz. Spurious voltage spikes or ringing induced by SPI clock edges or matrix switching can trigger false input interrupts or distort measured pulse widths, resulting in corrupt audio commands or missed sound playback.
+- Routing rules:
+  - `EVENT` routes cleanly from cart socket contact B8 to U5 pin 23, shielded by surrounding ground plane and kept away from high-speed SPI bus routing.
+
+### Reset and programming lines versus matrix cathode returns
+
+- Signals: `RESET`, `AUDIO_UPDI` versus `DIG0` through `DIG7`.
+- Why critical:
+  - Digit cathode return tracks carry up to 160 mA in rapid switching pulses. High-impedance reset and UPDI programming lines running beside or over these high-current tracks risk false resets or flashing interruptions from induced inductive transients.
+- Routing rules:
+  - Reset and UPDI lines route away from the matrix scan lines and remain surrounded by the ground pour.
+
+## Cartridge PCB
+
+### EVENT trigger versus display SPI clock
+
+- Signals: `EVENT` (PA0) versus `CLK` (SPI clock).
+- Why critical:
+  - On the compact 44x37 mm cartridge board, the game AVR outputs both high-frequency SPI data to refresh the display field and the time-sensitive `EVENT` sound pulses.
+  - Running `CLK` in parallel with `EVENT`, or overlapping them on opposing layers, capacitive-couples fast clock edge transients onto `EVENT`. Because the console audio AVR detects edges on this line, clock noise can register as false pulse starts, corrupting sound indexes.
+- Routing rules:
+  - `EVENT` and `CLK` follow distinct routing corridors from the microcontroller pins to their respective edge connector fingers. They must not run parallel or overlap on top and bottom copper layers.
+
+### Programming and reset versus display SPI lines
+
+- Signals: `UPDI`, `RESET` versus `CLK`, `DIN`.
+- Why critical:
+  - Fast digital switching edges adjacent to high-impedance reset or UPDI tracks can inject noise that causes unexpected CPU resets during gameplay or disrupts flash verification during cartridge programming.
+- Routing rules:
+  - Programming lines stay isolated from the SPI bus and stay shielded by the ground pour.
+
+### Controller switch inputs versus high-speed digital
+
+- Signals: `P1_*` and `P2_*` switch lines versus `CLK`, `DIN`.
+- Why critical:
+  - Controller traces connect directly to external wiring harnesses leading to arcade sticks and buttons. Coupling high-frequency SPI switching noise onto these lines turns the controller cables into accidental antennas, increasing electromagnetic radiation.
+- Routing rules:
+  - Maintain ground separation between SPI digital lines and the controller input traces leading to the edge fingers.
+
+## Primary layout priority
+
+The single most critical layout constraint across both boards is isolating the analog audio input path from the MAX7219 matrix scan lines and SPI lines on the main PCB.
+
+Digital logic lines operate with 1.5 V to 2 V of noise margin, but analog audio has zero noise margin. The LM386 provides up to 46 dB of voltage gain, meaning microvolt-level capacitive coupling into the high-impedance DAC divider or amplifier inputs gets amplified directly into the speaker. Because the four display drivers sink up to 160 mA per digit at an 800 Hz scan frequency, any parallel or broadside trace overlap will inject an audible 800 Hz buzz that cannot be removed by power rail bypass capacitors or ferrite beads after fabrication.
