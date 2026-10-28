@@ -18,7 +18,7 @@ The build is a simple soldering job.
 
 Parts are cheap.
 
-- The console is a two-layer 100x100 mm board (~5 USD + shipping). The cartridge is an even smaller, two-layer as well.
+- The console is a two-layer 100x100 mm board (~5 USD + shipping). The cartridge is an even smaller PCB.
 - The screen is four white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available (not EOL or NRND).
 
 - Power is any generic/regulated 5 V adapter.
