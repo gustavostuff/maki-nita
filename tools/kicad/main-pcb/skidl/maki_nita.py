@@ -12,11 +12,10 @@ A part that sits on Un uses n. A second part on that IC adds 10, a
 third adds 20. C1 and R1 sit on U1. C5 and R5 sit on U5.
 
 Each matrix footprint is two PinSocket_1x08 strips composed in
-Matrix8x8_2x8_P2.52mm_R25mm. Left strip has pads 1-8 (top to bottom)
-and right strip has pads 16-9 (top to bottom). The physical 1088AS pinout
-distributes column anodes and row cathodes across both strips.
-Column 0 is segment DP. Row 0 is DIG0. That is the same left and top rule
-as the sim.
+Matrix8x8_2x8_P2.52mm_R25mm.
+Top row has pads 0-7 (left to right) and bottom row has pads 8-F (left to right),
+with the notch and 1088AS label at the bottom edge.
+Display Row 0 is DIG0, Row 7 is DIG7. Display Col 0 is SEGDP, Col 7 is SEGG.
 
 Run from the repo:
 
@@ -60,8 +59,6 @@ from net_classes import (
 NET_PATH = HERE / "maki-nita.net"
 PRO_PATHS = (
     MAIN_PCB_DIR / "maki-nita_v_03.kicad_pro",
-    MAIN_PCB_DIR / "maki-nita_v_02.kicad_pro",
-    MAIN_PCB_DIR / "maki-nita.kicad_pro",
 )
 
 SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
@@ -108,15 +105,33 @@ SPK_PINS = (
     (4, "GND2"),
 )
 
-# Column 0 is the left pixel, bit 7, segment DP. Same order as docs/design.md.
-SEG_PINS = (22, 14, 16, 20, 23, 21, 15, 17)  # DP A B C D E F G
-# Row 0 is the top of the block, DIG0.
-DIG_PINS = (2, 11, 6, 7, 3, 10, 5, 8)  # DIG0 .. DIG7
-
-# Pad numbers on the composed matrix footprint (1088AS pinout).
-# Left strip: pads 1..8 (top to bottom). Right strip: pads 16..9 (top to bottom).
-COL_PADS = (5, 11, 12, 2, 14, 3, 7, 8)
-ROW_PADS = (1, 6, 16, 4, 9, 15, 10, 13)
+MATRIX_PIN_NAMES = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
+# MAX7219 driver pin connected to each matrix pad (0-F).
+# Pinout layout (notch / 1088AS label at the bottom):
+# Row 0 |  0  1  2  3  4  5  6  7  |
+#       |  .  .  .  .  .  .  .  .  |
+#       |  8  9  A  B  C  D  E  F  |
+# Row 7 |  .  .  .  .  .  .  .  .  |
+#        -----------/  \-----------
+#        Col 0                Col 7
+MATRIX_DRV_PINS = {
+    "0": 10,  # 1088AS pin 8  (R3) -> Display Row 5 -> DIG5 (pin 10)
+    "1": 6,   # 1088AS pin 7  (R6) -> Display Row 2 -> DIG2 (pin 6)
+    "2": 20,  # 1088AS pin 6  (C5) -> Display Col 3 -> SEGC (pin 20)
+    "3": 2,   # 1088AS pin 5  (R8) -> Display Row 0 -> DIG0 (pin 2)
+    "4": 21,  # 1088AS pin 4  (C3) -> Display Col 5 -> SEGE (pin 21)
+    "5": 15,  # 1088AS pin 3  (C2) -> Display Col 6 -> SEGF (pin 15)
+    "6": 11,  # 1088AS pin 2  (R7) -> Display Row 1 -> DIG1 (pin 11)
+    "7": 7,   # 1088AS pin 1  (R5) -> Display Row 3 -> DIG3 (pin 7)
+    "8": 8,   # 1088AS pin 9  (R1) -> Display Row 7 -> DIG7 (pin 8)
+    "9": 23,  # 1088AS pin 10 (C4) -> Display Col 4 -> SEGD (pin 23)
+    "A": 16,  # 1088AS pin 11 (C6) -> Display Col 2 -> SEGB (pin 16)
+    "B": 3,   # 1088AS pin 12 (R4) -> Display Row 4 -> DIG4 (pin 3)
+    "C": 17,  # 1088AS pin 13 (C1) -> Display Col 7 -> SEGG (pin 17)
+    "D": 5,   # 1088AS pin 14 (R2) -> Display Row 6 -> DIG6 (pin 5)
+    "E": 14,  # 1088AS pin 15 (C7) -> Display Col 1 -> SEGA (pin 14)
+    "F": 22,  # 1088AS pin 16 (C8) -> Display Col 0 -> SEGDP (pin 22)
+}
 
 DRV_PINS = (
     (1, "DIN"),
@@ -193,7 +208,7 @@ TWO_PINS = ((1, "1"), (2, "2"))
 POWER_NAMES = {"VDD", "VDDIO2", "AVDD", "V+", "VS", "GND", "GND2"}
 
 
-def _pin(num: int, name: str) -> Pin:
+def _pin(num: int | str, name: str) -> Pin:
     func = pin_types.PWRIN if name in POWER_NAMES else pin_types.PASSIVE
     return Pin(num=num, name=name, func=func)
 
@@ -212,7 +227,7 @@ def _part(mpn: str, ref: str, footprint: str, pins, value: str, description: str
     return part
 
 
-def _tie(part: Part, num: int, net: Net) -> None:
+def _tie(part: Part, num: int | str, net: Net) -> None:
     part[num] += net
 
 
@@ -429,8 +444,7 @@ def build() -> None:
     for index in range(4):
         ref = f"U{index + 1}"
         drv = _part("MAX7219", ref, DRV_FP, DRV_PINS, "MAX7219")
-        matrix_pins = tuple((pad, f"C{col}") for col, pad in enumerate(COL_PADS))
-        matrix_pins += tuple((pad, f"R{row_i}") for row_i, pad in enumerate(ROW_PADS))
+        matrix_pins = tuple((pin_name, pin_name) for pin_name in MATRIX_PIN_NAMES)
         matrix = _part(
             "Matrix8x8",
             f"DS{index + 1}",
@@ -457,14 +471,10 @@ def build() -> None:
         _tie(bulk_n, 2, gnd)
         if index == 0:
             _tie(drv, 1, din)
-        for col, (seg_pin, pad) in enumerate(zip(SEG_PINS, COL_PADS)):
-            net = Net(f"{matrix.ref}_C{col}")
-            _tie(drv, seg_pin, net)
-            _tie(matrix, pad, net)
-        for block_row, (dig_pin, pad) in enumerate(zip(DIG_PINS, ROW_PADS)):
-            net = Net(f"{matrix.ref}_R{block_row}")
-            _tie(drv, dig_pin, net)
-            _tie(matrix, pad, net)
+        for pin_name in MATRIX_PIN_NAMES:
+            net = Net(f"{matrix.ref}_{pin_name}")
+            _tie(drv, MATRIX_DRV_PINS[pin_name], net)
+            _tie(matrix, pin_name, net)
         drivers.append(drv)
         matrices.append(matrix)
 
@@ -681,15 +691,13 @@ def _check(text: str) -> None:
     link = nodes("DOUT_U1")
     if link != {("U1", "24"), ("U2", "1")}:
         raise SystemExit(f"DOUT_U1 nodes {link}")
-    col0 = nodes("DS1_C0")
-    if col0 != {("U1", "22"), ("DS1", "5")}:
-        raise SystemExit(f"DS1_C0 nodes {col0}")
-    row0 = nodes("DS1_R0")
-    if row0 != {("U1", "2"), ("DS1", "1")}:
-        raise SystemExit(f"DS1_R0 nodes {row0}")
-    last = nodes("DS4_C7")
-    if last != {("U4", "17"), ("DS4", "8")}:
-        raise SystemExit(f"DS4_C7 nodes {last}")
+    for n in range(1, 5):
+        for pin_name in MATRIX_PIN_NAMES:
+            net_name = f"DS{n}_{pin_name}"
+            actual = nodes(net_name)
+            expected = {(f"U{n}", str(MATRIX_DRV_PINS[pin_name])), (f"DS{n}", pin_name)}
+            if actual != expected:
+                raise SystemExit(f"{net_name} nodes {actual} != {expected}")
 
 
 def _clean_strays() -> None:
