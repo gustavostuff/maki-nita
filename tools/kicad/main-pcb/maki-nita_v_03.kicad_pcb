@@ -132,7 +132,7 @@
 		(property "Reference" "U5"
 			(at 3.81 -2.33 0)
 			(layer "F.SilkS")
-			(uuid "67f410fc-395f-45bc-a3f8-1ad15a605704")
+			(uuid "b23c47ca-dfdb-4714-b7f3-65f096f4836b")
 			(effects
 				(font
 					(size 1 1)
@@ -144,7 +144,7 @@
 			(at 3.81 35.35 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b33c1838-f589-4915-b2a9-62ef715522ab")
+			(uuid "76063156-fc4b-45b2-a3da-6b4128aed268")
 			(effects
 				(font
 					(size 1 1)
@@ -156,7 +156,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "43326649-ce0b-4b01-8730-4b696e129421")
+			(uuid "5f77d14f-9679-46aa-a213-0b7bb924fb65")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -167,7 +167,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b5a5a133-06dc-4441-893b-22eb11cde971")
+			(uuid "ec018eb7-3461-4a6d-b6dd-8c7cf5a56a4c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -199,7 +199,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -768,7 +768,7 @@
 		(property "Reference" "U1"
 			(at 4.705 12.87 90)
 			(layer "F.SilkS")
-			(uuid "f947ce91-05a4-4bee-ba0a-a074bb064e43")
+			(uuid "44717c2c-f3d4-4875-b030-0f8fdb6bd11a")
 			(effects
 				(font
 					(size 1 1)
@@ -779,7 +779,7 @@
 		(property "Value" "MAX7219"
 			(at 4.705 5.87 90)
 			(layer "F.SilkS")
-			(uuid "69538f84-db11-4b68-9430-97d0cf9edaba")
+			(uuid "e47ed60b-6bbc-43da-b5fb-c1ab6894f454")
 			(effects
 				(font
 					(size 1 1)
@@ -791,7 +791,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "873c323e-6e4b-4d0a-b5fa-118b57f45404")
+			(uuid "d66642d6-94b7-4f20-8927-6807e476e84a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -802,7 +802,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "9818e0e2-76ed-4357-a3d2-0b218a2efc45")
+			(uuid "00ab89e6-39b0-4286-b3f6-48224b9a57bc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -834,7 +834,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1363,7 +1363,7 @@
 		(property "Reference" "C25"
 			(at -3.169033 0 90)
 			(layer "F.SilkS")
-			(uuid "d4d4798e-5e35-4901-b6e8-adc7a950f8d2")
+			(uuid "dec052a0-5883-4aba-8320-d8f77400c970")
 			(effects
 				(font
 					(size 1 1)
@@ -1375,7 +1375,7 @@
 			(at 8 2.5 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "5f950e44-1fba-49f8-af86-fee76d74e6aa")
+			(uuid "abfd47bb-e389-43b3-9cc5-bd4450e5b6ab")
 			(effects
 				(font
 					(size 1 1)
@@ -1387,7 +1387,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "7a4b0be9-c476-4681-bada-e9ea753d8ed7")
+			(uuid "a5251bf1-4f7d-4870-8178-8948d2309591")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1398,7 +1398,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "61b13ff8-c426-42ad-b118-11dc1ffc612f")
+			(uuid "442342da-c8ef-4878-b166-4e79e7469a4b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1430,7 +1430,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1571,7 +1571,7 @@
 		(property "Reference" "C1"
 			(at -2.065776 -1.386239 180)
 			(layer "F.SilkS")
-			(uuid "ca260434-b46e-448c-b1de-2a22edabad88")
+			(uuid "5ad47ea0-de8b-48ac-bc47-42d3a4967e4a")
 			(effects
 				(font
 					(size 1 1)
@@ -1583,7 +1583,7 @@
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "33ad8f1b-1b8f-4a69-96b1-fe3735c63f1f")
+			(uuid "3af0e5f7-a1f5-49eb-957d-224c16f3d91f")
 			(effects
 				(font
 					(size 1 1)
@@ -1595,7 +1595,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2a6a76e3-0906-42f5-ab81-7a06bc005395")
+			(uuid "0b58d0e5-d57b-4337-8ffa-10939aff24e2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1606,7 +1606,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "7bb833eb-3c4f-4f45-a033-cbe359bbf896")
+			(uuid "e6d81de7-5a8d-4cd8-8b62-22dcb16e319c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1638,7 +1638,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1779,7 +1779,7 @@
 		(property "Reference" "C6"
 			(at 7.371209 0.028109 0)
 			(layer "F.SilkS")
-			(uuid "d94cbbed-2fd5-42d4-9413-b2e1201d03ab")
+			(uuid "407f15c6-d045-4a3a-86b9-ff548dfd5e22")
 			(effects
 				(font
 					(size 1 1)
@@ -1791,7 +1791,7 @@
 			(at -1.95088 2.296692 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "271856f1-1205-456b-afdd-e1cc4a97c96c")
+			(uuid "35dbc355-2f25-4d3f-b4e4-9628a642e607")
 			(effects
 				(font
 					(size 1 1)
@@ -1803,7 +1803,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0dca05ae-7b53-4c80-8e7c-9cc382d0bcdf")
+			(uuid "c59a7f85-5b5a-40ff-a663-f5606402c3df")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1814,7 +1814,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "47b1e505-cc80-4ef4-bafa-da82c8f76cd2")
+			(uuid "80f602bf-0ea4-4d55-98c6-b91c1ce2f527")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1846,7 +1846,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1987,7 +1987,7 @@
 		(property "Reference" "C15"
 			(at 7.560872 0.018802 180)
 			(layer "F.SilkS")
-			(uuid "9a48759f-3614-4957-b61c-615ea6f9bea5")
+			(uuid "d7244c92-bc32-495a-b2e7-4b6e4a1747a8")
 			(effects
 				(font
 					(size 1 1)
@@ -1999,7 +1999,7 @@
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8a2e0f35-803e-4c8c-a834-453eb5ea35b9")
+			(uuid "7be7c4a2-7597-44e7-b243-99196108bd5e")
 			(effects
 				(font
 					(size 1 1)
@@ -2011,7 +2011,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c144fa8a-4d2e-40b6-b71a-97cefb67a2dd")
+			(uuid "71aebc28-2b6f-4256-909b-7b1b67b75602")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2022,7 +2022,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "6ccb69db-fcdf-454a-89ea-740e7ccb47ec")
+			(uuid "8a8cbcdd-f7ca-4886-bbdc-f002e5ad8f71")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2054,7 +2054,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2196,7 +2196,7 @@
 		(property "Reference" "J3"
 			(at 1 -3.919556 180)
 			(layer "F.SilkS")
-			(uuid "b8ffe7a7-163f-441c-b487-074374fb49bc")
+			(uuid "d618a375-e5eb-4296-8545-bb457ab6b417")
 			(effects
 				(font
 					(size 1 1)
@@ -2207,7 +2207,7 @@
 		(property "Value" "P2 Controls"
 			(at 3 -7.46 180)
 			(layer "F.SilkS")
-			(uuid "839d9887-59f5-4d09-890a-dc0f2122504f")
+			(uuid "92bbe3e8-41ba-43d0-8a23-4fb776afd115")
 			(effects
 				(font
 					(size 1 1)
@@ -2219,7 +2219,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a7d1c99a-75e5-4e87-89e3-1328194d828d")
+			(uuid "18dfe1b6-1cb9-4031-9a9a-b60dba8be8a4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2230,7 +2230,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c725500a-881a-4cec-99ef-f6071e8ef17d")
+			(uuid "88eca781-55ba-4f61-8463-a4cb50799888")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2262,7 +2262,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2623,7 +2623,7 @@
 		(property "Reference" "R4"
 			(at 8.377028 2.673587 0)
 			(layer "F.SilkS")
-			(uuid "b1a1ca9a-71b1-4c00-94ae-f6e82d1f0a0d")
+			(uuid "f845b651-f07e-46cb-8550-06d26738db1f")
 			(effects
 				(font
 					(size 1 1)
@@ -2634,7 +2634,7 @@
 		(property "Value" "U4 ISET"
 			(at 2.976555 2.669789 0)
 			(layer "F.Fab")
-			(uuid "21910d61-70be-45b1-ba2b-389fff721ea6")
+			(uuid "89c87844-3a34-4490-9729-edb07b68f992")
 			(effects
 				(font
 					(size 1 1)
@@ -2646,7 +2646,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1db78344-6360-4af9-b14b-6fdfb9eb2807")
+			(uuid "07062a97-08a7-49e2-bc69-d1b92ba63fb7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2657,7 +2657,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "9cfb20b2-0aca-4d4d-9947-a6851ead3f7c")
+			(uuid "7e208c45-b795-453c-8013-1167ebe2a579")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2689,7 +2689,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2821,7 +2821,7 @@
 		(property "Reference" "R6"
 			(at 4.701676 -0.024722 180)
 			(layer "F.SilkS")
-			(uuid "33ef8aa2-d712-43c8-9ef9-fa47c958bdbc")
+			(uuid "28dafab8-179c-4360-877e-4b97feabf037")
 			(effects
 				(font
 					(size 1 1)
@@ -2832,7 +2832,7 @@
 		(property "Value" "22k IN"
 			(at 1.017 2.562739 90)
 			(layer "F.SilkS")
-			(uuid "b650e811-1abf-416e-be77-d34f7ed7dce5")
+			(uuid "f52f705c-a09a-4679-900c-ebe52260a7f1")
 			(effects
 				(font
 					(size 1 1)
@@ -2844,7 +2844,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2016fdc0-4d6a-483d-a816-107469abb658")
+			(uuid "2aab3566-d615-471e-82aa-1eaade57031d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2855,7 +2855,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1ce35b11-8f25-46b8-968b-d1a7f4330431")
+			(uuid "12ba6f6a-b1f8-46e1-8b88-ebaa47c90ea3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2887,7 +2887,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2999,7 +2999,7 @@
 		(property "Reference" "C14"
 			(at 3.5 -4 180)
 			(layer "F.SilkS")
-			(uuid "eed90695-ff75-4c9e-9e8b-e3b127da4b73")
+			(uuid "19720e9d-e009-4515-91e4-c4b5dd8a5106")
 			(effects
 				(font
 					(size 1 1)
@@ -3011,7 +3011,7 @@
 			(at 5.5 -5 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "9e314d6d-883c-4cb8-a390-483ec22bd8be")
+			(uuid "4296c2bd-945e-49b3-ad32-8c360bf2c175")
 			(effects
 				(font
 					(size 1 1)
@@ -3023,7 +3023,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4409a37e-984b-461a-8d63-971689a40102")
+			(uuid "76f3242c-6ce5-4dda-8b75-b1ea479999b8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3034,7 +3034,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "969986f9-0de3-4694-8e68-ced49156729e")
+			(uuid "93f87f66-c41f-4c36-8c3b-fdc30b198b56")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3066,7 +3066,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4390,7 +4390,7 @@
 		(property "Reference" "U2"
 			(at 3.805 12.97 90)
 			(layer "F.SilkS")
-			(uuid "94530286-8abf-4300-a68f-3161dadb8b59")
+			(uuid "3b8c7002-9727-4f87-8ff8-7d5557391b4e")
 			(effects
 				(font
 					(size 1 1)
@@ -4401,7 +4401,7 @@
 		(property "Value" "MAX7219"
 			(at 3.81 5.87 90)
 			(layer "F.SilkS")
-			(uuid "0e3deb1e-1735-4d72-b261-ef85a9601754")
+			(uuid "4f7c27c2-f396-491e-ab59-77cf4ecd7631")
 			(effects
 				(font
 					(size 1 1)
@@ -4413,7 +4413,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "eea9aa70-83d0-4dca-9c3e-c33965a4cdb6")
+			(uuid "3d0203d5-3316-46d6-a15b-255b5a076348")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4424,7 +4424,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8da64114-223f-4bf2-9ecb-559399f78e79")
+			(uuid "acec1067-8c4e-458a-b798-0dd7e0b7a338")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4456,7 +4456,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4876,7 +4876,7 @@
 		(property "Reference" "J2"
 			(at 1 9.169097 180)
 			(layer "F.SilkS")
-			(uuid "a7d212cd-dcec-49ca-ad31-e8728b2824f7")
+			(uuid "952f5192-0a3e-40c4-856e-4303a7da67c6")
 			(effects
 				(font
 					(size 1 1)
@@ -4887,7 +4887,7 @@
 		(property "Value" "P1 Controls"
 			(at 3 12.54 180)
 			(layer "F.SilkS")
-			(uuid "c8560d3d-4c45-43b9-a6c8-6a29fabb685e")
+			(uuid "fed22389-823b-463c-948e-31081236fa38")
 			(effects
 				(font
 					(size 1 1)
@@ -4899,7 +4899,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4fb2351e-8cdb-4176-9335-7dcbbcbc80a7")
+			(uuid "a41021e8-3442-481f-9a1e-972d4bcfc3d4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4910,7 +4910,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "d4614f7d-45e8-4484-a2ac-6c2400a76852")
+			(uuid "66519135-b62c-4a45-b851-ba8e1e5d923a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4942,7 +4942,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5193,7 +5193,7 @@
 		(property "Reference" "U3"
 			(at 3.705 11.87 90)
 			(layer "F.SilkS")
-			(uuid "9066af55-2036-4b70-a4c6-13c06b65b297")
+			(uuid "cbf2bef9-c7e7-4d0a-96a6-599272dcb9e4")
 			(effects
 				(font
 					(size 1 1)
@@ -5204,7 +5204,7 @@
 		(property "Value" "MAX7219"
 			(at 3.705 5.37 90)
 			(layer "F.Fab")
-			(uuid "a8e93734-adc1-4fae-b9e7-b52386d2eb55")
+			(uuid "657f7645-e682-410b-ab56-f066fea52c3c")
 			(effects
 				(font
 					(size 1 1)
@@ -5216,7 +5216,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "bb4f45cb-7c92-4b16-a0eb-6229b0c7c6dd")
+			(uuid "36d5d4e7-3612-4870-aaf6-7c17d472bb45")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5227,7 +5227,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a20f27ba-258f-46a0-b596-459e877d31cc")
+			(uuid "64078edb-7ef2-4a81-861e-a1d62a98257a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5259,7 +5259,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5678,7 +5678,7 @@
 		(property "Reference" "R2"
 			(at 5.08 -2.37 0)
 			(layer "F.SilkS")
-			(uuid "7f15ea4f-5b50-45b4-ab2b-2c1ad00d3079")
+			(uuid "8020318e-3cd9-4436-a7f4-74d7e327e4be")
 			(effects
 				(font
 					(size 1 1)
@@ -5689,7 +5689,7 @@
 		(property "Value" "U2 ISET"
 			(at 5.08 2.37 0)
 			(layer "F.Fab")
-			(uuid "0949e79b-8f89-4cdd-834f-de706c8351e3")
+			(uuid "c2c52de2-f4d5-4212-96b5-4c963387c602")
 			(effects
 				(font
 					(size 1 1)
@@ -5701,7 +5701,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ae5483df-beb0-4024-a196-75bd50342317")
+			(uuid "1e382bbd-218a-4cff-81c8-8c83ec5303d3")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5712,7 +5712,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "bf5a4b92-0d23-48d9-bd59-c007337da84b")
+			(uuid "745eac0e-e155-4813-91eb-458f59307373")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5744,7 +5744,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5887,7 +5887,7 @@
 		(property "Reference" "J5"
 			(at -2.694486 5.278081 0)
 			(layer "F.SilkS")
-			(uuid "cfc90dad-ba57-4ef1-aa2c-38722520be4c")
+			(uuid "67e97482-795d-4269-84d6-6659a46a0ce0")
 			(effects
 				(font
 					(size 1 1)
@@ -5898,7 +5898,7 @@
 		(property "Value" "Speaker"
 			(at 2.110624 5.288708 0)
 			(layer "F.SilkS")
-			(uuid "84a297c6-c93c-44e8-8e24-facbf7215148")
+			(uuid "64a49d56-efe4-4380-8556-d3466820e52c")
 			(effects
 				(font
 					(size 1 1)
@@ -5910,7 +5910,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "91a6e0b7-c07b-403e-9c91-1c669cdd6240")
+			(uuid "c6458602-4963-49e8-b125-f7caffb09b21")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5921,7 +5921,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c93243c1-c499-4795-871d-6295d052c5c4")
+			(uuid "42c2ccf7-cda0-48ef-a17e-9f00f832d8cd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5953,7 +5953,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6184,7 +6184,7 @@
 		(property "Reference" "C26"
 			(at -3.323632 0.045065 90)
 			(layer "F.SilkS")
-			(uuid "3521b446-1726-4bdf-93fc-460941573159")
+			(uuid "4840e331-fd27-44fb-ac68-6e59285ac264")
 			(effects
 				(font
 					(size 1 1)
@@ -6196,7 +6196,7 @@
 			(at -2.484653 0.022147 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "0cc2ec5e-e133-4acc-8fbe-ab251f4ba621")
+			(uuid "5c52d1ba-cf74-4460-b4b1-1109b20e90ba")
 			(effects
 				(font
 					(size 1 1)
@@ -6208,7 +6208,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8e8cd342-9cc5-42ac-abdd-7b932b1597cc")
+			(uuid "d2d8898a-dd03-4f8f-b678-c2720ed3f7dd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6219,7 +6219,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "6c23c875-f610-450a-b98b-7d274b309805")
+			(uuid "2ab84472-48e5-41ef-b4fe-71e6fc5dd8dc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6251,7 +6251,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7575,7 +7575,7 @@
 		(property "Reference" "C2"
 			(at 2.5 -2.5 90)
 			(layer "F.SilkS")
-			(uuid "8cac274a-def0-431d-a313-7af4a68d39de")
+			(uuid "4f50a1b7-4ff4-40ab-badb-cdb6178c5bfd")
 			(effects
 				(font
 					(size 1 1)
@@ -7586,7 +7586,7 @@
 		(property "Value" "U2 V+"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
-			(uuid "a642cf2f-e67b-4809-9dd8-3371096674dc")
+			(uuid "d687bcd8-607d-402c-ac79-c6f9164236fd")
 			(effects
 				(font
 					(size 1 1)
@@ -7598,7 +7598,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "f97f9be8-de39-4aa0-a620-46995545a6d7")
+			(uuid "29db1dd8-f07e-4b90-97cf-0281cb34dcc0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7609,7 +7609,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "19ac7a5c-2a8b-4c2c-a898-445fd301662a")
+			(uuid "a888d8d5-2c14-4e14-9ad4-9b0e728a1b42")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7641,7 +7641,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7793,7 +7793,7 @@
 		(property "Reference" "DS3"
 			(at -1 29 90)
 			(layer "F.SilkS")
-			(uuid "17a4c273-9dbd-41e8-b7a8-d02d0fce0479")
+			(uuid "89168c35-aa69-4ec2-ad57-40381f1797b6")
 			(effects
 				(font
 					(size 1 1)
@@ -7804,7 +7804,7 @@
 		(property "Value" "Matrix8x8"
 			(at -1 22 90)
 			(layer "F.SilkS")
-			(uuid "2bbff73f-1ba8-4b92-a4c7-e9924f06fdf2")
+			(uuid "0c41fdeb-842b-43e9-8a1c-5aaa5d2dc472")
 			(effects
 				(font
 					(size 1 1)
@@ -7816,7 +7816,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "f33d9e3f-2bbc-48dc-bc74-778531770cf1")
+			(uuid "471075fa-3433-486b-8c1c-1d6beda54168")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7827,7 +7827,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e2ce7ada-d329-45c2-8951-16fbeb04b81f")
+			(uuid "96b3f174-f6f7-4748-8bee-e79919fdbb69")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7847,7 +7847,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8092,7 +8092,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_C0")
+			(net "DS3_R0")
 			(pintype "PASSIVE")
 			(uuid "3dff923b-02ec-4705-959f-0a6108564656")
 		)
@@ -8102,7 +8102,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_C1")
+			(net "DS3_C3")
 			(pintype "PASSIVE")
 			(uuid "dba548b1-7746-4323-b847-5cb39d5c2aed")
 		)
@@ -8112,7 +8112,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_C2")
+			(net "DS3_C5")
 			(pintype "PASSIVE")
 			(uuid "c231606c-73b5-4cc4-ba6b-37299e78c850")
 		)
@@ -8122,7 +8122,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_C3")
+			(net "DS3_R3")
 			(pintype "PASSIVE")
 			(uuid "c6263206-90d6-436b-9ae3-b46e6b4e192d")
 		)
@@ -8132,7 +8132,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_C4")
+			(net "DS3_C0")
 			(pintype "PASSIVE")
 			(uuid "ab6ecb24-276c-4b2e-9af2-cab5986c5034")
 		)
@@ -8142,7 +8142,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_C5")
+			(net "DS3_R1")
 			(pintype "PASSIVE")
 			(uuid "018ebaa6-19d5-406e-8404-5544bb75aa03")
 		)
@@ -8172,7 +8172,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R7")
+			(net "DS3_R4")
 			(pintype "PASSIVE")
 			(uuid "1a992e3a-3e8f-49db-8d9d-8fe83b283c1f")
 		)
@@ -8192,7 +8192,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R5")
+			(net "DS3_C1")
 			(pintype "PASSIVE")
 			(uuid "db30e584-c107-409a-8417-63800121abb6")
 		)
@@ -8202,7 +8202,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R4")
+			(net "DS3_C2")
 			(pintype "PASSIVE")
 			(uuid "a5bac25f-1b27-474c-9528-6f6c0b4760d0")
 		)
@@ -8212,7 +8212,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R3")
+			(net "DS3_R7")
 			(pintype "PASSIVE")
 			(uuid "61057fd2-ec80-4fbd-8a56-0c8a6a788f2b")
 		)
@@ -8222,7 +8222,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R2")
+			(net "DS3_C4")
 			(pintype "PASSIVE")
 			(uuid "fda8df96-77b5-420e-9499-d58adb0670ad")
 		)
@@ -8232,7 +8232,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R1")
+			(net "DS3_R5")
 			(pintype "PASSIVE")
 			(uuid "0de9d103-a3d8-40a6-9e02-0fc5ee19fb50")
 		)
@@ -8242,7 +8242,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS3_R0")
+			(net "DS3_R2")
 			(pintype "PASSIVE")
 			(uuid "2746cf69-7489-4c75-b64d-ac127043f729")
 		)
@@ -8291,7 +8291,7 @@
 		(property "Reference" "U6"
 			(at 9.620714 8.172025 180)
 			(layer "F.SilkS")
-			(uuid "ebe5ddbf-a658-4526-b767-ba4622ee5877")
+			(uuid "2af86193-d5b5-49a6-b5a1-c3bae999b9d7")
 			(effects
 				(font
 					(size 1 1)
@@ -8302,7 +8302,7 @@
 		(property "Value" "LM386"
 			(at 3.81 9.95 90)
 			(layer "F.SilkS")
-			(uuid "b2f4f3b8-b746-4b11-bc74-b3c1dcfae5c1")
+			(uuid "dba86a23-24a5-4ade-808d-d97ec64daddb")
 			(effects
 				(font
 					(size 1 1)
@@ -8314,7 +8314,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "92bed204-8f69-4b4d-b8e8-8dc713621516")
+			(uuid "7900e856-ddde-46b4-9222-13dab6b6f472")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8325,7 +8325,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8c97970e-c671-48f8-bd25-2dde3aa1bab2")
+			(uuid "fd7008ce-5910-4b9c-90b1-be1f2c86e0da")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8357,7 +8357,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8605,7 +8605,7 @@
 		(property "Reference" "C12"
 			(at 1.25 -3.75 0)
 			(layer "F.SilkS")
-			(uuid "b946ee08-b2c1-453f-b141-54c2605e7b3c")
+			(uuid "52779173-27ad-410a-a220-cc4147629f52")
 			(effects
 				(font
 					(size 1 1)
@@ -8617,7 +8617,7 @@
 			(at 1.25 3.75 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "6832596e-257c-4d44-909a-00810f8f92ba")
+			(uuid "796aab98-0c6d-4549-bf91-68ba48de79ec")
 			(effects
 				(font
 					(size 1 1)
@@ -8629,7 +8629,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "36e22fcb-3076-4195-8a00-8b23d4cec284")
+			(uuid "b920d3a0-aa99-4cd1-b85d-1266057e3597")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8640,7 +8640,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "69b9f07f-5ac1-4fe3-9d0a-d37b0e5f4390")
+			(uuid "7c272a93-35c7-4ab4-8c0c-4cc5f15ee38a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8672,7 +8672,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9996,7 +9996,7 @@
 		(property "Reference" "C5"
 			(at 8 0 90)
 			(layer "F.SilkS")
-			(uuid "5a26430d-ac0d-4ecd-8818-9079c1b56115")
+			(uuid "04240f44-a9a3-4232-85b0-9f91e0bf2e97")
 			(effects
 				(font
 					(size 1 1)
@@ -10008,7 +10008,7 @@
 			(at 5.5 6 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "50c6ba65-dd11-472b-8900-0e36b9c546eb")
+			(uuid "7b1f30e7-f598-4290-8d33-ec3d9ebe1dc5")
 			(effects
 				(font
 					(size 1 1)
@@ -10020,7 +10020,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "cf11f942-26fe-4e48-b81e-e2b74faf913f")
+			(uuid "ef0a9b99-ba72-43d7-9186-c8d4318b5f70")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10031,7 +10031,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2495509c-e420-4aa6-846d-0256f9fa6adc")
+			(uuid "72f8c971-6c77-4fb2-8b48-bae55b0cfefb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10063,7 +10063,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10204,7 +10204,7 @@
 		(property "Reference" "C16"
 			(at -3.5 0 0)
 			(layer "F.SilkS")
-			(uuid "618c15a3-5975-4532-bd5d-3fe5cc7cb9af")
+			(uuid "c62ac329-19b1-4c72-b5c6-e8fc13bd51cc")
 			(effects
 				(font
 					(size 1 1)
@@ -10216,7 +10216,7 @@
 			(at -4.211607 1.464604 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4ee7f0ea-1c86-4cec-9560-aee74420a0a6")
+			(uuid "5c84ebfb-eb92-4611-ac06-5389cc84f7ef")
 			(effects
 				(font
 					(size 1 1)
@@ -10228,7 +10228,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "7cc713ce-848d-4ce6-bc85-33f1b7da34ef")
+			(uuid "d7f4039f-f1ee-4f51-889a-294b33cc2714")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10239,7 +10239,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a776521e-5b35-44c4-bd54-c19b381b211c")
+			(uuid "c97ff878-f0de-42a2-8851-3030ad7ddd8e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10271,7 +10271,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11705,7 +11705,7 @@
 		(property "Reference" "C36"
 			(at 1.041753 -3.748265 0)
 			(layer "F.SilkS")
-			(uuid "7c6b5030-9710-441f-959a-d9c97a07eb84")
+			(uuid "cc93cc95-b9b8-4b9e-ae10-203eab368ffc")
 			(effects
 				(font
 					(size 1 1)
@@ -11716,7 +11716,7 @@
 		(property "Value" "220u SPK"
 			(at 5.074262 -0.210975 90)
 			(layer "F.SilkS")
-			(uuid "a237ebf1-b6bc-44cf-ae5e-efe8ad08af5f")
+			(uuid "5fd7e857-f496-4cf9-a3a6-860e7b2cc83e")
 			(effects
 				(font
 					(size 1 1)
@@ -11728,7 +11728,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "52f6edaf-ed7e-4335-b401-2efede1f4ec3")
+			(uuid "3ca0a4f0-2541-4105-9a86-d7133237e356")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11739,7 +11739,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "265b6d62-018c-483e-bc1b-57db0622cde1")
+			(uuid "f769544f-d352-4bb3-9313-623084605dc0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11771,7 +11771,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13095,7 +13095,7 @@
 		(property "Reference" "C13"
 			(at 1.25 -3.75 90)
 			(layer "F.SilkS")
-			(uuid "17abd67e-047a-4465-a73a-183b27f4c701")
+			(uuid "705661c7-1d3c-4c88-a947-db9fe0842525")
 			(effects
 				(font
 					(size 1 1)
@@ -13106,7 +13106,7 @@
 		(property "Value" "U3 10u"
 			(at 1.25 3.75 90)
 			(layer "F.Fab")
-			(uuid "03d0034f-1ee3-46c7-9426-0baa06bf67c1")
+			(uuid "9d2bcd4f-4983-4c81-88c2-2b94fd87fc90")
 			(effects
 				(font
 					(size 1 1)
@@ -13118,7 +13118,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "24f2f0ba-9d74-4368-abab-6d7da3c6c098")
+			(uuid "ec315a61-2c62-421b-b19a-0a73f3b13bcd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13129,7 +13129,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "25a09e38-2ffd-43e2-81fa-be3a7eec59a7")
+			(uuid "bcd636a2-4750-4d5b-bee5-7193ac77689b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13161,7 +13161,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14485,7 +14485,7 @@
 		(property "Reference" "U4"
 			(at 3.705 12.37 90)
 			(layer "F.SilkS")
-			(uuid "da801332-622d-4963-b86a-57d48641a7b4")
+			(uuid "0dd76993-2cbe-4b2d-9843-8d1c9f05a98b")
 			(effects
 				(font
 					(size 1 1)
@@ -14496,7 +14496,7 @@
 		(property "Value" "MAX7219"
 			(at 3.705 5.87 90)
 			(layer "F.SilkS")
-			(uuid "d9140ce1-428f-4cc2-baf3-04ab71bd90e5")
+			(uuid "4d7b33b0-f2be-499c-a75d-8035ac350901")
 			(effects
 				(font
 					(size 1 1)
@@ -14508,7 +14508,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "dd550c2a-9fbc-42bd-8bc1-2efe75340a91")
+			(uuid "bac5687b-95b3-4348-8287-9fb8433a9c07")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14519,7 +14519,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "949134d7-eb47-4c24-9e5d-66c1c808f4ec")
+			(uuid "a015a466-2cb8-4256-a1bb-74e4a7506daf")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14551,7 +14551,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14970,7 +14970,7 @@
 		(property "Reference" "C3"
 			(at 7.716386 0.146271 90)
 			(layer "F.SilkS")
-			(uuid "1e6dfd7d-134c-4440-b41b-1202a904b63d")
+			(uuid "6b1b81d2-b97c-40b6-b60a-506a2191091e")
 			(effects
 				(font
 					(size 1 1)
@@ -14982,7 +14982,7 @@
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c1c30dc2-d28e-4d64-8842-f8b9faca5849")
+			(uuid "5de71abc-3125-49bf-bb1e-af8a0849b0f7")
 			(effects
 				(font
 					(size 1 1)
@@ -14994,7 +14994,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "686d71ea-c4dc-43e9-ad0d-8815e850b4a4")
+			(uuid "05977744-ed61-4039-9c3e-069ac23f2b80")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15005,7 +15005,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8d4594cc-ac1b-49fe-8ba4-1734906bbf45")
+			(uuid "2fe58cf8-c259-4e45-8297-b5f767590ac5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15037,7 +15037,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15179,7 +15179,7 @@
 		(property "Reference" "J1"
 			(at 4.512504 11.433271 0)
 			(layer "F.SilkS")
-			(uuid "8fd2d12e-9425-4897-b162-b34c105daea0")
+			(uuid "ec3fba75-0b78-4bc4-9666-2589aa40e6b1")
 			(effects
 				(font
 					(size 1 1)
@@ -15190,7 +15190,7 @@
 		(property "Value" "Cart"
 			(at -3.81 25.63 90)
 			(layer "F.SilkS")
-			(uuid "a8453eac-be07-453b-9d09-66b019efdff0")
+			(uuid "1461fa8a-3cc1-4164-9bf8-2f2859767a27")
 			(effects
 				(font
 					(size 1 1)
@@ -15202,7 +15202,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0c84b178-6417-45dd-b0e5-22465c93c7e0")
+			(uuid "8fb2606a-8a75-4759-a3d3-6592e7fff712")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15213,7 +15213,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "673e67bb-8c54-435a-8ec1-dca8454241f2")
+			(uuid "4f03753a-c241-4b52-ba57-58c7807c57ac")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15233,7 +15233,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15642,7 +15642,7 @@
 		(property "Reference" "R16"
 			(at 4.638791 0.000632 180)
 			(layer "F.SilkS")
-			(uuid "85a2e806-3dd9-49eb-bcd4-efdc673430fe")
+			(uuid "d183ce31-071c-40ff-b63f-34a0f325fc86")
 			(effects
 				(font
 					(size 1 1)
@@ -15653,7 +15653,7 @@
 		(property "Value" "1k IN"
 			(at 0.967871 -2.702095 90)
 			(layer "F.SilkS")
-			(uuid "7ebf6b8f-320a-4e21-8143-a4f3d0e2237f")
+			(uuid "5651eeb8-1e20-4ea3-9c21-5176d756ecee")
 			(effects
 				(font
 					(size 1 1)
@@ -15665,7 +15665,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "f2914d74-2c09-453e-bf2d-608a0ad8017e")
+			(uuid "64449b4a-c08e-4e1f-89e3-463b5b752db0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15676,7 +15676,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "949b8631-4cf5-4de9-b99f-efd39ebb8d43")
+			(uuid "67e2279b-093c-4f97-aa99-c4b17e4bbc6c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15708,7 +15708,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15820,7 +15820,7 @@
 		(property "Reference" "C11"
 			(at 1.25 -3.75 0)
 			(layer "F.SilkS")
-			(uuid "8ed2f2b9-f352-4ed7-8980-c030dc26845d")
+			(uuid "3b8c1b29-0f79-4323-a46a-b5870c8e3edc")
 			(effects
 				(font
 					(size 1 1)
@@ -15831,7 +15831,7 @@
 		(property "Value" "U1 10u"
 			(at 1.25 3.75 0)
 			(layer "F.SilkS")
-			(uuid "1405aec7-a819-48ac-aabe-a181f1c588ad")
+			(uuid "bb318172-15b0-45c5-9638-6e587d821035")
 			(effects
 				(font
 					(size 1 1)
@@ -15843,7 +15843,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "48e64ec5-a181-402b-a662-b865b497c419")
+			(uuid "b5bf3781-3364-4242-8641-6772d21c4dc8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15854,7 +15854,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "739e275c-3b78-4c8e-8bf1-ab99798eddaf")
+			(uuid "dc256cb7-7b04-45aa-8435-19099416e371")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15886,7 +15886,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17210,7 +17210,7 @@
 		(property "Reference" "DS1"
 			(at -1 15 90)
 			(layer "F.SilkS")
-			(uuid "029c9b8a-a2e0-4085-8563-b888a86c18d6")
+			(uuid "bd039f3a-e84b-465a-926b-f2083efef87a")
 			(effects
 				(font
 					(size 1 1)
@@ -17221,7 +17221,7 @@
 		(property "Value" "Matrix8x8"
 			(at -1 22 90)
 			(layer "F.SilkS")
-			(uuid "a1f975ca-0e87-4d2c-a398-de7c1e6a0ad1")
+			(uuid "a9d8243c-afad-4fe1-8f49-4595c20bb55e")
 			(effects
 				(font
 					(size 1 1)
@@ -17233,7 +17233,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "9f141c74-8f59-4296-9136-02cbb2a891b8")
+			(uuid "bb449061-ccb9-4f92-8632-b5c4cf8aebde")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17244,7 +17244,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "d1d96aaf-474c-4c90-9c8e-b621e509b6f8")
+			(uuid "480289fd-e559-4211-a641-33ebe0756591")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17264,7 +17264,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17509,7 +17509,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_C0")
+			(net "DS1_R0")
 			(pintype "PASSIVE")
 			(uuid "283adee5-ddb7-43da-a166-8a42c20f40c7")
 		)
@@ -17519,7 +17519,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_C1")
+			(net "DS1_C3")
 			(pintype "PASSIVE")
 			(uuid "f1152fdf-1ddf-4ecd-a16f-3be28b5a706b")
 		)
@@ -17529,7 +17529,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_C2")
+			(net "DS1_C5")
 			(pintype "PASSIVE")
 			(uuid "8b944375-5a70-4ca6-bc47-b8c2b4fac69a")
 		)
@@ -17539,7 +17539,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_C3")
+			(net "DS1_R3")
 			(pintype "PASSIVE")
 			(uuid "68880297-c1c0-44f1-88ac-8fdd7d6b349f")
 		)
@@ -17549,7 +17549,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_C4")
+			(net "DS1_C0")
 			(pintype "PASSIVE")
 			(uuid "9466de31-652f-4e3b-8004-ca547f7300cd")
 		)
@@ -17559,7 +17559,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_C5")
+			(net "DS1_R1")
 			(pintype "PASSIVE")
 			(uuid "304e568c-f1f2-4dc8-9157-9c5d9636e384")
 		)
@@ -17589,7 +17589,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R7")
+			(net "DS1_R4")
 			(pintype "PASSIVE")
 			(uuid "57dff6cf-0468-4366-8728-3d6f5019bd35")
 		)
@@ -17609,7 +17609,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R5")
+			(net "DS1_C1")
 			(pintype "PASSIVE")
 			(uuid "f1aa6e84-8e45-4177-b969-88e9077d4543")
 		)
@@ -17619,7 +17619,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R4")
+			(net "DS1_C2")
 			(pintype "PASSIVE")
 			(uuid "8ac6c1ad-766c-43a2-aee0-1f2e17eaf144")
 		)
@@ -17629,7 +17629,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R3")
+			(net "DS1_R7")
 			(pintype "PASSIVE")
 			(uuid "c8dd926f-4b2f-4374-864f-26d0f1ce12b7")
 		)
@@ -17639,7 +17639,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R2")
+			(net "DS1_C4")
 			(pintype "PASSIVE")
 			(uuid "2cc66ddd-168c-4c46-aa5b-1f1ea776a9b6")
 		)
@@ -17649,7 +17649,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R1")
+			(net "DS1_R5")
 			(pintype "PASSIVE")
 			(uuid "f8157660-7733-40e7-a108-0e0c5036fc4e")
 		)
@@ -17659,7 +17659,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS1_R0")
+			(net "DS1_R2")
 			(pintype "PASSIVE")
 			(uuid "61007ef2-51d6-4d46-a7bc-0c9ee6a6780d")
 		)
@@ -17819,7 +17819,7 @@
 		(property "Reference" "J6"
 			(at 2.5 1.08 180)
 			(layer "F.SilkS")
-			(uuid "165c48a2-b479-41ae-95b6-a87a9b0b9535")
+			(uuid "9e3b932b-7933-465e-b4dc-7552340f7eb0")
 			(effects
 				(font
 					(size 1 1)
@@ -17830,7 +17830,7 @@
 		(property "Value" "UPDI"
 			(at 2.5 5.08 180)
 			(layer "F.SilkS")
-			(uuid "999acdb1-4a59-49b9-9cde-c2d21b6c6ef3")
+			(uuid "493e96eb-ae56-45f0-9dfc-d1eef188f5e7")
 			(effects
 				(font
 					(size 1 1)
@@ -17842,7 +17842,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "d6315750-5faf-495c-b11c-aa5b726bf3cf")
+			(uuid "a1042a91-bc44-4d4a-ad12-a1d8f80ba3d8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17853,7 +17853,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "7a2462b6-34c5-467d-bb16-4d2ece6b114f")
+			(uuid "33cebc4d-2495-4202-97c8-cb7fe5dfab8e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17885,7 +17885,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18086,7 +18086,7 @@
 		(property "Reference" "R26"
 			(at 1.027433 2.416716 0)
 			(layer "F.SilkS")
-			(uuid "2f276c64-16dc-45d1-bf69-88da34788159")
+			(uuid "68757116-37e9-420e-90de-3aed118c6227")
 			(effects
 				(font
 					(size 1 1)
@@ -18098,7 +18098,7 @@
 			(at -2.428479 0.571521 90)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "3b14ec11-ad2f-4f86-a374-07ddd3e6cc71")
+			(uuid "08039370-04bf-48e9-b477-a8dd7dc2cbed")
 			(effects
 				(font
 					(size 1 1)
@@ -18110,7 +18110,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ea091d7f-8250-45bb-b069-a662d36ab09e")
+			(uuid "85035f25-0da2-47ac-8837-d6f36dfd89b0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18121,7 +18121,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a89104fc-f4b7-4e6d-a7e8-e121d6523624")
+			(uuid "c78cbdee-c12f-488b-a049-77f5a724b987")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18153,7 +18153,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18265,7 +18265,7 @@
 		(property "Reference" "R5"
 			(at -2.593697 -4.367437 90)
 			(layer "F.SilkS")
-			(uuid "43478547-9641-4d8c-b26f-038bfdbc22ac")
+			(uuid "0535e4bf-4d8d-47f3-a8b3-3e44ab7a893e")
 			(effects
 				(font
 					(size 1 1)
@@ -18276,7 +18276,7 @@
 		(property "Value" "10k EVENT"
 			(at -2.612247 1.942835 90)
 			(layer "F.SilkS")
-			(uuid "901e4ffc-651e-4d9e-a78b-b0d1b08fea6a")
+			(uuid "13cf1f3d-deb9-416f-b54b-f68fb7e20b83")
 			(effects
 				(font
 					(size 1 1)
@@ -18288,7 +18288,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "3d4bcf1f-dbf7-492c-ac00-3e9d0c6a9820")
+			(uuid "6f2bd2ed-d1a0-405b-9f34-7ebfc18f908f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18299,7 +18299,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "61c2bd32-b2d2-4ef5-b261-3735dc37c897")
+			(uuid "02b2dc14-741b-495d-91f9-4692b12d315c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18331,7 +18331,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18443,7 +18443,7 @@
 		(property "Reference" "C4"
 			(at 2.5 -2.5 90)
 			(layer "F.SilkS")
-			(uuid "6aab2f0d-379b-46b0-b931-eca5ba12ef21")
+			(uuid "2b0cb3ba-8cc8-47c3-98ff-eac87aaa256d")
 			(effects
 				(font
 					(size 1 1)
@@ -18454,7 +18454,7 @@
 		(property "Value" "U4 V+"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
-			(uuid "285c5d37-0cde-46ac-af27-4a17368a6b7c")
+			(uuid "94c8856d-e809-4c42-975b-5b1de2aac5cd")
 			(effects
 				(font
 					(size 1 1)
@@ -18466,7 +18466,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4976dddf-2849-4162-a92d-7090a4866c78")
+			(uuid "b85650e9-c3b9-4219-ab8e-a0d2d5033b45")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18477,7 +18477,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4b2dbf63-181e-428c-8189-5f83cdf2c080")
+			(uuid "60e9ccd0-f1ba-4b39-88c2-7e7099c47aa8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18509,7 +18509,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18661,7 +18661,7 @@
 		(property "Reference" "R1"
 			(at 2.68882 -2.463247 0)
 			(layer "F.SilkS")
-			(uuid "e14a24fa-11ef-4bd5-9b6b-edff69a51f02")
+			(uuid "f9f563b3-983d-4ab7-bc7b-6f6adedb1fdc")
 			(effects
 				(font
 					(size 1 1)
@@ -18673,7 +18673,7 @@
 			(at 5.08 15.37 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b4af16f5-4f6d-4463-ba6d-6ca1b69595dd")
+			(uuid "33a057dd-28f7-4de4-8b90-862bbd08e619")
 			(effects
 				(font
 					(size 1 1)
@@ -18685,7 +18685,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0ed670f4-c4c9-4fd7-b294-dac21c7c941c")
+			(uuid "52cfb3c4-af7a-4100-895f-b08aa818ed5d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18696,7 +18696,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "acf6af54-d539-463d-836b-00cd1a10ae81")
+			(uuid "2e8e8d5e-efec-4ed6-9d8a-4945f8d32cd9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18728,7 +18728,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18860,7 +18860,7 @@
 		(property "Reference" "DS4"
 			(at 33 29 90)
 			(layer "F.SilkS")
-			(uuid "6f841397-0b3e-4fc9-adf0-d21ad902d7d3")
+			(uuid "dced36a9-27d9-4661-9b23-99f761ccd4da")
 			(effects
 				(font
 					(size 1 1)
@@ -18871,7 +18871,7 @@
 		(property "Value" "Matrix8x8"
 			(at 33 22 90)
 			(layer "F.SilkS")
-			(uuid "122ecd07-5d9f-4aa8-a7ed-b6ae451f5ab2")
+			(uuid "498fd351-914d-4266-9393-4c8a88034a27")
 			(effects
 				(font
 					(size 1 1)
@@ -18883,7 +18883,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8bab99c7-40a3-46a8-b043-d85ab4444ce3")
+			(uuid "8b2cd065-8b0f-48d5-a3a9-4844aa51156a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18894,7 +18894,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "58871d85-d278-4555-9f11-45791ba322dc")
+			(uuid "d2ff27d8-f895-4d26-8f77-a40cf190a758")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18914,7 +18914,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19159,7 +19159,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_C0")
+			(net "DS4_R0")
 			(pintype "PASSIVE")
 			(uuid "88bd7519-6c5f-4000-92f8-e8fab0d8454b")
 		)
@@ -19169,7 +19169,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_C1")
+			(net "DS4_C3")
 			(pintype "PASSIVE")
 			(uuid "af6c0ff9-86d1-48c7-b4de-343a8cbaf26a")
 		)
@@ -19179,7 +19179,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_C2")
+			(net "DS4_C5")
 			(pintype "PASSIVE")
 			(uuid "1787c7f8-806c-493d-8cfc-9215f4d9a0c3")
 		)
@@ -19189,7 +19189,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_C3")
+			(net "DS4_R3")
 			(pintype "PASSIVE")
 			(uuid "04dae49c-5528-4c64-bebc-5d2f4498fd6f")
 		)
@@ -19199,7 +19199,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_C4")
+			(net "DS4_C0")
 			(pintype "PASSIVE")
 			(uuid "fc45ad2a-06f8-47b5-b93d-c9a7f43d801d")
 		)
@@ -19209,7 +19209,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_C5")
+			(net "DS4_R1")
 			(pintype "PASSIVE")
 			(uuid "0f029028-30da-4918-9cc8-4c8a0fad33ae")
 		)
@@ -19239,7 +19239,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R7")
+			(net "DS4_R4")
 			(pintype "PASSIVE")
 			(uuid "95929a06-f520-44e4-b905-5ae076c25794")
 		)
@@ -19259,7 +19259,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R5")
+			(net "DS4_C1")
 			(pintype "PASSIVE")
 			(uuid "72214a37-6781-4003-aef1-57a244d2e0c6")
 		)
@@ -19269,7 +19269,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R4")
+			(net "DS4_C2")
 			(pintype "PASSIVE")
 			(uuid "ed2f9477-db11-4334-b093-a09001fc88e5")
 		)
@@ -19279,7 +19279,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R3")
+			(net "DS4_R7")
 			(pintype "PASSIVE")
 			(uuid "cabb182d-c347-45cc-bec7-77c43136202f")
 		)
@@ -19289,7 +19289,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R2")
+			(net "DS4_C4")
 			(pintype "PASSIVE")
 			(uuid "2061450b-b9de-4387-a46c-ae4f225b1cb6")
 		)
@@ -19299,7 +19299,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R1")
+			(net "DS4_R5")
 			(pintype "PASSIVE")
 			(uuid "3ac0279b-55ed-4d3d-b238-f50aebd8139a")
 		)
@@ -19309,7 +19309,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS4_R0")
+			(net "DS4_R2")
 			(pintype "PASSIVE")
 			(uuid "fe728975-83e4-4505-b132-412494ad3a78")
 		)
@@ -19358,7 +19358,7 @@
 		(property "Reference" "J4"
 			(at -2.964779 5.948372 0)
 			(layer "F.SilkS")
-			(uuid "0b79bc5a-ec21-4b3b-bf80-a69673897b3f")
+			(uuid "997b7b3e-41ff-432f-b08b-375555009b77")
 			(effects
 				(font
 					(size 1 1)
@@ -19369,7 +19369,7 @@
 		(property "Value" "Power"
 			(at -2.993141 1.88687 0)
 			(layer "F.SilkS")
-			(uuid "96dde8ad-7f7e-447c-88a1-d84d4a5bd04c")
+			(uuid "433e3f7a-e9e6-4b65-b534-25c886c70d49")
 			(effects
 				(font
 					(size 1 1)
@@ -19381,7 +19381,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "f53b38b2-29be-4bd0-a70f-34dd8a84ff17")
+			(uuid "01b88c7a-6423-409f-84bf-108016c08447")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19392,7 +19392,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4d81619b-e43c-4cf2-abf1-a5701418af6e")
+			(uuid "b381e3b1-859e-4cb6-8fd4-958c66d0b484")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19424,7 +19424,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19655,7 +19655,7 @@
 		(property "Reference" "C35"
 			(at 1.25 -3.75 0)
 			(layer "F.SilkS")
-			(uuid "8c70990d-108d-4515-bdba-16d49fc681ec")
+			(uuid "b5cd99e9-f2d3-4ef6-822a-b9c0d2034d35")
 			(effects
 				(font
 					(size 1 1)
@@ -19667,7 +19667,7 @@
 			(at 1.25 3.75 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "02e03aa6-5bbe-46bb-a78b-22cdf9eae2fc")
+			(uuid "bd26ca12-01aa-4787-a7f7-32992cc18bef")
 			(effects
 				(font
 					(size 1 1)
@@ -19679,7 +19679,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "dff74877-03bd-4f9f-8c5f-431dc7254e3a")
+			(uuid "efbffd26-c0ab-4a8b-8156-86b2cf3a3e9b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19690,7 +19690,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "73ec48a5-80b2-4995-9372-93638daa39d9")
+			(uuid "ee24bc86-7c20-46c6-9d10-93fed2c50285")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19722,7 +19722,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21035,7 +21035,7 @@
 		(property "Reference" "C46"
 			(at 2.478773 2.439569 90)
 			(layer "F.SilkS")
-			(uuid "3fb72fe2-359b-480c-b412-32d69a957ec2")
+			(uuid "2d08b001-8a39-4b64-bfe2-f0a5b8951972")
 			(effects
 				(font
 					(size 1 1)
@@ -21047,7 +21047,7 @@
 			(at 2.5 2.5 90)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "c7ff8a1f-2e6f-4f03-b0ae-f78ca9d4e745")
+			(uuid "1f358982-4581-4c6f-b049-67e2a7d20d7b")
 			(effects
 				(font
 					(size 1 1)
@@ -21059,7 +21059,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "62fb6d08-8fd6-4535-9789-f113acb74179")
+			(uuid "7efcfcbb-c9dc-4a4c-a6e5-75b54372c514")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21070,7 +21070,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "f9af5906-ab64-4779-a6ab-35ba8cb6daeb")
+			(uuid "d4e9dc41-d9c7-451a-87df-13826c0fd0de")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21102,7 +21102,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21353,7 +21353,7 @@
 		(property "Reference" "DS2"
 			(at 33 29 90)
 			(layer "F.SilkS")
-			(uuid "acb4e2ec-3259-4bed-a8f6-1211e82f89d1")
+			(uuid "8f8436a0-1903-4ec4-9cbb-44c3430608b4")
 			(effects
 				(font
 					(size 1 1)
@@ -21364,7 +21364,7 @@
 		(property "Value" "Matrix8x8"
 			(at 33 22 90)
 			(layer "F.SilkS")
-			(uuid "54fa92e3-fb71-430f-bb0f-1c0c31a19e94")
+			(uuid "21940a7b-f0e9-4b48-90ec-2b001e01a8f2")
 			(effects
 				(font
 					(size 1 1)
@@ -21376,7 +21376,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a98ee61b-e9ea-452e-ab6e-ed54156d73ad")
+			(uuid "6580a717-35b0-45bc-a815-281f3d92cc43")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21387,7 +21387,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "6e9c2957-c8e8-44d7-8915-3fe175b263fa")
+			(uuid "1e91a8f0-f130-44f3-9ad2-6e3662cb9346")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21407,7 +21407,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21652,7 +21652,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_C0")
+			(net "DS2_R0")
 			(pintype "PASSIVE")
 			(uuid "8e3a0d45-c0d4-4cfd-be5a-dc3be20a93cf")
 		)
@@ -21662,7 +21662,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_C1")
+			(net "DS2_C3")
 			(pintype "PASSIVE")
 			(uuid "61da988d-3c59-46d2-91cf-158000b4a308")
 		)
@@ -21672,7 +21672,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_C2")
+			(net "DS2_C5")
 			(pintype "PASSIVE")
 			(uuid "ed6506cb-4c5c-4f4f-bb29-31b2ac99e2dd")
 		)
@@ -21682,7 +21682,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_C3")
+			(net "DS2_R3")
 			(pintype "PASSIVE")
 			(uuid "a2a6cc4d-03e5-4219-9142-429a16145113")
 		)
@@ -21692,7 +21692,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_C4")
+			(net "DS2_C0")
 			(pintype "PASSIVE")
 			(uuid "6efb09d9-2ea7-4944-a7a8-74c70c10b7f9")
 		)
@@ -21702,7 +21702,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_C5")
+			(net "DS2_R1")
 			(pintype "PASSIVE")
 			(uuid "b1b4e26b-f272-4e41-9992-e985e87de49d")
 		)
@@ -21732,7 +21732,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R7")
+			(net "DS2_R4")
 			(pintype "PASSIVE")
 			(uuid "d8b58fff-1ea0-44c1-bf42-37473c03c4d8")
 		)
@@ -21752,7 +21752,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R5")
+			(net "DS2_C1")
 			(pintype "PASSIVE")
 			(uuid "1685c48e-5e18-46ca-b2a3-bba0331b390f")
 		)
@@ -21762,7 +21762,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R4")
+			(net "DS2_C2")
 			(pintype "PASSIVE")
 			(uuid "bc44430a-bb21-4a6a-8b0a-ca80ba2b439e")
 		)
@@ -21772,7 +21772,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R3")
+			(net "DS2_R7")
 			(pintype "PASSIVE")
 			(uuid "dc0e88ee-854e-4f08-932a-7752800d5b0e")
 		)
@@ -21782,7 +21782,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R2")
+			(net "DS2_C4")
 			(pintype "PASSIVE")
 			(uuid "b32ff67b-c067-4224-a9a9-34942db64cd0")
 		)
@@ -21792,7 +21792,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R1")
+			(net "DS2_R5")
 			(pintype "PASSIVE")
 			(uuid "d9099347-6714-4a50-bbb1-9058b205ec8b")
 		)
@@ -21802,7 +21802,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "DS2_R0")
+			(net "DS2_R2")
 			(pintype "PASSIVE")
 			(uuid "b20918a8-d7d2-415c-b0e0-724e7aca98ce")
 		)
@@ -21851,7 +21851,7 @@
 		(property "Reference" "R15"
 			(at 4.652547 0.012204 180)
 			(layer "F.SilkS")
-			(uuid "e7abf698-226a-4a25-b6e9-80d23b9d3907")
+			(uuid "3e888b2f-3161-48e3-89bd-8355f8de30e3")
 			(effects
 				(font
 					(size 1 1)
@@ -21862,7 +21862,7 @@
 		(property "Value" "10k DAC"
 			(at -2.389279 0.02858 180)
 			(layer "F.SilkS")
-			(uuid "f075089f-8747-4873-8ff2-ea0a0d18be14")
+			(uuid "ed8ceab3-14d8-4b19-8628-7e586c867fae")
 			(effects
 				(font
 					(size 1 1)
@@ -21874,7 +21874,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2c273f05-22a7-445a-b85c-5d2164ddacd1")
+			(uuid "5a5d2db9-9eee-44b5-a992-3079e7ee4346")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21885,7 +21885,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e3dc053a-111f-42b0-91d5-e1b9dc60f9fc")
+			(uuid "62fc5a5e-7a73-489e-84bd-29c657c30c3f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21917,7 +21917,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22029,7 +22029,7 @@
 		(property "Reference" "R3"
 			(at 7.47118 -2.686668 0)
 			(layer "F.SilkS")
-			(uuid "7776c877-fa46-4b32-981e-c223b10f15e0")
+			(uuid "57d922e4-7ae8-4f2d-a72c-080d379cecc6")
 			(effects
 				(font
 					(size 1 1)
@@ -22041,7 +22041,7 @@
 			(at 5.08 -10.63 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "591ea83c-5db2-415e-9c85-a057416f8831")
+			(uuid "6ab04dd0-5611-4c8e-abb7-f0b1f27bffa7")
 			(effects
 				(font
 					(size 1 1)
@@ -22053,7 +22053,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ee5c3af8-bbcf-4554-9579-f5443e1e82f3")
+			(uuid "11f366bd-7dda-4cf0-ad6f-a97d319fba3a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22064,7 +22064,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1bfbd7a7-fedc-4cf1-99a4-153ca8b4e682")
+			(uuid "695169cf-4326-4537-a64f-bb90fc4b7c3a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22096,7 +22096,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:192"
+		(property "SKiDL Line" "maki_nita.py:195"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
