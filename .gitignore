@@ -32,6 +32,7 @@ tools/sim/retrodiode-ui
 tools/acetate_sim/acetate-sim
 tools/sim/test_chips
 tools/sim/tests/test_max7219
+tools/sim/tests/test_matrix
 tools/sim/tests/test_avr128db28
 tools/sim/tests/test_entity
 tools/sim/tests/test_board
@@ -40,6 +41,9 @@ tools/sim/tests/test_paddle
 tools/sim/tests/test_arkaled
 tools/sim/tests/test_cart
 tools/sim/tests/test_synth
+compile_commands.json
+.clangd
+
 tools/fw/avr/*.elf
 tools/fw/avr/*.hex
 tools/fw/audio/*.elf
