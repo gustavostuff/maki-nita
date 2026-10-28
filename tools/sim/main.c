@@ -4,10 +4,10 @@
 #include "persist.h"
 #include "sound.h"
 #include "clocks.h"
-#include "clocks.h"
 #include "host.h"
 #include "input.h"
 #include "score.h"
+#include "text.h"
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -243,18 +243,42 @@ static SDL_Texture *fps_text(SDL_Renderer *renderer, TTF_Font *font, int fps,
                              int *w, int *h)
 {
     char buf[16];
-    SDL_Color color = {204, 204, 204, 255};
-    SDL_Surface *surface;
-    SDL_Texture *tex;
+    int len = snprintf(buf, sizeof buf, "%d FPS", fps);
+    if (len <= 0)
+        return NULL;
 
-    snprintf(buf, sizeof buf, "%d FPS", fps);
-    surface = TTF_RenderText_Solid(font, buf, color);
+    (void)font;
+    int surf_w = len * TEXT_W;
+    int surf_h = TEXT_H;
+    SDL_Surface *surface = SDL_CreateRGBSurfaceWithFormat(0, surf_w, surf_h, 32, SDL_PIXELFORMAT_RGBA32);
     if (surface == NULL)
         return NULL;
-    tex = SDL_CreateTextureFromSurface(renderer, surface);
+
+    Uint32 *pixels = (Uint32 *)surface->pixels;
+    Uint32 trans = SDL_MapRGBA(surface->format, 0, 0, 0, 0); // black is transparent
+    Uint32 fg = SDL_MapRGBA(surface->format, 204, 204, 204, 255);
+
+    for (int i = 0; i < surf_w * surf_h; i++)
+        pixels[i] = trans;
+
+    for (int i = 0; i < len; i++) {
+        const uint8_t *glyph = text_glyph(buf[i]);
+        if (!glyph)
+            continue;
+        int base_x = i * TEXT_W;
+        for (int r = 0; r < TEXT_H; r++) {
+            for (int c = 0; c < TEXT_W; c++) {
+                if ((glyph[r] >> c) & 1) {
+                    pixels[r * surf_w + (base_x + c)] = fg;
+                }
+            }
+        }
+    }
+
+    SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
     if (tex != NULL) {
-        *w = surface->w;
-        *h = surface->h;
+        *w = surf_w;
+        *h = surf_h;
     }
     SDL_FreeSurface(surface);
     return tex;
@@ -429,19 +453,6 @@ int main(void)
     SDL_SetTextureScaleMode(led_off, SDL_ScaleModeNearest);
 
     TTF_Font *font = open_font();
-    if (font == NULL) {
-        SDL_DestroyTexture(canvas);
-        SDL_DestroyTexture(led_on);
-        SDL_DestroyTexture(led_off);
-        SDL_DestroyTexture(stick_tex);
-        SDL_DestroyTexture(button_tex);
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        TTF_Quit();
-        IMG_Quit();
-        SDL_Quit();
-        return 1;
-    }
 
     SDL_SetRenderTarget(renderer, canvas);
     draw(renderer, led_on, led_off, stick_tex, button_tex, &board, 0, 0, 0);
@@ -620,7 +631,8 @@ int main(void)
     SDL_DestroyTexture(led_off);
     SDL_DestroyTexture(stick_tex);
     SDL_DestroyTexture(button_tex);
-    TTF_CloseFont(font);
+    if (font != NULL)
+        TTF_CloseFont(font);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     TTF_Quit();

@@ -220,7 +220,7 @@ static void test_crash(void)
            "a zero score starts at column 1, row 8");
     expect(pixel_get(1, 9) && !pixel_get(2, 9) && pixel_get(3, 9),
            "the zero keeps its side pixels");
-    expect(pixel_get(1, 12) && pixel_get(3, 12) && !pixel_get(6, 8) && !pixel_get(7, 12),
+    expect(pixel_get(1, 10) && pixel_get(3, 10) && !pixel_get(6, 8) && !pixel_get(7, 12),
            "the digit stands alone and the ship is gone");
 
     feed(0, 0, 0, 0, 1);
@@ -240,7 +240,7 @@ static void test_crash(void)
     score_add(2);
     die();
     expect(smile(), "a higher score draws the wide smile");
-    expect(pixel_get(1, 8) && pixel_get(3, 9) && !pixel_get(1, 9) && pixel_get(1, 11),
+    expect(pixel_get(1, 8) && pixel_get(2, 9) && !pixel_get(1, 9) && pixel_get(3, 10),
            "the score is the digit 2");
     expect(!pixel_get(6, 8), "a one-digit score does not draw a second glyph");
 
@@ -249,7 +249,7 @@ static void test_crash(void)
     score_add(2);
     die();
     expect(flat_mouth(), "the same score draws the straight mouth again");
-    expect(pixel_get(3, 9) && !pixel_get(1, 9), "the digit 2 is still there");
+    expect(pixel_get(2, 9) && !pixel_get(1, 9), "the digit 2 is still there");
 
     input_reset();
     game_reset();
@@ -270,36 +270,36 @@ static void test_glyphs(void)
     clear();
     text_draw(0, 0, "A");
     expect(pixel_get(1, 0) && !pixel_get(0, 0) && pixel_get(0, 2) && pixel_get(2, 2),
-           "A is the 5x5 capital");
+           "A is the 4x4 capital");
     clear();
     text_draw(0, 0, "a");
     expect(pixel_get(1, 0) && pixel_get(0, 2), "a lowercase letter uses the capital");
     clear();
     text_draw(0, 0, "M");
-    expect(pixel_get(0, 0) && pixel_get(4, 0) && pixel_get(1, 1) && pixel_get(3, 1),
-           "M uses the full five columns");
+    expect(pixel_get(0, 0) && pixel_get(1, 1) && pixel_get(2, 2),
+           "M is drawn in 4x4");
     clear();
     text_draw(0, 0, ".");
-    expect(pixel_get(1, 4) && !pixel_get(0, 4) && !pixel_get(1, 3),
-           "the dot sits on the bottom row");
+    expect(pixel_get(0, 2) && !pixel_get(0, 1) && !pixel_get(1, 2),
+           "the dot sits on row 2");
     clear();
     text_draw(0, 0, "-");
-    expect(pixel_get(1, 2) && pixel_get(3, 2) && !pixel_get(1, 1) && !pixel_get(0, 2),
+    expect(pixel_get(0, 1) && pixel_get(1, 1) && pixel_get(2, 1) && !pixel_get(0, 0),
            "the dash is the middle row");
     clear();
     text_draw(0, 0, ":");
-    expect(pixel_get(1, 1) && pixel_get(1, 3) && !pixel_get(1, 2) && !pixel_get(1, 0),
+    expect(pixel_get(1, 0) && pixel_get(1, 2) && !pixel_get(1, 1),
            "the colon is two dots");
     clear();
     text_draw(0, 0, "Z");
-    expect(pixel_get(0, 0) && pixel_get(3, 0) && !pixel_get(4, 0) && pixel_get(3, 1),
+    expect(pixel_get(0, 0) && pixel_get(1, 1) && pixel_get(2, 2),
            "Z is the last letter");
     clear();
     text_draw(1, 8, "10");
     expect(pixel_get(1, 8) && pixel_get(2, 8) && !pixel_get(3, 8),
            "the digit 1 keeps its narrow top");
-    expect(pixel_get(6, 8) && pixel_get(7, 8) && pixel_get(8, 8) && !pixel_get(9, 8),
-           "the next glyph starts five columns later");
+    expect(pixel_get(5, 8) && pixel_get(6, 8) && pixel_get(7, 8) && !pixel_get(8, 8),
+           "the next glyph starts four columns later");
 }
 
 static void test_score(void)
@@ -320,7 +320,7 @@ static void test_score(void)
         score_add(1);
     die();
     expect(smile(), "the first 999 shows the wide smile");
-    expect(pixel_get(1, 8) && pixel_get(6, 8) && pixel_get(11, 8) && !pixel_get(5, 8),
+    expect(pixel_get(1, 8) && pixel_get(5, 8) && pixel_get(9, 8) && !pixel_get(4, 8),
            "999 is three nines");
 
     input_reset();

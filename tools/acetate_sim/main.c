@@ -44,21 +44,93 @@ static const AcetateColor PALETTE[NUM_COLORS] = {
     {235, 70, 205,  "Magenta"}
 };
 
-// 3x5 pixel font for "COPIED"
-static const Uint8 FONT_COPIED[6][5] = {
-    // 'C'
-    {0b111, 0b100, 0b100, 0b100, 0b111},
-    // 'O'
-    {0b111, 0b101, 0b101, 0b101, 0b111},
-    // 'P'
-    {0b111, 0b101, 0b111, 0b100, 0b100},
-    // 'I'
-    {0b111, 0b010, 0b010, 0b010, 0b111},
-    // 'E'
-    {0b111, 0b100, 0b110, 0b100, 0b111},
-    // 'D'
-    {0b110, 0b101, 0b101, 0b101, 0b110},
-};
+/* 4x4 font glyph lookup: bit 0 is left pixel.
+ * Matches tools/fw/text.c and img/4x4_font.png. */
+static const Uint8 *glyph_4x4(char c)
+{
+    static const Uint8 digits[10][4] = {
+        {0x07, 0x05, 0x07, 0x00}, /* 0 */
+        {0x03, 0x02, 0x02, 0x00}, /* 1 */
+        {0x03, 0x02, 0x06, 0x00}, /* 2 */
+        {0x07, 0x06, 0x07, 0x00}, /* 3 */
+        {0x05, 0x07, 0x04, 0x00}, /* 4 */
+        {0x06, 0x02, 0x03, 0x00}, /* 5 */
+        {0x01, 0x07, 0x07, 0x00}, /* 6 */
+        {0x07, 0x04, 0x04, 0x00}, /* 7 */
+        {0x02, 0x07, 0x07, 0x00}, /* 8 */
+        {0x07, 0x07, 0x04, 0x00}, /* 9 */
+    };
+    static const Uint8 letters[26][4] = {
+        {0x06, 0x05, 0x07, 0x00}, /* A */
+        {0x01, 0x07, 0x07, 0x00}, /* B */
+        {0x07, 0x01, 0x07, 0x00}, /* C */
+        {0x04, 0x07, 0x07, 0x00}, /* D */
+        {0x07, 0x03, 0x07, 0x00}, /* E */
+        {0x07, 0x03, 0x01, 0x00}, /* F */
+        {0x03, 0x05, 0x07, 0x00}, /* G */
+        {0x05, 0x07, 0x05, 0x00}, /* H */
+        {0x07, 0x02, 0x07, 0x00}, /* I */
+        {0x07, 0x02, 0x03, 0x00}, /* J */
+        {0x05, 0x03, 0x05, 0x00}, /* K */
+        {0x01, 0x01, 0x07, 0x00}, /* L */
+        {0x03, 0x06, 0x04, 0x00}, /* M */
+        {0x07, 0x05, 0x05, 0x00}, /* N */
+        {0x07, 0x05, 0x07, 0x00}, /* O */
+        {0x07, 0x07, 0x01, 0x00}, /* P */
+        {0x07, 0x07, 0x04, 0x00}, /* Q */
+        {0x07, 0x03, 0x05, 0x00}, /* R */
+        {0x06, 0x02, 0x03, 0x00}, /* S */
+        {0x07, 0x02, 0x02, 0x00}, /* T */
+        {0x05, 0x05, 0x07, 0x00}, /* U */
+        {0x05, 0x05, 0x02, 0x00}, /* V */
+        {0x01, 0x03, 0x06, 0x00}, /* W */
+        {0x05, 0x02, 0x05, 0x00}, /* X */
+        {0x05, 0x02, 0x02, 0x00}, /* Y */
+        {0x03, 0x02, 0x06, 0x00}, /* Z */
+    };
+    static const Uint8 dot[4] = {0x00, 0x00, 0x01, 0x00};
+    static const Uint8 comma[4] = {0x00, 0x00, 0x02, 0x01};
+    static const Uint8 colon[4] = {0x02, 0x00, 0x02, 0x00};
+    static const Uint8 semicolon[4] = {0x02, 0x00, 0x02, 0x01};
+    static const Uint8 dash[4] = {0x00, 0x07, 0x00, 0x00};
+    static const Uint8 plus[4] = {0x02, 0x07, 0x02, 0x00};
+    static const Uint8 equals[4] = {0x07, 0x00, 0x07, 0x00};
+    static const Uint8 slash[4] = {0x04, 0x02, 0x01, 0x00};
+    static const Uint8 blank[4] = {0x00, 0x00, 0x00, 0x00};
+
+    if (c >= '0' && c <= '9') return digits[c - '0'];
+    if (c >= 'a' && c <= 'z') c = (char)(c - 'a' + 'A');
+    if (c >= 'A' && c <= 'Z') return letters[c - 'A'];
+    if (c == '.') return dot;
+    if (c == ',') return comma;
+    if (c == ':') return colon;
+    if (c == ';') return semicolon;
+    if (c == '-') return dash;
+    if (c == '+') return plus;
+    if (c == '=') return equals;
+    if (c == '/') return slash;
+    if (c == ' ') return blank;
+    return NULL;
+}
+
+static void draw_text_4x4(SDL_Renderer *renderer, int x, int y, const char *s,
+                          Uint8 r, Uint8 g, Uint8 b)
+{
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
+    SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+    for (; *s != '\0'; s++) {
+        const Uint8 *rows = glyph_4x4(*s);
+        if (rows) {
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 4; col++) {
+                    if ((rows[row] >> col) & 1)
+                        SDL_RenderDrawPoint(renderer, x + col, y + row);
+                }
+            }
+        }
+        x += 4;
+    }
+}
 
 typedef struct {
     int x;
@@ -250,24 +322,10 @@ static void draw_checkerboard(SDL_Renderer *renderer, int x, int y, int w, int h
 
 static void draw_copied_badge(SDL_Renderer *renderer)
 {
-    // Draw 3x5 pixel font "COPIED" (23 pixels wide, 5 pixels tall)
-    int start_x = (CANVAS_W - 23) / 2;
-    int start_y = 93;
-    int cur_x = start_x;
-
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
-    SDL_SetRenderDrawColor(renderer, 120, 240, 150, 255);
-
-    for (int letter = 0; letter < 6; letter++) {
-        for (int row = 0; row < 5; row++) {
-            Uint8 bits = FONT_COPIED[letter][row];
-            for (int col = 0; col < 3; col++) {
-                if ((bits >> (2 - col)) & 1)
-                    SDL_RenderDrawPoint(renderer, cur_x + col, start_y + row);
-            }
-        }
-        cur_x += 4;
-    }
+    // Draw 4x4 pixel font "COPIED" (24 pixels wide, 4 pixels tall)
+    int start_x = (CANVAS_W - 24) / 2;
+    int start_y = 94;
+    draw_text_4x4(renderer, start_x, start_y, "COPIED", 120, 240, 150);
 }
 
 static void render_scene(SDL_Renderer *renderer, SDL_Texture *led_on, SDL_Texture *led_off,
