@@ -55,7 +55,12 @@ from net_classes import (
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 NET_PATH = HERE / "maki-nita.net"
-PRO_PATH = REPO / "kicad" / "main-pcb" / "maki-nita.kicad_pro"
+MAIN_PCB_DIR = REPO / "kicad" / "main-pcb"
+PRO_PATHS = (
+    MAIN_PCB_DIR / "maki-nita_v_03.kicad_pro",
+    MAIN_PCB_DIR / "maki-nita_v_02.kicad_pro",
+    MAIN_PCB_DIR / "maki-nita.kicad_pro",
+)
 
 SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
@@ -706,12 +711,16 @@ def main() -> None:
     text = annotate_netlist_classes(NET_PATH.read_text(encoding="utf-8"))
     NET_PATH.write_text(text, encoding="utf-8")
     _check(text)
-    if PRO_PATH.is_file():
-        names = {getattr(net, "name", "") or "" for net in nets}
-        old = PRO_PATH.read_text(encoding="utf-8")
-        new = patch_kicad_pro(old, assignments_for(names))
-        if new != old:
-            PRO_PATH.write_text(new, encoding="utf-8")
+    targets = [Path(arg) for arg in sys.argv[1:] if arg.endswith(".kicad_pro")]
+    pro_paths = targets if targets else PRO_PATHS
+    names = {getattr(net, "name", "") or "" for net in nets}
+    for pro_path in pro_paths:
+        if pro_path.is_file():
+            old = pro_path.read_text(encoding="utf-8")
+            new = patch_kicad_pro(old, assignments_for(names))
+            if new != old:
+                pro_path.write_text(new, encoding="utf-8")
+                print(f"updated net classes in {pro_path}")
     print(f"wrote {NET_PATH}")
     _clean_strays()
 

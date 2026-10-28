@@ -539,25 +539,6 @@
       },
       {
         "bus_width": 12,
-        "clearance": 0.3,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "track_width": 0.8,
-        "tuning_profile": "",
-        "via_diameter": 1.2,
-        "via_drill": 0.6,
-        "wire_width": 6,
-        "name": "5V",
-        "pcb_color": "rgb(148, 103, 189)",
-        "schematic_color": "rgb(148, 103, 189)",
-        "priority": 1
-      },
-      {
-        "bus_width": 12,
         "clearance": 0.2,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
@@ -573,7 +554,7 @@
         "name": "AUDIO",
         "pcb_color": "rgb(44, 160, 44)",
         "schematic_color": "rgb(44, 160, 44)",
-        "priority": 2
+        "priority": 1
       },
       {
         "bus_width": 12,
@@ -592,7 +573,7 @@
         "name": "MATRIX",
         "pcb_color": "rgb(214, 39, 40)",
         "schematic_color": "rgb(214, 39, 40)",
-        "priority": 3
+        "priority": 2
       }
     ],
     "meta": {
@@ -600,12 +581,17 @@
     },
     "net_colors": null,
     "netclass_assignments": {
-      "+5V": "5V",
       "AMP": "AUDIO",
       "AUD": "AUDIO",
       "AUDIN": "AUDIO",
       "BYPASS": "AUDIO",
+      "CLK": "MATRIX",
       "DAC": "AUDIO",
+      "DIN": "MATRIX",
+      "DOUT": "MATRIX",
+      "DOUT_U1": "MATRIX",
+      "DOUT_U2": "MATRIX",
+      "DOUT_U3": "MATRIX",
       "DS1_C0": "MATRIX",
       "DS1_C1": "MATRIX",
       "DS1_C2": "MATRIX",
@@ -670,14 +656,11 @@
       "DS4_R5": "MATRIX",
       "DS4_R6": "MATRIX",
       "DS4_R7": "MATRIX",
+      "LOAD": "MATRIX",
       "SPK": "AUDIO",
       "ZOBEL": "AUDIO"
     },
     "netclass_patterns": [
-      {
-        "netclass": "5V",
-        "pattern": "+5V"
-      },
       {
         "netclass": "AUDIO",
         "pattern": "AMP"
@@ -705,6 +688,34 @@
       {
         "netclass": "AUDIO",
         "pattern": "ZOBEL"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "CLK"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DIN"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DOUT"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DOUT_U1"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DOUT_U2"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DOUT_U3"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "LOAD"
       },
       {
         "netclass": "MATRIX",

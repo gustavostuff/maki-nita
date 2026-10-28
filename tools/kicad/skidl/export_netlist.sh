@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
-# Write the console netlist from the SKiDL circuit.
+# Write the console netlist from the SKiDL circuit and update net classes.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 NET="$DIR/maki-nita.net"
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
-    echo "Usage: $0"
-    echo "  Writes $NET"
+    echo "Usage: $0 [PROJECT.kicad_pro]"
+    echo "  Writes $NET and updates net classes in maki-nita_v_03.kicad_pro"
     echo "  The cartridge netlist is tools/kicad/cart-pcb/skidl/export_netlist.sh"
     exit 0
-fi
-if [[ $# -ne 0 ]]; then
-    echo "unknown option: $1" >&2
-    exit 2
 fi
 
 if ! command -v python3 >/dev/null 2>&1; then
@@ -27,4 +23,4 @@ fi
 
 python3 "$DIR/../3d_models/build_matrix8x8_wrl.py"
 python3 "$DIR/../scripts/compose_matrix_footprint.py"
-python3 "$DIR/maki_nita.py"
+python3 "$DIR/maki_nita.py" "$@"

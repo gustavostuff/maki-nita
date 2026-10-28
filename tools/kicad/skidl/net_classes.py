@@ -1,8 +1,8 @@
 """KiCad net classes for the Maki-Nita console.
 
-5V is the rail. AUDIO is the analog path around U5 and U6. MATRIX is
-every segment and digit net from a MAX7219 to its 8x8 block. Other
-nets stay in Default. GND is the pour.
+AUDIO is the sensitive analog path around U5 and U6. MATRIX is
+the display SPI bus and every segment and digit net from the MAX7219
+drivers to their 8x8 blocks. Other nets stay in Default. GND is the pour.
 """
 
 from __future__ import annotations
@@ -11,12 +11,14 @@ import json
 import re
 from typing import Iterable
 
-CLASS_5V = "5V"
 CLASS_AUDIO = "AUDIO"
 CLASS_MATRIX = "MATRIX"
 
 AUDIO_NETS = frozenset(
     ("DAC", "AUD", "AUDIN", "AMP", "SPK", "ZOBEL", "BYPASS")
+)
+SPI_NETS = frozenset(
+    ("CLK", "DIN", "LOAD", "DOUT", "DOUT_U1", "DOUT_U2", "DOUT_U3")
 )
 
 _GEOM = {
@@ -35,38 +37,27 @@ _GEOM = {
     "wire_width": 6,
 }
 
-# 5V is purple. AUDIO is green. MATRIX is red.
+# AUDIO is green. MATRIX is red/orange.
 KICAD_CLASSES = [
-    {
-        **_GEOM,
-        "name": CLASS_5V,
-        "pcb_color": "rgb(148, 103, 189)",
-        "schematic_color": "rgb(148, 103, 189)",
-        "priority": 1,
-        "track_width": 0.8,
-        "clearance": 0.3,
-        "via_diameter": 1.2,
-        "via_drill": 0.6,
-    },
     {
         **_GEOM,
         "name": CLASS_AUDIO,
         "pcb_color": "rgb(44, 160, 44)",
         "schematic_color": "rgb(44, 160, 44)",
-        "priority": 2,
+        "priority": 1,
     },
     {
         **_GEOM,
         "name": CLASS_MATRIX,
         "pcb_color": "rgb(214, 39, 40)",
         "schematic_color": "rgb(214, 39, 40)",
-        "priority": 3,
+        "priority": 2,
     },
 ]
 
 PATTERNS = [
-    {"netclass": CLASS_5V, "pattern": "+5V"},
     *({"netclass": CLASS_AUDIO, "pattern": name} for name in sorted(AUDIO_NETS)),
+    *({"netclass": CLASS_MATRIX, "pattern": name} for name in sorted(SPI_NETS)),
     {"netclass": CLASS_MATRIX, "pattern": "DS1_*"},
     {"netclass": CLASS_MATRIX, "pattern": "DS2_*"},
     {"netclass": CLASS_MATRIX, "pattern": "DS3_*"},
@@ -77,11 +68,9 @@ _MATRIX = re.compile(r"^DS[1-4]_")
 
 
 def class_for_name(name: str) -> str:
-    if name == "+5V":
-        return CLASS_5V
     if name in AUDIO_NETS:
         return CLASS_AUDIO
-    if _MATRIX.match(name):
+    if name in SPI_NETS or _MATRIX.match(name):
         return CLASS_MATRIX
     return "Default"
 
@@ -158,7 +147,12 @@ def patch_kicad_pro(text: str, assignments: dict[str, str] | None = None) -> str
     ns["classes"] = classes
     ns["netclass_patterns"] = list(PATTERNS)
     if assignments is not None:
-        ns["netclass_assignments"] = assignments
+        existing_assign = ns.get("netclass_assignments") or {}
+        uses_list = any(isinstance(v, list) for v in existing_assign.values())
+        if uses_list:
+            ns["netclass_assignments"] = {k: [v] for k, v in assignments.items()}
+        else:
+            ns["netclass_assignments"] = assignments
     data["net_settings"] = ns
     start = text.find('"net_settings"')
     if start < 0:
