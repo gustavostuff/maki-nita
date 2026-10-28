@@ -12,9 +12,11 @@ A part that sits on Un uses n. A second part on that IC adds 10, a
 third adds 20. C1 and R1 sit on U1. C5 and R5 sit on U5.
 
 Each matrix footprint is two PinSocket_1x08 strips composed in
-Matrix8x8_2x8_P2.52mm_R25mm. Pads 1-8 are columns 0-7. Pads 16-9 are rows
-0-7. Pin 1 is the marked end on the column strip. Column 0 is segment DP.
-Row 0 is DIG0. That is the same left and top rule as the sim.
+Matrix8x8_2x8_P2.52mm_R25mm. Left strip has pads 1-8 (top to bottom)
+and right strip has pads 16-9 (top to bottom). The physical 1088AS pinout
+distributes column anodes and row cathodes across both strips.
+Column 0 is segment DP. Row 0 is DIG0. That is the same left and top rule
+as the sim.
 
 Run from the repo:
 
@@ -104,9 +106,10 @@ SEG_PINS = (22, 14, 16, 20, 23, 21, 15, 17)  # DP A B C D E F G
 # Row 0 is the top of the block, DIG0.
 DIG_PINS = (2, 11, 6, 7, 3, 10, 5, 8)  # DIG0 .. DIG7
 
-# Pad numbers on the composed matrix footprint. See the module docstring.
-COL_PADS = (1, 2, 3, 4, 5, 6, 7, 8)
-ROW_PADS = (16, 15, 14, 13, 12, 11, 10, 9)
+# Pad numbers on the composed matrix footprint (1088AS pinout).
+# Left strip: pads 1..8 (top to bottom). Right strip: pads 16..9 (top to bottom).
+COL_PADS = (5, 11, 12, 2, 14, 3, 7, 8)
+ROW_PADS = (1, 6, 16, 4, 9, 15, 10, 13)
 
 DRV_PINS = (
     (1, "DIN"),
@@ -672,10 +675,10 @@ def _check(text: str) -> None:
     if link != {("U1", "24"), ("U2", "1")}:
         raise SystemExit(f"DOUT_U1 nodes {link}")
     col0 = nodes("DS1_C0")
-    if col0 != {("U1", "22"), ("DS1", "1")}:
+    if col0 != {("U1", "22"), ("DS1", "5")}:
         raise SystemExit(f"DS1_C0 nodes {col0}")
     row0 = nodes("DS1_R0")
-    if row0 != {("U1", "2"), ("DS1", "16")}:
+    if row0 != {("U1", "2"), ("DS1", "1")}:
         raise SystemExit(f"DS1_R0 nodes {row0}")
     last = nodes("DS4_C7")
     if last != {("U4", "17"), ("DS4", "8")}:
