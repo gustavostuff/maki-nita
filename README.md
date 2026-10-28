@@ -2,24 +2,24 @@
 
 Maki-Nita is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
-On a similar spirit as the Magnavox Odyssey, Maki-Nita uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. A magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [design](docs/design.md) docs cover the sheet and the console netlist.
+On a similar spirit as the Magnavox Odyssey and the Vectrex, Maki-Nita uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. A magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [design](docs/design.md) docs cover the sheet and the console netlist.
 
 An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge is both the system brain and the game data). Four MAX7219 drivers refresh the screen grid.
 
 ## Goals
 
-Simple graphics can still be fun. A stick (and sometimes a button) is all that's needed. Together with cartridges, colored overlays, and a sturdy design, that is the spirit of Maki-Nita.
+Simple graphics + simple input can still be fun. A stick (and sometimes a button) is all that's needed. Together with cartridges, colored overlays, and a sturdy design, that is the spirit of Maki-Nita.
 
 The build is a simple soldering job.
 
-- The parts are through-hole, on a 2.54 mm grid.
-- The chips sit in sockets, so a bad one can be swapped.
+- Parts are through-hole, on a 2.54 mm grid.
+- Chips sit in sockets, so a bad one can be swapped.
 - Wires leave the board on headers. Two for player controls, another one for power/reset, and one more for the speaker.
 
-The parts are cheap.
+Parts are cheap.
 
-- The console is a 100x100 mm board. The cartridge is an even smaller, two-layer board.
-- The screen is four white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available parts.
+- The console is a two-layer 100x100 mm board (~5 USD + shipping). The cartridge is an even smaller, two-layer as well.
+- The screen is four white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available (not EOL or NRND).
 
 - Power is any generic/regulated 5 V adapter.
 
