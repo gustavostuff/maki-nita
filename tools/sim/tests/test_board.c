@@ -94,6 +94,13 @@ static void test_flush_border(void)
     expect(!board_led_on(&board, 1, 1), "the inside of the border is off");
     expect(!board_led_on(&board, 8, 1), "the inside of the right block is off");
     expect(board_led_on(&board, 15, 1), "right edge stays on");
+
+    board_advance(&board, 8 * MAX7219_SLOT_NS);
+    expect(board_matrix_led_frame(&board, 0, 0), "matrix hardware sees top-left border pixel");
+    expect(board_matrix_led_frame(&board, 15, 0), "matrix hardware sees top-right border pixel");
+    expect(board_matrix_led_frame(&board, 0, 15), "matrix hardware sees bottom-left border pixel");
+    expect(board_matrix_led_frame(&board, 15, 15), "matrix hardware sees bottom-right border pixel");
+    expect(!board_matrix_led_frame(&board, 1, 1), "matrix hardware leaves inside border dark");
 }
 
 static void test_square_on_leds(void)

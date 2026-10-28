@@ -25,6 +25,8 @@ static const char *spk_name[4] = {
 static void settle_all(Board *board)
 {
     int i;
+    int k;
+    int c;
 
     net_settle(&board->vcc);
     net_settle(&board->gnd);
@@ -40,6 +42,12 @@ static void settle_all(Board *board)
         net_settle(&board->cascade[i]);
     for (i = 0; i < 5; i++)
         net_settle(&board->sw[i]);
+    for (k = 0; k < NDRV; k++) {
+        for (c = 0; c < 8; c++) {
+            net_settle(&board->ds_col[k][c]);
+            net_settle(&board->ds_row[k][c]);
+        }
+    }
 }
 
 void board_eval(Board *board)
@@ -54,6 +62,9 @@ void board_eval(Board *board)
         max7219_sense(&board->drv[i], board->now_ns);
     for (i = 0; i < NDRV; i++)
         max7219_pins(&board->drv[i], board->now_ns);
+    settle_all(board);
+    for (i = 0; i < NDRV; i++)
+        matrix8x8_sample(&board->mat[i]);
 }
 
 static void event_level(Board *board, int low)
@@ -177,6 +188,11 @@ void board_init(Board *board)
     static const char *refdes[NDRV] = {
         "U1", "U2", "U3", "U4",
     };
+    static const char *mat_refdes[NDRV] = {
+        "DS1", "DS2", "DS3", "DS4",
+    };
+    static const int seg_pins[8] = {22, 14, 16, 20, 23, 21, 15, 17};
+    static const int dig_pins[8] = {2, 11, 6, 7, 3, 10, 5, 8};
     int i;
 
     avr_init(&board->cpu, "U1");
@@ -184,6 +200,22 @@ void board_init(Board *board)
     avr_output(&board->cpu, AVR_PA0, SIG_H);
     for (i = 0; i < NDRV; i++)
         max7219_init(&board->drv[i], refdes[i]);
+    for (i = 0; i < NDRV; i++) {
+        int c;
+        int r;
+
+        matrix8x8_init(&board->mat[i], mat_refdes[i]);
+        for (c = 0; c < 8; c++) {
+            net_init(&board->ds_col[i][c], "DS_COL", SIG_L);
+            net_tie(&board->ds_col[i][c], max7219_pin(&board->drv[i], seg_pins[c]));
+            net_tie(&board->ds_col[i][c], matrix8x8_pin(&board->mat[i], matrix8x8_col_pads[c]));
+        }
+        for (r = 0; r < 8; r++) {
+            net_init(&board->ds_row[i][r], "DS_ROW", SIG_H);
+            net_tie(&board->ds_row[i][r], max7219_pin(&board->drv[i], dig_pins[r]));
+            net_tie(&board->ds_row[i][r], matrix8x8_pin(&board->mat[i], matrix8x8_row_pads[r]));
+        }
+    }
 
     for (i = 0; i < 5; i++) {
         board->contact[i].name = sw_name[i];
@@ -290,6 +322,42 @@ int board_led_on(const Board *board, int x, int y)
         return 0;
     block = (y / 8) * 2 + (x / 8);
     return max7219_led_on(&board->drv[block], x & 7, y & 7, board->now_ns);
+}
+
+int board_matrix_led_active(const Board *board, int x, int y)
+{
+    int block;
+
+    if (x < 0 || x > 15 || y < 0 || y > 15)
+        return 0;
+    block = (y / 8) * 2 + (x / 8);
+    return matrix8x8_led_active(&board->mat[block], x & 7, y & 7);
+}
+
+int board_matrix_led_frame(const Board *board, int x, int y)
+{
+    int block;
+
+    if (x < 0 || x > 15 || y < 0 || y > 15)
+        return 0;
+    block = (y / 8) * 2 + (x / 8);
+    return matrix8x8_led_frame(&board->mat[block], x & 7, y & 7);
+}
+
+void board_matrix_sample(Board *board)
+{
+    int i;
+
+    for (i = 0; i < NDRV; i++)
+        matrix8x8_sample(&board->mat[i]);
+}
+
+void board_matrix_clear_frame(Board *board)
+{
+    int i;
+
+    for (i = 0; i < NDRV; i++)
+        matrix8x8_clear_frame(&board->mat[i]);
 }
 
 int board_fault(const Board *board)

@@ -23,6 +23,7 @@
 
 #include "chips/avr128db28.h"
 #include "chips/max7219.h"
+#include "chips/matrix8x8.h"
 
 #include <stdint.h>
 
@@ -47,6 +48,7 @@ typedef struct Board {
     Avr128 cpu;
     Avr128 audio;
     Max7219 drv[NDRV];
+    Matrix8x8 mat[NDRV];
     Pin contact[5];
     Net vcc;
     Net gnd;
@@ -60,6 +62,8 @@ typedef struct Board {
     Net updi;
     Net event;
     Net spk;
+    Net ds_col[NDRV][8];
+    Net ds_row[NDRV][8];
     Pin speaker[4];
     EventWire event_wire;
     uint64_t now_ns;
@@ -75,6 +79,10 @@ void board_on_index(Board *board, void (*fn)(uint8_t index));
 void board_drive(Board *board, int avr_pin, Sig level);
 void board_set_switches(Board *board, int up, int down, int left, int right, int button);
 int board_led_on(const Board *board, int x, int y);
+int board_matrix_led_active(const Board *board, int x, int y);
+int board_matrix_led_frame(const Board *board, int x, int y);
+void board_matrix_sample(Board *board);
+void board_matrix_clear_frame(Board *board);
 Sig board_sense(const Board *board, int avr_pin);
 int board_fault(const Board *board);
 
