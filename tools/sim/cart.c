@@ -3,6 +3,7 @@
 #include "arkaled.h"
 #include "game.h"
 #include "paddle.h"
+#include "text_test.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -43,6 +44,8 @@ static const char *known(const char *name)
         return "space-shooter";
     if (strcmp(name, "arkaled") == 0)
         return "arkaled";
+    if (strcmp(name, "text-test") == 0)
+        return "text-test";
     return NULL;
 }
 
@@ -89,6 +92,8 @@ static void select_name(const char *name)
         which = 1;
     else if (strcmp(name, "arkaled") == 0)
         which = 3;
+    else if (strcmp(name, "text-test") == 0)
+        which = 4;
     else
         which = 0;
 }
@@ -131,6 +136,8 @@ void cart_reset(void)
         paddle_reset();
     else if (which == 3)
         arkaled_reset();
+    else if (which == 4)
+        text_test_reset();
 }
 
 void cart_tick(const Input *in)
@@ -141,4 +148,6 @@ void cart_tick(const Input *in)
         paddle_tick(in);
     else if (which == 3)
         arkaled_tick(in);
+    else if (which == 4)
+        text_test_tick(in);
 }
