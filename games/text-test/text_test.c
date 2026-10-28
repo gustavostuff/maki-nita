@@ -5,15 +5,13 @@
 
 #include <string.h>
 
-#define SCROLL_PERIOD 2 /* 60Hz / 2 = 30 FPS */
+#define SCROLL_PERIOD 4 /* 60Hz / 4 = 15 FPS */
 
 static const char message[] =
     "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG - 0123456789 - . , : ; - + = / ";
 
 static int scroll_x;
 static int scroll_y;
-static int scroll_dir;
-static int paused;
 static int tick_count;
 static int msg_len;
 static int msg_width;
@@ -22,8 +20,6 @@ void text_test_reset(void)
 {
     scroll_x = 0;
     scroll_y = 6; /* Centered vertically on 16-row matrix: rows 6..9 */
-    scroll_dir = -1; /* Scroll leftwards (standard reading ticker) */
-    paused = 0;
     tick_count = 0;
     msg_len = (int)strlen(message);
     msg_width = msg_len * TEXT_W;
@@ -43,7 +39,7 @@ int text_test_scroll_y(void)
 
 int text_test_is_paused(void)
 {
-    return paused;
+    return 0;
 }
 
 const char *text_test_message(void)
@@ -59,8 +55,11 @@ void text_test_tick(const Input *in)
     }
 
     if (in != 0) {
-        if (in->button_pressed)
-            paused = !paused;
+        if (in->button_pressed) {
+            scroll_x = 0;
+            scroll_y = 6;
+            tick_count = 0;
+        }
 
         if (in->up_pressed) {
             if (scroll_y > 0)
@@ -70,23 +69,24 @@ void text_test_tick(const Input *in)
             if (scroll_y < 16 - TEXT_H)
                 scroll_y++;
         }
-        if (in->left)
-            scroll_dir = -1;
-        if (in->right)
-            scroll_dir = 1;
-    }
 
-    if (!paused) {
-        tick_count++;
-        if ((tick_count % SCROLL_PERIOD) == 0) {
-            scroll_x += scroll_dir;
-
-            if (scroll_x <= -msg_width)
-                scroll_x += msg_width;
-            else if (scroll_x > 0)
-                scroll_x -= msg_width;
+        if (in->left && !in->right) {
+            tick_count++;
+            if ((tick_count % SCROLL_PERIOD) == 0)
+                scroll_x--;
+        } else if (in->right && !in->left) {
+            tick_count++;
+            if ((tick_count % SCROLL_PERIOD) == 0)
+                scroll_x++;
+        } else {
+            tick_count = 0;
         }
     }
+
+    if (scroll_x <= -msg_width)
+        scroll_x += msg_width;
+    else if (scroll_x > 0)
+        scroll_x -= msg_width;
 
     clear();
     text_draw(scroll_x, scroll_y, message);

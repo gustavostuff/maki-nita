@@ -99,7 +99,7 @@ static void blit(int x, int y, const uint8_t *rows)
                 continue;
             px = x + col;
             py = y + row;
-            if (px < 0 || py < 0)
+            if (px < 0 || py < 0 || px >= 16 || py >= 16)
                 continue;
             pixel((uint8_t)px, (uint8_t)py, true);
         }
@@ -115,7 +115,10 @@ void text_draw(int x, int y, const char *s)
 
         if (rows == 0)
             continue;
-        blit(x, y, rows);
+        if (x >= 16)
+            break;
+        if (x + TEXT_W > 0)
+            blit(x, y, rows);
         x += TEXT_W;
     }
 }

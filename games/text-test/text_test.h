@@ -5,15 +5,15 @@
 
 /*
  * Text test cart: displays the quick brown fox / lazy dog pangram,
- * all digits, and all punctuation from the 4x4 font set in a 30 FPS
+ * all digits, and all punctuation from the 4x4 font set in a 15 FPS
  * horizontal scroll.
  *
  * Controls:
- * - Stick Left: scroll left (default reading ticker)
- * - Stick Right: scroll right
+ * - Stick Left: scroll text left at 15 FPS while held
+ * - Stick Right: scroll text right at 15 FPS while held
  * - Stick Up: move text row up
  * - Stick Down: move text row down
- * - Button: toggle pause / resume
+ * - Button: reset position to start
  */
 
 void text_test_reset(void);

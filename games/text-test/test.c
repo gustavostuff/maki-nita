@@ -24,58 +24,41 @@ static void test_initial_state(void)
 
     expect(text_test_scroll_x() == 0, "starts at column 0");
     expect(text_test_scroll_y() == 6, "starts centered vertically at row 6");
-    expect(!text_test_is_paused(), "starts unpaused");
 }
 
-static void test_scroll_30fps(void)
+static void test_idle_no_scroll(void)
 {
     int i;
 
     input_reset();
     text_test_reset();
 
-    /* Tick 1: should not advance yet (period is 2 ticks = 30 FPS on 60Hz) */
-    feed(0, 0, 0, 0, 0);
-    expect(text_test_scroll_x() == 0, "first tick does not step scroll");
-
-    /* Tick 2: steps 1 pixel */
-    feed(0, 0, 0, 0, 0);
-    expect(text_test_scroll_x() == -1, "second tick steps one pixel left");
-
-    /* Tick 3: does not step */
-    feed(0, 0, 0, 0, 0);
-    expect(text_test_scroll_x() == -1, "third tick holds position");
-
-    /* Tick 4: steps again */
-    feed(0, 0, 0, 0, 0);
-    expect(text_test_scroll_x() == -2, "fourth tick steps one pixel left");
-
-    /* Over 60 ticks (1 full second), steps exactly 30 pixels */
-    text_test_reset();
+    /* 60 ticks without input should not scroll at all */
     for (i = 0; i < 60; i++)
         feed(0, 0, 0, 0, 0);
-    expect(text_test_scroll_x() == -30, "60 ticks at 30 FPS scrolls exactly 30 pixels");
+    expect(text_test_scroll_x() == 0, "text stays stationary when stick is centered");
+}
+
+static void test_stick_left_scroll(void)
+{
+    int i;
+
+    input_reset();
+    text_test_reset();
+
+    /* Hold stick left for 60 ticks: steps exactly 15 pixels at 15 FPS (accounting for 2-tick debounce) */
+    /* 2 ticks to debounce, then 58 ticks with period 4 -> 14 or 15 steps */
+    for (i = 0; i < 60; i++)
+        feed(0, 0, 1, 0, 0);
+
+    expect(text_test_scroll_x() <= -14 && text_test_scroll_x() >= -15,
+           "holding stick left scrolls left at 15 FPS");
 }
 
 static void test_controls(void)
 {
     input_reset();
     text_test_reset();
-
-    /* Press button for 2 ticks to pass debounce */
-    feed(0, 0, 0, 0, 1);
-    feed(0, 0, 0, 0, 1);
-    expect(text_test_is_paused(), "button press pauses auto-scroll");
-
-    /* Release button and run 2 ticks: scroll should not move while paused */
-    feed(0, 0, 0, 0, 0);
-    feed(0, 0, 0, 0, 0);
-    expect(text_test_scroll_x() == 0, "scroll holds position while paused");
-
-    /* Press button again for 2 ticks to resume */
-    feed(0, 0, 0, 0, 1);
-    feed(0, 0, 0, 0, 1);
-    expect(!text_test_is_paused(), "second button press resumes scroll");
 
     /* Test Stick Up / Down */
     int initial_y = text_test_scroll_y();
@@ -88,13 +71,17 @@ static void test_controls(void)
     feed(0, 1, 0, 0, 0); /* press down */
     expect(text_test_scroll_y() == initial_y, "stick down moves row down");
 
-    /* Test Stick Right (reverses scroll direction) */
-    text_test_reset();
-    feed(0, 0, 0, 1, 0);
-    feed(0, 0, 0, 1, 0); /* pass debounce */
-    feed(0, 0, 0, 0, 0);
-    feed(0, 0, 0, 0, 0); /* step */
-    expect(text_test_scroll_x() < 0, "scrolling right wraps smoothly into positive direction");
+    /* Scroll some pixels with stick left, then press button to reset */
+    int i;
+    for (i = 0; i < 20; i++)
+        feed(0, 0, 1, 0, 0);
+    expect(text_test_scroll_x() < 0, "scrolled left with stick");
+
+    /* Button press resets to start */
+    feed(0, 0, 0, 0, 1);
+    feed(0, 0, 0, 0, 1);
+    expect(text_test_scroll_x() == 0, "button resets scroll to start");
+    expect(text_test_scroll_y() == 6, "button resets row to center");
 }
 
 static void test_font_coverage(void)
@@ -145,7 +132,8 @@ int main(void)
 {
     report_begin("text-test");
     test_initial_state();
-    test_scroll_30fps();
+    test_idle_no_scroll();
+    test_stick_left_scroll();
     test_controls();
     test_font_coverage();
     return report_end();
