@@ -1,4 +1,4 @@
-<img src="img/logo_v_03.png" alt="Logo V2" />
+<img src="img/logos/logo_v_04_scaled.png" alt="Logo V4" />
 
 Maki-Nita is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
