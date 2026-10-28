@@ -895,7 +895,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "../skidl/maki-nita.net",
+      "netlist": "skidl/maki-nita.net",
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",

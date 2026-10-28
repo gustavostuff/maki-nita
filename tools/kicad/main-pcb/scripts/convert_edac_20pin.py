@@ -80,8 +80,9 @@ def build_shape(verts_mm, tris, diffuse, specular, shininess):
 def main():
     import cascadio
 
-    step_path = Path("tools/kicad/main-pcb/library/MakiNita.3dshapes/EDAC_395-020-520-202.STEP").resolve()
-    wrl_path = Path("tools/kicad/main-pcb/library/MakiNita.3dshapes/EDAC_395-020-520-202.wrl").resolve()
+    main_pcb = Path(__file__).resolve().parents[1]
+    step_path = (main_pcb / "library/MakiNita.3dshapes/EDAC_395-020-520-202.STEP").resolve()
+    wrl_path = (main_pcb / "library/MakiNita.3dshapes/EDAC_395-020-520-202.wrl").resolve()
 
     with tempfile.TemporaryDirectory() as td:
         obj_path = Path(td) / "model.obj"

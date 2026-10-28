@@ -20,7 +20,7 @@ as the sim.
 
 Run from the repo:
 
-    python3 tools/kicad/skidl/maki_nita.py
+    python3 tools/kicad/main-pcb/skidl/maki_nita.py
 """
 
 from __future__ import annotations
@@ -43,8 +43,13 @@ for _key in (
 from skidl import KICAD10, Net, Part, Pin, SKIDL, generate_netlist
 from skidl.pin import pin_types
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from cart_edge import contacts, socket_pad, socket_pins
+HERE = Path(__file__).resolve().parent
+MAIN_PCB_DIR = HERE.parent
+REPO = Path(__file__).resolve().parents[4]
+
+sys.path.insert(0, str(REPO))
+sys.path.insert(0, str(HERE))
+from tools.kicad.shared.cart_edge import contacts, socket_pad, socket_pins
 from net_classes import (
     annotate_netlist_classes,
     apply_netclasses,
@@ -52,10 +57,7 @@ from net_classes import (
     patch_kicad_pro,
 )
 
-HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[1]
 NET_PATH = HERE / "maki-nita.net"
-MAIN_PCB_DIR = REPO / "kicad" / "main-pcb"
 PRO_PATHS = (
     MAIN_PCB_DIR / "maki-nita_v_03.kicad_pro",
     MAIN_PCB_DIR / "maki-nita_v_02.kicad_pro",

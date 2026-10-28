@@ -27,7 +27,7 @@ from skidl import KICAD10, Net, Pin, Part, SKIDL, generate_netlist
 from skidl.pin import pin_types
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
-from tools.kicad.skidl.cart_edge import contacts, finger_pins
+from tools.kicad.shared.cart_edge import contacts, finger_pins
 
 HERE = Path(__file__).resolve().parent
 NET_PATH = HERE / "maki-nita-cart.net"
@@ -222,54 +222,15 @@ def _check(text: str) -> None:
     for ref in ("C1", "C2", "C3"):
         if (ref, "2") not in gnd:
             raise SystemExit(f"{ref} pin 2 not on GND")
-    clk = nodes("CLK")
-    if clk != {("U1", "28"), ("J1", "B1")}:
-        raise SystemExit(f"CLK nodes {clk}")
-    load = nodes("LOAD")
-    if load != {("U1", "27"), ("J1", "B2")}:
-        raise SystemExit(f"LOAD nodes {load}")
-    din = nodes("DIN")
-    if din != {("U1", "26"), ("J1", "B3")}:
-        raise SystemExit(f"DIN nodes {din}")
-    updi = nodes("UPDI")
-    if updi != {("U1", "22"), ("J1", "B6")}:
-        raise SystemExit(f"UPDI nodes {updi}")
-    reset_node = nodes("RESET")
-    if reset_node != {("U1", "19"), ("J1", "B7")}:
-        raise SystemExit(f"RESET nodes {reset_node}")
-    event = nodes("EVENT")
-    if event != {("U1", "18"), ("J1", "B8")}:
-        raise SystemExit(f"EVENT nodes {event}")
-    p1_up = nodes("P1_UP")
-    if p1_up != {("U1", "1"), ("J1", "A1")}:
-        raise SystemExit(f"P1_UP nodes {p1_up}")
-    p1_down = nodes("P1_DOWN")
-    if p1_down != {("U1", "2"), ("J1", "A2")}:
-        raise SystemExit(f"P1_DOWN nodes {p1_down}")
-    p1_left = nodes("P1_LEFT")
-    if p1_left != {("U1", "3"), ("J1", "A3")}:
-        raise SystemExit(f"P1_LEFT nodes {p1_left}")
-    p1_right = nodes("P1_RIGHT")
-    if p1_right != {("U1", "4"), ("J1", "A4")}:
-        raise SystemExit(f"P1_RIGHT nodes {p1_right}")
-    p1_btn = nodes("P1_BTN")
-    if p1_btn != {("U1", "5"), ("J1", "A5")}:
-        raise SystemExit(f"P1_BTN nodes {p1_btn}")
-    p2_up = nodes("P2_UP")
-    if p2_up != {("U1", "7"), ("J1", "A6")}:
-        raise SystemExit(f"P2_UP nodes {p2_up}")
-    p2_down = nodes("P2_DOWN")
-    if p2_down != {("U1", "8"), ("J1", "A7")}:
-        raise SystemExit(f"P2_DOWN nodes {p2_down}")
-    p2_left = nodes("P2_LEFT")
-    if p2_left != {("U1", "9"), ("J1", "A8")}:
-        raise SystemExit(f"P2_LEFT nodes {p2_left}")
-    p2_right = nodes("P2_RIGHT")
-    if p2_right != {("U1", "10"), ("J1", "A9")}:
-        raise SystemExit(f"P2_RIGHT nodes {p2_right}")
-    p2_btn = nodes("P2_BTN")
-    if p2_btn != {("U1", "11"), ("J1", "A10")}:
-        raise SystemExit(f"P2_BTN nodes {p2_btn}")
+    for number, side, net_name, avr in contacts():
+        if net_name in ("+5V", "GND"):
+            continue
+        expected = {("J1", f"{side}{number}")}
+        if avr is not None:
+            expected.add(("U1", str(avr)))
+        actual = nodes(net_name)
+        if actual != expected:
+            raise SystemExit(f"{net_name} nodes mismatch: actual {actual} != expected {expected}")
     for num in (12, 13, 16, 17, 23, 24, 25):
         nc = nodes(f"NC_U1_{num}")
         if nc != {("U1", str(num))}:

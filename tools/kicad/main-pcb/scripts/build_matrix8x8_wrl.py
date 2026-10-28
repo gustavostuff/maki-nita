@@ -10,7 +10,10 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parent / "NFM-12881xx.wrl"
+LIB_WRL = (
+    Path(__file__).resolve().parents[1]
+    / "library/MakiNita.3dshapes/NFM-12881xx.wrl"
+)
 
 BODY = (12 / 255, 12 / 255, 12 / 255)
 LED = (200 / 255, 200 / 255, 200 / 255)
@@ -27,11 +30,6 @@ ORIGIN = (SIZE - GRID_SPAN) / 2  # 2 mm
 # Empirical alignment for Matrix8x8 footprint (F.Fab 0..32 mm, sockets at y=7).
 # Same as KiCad model offset (0, -32, 8.5) mm with zero offset on the footprint.
 FOOTPRINT_OFFSET_MM = (0.0, -32.0, 8.5)
-
-LIB_WRL = (
-    Path(__file__).resolve().parents[1]
-    / "main-pcb/library/MakiNita.3dshapes/NFM-12881xx.wrl"
-)
 
 # KiCad multiplies VRML coords by 2.54 unless a top-level scale is present.
 KICAD_WRL_PER_MM = 1.0 / 2.54
@@ -182,10 +180,9 @@ children [
 ]
 }}
 """
-    for path in (OUT, LIB_WRL):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(wrl, encoding="utf-8")
-        print(f"Wrote {path} ({path.stat().st_size} bytes)")
+    LIB_WRL.parent.mkdir(parents=True, exist_ok=True)
+    LIB_WRL.write_text(wrl, encoding="utf-8")
+    print(f"Wrote {LIB_WRL} ({LIB_WRL.stat().st_size} bytes)")
 
 
 if __name__ == "__main__":

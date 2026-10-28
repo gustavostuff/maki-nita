@@ -21,6 +21,6 @@ if ! python3 -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_s
     exit 1
 fi
 
-python3 "$DIR/../3d_models/build_matrix8x8_wrl.py"
+python3 "$DIR/../scripts/build_matrix8x8_wrl.py"
 python3 "$DIR/../scripts/compose_matrix_footprint.py"
 python3 "$DIR/maki_nita.py" "$@"

@@ -6,7 +6,7 @@ source of truth: it copies pads (and optional socket graphics) from the
 stock PinSocket and writes the MakiNita matrix footprint.
 
 Edit Matrix8x8_2x8_P2.52mm_R25mm.compose.json, then run this script or
-tools/kicad/skidl/export_netlist.sh.
+tools/kicad/main-pcb/skidl/export_netlist.sh.
 """
 
 from __future__ import annotations
@@ -16,9 +16,9 @@ import re
 import uuid
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-SPEC = ROOT / "main-pcb/library/MakiNita.pretty/Matrix8x8_2x8_P2.52mm_R25mm.compose.json"
-OUT = ROOT / "main-pcb/library/MakiNita.pretty/Matrix8x8_2x8_P2.52mm_R25mm.kicad_mod"
+MAIN_PCB = Path(__file__).resolve().parents[1]
+SPEC = MAIN_PCB / "library/MakiNita.pretty/Matrix8x8_2x8_P2.52mm_R25mm.compose.json"
+OUT = MAIN_PCB / "library/MakiNita.pretty/Matrix8x8_2x8_P2.52mm_R25mm.kicad_mod"
 PINSOCK_DIR = Path("/usr/share/kicad/footprints/Connector_PinSocket_2.54mm.pretty")
 PINSOCK_STEP = (
     "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/"

@@ -1,4 +1,4 @@
-<img src="img/logos/logo_v_04_scaled.png" alt="Logo V4" />
+<img src="img/logos/logo_v_05_scaled.png" alt="Logo V4" />
 
 Maki-Nita is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
@@ -39,7 +39,7 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 ## PCBs
 
-Copper tracing is pending for the main PCB, but the full [SKiDL netlist](tools/kicad/skidl/maki_nita.py) and KiCad files are already under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/` (not tested IRL).
+Copper tracing is pending for the main PCB, but the full [SKiDL netlist](tools/kicad/main-pcb/skidl/maki_nita.py) and KiCad files are already under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/` (not tested IRL).
 
 Main system PCB, 100x100 mm:
 
@@ -57,7 +57,7 @@ Cartridge PCB, 44x37 mm:
 
 `tools/sim` is a netlist simulation of the console. The simulator compiles the cartridge's C game code natively on the host to drive the hardware model. This same C code can be directly flashed to the AVR on the cartridge.
 
-SKiDL export writes `tools/kicad/skidl/maki-nita.net` and updates net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. See [firmware](docs/firmware.md).
+SKiDL export writes `tools/kicad/main-pcb/skidl/maki-nita.net` and updates net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. See [firmware](docs/firmware.md).
 
 `./sim.sh` opens the UI. The active cart is named in `cart_placed.json`.
 
