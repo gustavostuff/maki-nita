@@ -109,22 +109,22 @@ MATRIX_PIN_NAMES = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", 
 # The footprint has pads 8-F on the left strip (notch side) and 0-7 on the right strip.
 # MAX7219 driver pin connected to each matrix pin (0-F).
 MATRIX_DRV_PINS = {
-    "0": 10,  # 1088AS pin 8  (R3) -> Display Row 5 -> DIG5 (pin 10)
-    "1": 6,   # 1088AS pin 7  (R6) -> Display Row 2 -> DIG2 (pin 6)
-    "2": 20,  # 1088AS pin 6  (C5) -> Display Col 3 -> SEGC (pin 20)
-    "3": 2,   # 1088AS pin 5  (R8) -> Display Row 0 -> DIG0 (pin 2)
-    "4": 21,  # 1088AS pin 4  (C3) -> Display Col 5 -> SEGE (pin 21)
-    "5": 15,  # 1088AS pin 3  (C2) -> Display Col 6 -> SEGF (pin 15)
-    "6": 11,  # 1088AS pin 2  (R7) -> Display Row 1 -> DIG1 (pin 11)
-    "7": 7,   # 1088AS pin 1  (R5) -> Display Row 3 -> DIG3 (pin 7)
-    "8": 8,   # 1088AS pin 9  (R1) -> Display Row 7 -> DIG7 (pin 8)
-    "9": 23,  # 1088AS pin 10 (C4) -> Display Col 4 -> SEGD (pin 23)
-    "A": 16,  # 1088AS pin 11 (C6) -> Display Col 2 -> SEGB (pin 16)
-    "B": 3,   # 1088AS pin 12 (R4) -> Display Row 4 -> DIG4 (pin 3)
-    "C": 17,  # 1088AS pin 13 (C1) -> Display Col 7 -> SEGG (pin 17)
-    "D": 5,   # 1088AS pin 14 (R2) -> Display Row 6 -> DIG6 (pin 5)
-    "E": 14,  # 1088AS pin 15 (C7) -> Display Col 1 -> SEGA (pin 14)
-    "F": 22,  # 1088AS pin 16 (C8) -> Display Col 0 -> SEGDP (pin 22)
+    "0": 17,  # COL 8 -> SEGG (pin 17)
+    "1": 15,  # COL 7 -> SEGF (pin 15)
+    "2": 11,  # ROW 2 -> DIG1 (pin 11)
+    "3": 22,  # COL 1 -> SEGDP (pin 22)
+    "4": 7,   # ROW 4 -> DIG3 (pin 7)
+    "5": 21,  # COL 6 -> SEGE (pin 21)
+    "6": 20,  # COL 4 -> SEGC (pin 20)
+    "7": 2,   # ROW 1 -> DIG0 (pin 2)
+    "8": 3,   # ROW 5 -> DIG4 (pin 3)
+    "9": 5,   # ROW 7 -> DIG6 (pin 5)
+    "A": 14,  # COL 2 -> SEGA (pin 14)
+    "B": 16,  # COL 3 -> SEGB (pin 16)
+    "C": 8,   # ROW 8 -> DIG7 (pin 8)
+    "D": 23,  # COL 5 -> SEGD (pin 23)
+    "E": 10,  # ROW 6 -> DIG5 (pin 10)
+    "F": 6,   # ROW 3 -> DIG2 (pin 6)
 }
 
 DRV_PINS = (
