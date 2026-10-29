@@ -45,7 +45,7 @@ static const AcetateColor PALETTE[NUM_COLORS] = {
 };
 
 /* 4x4 font glyph lookup: bit 0 is left pixel.
- * Matches tools/fw/text.c and img/4x4_font.png. */
+ * Matches tools/fw/text.c and img/fonts/4x4_font.png. */
 static const Uint8 *glyph_4x4(char c)
 {
     static const Uint8 digits[10][4] = {

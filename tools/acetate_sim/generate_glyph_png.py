@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate 1:1 scale PNG images of the Maki-Nita 4x4 glyph font from img/4x4_font.png.
+"""Generate 1:1 scale PNG images of the Maki-Nita 4x4 glyph font from img/fonts/4x4_font.png.
 
 Black is transparent.
 Characters (44 glyphs, 4x4 each):
@@ -12,7 +12,7 @@ from pathlib import Path
 from PIL import Image
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-IMG_DIR = REPO_ROOT / "img"
+IMG_DIR = REPO_ROOT / "img" / "fonts"
 FONT_PNG = IMG_DIR / "4x4_font.png"
 
 CHAR_ORDER = [

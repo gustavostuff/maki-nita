@@ -85,3 +85,8 @@ From `tools/kicad/main-pcb/skidl/net_classes.py`: 5V is 0.8 mm track width. MATR
 ## Not in the SKiDL netlist yet
 
 Global brightness (Bright button with tap-to-increment and hold-plus-stick adjustment, console AVR writing MAX7219 intensity) and extra console wiring for that feature. The playfield is the 256 LEDs from the four matrices only.
+
+## Future plans
+
+See [future-plans.md](future-plans.md) for roadmap items and technical specifications for post-base-design enhancements, including the 7-segment status display subsystem, translucent marquee backlighting, AKWF wavetable audio synthesis, dual-input USB-C power, headphone output, and the 32x32 display expansion.
+

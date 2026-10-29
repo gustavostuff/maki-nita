@@ -31,17 +31,17 @@ Copper tracing is pending for the main PCB, but the full [SKiDL netlist](tools/k
 
 Main system PCB, 100x100 mm:
 
-<img src="img/main_pcb_concept.png" alt="Main PCB concept" />
+<img src="img/pcb/main_pcb_concept.png" alt="Main PCB concept" />
 
 Cartridge PCB, 44x37 mm:
 
-<img src="img/cart_pcb_concept.png" alt="Cart PCB concept" />
+<img src="img/pcb/cart_pcb_concept.png" alt="Cart PCB concept" />
 
-<img src="img/cart_pcb_concept_back.png" alt="Cart PCB concept back" />
+<img src="img/pcb/cart_pcb_concept_back.png" alt="Cart PCB concept back" />
 
 ## Game simulator
 
-<img src="img/sim.png" alt="Simulator" />
+<img src="img/sim/sim.png" alt="Simulator" />
 
 `tools/sim` is a netlist simulation of the console. The simulator compiles the cartridge's C game code natively on the host to drive the hardware model. This same C code can be directly flashed to the AVR on the cartridge.
 
@@ -64,13 +64,6 @@ This is a small tool to simulate (paint) a game screen with an overlay on top of
 - [Design](docs/design.md) is the console netlist, cart edge, display chain, and audio wiring from SKiDL and KiCad.
 - [Firmware](docs/firmware.md) is the game loop, inputs, sound, SDK, and simulator.
 - [Overlays](docs/overlays.md) is the colored sheet in front of the field.
-
-## Future plans
-
-Once the base design has been proven/tested, these are the next things to look at:
-
-* Translucent art for the marquees and backlight LEDs to make it shine, as in real classic arcades.
-* Better audio quality by using the AKWF (Adventure Kid Waveforms) library. Samples would live in the Audio AVR and be triggered via the already defined EVENT signal.
-* USB C power port as an alternative to the barrel (maybe a switch to pick one or the other, or priority-based).
-* In the long run, maybe a "high-res" version of the Maki-Nita system (16 matrices, 32x32 screen). It could be retro-compatible with 16x16 games, by doubling pixels to 2x2 regions.
+- [Future plans](docs/future-plans.md) is the hardware and firmware enhancement roadmap.
+- [Status digits](docs/status-digits.md) is the fifth driver and 7-segment display proposal.
 
