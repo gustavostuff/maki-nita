@@ -106,14 +106,8 @@ SPK_PINS = (
 )
 
 MATRIX_PIN_NAMES = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
-# MAX7219 driver pin connected to each matrix pad (0-F).
-# Pinout layout (notch / 1088AS label at the bottom):
-# Row 0 |  0  1  2  3  4  5  6  7  |
-#       |  .  .  .  .  .  .  .  .  |
-#       |  8  9  A  B  C  D  E  F  |
-# Row 7 |  .  .  .  .  .  .  .  .  |
-#        -----------/  \-----------
-#        Col 0                Col 7
+# The footprint has pads 8-F on the left strip (notch side) and 0-7 on the right strip.
+# MAX7219 driver pin connected to each matrix pin (0-F).
 MATRIX_DRV_PINS = {
     "0": 10,  # 1088AS pin 8  (R3) -> Display Row 5 -> DIG5 (pin 10)
     "1": 6,   # 1088AS pin 7  (R6) -> Display Row 2 -> DIG2 (pin 6)

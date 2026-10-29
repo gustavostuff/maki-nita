@@ -199,7 +199,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -834,7 +834,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1430,7 +1430,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1649,7 +1649,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1868,7 +1868,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2087,7 +2087,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2306,7 +2306,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2733,7 +2733,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2942,7 +2942,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3132,7 +3132,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4522,7 +4522,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5008,7 +5008,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5325,7 +5325,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5810,7 +5810,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6019,7 +6019,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6317,7 +6317,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7707,7 +7707,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7913,7 +7913,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8164,7 +8164,7 @@
 			(uuid "fbf98ddb-6b45-4fd6-a6fa-27f5c3c5dadf")
 		)
 		(pad "0" thru_hole rect
-			(at 3.5 7)
+			(at 28.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8174,7 +8174,7 @@
 			(uuid "2746cf69-7489-4c75-b64d-ac127043f729")
 		)
 		(pad "1" thru_hole circle
-			(at 3.5 9.54)
+			(at 28.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8184,7 +8184,7 @@
 			(uuid "3dff923b-02ec-4705-959f-0a6108564656")
 		)
 		(pad "2" thru_hole circle
-			(at 3.5 12.08)
+			(at 28.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8194,7 +8194,7 @@
 			(uuid "dba548b1-7746-4323-b847-5cb39d5c2aed")
 		)
 		(pad "3" thru_hole circle
-			(at 3.5 14.62)
+			(at 28.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8204,7 +8204,7 @@
 			(uuid "c231606c-73b5-4cc4-ba6b-37299e78c850")
 		)
 		(pad "4" thru_hole circle
-			(at 3.5 17.16)
+			(at 28.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8214,7 +8214,7 @@
 			(uuid "c6263206-90d6-436b-9ae3-b46e6b4e192d")
 		)
 		(pad "5" thru_hole circle
-			(at 3.5 19.7)
+			(at 28.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8224,7 +8224,7 @@
 			(uuid "ab6ecb24-276c-4b2e-9af2-cab5986c5034")
 		)
 		(pad "6" thru_hole circle
-			(at 3.5 22.24)
+			(at 28.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8234,7 +8234,7 @@
 			(uuid "018ebaa6-19d5-406e-8404-5544bb75aa03")
 		)
 		(pad "7" thru_hole circle
-			(at 3.5 24.78)
+			(at 28.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8244,7 +8244,7 @@
 			(uuid "71a778ce-308a-4db7-9219-8979936a4cbf")
 		)
 		(pad "8" thru_hole rect
-			(at 28.5 7)
+			(at 3.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8254,7 +8254,7 @@
 			(uuid "d083bf63-f760-4c80-b0db-0686a2f3cdd4")
 		)
 		(pad "9" thru_hole circle
-			(at 28.5 9.54)
+			(at 3.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8264,7 +8264,7 @@
 			(uuid "1a992e3a-3e8f-49db-8d9d-8fe83b283c1f")
 		)
 		(pad "A" thru_hole circle
-			(at 28.5 12.08)
+			(at 3.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8274,7 +8274,7 @@
 			(uuid "fda8df96-77b5-420e-9499-d58adb0670ad")
 		)
 		(pad "B" thru_hole circle
-			(at 28.5 14.62)
+			(at 3.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8284,7 +8284,7 @@
 			(uuid "61057fd2-ec80-4fbd-8a56-0c8a6a788f2b")
 		)
 		(pad "C" thru_hole circle
-			(at 28.5 17.16)
+			(at 3.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8294,7 +8294,7 @@
 			(uuid "a5bac25f-1b27-474c-9528-6f6c0b4760d0")
 		)
 		(pad "D" thru_hole circle
-			(at 28.5 19.7)
+			(at 3.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8304,7 +8304,7 @@
 			(uuid "db30e584-c107-409a-8417-63800121abb6")
 		)
 		(pad "E" thru_hole circle
-			(at 28.5 22.24)
+			(at 3.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8314,7 +8314,7 @@
 			(uuid "bb3f1077-7ba5-4894-aa05-f79da3b14351")
 		)
 		(pad "F" thru_hole circle
-			(at 28.5 24.78)
+			(at 3.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -8433,7 +8433,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8759,7 +8759,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10150,7 +10150,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10369,7 +10369,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11870,7 +11870,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13260,7 +13260,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14650,7 +14650,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15136,7 +15136,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15806,7 +15806,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15996,7 +15996,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17374,7 +17374,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17625,7 +17625,7 @@
 			(uuid "6aebf6e6-ce08-4d3c-af6a-1a35abb49421")
 		)
 		(pad "0" thru_hole rect
-			(at 3.5 7)
+			(at 28.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17635,7 +17635,7 @@
 			(uuid "61007ef2-51d6-4d46-a7bc-0c9ee6a6780d")
 		)
 		(pad "1" thru_hole circle
-			(at 3.5 9.54)
+			(at 28.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17645,7 +17645,7 @@
 			(uuid "283adee5-ddb7-43da-a166-8a42c20f40c7")
 		)
 		(pad "2" thru_hole circle
-			(at 3.5 12.08)
+			(at 28.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17655,7 +17655,7 @@
 			(uuid "f1152fdf-1ddf-4ecd-a16f-3be28b5a706b")
 		)
 		(pad "3" thru_hole circle
-			(at 3.5 14.62)
+			(at 28.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17665,7 +17665,7 @@
 			(uuid "8b944375-5a70-4ca6-bc47-b8c2b4fac69a")
 		)
 		(pad "4" thru_hole circle
-			(at 3.5 17.16)
+			(at 28.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17675,7 +17675,7 @@
 			(uuid "68880297-c1c0-44f1-88ac-8fdd7d6b349f")
 		)
 		(pad "5" thru_hole circle
-			(at 3.5 19.7)
+			(at 28.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17685,7 +17685,7 @@
 			(uuid "9466de31-652f-4e3b-8004-ca547f7300cd")
 		)
 		(pad "6" thru_hole circle
-			(at 3.5 22.24)
+			(at 28.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17695,7 +17695,7 @@
 			(uuid "304e568c-f1f2-4dc8-9157-9c5d9636e384")
 		)
 		(pad "7" thru_hole circle
-			(at 3.5 24.78)
+			(at 28.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17705,7 +17705,7 @@
 			(uuid "bb77a58f-58d1-47fb-a288-97cd845dc23f")
 		)
 		(pad "8" thru_hole rect
-			(at 28.5 7)
+			(at 3.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17715,7 +17715,7 @@
 			(uuid "44098948-b070-4876-8eed-3a5f42aae7b2")
 		)
 		(pad "9" thru_hole circle
-			(at 28.5 9.54)
+			(at 3.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17725,7 +17725,7 @@
 			(uuid "57dff6cf-0468-4366-8728-3d6f5019bd35")
 		)
 		(pad "A" thru_hole circle
-			(at 28.5 12.08)
+			(at 3.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17735,7 +17735,7 @@
 			(uuid "2cc66ddd-168c-4c46-aa5b-1f1ea776a9b6")
 		)
 		(pad "B" thru_hole circle
-			(at 28.5 14.62)
+			(at 3.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17745,7 +17745,7 @@
 			(uuid "c8dd926f-4b2f-4374-864f-26d0f1ce12b7")
 		)
 		(pad "C" thru_hole circle
-			(at 28.5 17.16)
+			(at 3.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17755,7 +17755,7 @@
 			(uuid "8ac6c1ad-766c-43a2-aee0-1f2e17eaf144")
 		)
 		(pad "D" thru_hole circle
-			(at 28.5 19.7)
+			(at 3.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17765,7 +17765,7 @@
 			(uuid "f1aa6e84-8e45-4177-b969-88e9077d4543")
 		)
 		(pad "E" thru_hole circle
-			(at 28.5 22.24)
+			(at 3.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -17775,7 +17775,7 @@
 			(uuid "128ca29c-6213-4cd6-aaae-f5b02f32ef92")
 		)
 		(pad "F" thru_hole circle
-			(at 28.5 24.78)
+			(at 3.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -18004,7 +18004,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18272,7 +18272,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18462,7 +18462,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18651,7 +18651,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18870,7 +18870,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19067,7 +19067,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19318,7 +19318,7 @@
 			(uuid "96b9785e-554f-483a-9059-8120069f8c98")
 		)
 		(pad "0" thru_hole rect
-			(at 3.5 7)
+			(at 28.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19328,7 +19328,7 @@
 			(uuid "fe728975-83e4-4505-b132-412494ad3a78")
 		)
 		(pad "1" thru_hole circle
-			(at 3.5 9.54)
+			(at 28.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19338,7 +19338,7 @@
 			(uuid "88bd7519-6c5f-4000-92f8-e8fab0d8454b")
 		)
 		(pad "2" thru_hole circle
-			(at 3.5 12.08)
+			(at 28.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19348,7 +19348,7 @@
 			(uuid "af6c0ff9-86d1-48c7-b4de-343a8cbaf26a")
 		)
 		(pad "3" thru_hole circle
-			(at 3.5 14.62)
+			(at 28.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19358,7 +19358,7 @@
 			(uuid "1787c7f8-806c-493d-8cfc-9215f4d9a0c3")
 		)
 		(pad "4" thru_hole circle
-			(at 3.5 17.16)
+			(at 28.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19368,7 +19368,7 @@
 			(uuid "04dae49c-5528-4c64-bebc-5d2f4498fd6f")
 		)
 		(pad "5" thru_hole circle
-			(at 3.5 19.7)
+			(at 28.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19378,7 +19378,7 @@
 			(uuid "fc45ad2a-06f8-47b5-b93d-c9a7f43d801d")
 		)
 		(pad "6" thru_hole circle
-			(at 3.5 22.24)
+			(at 28.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19388,7 +19388,7 @@
 			(uuid "0f029028-30da-4918-9cc8-4c8a0fad33ae")
 		)
 		(pad "7" thru_hole circle
-			(at 3.5 24.78)
+			(at 28.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19398,7 +19398,7 @@
 			(uuid "53fd1658-7afd-406d-a16e-1833af7c27b1")
 		)
 		(pad "8" thru_hole rect
-			(at 28.5 7)
+			(at 3.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19408,7 +19408,7 @@
 			(uuid "e0f2ec43-fa79-4253-aace-36ccb114bde9")
 		)
 		(pad "9" thru_hole circle
-			(at 28.5 9.54)
+			(at 3.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19418,7 +19418,7 @@
 			(uuid "95929a06-f520-44e4-b905-5ae076c25794")
 		)
 		(pad "A" thru_hole circle
-			(at 28.5 12.08)
+			(at 3.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19428,7 +19428,7 @@
 			(uuid "2061450b-b9de-4387-a46c-ae4f225b1cb6")
 		)
 		(pad "B" thru_hole circle
-			(at 28.5 14.62)
+			(at 3.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19438,7 +19438,7 @@
 			(uuid "cabb182d-c347-45cc-bec7-77c43136202f")
 		)
 		(pad "C" thru_hole circle
-			(at 28.5 17.16)
+			(at 3.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19448,7 +19448,7 @@
 			(uuid "ed2f9477-db11-4334-b093-a09001fc88e5")
 		)
 		(pad "D" thru_hole circle
-			(at 28.5 19.7)
+			(at 3.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19458,7 +19458,7 @@
 			(uuid "72214a37-6781-4003-aef1-57a244d2e0c6")
 		)
 		(pad "E" thru_hole circle
-			(at 28.5 22.24)
+			(at 3.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19468,7 +19468,7 @@
 			(uuid "b9b96230-dd22-4c22-907d-bebc145950a0")
 		)
 		(pad "F" thru_hole circle
-			(at 28.5 24.78)
+			(at 3.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -19587,7 +19587,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19885,7 +19885,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21276,7 +21276,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21592,7 +21592,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21843,7 +21843,7 @@
 			(uuid "920c57e5-3d06-4b2d-bbb8-e46affdb557f")
 		)
 		(pad "0" thru_hole rect
-			(at 3.5 7)
+			(at 28.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21853,7 +21853,7 @@
 			(uuid "b20918a8-d7d2-415c-b0e0-724e7aca98ce")
 		)
 		(pad "1" thru_hole circle
-			(at 3.5 9.54)
+			(at 28.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21863,7 +21863,7 @@
 			(uuid "8e3a0d45-c0d4-4cfd-be5a-dc3be20a93cf")
 		)
 		(pad "2" thru_hole circle
-			(at 3.5 12.08)
+			(at 28.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21873,7 +21873,7 @@
 			(uuid "61da988d-3c59-46d2-91cf-158000b4a308")
 		)
 		(pad "3" thru_hole circle
-			(at 3.5 14.62)
+			(at 28.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21883,7 +21883,7 @@
 			(uuid "ed6506cb-4c5c-4f4f-bb29-31b2ac99e2dd")
 		)
 		(pad "4" thru_hole circle
-			(at 3.5 17.16)
+			(at 28.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21893,7 +21893,7 @@
 			(uuid "a2a6cc4d-03e5-4219-9142-429a16145113")
 		)
 		(pad "5" thru_hole circle
-			(at 3.5 19.7)
+			(at 28.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21903,7 +21903,7 @@
 			(uuid "6efb09d9-2ea7-4944-a7a8-74c70c10b7f9")
 		)
 		(pad "6" thru_hole circle
-			(at 3.5 22.24)
+			(at 28.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21913,7 +21913,7 @@
 			(uuid "b1b4e26b-f272-4e41-9992-e985e87de49d")
 		)
 		(pad "7" thru_hole circle
-			(at 3.5 24.78)
+			(at 28.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21923,7 +21923,7 @@
 			(uuid "4ef6f1e1-a381-4295-ad11-75d9fff0cbe4")
 		)
 		(pad "8" thru_hole rect
-			(at 28.5 7)
+			(at 3.5 7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21933,7 +21933,7 @@
 			(uuid "7bfd372d-d9eb-4da4-9856-9fe1d8660ee7")
 		)
 		(pad "9" thru_hole circle
-			(at 28.5 9.54)
+			(at 3.5 9.54)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21943,7 +21943,7 @@
 			(uuid "d8b58fff-1ea0-44c1-bf42-37473c03c4d8")
 		)
 		(pad "A" thru_hole circle
-			(at 28.5 12.08)
+			(at 3.5 12.08)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21953,7 +21953,7 @@
 			(uuid "b32ff67b-c067-4224-a9a9-34942db64cd0")
 		)
 		(pad "B" thru_hole circle
-			(at 28.5 14.62)
+			(at 3.5 14.62)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21963,7 +21963,7 @@
 			(uuid "dc0e88ee-854e-4f08-932a-7752800d5b0e")
 		)
 		(pad "C" thru_hole circle
-			(at 28.5 17.16)
+			(at 3.5 17.16)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21973,7 +21973,7 @@
 			(uuid "bc44430a-bb21-4a6a-8b0a-ca80ba2b439e")
 		)
 		(pad "D" thru_hole circle
-			(at 28.5 19.7)
+			(at 3.5 19.7)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21983,7 +21983,7 @@
 			(uuid "1685c48e-5e18-46ca-b2a3-bba0331b390f")
 		)
 		(pad "E" thru_hole circle
-			(at 28.5 22.24)
+			(at 3.5 22.24)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -21993,7 +21993,7 @@
 			(uuid "207321c6-a049-49c2-871e-a5f103a217c5")
 		)
 		(pad "F" thru_hole circle
-			(at 28.5 24.78)
+			(at 3.5 24.78)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -22112,7 +22112,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22302,7 +22302,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:217"
+		(property "SKiDL Line" "maki_nita.py:211"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")

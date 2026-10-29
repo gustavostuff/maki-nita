@@ -218,6 +218,17 @@ def main() -> None:
 \t\t(layer "F.SilkS")
 \t\t(uuid "{uid()}")
 \t)
+\t(fp_arc
+\t\t(start 0 15)
+\t\t(mid 1 16)
+\t\t(end 0 17)
+\t\t(stroke
+\t\t\t(width 0.1)
+\t\t\t(type default)
+\t\t)
+\t\t(layer "F.SilkS")
+\t\t(uuid "{uid()}")
+\t)
 \t(fp_rect
 \t\t(start 0 0)
 \t\t(end {body} {body})
