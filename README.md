@@ -25,18 +25,6 @@ Parts are cheap.
 
 Software is under the MIT License. The hardware design is under the CERN Open Hardware Licence Version 2, Strongly Reciprocal.
 
-## Settled choices
-
-- Display: 16x16, four common-cathode 8x8 white matrices, one bit per pixel. Colored [overlays](docs/overlays.md) sit in front of the field.
-- Board: a 2-layer console PCB and a 2-layer cartridge, each with a ground pour on both sides. The console carries the matrices, the drivers, the cart socket, the audio AVR, and the audio amplifier.
-- CPU: AVR128DB28-I/SP on the cartridge at 12 MHz. Console audio AVR on the main board at 20 MHz. The console socket is an EDAC 395-020-520-202, 20 contacts, 10 a side.
-- Drivers: four MAX7219ENG+ or MAX7219CNG+, one per 8x8 block.
-- Power: regulated 5 V barrel jack and a panel switch. The rail and reset enter the console on a 2x2 header.
-- Controls: two arcade sticks (four switches each) and two 30 mm buttons, with one stick and one button per player. Player 1 controls are built into the cabinet. Because the cabinet is small, the second player controller connects on the side. Each player connects through a 2x3 header (four directions, button, and GND).
-- Sound: a second AVR128DB28 on the console mixes a square wave, a triangle, and noise. The cartridge sends one index byte into a catalog of 256 sounds. An LM386N-1 drives an 8 ohm speaker on a 2x2 header. A game may use music, effects, both, or neither.
-- Brightness: tap the Bright button to step brightness up to the next level (wrapping around to minimum). Holding the Bright button while tapping stick Up or Down also steps through the eight levels (1, 3, 5, 7, 9, 11, 13, 15) on all four MAX7219 drivers.
-- Marquee: removable magnetic panel along the top, with game-specific art.
-
 ## PCBs
 
 Copper tracing is pending for the main PCB, but the full [SKiDL netlist](tools/kicad/main-pcb/skidl/maki_nita.py) and KiCad files are already under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/` (not tested IRL).
