@@ -1,6 +1,7 @@
 #include "board.h"
 
 #include "wire.h"
+#include <stdio.h>
 
 /* 40 kHz on the listener. 100 us on the sender. 100 us is four samples. */
 #include "clocks.h"
@@ -43,10 +44,8 @@ static void settle_all(Board *board)
     for (i = 0; i < 5; i++)
         net_settle(&board->sw[i]);
     for (k = 0; k < NDRV; k++) {
-        for (c = 0; c < 8; c++) {
-            net_settle(&board->ds_col[k][c]);
-            net_settle(&board->ds_row[k][c]);
-        }
+        for (c = 0; c < 16; c++)
+            net_settle(&board->ds_net[k][c]);
     }
 }
 
@@ -191,8 +190,33 @@ void board_init(Board *board)
     static const char *mat_refdes[NDRV] = {
         "DS1", "DS2", "DS3", "DS4",
     };
-    static const int seg_pins[8] = {22, 14, 16, 20, 23, 21, 15, 17};
-    static const int dig_pins[8] = {2, 11, 6, 7, 3, 10, 5, 8};
+    /*
+     * MAX7219 driver pin connected to each matrix pin (0 to F).
+     * Exact match for MATRIX_DRV_PINS in tools/kicad/main-pcb/skidl/maki_nita.py,
+     * maki-nita.net, and docs/matric_pinout.md.
+     */
+    static const int matrix_drv_pins[16] = {
+        17, /* Pin 0: COL 7 (LSB) -> SEGG (pin 17) */
+        15, /* Pin 1: COL 6       -> SEGF (pin 15) */
+        11, /* Pin 2: ROW 1       -> DIG1 (pin 11) */
+        22, /* Pin 3: COL 0 (MSB) -> SEGDP (pin 22) */
+        7,  /* Pin 4: ROW 3       -> DIG3 (pin 7) */
+        21, /* Pin 5: COL 5       -> SEGE (pin 21) */
+        20, /* Pin 6: COL 3       -> SEGC (pin 20) */
+        2,  /* Pin 7: ROW 0 (Top) -> DIG0 (pin 2) */
+        3,  /* Pin 8: ROW 4       -> DIG4 (pin 3) */
+        5,  /* Pin 9: ROW 6       -> DIG6 (pin 5) */
+        14, /* Pin A: COL 1       -> SEGA (pin 14) */
+        16, /* Pin B: COL 2       -> SEGB (pin 16) */
+        8,  /* Pin C: ROW 7 (Btm) -> DIG7 (pin 8) */
+        23, /* Pin D: COL 4       -> SEGD (pin 23) */
+        10, /* Pin E: ROW 5       -> DIG5 (pin 10) */
+        6,  /* Pin F: ROW 2       -> DIG2 (pin 6) */
+    };
+    static const char *mat_pin_hex[16] = {
+        "0", "1", "2", "3", "4", "5", "6", "7",
+        "8", "9", "A", "B", "C", "D", "E", "F"
+    };
     int i;
 
     avr_init(&board->cpu, "U1");
@@ -201,19 +225,16 @@ void board_init(Board *board)
     for (i = 0; i < NDRV; i++)
         max7219_init(&board->drv[i], refdes[i]);
     for (i = 0; i < NDRV; i++) {
-        int c;
-        int r;
+        int p;
 
         matrix8x8_init(&board->mat[i], mat_refdes[i]);
-        for (c = 0; c < 8; c++) {
-            net_init(&board->ds_col[i][c], "DS_COL", SIG_L);
-            net_tie(&board->ds_col[i][c], max7219_pin(&board->drv[i], seg_pins[c]));
-            net_tie(&board->ds_col[i][c], matrix8x8_pin(&board->mat[i], matrix8x8_col_pads[c]));
-        }
-        for (r = 0; r < 8; r++) {
-            net_init(&board->ds_row[i][r], "DS_ROW", SIG_H);
-            net_tie(&board->ds_row[i][r], max7219_pin(&board->drv[i], dig_pins[r]));
-            net_tie(&board->ds_row[i][r], matrix8x8_pin(&board->mat[i], matrix8x8_row_pads[r]));
+        for (p = 0; p < 16; p++) {
+            char net_name[16];
+
+            snprintf(net_name, sizeof net_name, "DS%d_%s", i + 1, mat_pin_hex[p]);
+            net_init(&board->ds_net[i][p], net_name, SIG_L);
+            net_tie(&board->ds_net[i][p], max7219_pin(&board->drv[i], matrix_drv_pins[p]));
+            net_tie(&board->ds_net[i][p], matrix8x8_pin(&board->mat[i], p));
         }
     }
 

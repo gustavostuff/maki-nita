@@ -51,7 +51,7 @@ Cartridge PCB, 44x37 mm:
 
 <img src="img/cart_pcb_concept_back.png" alt="Cart PCB concept back" />
 
-## Simulator
+## Game simulator
 
 <img src="img/sim.png" alt="Simulator" />
 
@@ -60,6 +60,16 @@ Cartridge PCB, 44x37 mm:
 SKiDL export writes `tools/kicad/main-pcb/skidl/maki-nita.net` and updates net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. See [firmware](docs/firmware.md).
 
 `./sim.sh` opens the UI. The active cart is named in `cart_placed.json`.
+
+## Overlay simulator
+
+This is a small tool to simulate (paint) a game screen with an overlay on top of it. It will soon be integrated into the Game simulator:
+
+<img src="img/acetate_examples/frog-led.png" alt="Overlay simulator" />
+
+<img src="img/acetate_examples/ledtris.png" alt="Overlay simulator" />
+
+<img src="img/acetate_examples/super-led-bros.png" alt="Overlay simulator" />
 
 ## Docs
 

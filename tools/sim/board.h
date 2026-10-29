@@ -62,8 +62,7 @@ typedef struct Board {
     Net updi;
     Net event;
     Net spk;
-    Net ds_col[NDRV][8];
-    Net ds_row[NDRV][8];
+    Net ds_net[NDRV][16];
     Pin speaker[4];
     EventWire event_wire;
     uint64_t now_ns;
