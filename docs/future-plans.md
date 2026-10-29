@@ -9,20 +9,21 @@ Once the base 16x16 LED matrix arcade hardware is proven and verified, several h
 
 ## 2. 7-Segment Status Display Subsystem
 
-A fifth MAX7219 driver (U7) cascaded from matrix driver U4 provides up to eight generic 7-segment numeric digits. While most console components are through-hole, the status display uses two passive 4-digit white SMD modules.
+A fifth MAX7219 driver (U7) cascaded from matrix driver U4 provides up to eight generic 7-segment numeric digits. This subsystem is not in the SKiDL netlist yet. While most components are through-hole, the status display uses two passive 4-digit white SMD modules.
 
-* **Interface**: All eight digit sinks (DIG0 to DIG7) and segment lines (SEGA to SEGG, DP) route to an 18-pin (2x9) male header for flexible ribbon-cable connection to front panel displays.
+* **Daughterboard PCB**: The two 4-digit SMD modules solder to a dedicated display daughterboard PCB. While formal PCB designs are not created yet, the daughterboard will likely adopt an L-shaped outline, positioning an 18-pin male header on its left side while extending the display section beneath the main 16x16 matrix.
+* **Main Board Placement**: Both U7 and the 18-pin mating display header reside in the currently free space on the left side of the main system PCB.
+* **Interface**: All eight digit sinks (DIG0 to DIG7) and segment lines (SEGA to SEGG, DP) route through the 18-pin header between the main board and the display daughterboard.
 * **Protocol**: Driven via the existing SPI chain using Code-B decoding mode, requiring no additional cartridge edge pins.
 * **Visual Style**: White LED digits filtered into vibrant custom colors by a full-front overlay assembly that covers both the 16x16 matrix and the status digits, keeping display styling dynamic and customizable.
 * **Framed Overlay Assembly**: A rigid plastic frame holds a clear carrier sheet with pasted color cutout gels and printed label stickers beneath the digits, defining game-specific numeric fields without permanent cabinet legends.
 * **Use Cases**: Credits, player lives, high score, game timer, or level indicators.
 
-
 Complete hardware, pinout, register, and API details are documented in [status-digits.md](status-digits.md).
 
 ## 3. Translucent Marquee Artwork with Backlight Illumination
 
-Classic arcade cabinets feature illuminated upper marquee signage. This enhancement provides dedicated backlighting integrated into the console power and control distribution.
+Classic arcade cabinets feature illuminated upper marquee signage. This enhancement provides dedicated backlighting integrated into the cabinet power and control distribution.
 
 ### 3.1 Hardware Integration
 
@@ -32,8 +33,8 @@ Classic arcade cabinets feature illuminated upper marquee signage. This enhancem
 
 ### 3.2 Brightness Control
 
-* **Dimming Mechanism**: Low-side N-channel MOSFET switch (such as 2N7002 or BSS138) driven by a PWM output from the console microcontroller.
-* **Control Integration**: Marquee brightness levels link directly to the console global display brightness setting, dimming and brightening in tandem with the playfield matrices.
+* **Dimming Mechanism**: Low-side N-channel MOSFET switch (such as 2N7002 or BSS138) driven by a PWM output from the system microcontroller.
+* **Control Integration**: Marquee brightness levels link directly to the system global display brightness setting, dimming and brightening in tandem with the playfield matrices.
 
 ## 4. AKWF Wavetable Audio Synthesis
 
@@ -42,7 +43,7 @@ The current audio system uses procedural wave generators (triangle, square, nois
 ### 4.1 Storage and Memory Architecture
 
 * **Wavetable Format**: Single-cycle waveforms stored as 256-sample 8-bit signed lookup tables.
-* **Flash Budget**: The console audio microcontroller (AVR128DB28) provides 128 KB of program flash memory. A bank of 64 distinct single-cycle waveforms occupies only 16 KB of flash, leaving ample room for synth firmware and lookup tables.
+* **Flash Budget**: The system audio microcontroller (AVR128DB28) provides 128 KB of program flash memory. A bank of 64 distinct single-cycle waveforms occupies only 16 KB of flash, leaving ample room for synth firmware and lookup tables.
 * **Sampling Rate**: The DAC output runs at a steady 20 kHz interrupt rate, matching the base audio engine timing.
 
 ### 4.2 Synthesis Engine
@@ -83,7 +84,7 @@ The cabinet speaker driven by the LM386 audio amplifier (U6) provides loud playf
 
 ## 7. High-Resolution Display Variant (32x32 Matrix Grid)
 
-A future high-resolution Maki-Nita console revision doubles display resolution from 16x16 to 32x32 pixels, expanding the visual canvas from 256 LEDs to 1024 LEDs.
+A future high-resolution Maki-Nita system revision doubles display resolution from 16x16 to 32x32 pixels, expanding the visual canvas from 256 LEDs to 1024 LEDs.
 
 ### 7.1 Display Architecture
 

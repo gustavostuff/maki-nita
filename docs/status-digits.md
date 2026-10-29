@@ -1,6 +1,6 @@
 # Maki-Nita - Status Digits
 
-Status: Design proposal  
+Status: Design proposal (not in the SKiDL netlist yet)  
 Scope: Add a fifth MAX7219 (U7) by extending the display chain. This chip drives up to eight 7-segment digits for credits, lives, score, level, timer, or other numeric information. All eight digits route to a single pin header for flexible physical placement.
 
 ## 1. Goal
@@ -22,11 +22,12 @@ The hardware and low-level driver treat every digit as generic numeric display p
 
 ## 2. Hardware
 
-While most components across the Maki-Nita system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules.
+While most components across the Maki-Nita system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules. This subsystem is not in the SKiDL netlist yet.
 
-### 2.1 Driver IC (U7)
+### 2.1 Driver IC (U7) and Main Board Placement
 
 * Part: MAX7219ENG+ or MAX7219CNG+ in DIP-24 through-hole package
+* Placement: Both U7 and the male 18-pin header connector will live in the currently free space on the left side of the main system PCB.
 * Power: +5V and GND from the main system rail, decoupled with a 100 nF ceramic capacitor and a 10 uF electrolytic bulk capacitor
 * ISET resistor: Set to match current requirements of the selected 7-segment modules
 
@@ -41,7 +42,32 @@ The display chain extends through U7:
 * CLK and LOAD distribute in parallel across all five drivers.
 * No additional edge connector pins are required on the cartridge interface.
 
-### 2.3 Display Modules and Digit Connector
+### 2.3 Display Daughterboard and Connector
+
+The two 4-digit SMD white display units will be soldered to another PCB (a display daughterboard). This PCB will have an 18-pin male connector (2x8 pin header for the 16 display lines, or 2x9 when including power rails) on the left side, and this will be connected to the main system board.
+
+No designs exist yet for the new PCB holding the digits boards, but it will probably be L-shaped:
+
+```
+ --------
+|   --   |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |   <---- pin header that goes into the main PCB
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|   --   |________________________________________________________
+|                                                                 |
+|                                                                 |
+|                   7-segment displays go here                    |
+|                                                                 |
+|_________________________________________________________________|
+
+```
+
+The vertical stem positions the 18-pin header to mate directly into the left side of the main system PCB, while the horizontal section extends underneath the 16x16 LED matrix array to hold the two display modules.
 
 The status display subsystem settles on two passive 4-digit SMD modules (eight digits total), both emitting white light:
 
@@ -52,7 +78,7 @@ These units are passive common-cathode SMD modules (29.2 mm x 12 mm x 3.75 mm) f
 
 <img src="../img/references/7-segment-displays.png" alt="Passive 4-digit SMD 7-segment display modules" />
 
-All eight digit cathode sinks (DIG0 through DIG7) and the eight segment anode drivers (SEGA through SEGG and DP) route to a single 2x9 male pin header (18 pins total). The displays mount to a small daughterboard or cabinet faceplate breakout and link to the main board through a ribbon cable.
+All eight digit cathode sinks (DIG0 through DIG7) and the eight segment anode drivers (SEGA through SEGG and DP) route through the 18-pin male pin header:
 
 | Pin | Signal | Pin | Signal |
 |---|---|---|---|
@@ -121,9 +147,8 @@ Transmitting five words instead of four adds negligible overhead (under 10 us at
 
 ## 4. Mechanical and Visual Layout
 
-* Driver U7 mounts in available PCB space adjacent to the matrix drivers using a standard DIP-24 through-hole footprint.
-* The 2x9 header routes along the PCB periphery for ribbon cable clearance.
-* The two 4-digit white display modules mount side by side on the front panel below the 16x16 matrix.
+* Driver U7 and the 18-pin mating header live in the available open space along the left side of the main system PCB.
+* The separate L-shaped display daughterboard plugs into the left-side header on the main system PCB, positioning the two 4-digit display modules directly below the 16x16 matrix array on the front panel.
 * The full-front overlay assembly (detailed in [overlays.md](overlays.md)) extends across both the 16x16 playfield and the eight status digits. A single rigid plastic frame holds a clear carrier acetate sheet with colored gel cutout pieces affixed on top, defining custom color zones across the four digit pairs (for example, blue, red, green, and yellow).
 * Game labels (such as Lives, Pts, Jade, or Time) are applied as printed stickers on the plastic frame directly below the digits, providing high-contrast legends tailored to each title.
 * Board mounting holes remain unobstructed.
@@ -136,12 +161,12 @@ Most parts are standard through-hole components, while the display modules are c
 
 | Quantity | Item | Notes |
 |---|---|---|
-| 1 | MAX7219 DIP-24 | Through-hole display driver IC |
-| 2 | 4-digit SMD 7-segment display (White) | Passive common-cathode SMD module (29.2 x 12 mm) |
+| 1 | MAX7219 DIP-24 | Through-hole display driver IC (lives on left side of main PCB) |
+| 2 | 4-digit SMD 7-segment display (White) | Passive common-cathode SMD module (soldered to L-shaped daughterboard) |
 | 1 | ISET resistor | Through-hole resistor tuned for display forward voltage |
 | 1 | 100 nF ceramic capacitor | Through-hole decoupling capacitor |
 | 1 | 10 uF electrolytic capacitor | Through-hole bulk power rail capacitor |
-| 1 | 2x9 male pin header | 18-pin digit and segment interface |
+| 1 | 2x9 male pin header | 18-pin display daughterboard interface to main PCB |
 | 1 | 2x6 male pin header | Auxiliary expansion interface |
 
 ## 6. Implementation Steps

@@ -11,7 +11,7 @@ Each game is conceived as a complete, tactile physical release rather than just 
 - A snap-on magnetic marquee panel featuring game title artwork.
 - A printed mini-manual illustrating controls, scoring, and lore.
 
-Preparing to play involves an enjoyable physical ritual. Inserting the cartridge, snapping the matching magnetic marquee into place along the console top, and snapping the overlay into the faceplate turns the tabletop console into a dedicated arcade cabinet for that specific title.
+Preparing to play involves an enjoyable physical ritual. Inserting the cartridge, snapping the matching magnetic marquee into place along the cabinet top, and snapping the overlay into the faceplate turns the tabletop system into a dedicated arcade cabinet for that specific title.
 
 <img src="../img/acetate_examples/Full_overlay_example.png" alt="Full overlay example" />
 
@@ -30,5 +30,5 @@ The practical construction of the full-front overlay uses a layered approach:
 
 * **Carrier Sheet**: A base sheet of optically clear, fully transparent acetate provides structural backing.
 * **Color Filters**: Custom cut-out shapes of colored lighting gel or tinted acetate film are affixed onto the clear carrier to define color zones for both the playfield and the individual digit pairs.
-* **Protective Outer Frame**: A single rigid plastic frame holds the gel and acetate sandwich securely, allowing easy insertion into the console faceplate.
+* **Protective Outer Frame**: A single rigid plastic frame holds the gel and acetate sandwich securely, allowing easy insertion into the cabinet faceplate.
 * **Frame Labels**: Adhesive vinyl stickers or printed decals on the plastic frame below the digits provide crisp, high-contrast labels (such as Lives, Score, Items, etc.) tailored to each cartridge.

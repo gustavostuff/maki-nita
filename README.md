@@ -2,7 +2,7 @@
 
 Maki-Nita is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
-On a similar spirit as the Magnavox Odyssey and the Vectrex, Maki-Nita uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. A magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [design](docs/design.md) docs cover the sheet and the console netlist.
+On a similar spirit as the Magnavox Odyssey and the Vectrex, Maki-Nita uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. A magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [design](docs/design.md) docs cover the sheet and the system netlist.
 
 An AVR128DB28 on a cartridge runs the game and holds the picture (the cartridge is both the system brain and the game data). Four MAX7219 drivers refresh the screen grid.
 
@@ -18,7 +18,7 @@ The build is a simple soldering job.
 
 Parts are cheap.
 
-- The console is a two-layer 100x100 mm board (~5 USD + shipping). The cartridge is an even smaller PCB.
+- The main system board is a two-layer 100x100 mm board (~5 USD + shipping). The cartridge is an even smaller PCB.
 - The screen is four white 8x8 LED matrices (normally less than 1 USD each), and the chips are commonly available (not EOL or NRND).
 
 - Power is any generic/regulated 5 V adapter.
@@ -43,7 +43,7 @@ Cartridge PCB, 44x37 mm:
 
 <img src="img/sim/sim.png" alt="Simulator" />
 
-`tools/sim` is a netlist simulation of the console. The simulator compiles the cartridge's C game code natively on the host to drive the hardware model. This same C code can be directly flashed to the AVR on the cartridge.
+`tools/sim` is a netlist simulation of the system. The simulator compiles the cartridge's C game code natively on the host to drive the hardware model. This same C code can be directly flashed to the AVR on the cartridge.
 
 SKiDL export writes `tools/kicad/main-pcb/skidl/maki-nita.net` and updates net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. See [firmware](docs/firmware.md).
 
@@ -57,7 +57,7 @@ Physical translucent sheets, placed in front of the white matrix LEDs and status
 
 ## Docs
 
-- [Design](docs/design.md) is the console netlist, cart edge, display chain, and audio wiring from SKiDL and KiCad.
+- [Design](docs/design.md) is the system netlist, cart edge, display chain, and audio wiring from SKiDL and KiCad.
 - [Firmware](docs/firmware.md) is the game loop, inputs, sound, SDK, and simulator.
 - [Overlays](docs/overlays.md) is the colored sheet in front of the field.
 - [Future plans](docs/future-plans.md) is the hardware and firmware enhancement roadmap.

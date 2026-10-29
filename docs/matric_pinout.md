@@ -1,6 +1,6 @@
 # 1088AS 8x8 LED Matrix Pinout & Activation Reference
 
-This document is the **electrical source of truth** for the 1088AS 8x8 LED matrix displays used in the Maki-Nita console.
+This document is the **electrical source of truth** for the 1088AS 8x8 LED matrix displays used in the Maki-Nita system.
 
 ---
 
@@ -38,8 +38,8 @@ To light a pixel at coordinate **(Row $r$, Col $c$)**:
 - **Positive Voltage ($+V$)** is applied to the **Column Pin (Anode)**.
 - **Ground ($\text{GND}$)** is applied to the **Row Pin (Cathode)**.
 
-### Column Pins (Anodes — Apply $+V$)
-| Display Column | Position | Matrix Pin (0–F) |
+### Column Pins (Anodes: Apply $+V$)
+| Display Column | Position | Matrix Pin (0-F) |
 |:--------------:|:--------:|:----------------:|
 | **Col 0** | Leftmost (bit 7) | **3** |
 | **Col 1** | bit 6 | **A** |
@@ -50,8 +50,8 @@ To light a pixel at coordinate **(Row $r$, Col $c$)**:
 | **Col 6** | bit 1 | **1** |
 | **Col 7** | Rightmost (bit 0) | **0** |
 
-### Row Pins (Cathodes — Pull to $\text{GND}$)
-| Display Row | Position | Matrix Pin (0–F) |
+### Row Pins (Cathodes: Pull to $\text{GND}$)
+| Display Row | Position | Matrix Pin (0-F) |
 |:-----------:|:--------:|:----------------:|
 | **Row 0** | Topmost | **7** |
 | **Row 1** | line 1 | **2** |
@@ -107,8 +107,8 @@ Format below: `(+Anode Pin / -Cathode Pin)`
 ## 5. MAX7219 Driver Wiring Reference
 
 The MAX7219 is a multiplexed Common-Cathode driver:
-- **Segments (`SEGDP`, `SEGA`–`SEGG`)** are current sources $\rightarrow$ Connect to **Column Anodes**.
-- **Digits (`DIG0`–`DIG7`)** are current sinks $\rightarrow$ Connect to **Row Cathodes**.
+- **Segments (`SEGDP`, `SEGA`-`SEGG`)** are current sources -> Connect to **Column Anodes**.
+- **Digits (`DIG0`-`DIG7`)** are current sinks -> Connect to **Row Cathodes**.
 
 | Display Signal | MAX7219 Function | MAX7219 Pin | Matrix Pin | Net Name (`DSn`) |
 |:--------------:|:----------------:|:------------:|:----------:|:----------------:|

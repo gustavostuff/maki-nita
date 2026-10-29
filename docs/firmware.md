@@ -1,6 +1,6 @@
 # Firmware and simulator
 
-Sources live under `tools/fw/`. Cartridge game firmware runs on the cartridge AVR128DB28 at 12 MHz, while console audio synthesis runs on the console AVR128DB28 at 20 MHz.
+Sources live under `tools/fw/`. Cartridge game firmware runs on the cartridge AVR128DB28 at 12 MHz, while system audio synthesis runs on the AVR128DB28 at 20 MHz.
 
 ## Game loop and display refresh
 
@@ -29,11 +29,11 @@ Player 1 and Player 2 stick and action button nets reach dedicated input pins on
 
 Debouncing in `tools/fw/input.c` samples inputs once per 60 Hz tick. Two consecutive disagreeing ticks are required before a state change registers, providing approximately 33 ms of noise immunity.
 
-The planned console brightness control uses debounced input on the Bright button and stick. Tapping the Bright button advances brightness to the next level (wrapping from 15 to 1). Holding the Bright button while pressing stick Up or Down steps the level up or down. Levels are 1, 3, 5, 7, 9, 11, 13, and 15 across all four MAX7219 parts. Zero is not used. Bright and intensity writes are not in the SKiDL netlist yet. The simulator does not model Brightness.
+The planned system brightness control uses debounced input on the Bright button and stick. Tapping the Bright button advances brightness to the next level (wrapping from 15 to 1). Holding the Bright button while pressing stick Up or Down steps the level up or down. Levels are 1, 3, 5, 7, 9, 11, 13, and 15 across all four MAX7219 parts. Zero is not used. Bright and intensity writes are not in the SKiDL netlist yet. The simulator does not model Brightness.
 
 ## Sound
 
-Games call `sound(index)` with a catalog index 0 through 255. Index 0 is silent. Sound definitions live in `tools/fw/synth.c`. The cartridge transmits index bytes across the EVENT line as eight low pulses (100 us or 200 us wide). The console AVR samples EVENT at 40 kHz, decodes the index, and mixes square wave, triangle wave, and pseudo-random noise channels at 20 kHz into the 10-bit DAC output on PD6.
+Games call `sound(index)` with a catalog index 0 through 255. Index 0 is silent. Sound definitions live in `tools/fw/synth.c`. The cartridge transmits index bytes across the EVENT line as eight low pulses (100 us or 200 us wide). The system audio AVR samples EVENT at 40 kHz, decodes the index, and mixes square wave, triangle wave, and pseudo-random noise channels at 20 kHz into the 10-bit DAC output on PD6.
 
 ## Entity SDK
 
@@ -43,7 +43,7 @@ Games can use `tools/fw/entity.c` for sprite movement and collisions, supporting
 
 Each cart implements `void game_tick(const Input *in)`. Test carts configured in `cart_placed.json` are `space-shooter`, `paddle`, and `arkaled`.
 - Build cartridge firmware with `make -C tools/fw/avr` or `make -C tools/fw/avr CART=paddle`.
-- Build console audio firmware with `make -C tools/fw/audio`.
+- Build system audio firmware with `make -C tools/fw/audio`.
 
 ## Simulator
 

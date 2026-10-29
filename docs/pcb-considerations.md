@@ -2,7 +2,7 @@ Note: This doc is for the design-phase only and will be removed once the PCBs ar
 
 # PCB routing considerations
 
-Layout and routing rules for the console PCB and the cartridge PCB focus on noise isolation between high-current pulsed matrix lines, fast digital clocks, sensitive high-impedance analog audio paths, and timing-critical pulse trains.
+Layout and routing rules for the main system PCB and the cartridge PCB focus on noise isolation between high-current pulsed matrix lines, fast digital clocks, sensitive high-impedance analog audio paths, and timing-critical pulse trains.
 
 ## Main PCB
 
@@ -32,7 +32,7 @@ Layout and routing rules for the console PCB and the cartridge PCB focus on nois
 
 - Signals: `EVENT` versus `CLK`, `DIN`, `LOAD`, and matrix tracks.
 - Why critical:
-  - `EVENT` conveys sound command bytes from the cartridge AVR to the console audio AVR using a single-wire, active-low pulse protocol where bit values depend on pulse width (100 us versus 200 us).
+  - `EVENT` conveys sound command bytes from the cartridge AVR to the system audio AVR using a single-wire, active-low pulse protocol where bit values depend on pulse width (100 us versus 200 us).
   - The audio AVR samples this line at 40 kHz. Spurious voltage spikes or ringing induced by SPI clock edges or matrix switching can trigger false input interrupts or distort measured pulse widths, resulting in corrupt audio commands or missed sound playback.
 - Routing rules:
   - `EVENT` routes cleanly from cart socket contact B8 to U5 pin 23, shielded by surrounding ground plane and kept away from high-speed SPI bus routing.
@@ -52,7 +52,7 @@ Layout and routing rules for the console PCB and the cartridge PCB focus on nois
 - Signals: `EVENT` (PA0) versus `CLK` (SPI clock).
 - Why critical:
   - On the compact 44x37 mm cartridge board, the game AVR outputs both high-frequency SPI data to refresh the display field and the time-sensitive `EVENT` sound pulses.
-  - Running `CLK` in parallel with `EVENT`, or overlapping them on opposing layers, capacitive-couples fast clock edge transients onto `EVENT`. Because the console audio AVR detects edges on this line, clock noise can register as false pulse starts, corrupting sound indexes.
+  - Running `CLK` in parallel with `EVENT`, or overlapping them on opposing layers, capacitive-couples fast clock edge transients onto `EVENT`. Because the system audio AVR detects edges on this line, clock noise can register as false pulse starts, corrupting sound indexes.
 - Routing rules:
   - `EVENT` and `CLK` follow distinct routing corridors from the microcontroller pins to their respective edge connector fingers. They must not run parallel or overlap on top and bottom copper layers.
 

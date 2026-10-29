@@ -1,10 +1,10 @@
-# Console design
+# System design
 
 The electrical source of truth is `tools/kicad/main-pcb/skidl/maki_nita.py`. `tools/kicad/main-pcb/skidl/export_netlist.sh` writes `tools/kicad/main-pcb/skidl/maki-nita.net` and patches net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. The schematic and PCB live under `tools/kicad/main-pcb/`. The cartridge netlist is `tools/kicad/cart-pcb/skidl/`.
 
-## Console board
+## Main system board
 
-The console is a 100x100 mm 2-layer board with ground pours on both sides. Parts are through-hole on a 2.54 mm grid. The game AVR is on the cartridge PCB. Six M3 (3.2 mm) mounting holes (H1 to H6) secure the corners and top edge.
+The main system board is a 100x100 mm 2-layer board with ground pours on both sides. Parts are through-hole on a 2.54 mm grid. The game AVR is on the cartridge PCB. Six M3 (3.2 mm) mounting holes (H1 to H6) secure the corners and top edge.
 
 All external headers and the cart socket (J1 to J6) sit along the top area of the board. The 16x16 display field occupies the central and lower area.
 
@@ -76,7 +76,7 @@ Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3,
 
 U5 sits along the left edge of the board. U6 and the speaker header J5 sit along the right edge.
 
-The cart drives EVENT on contact B8 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the console. The mix updates at 20 kHz.
+The cart drives EVENT on contact B8 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the system board. The mix updates at 20 kHz.
 
 ## Net classes
 
@@ -84,7 +84,9 @@ From `tools/kicad/main-pcb/skidl/net_classes.py`: 5V is 0.8 mm track width. MATR
 
 ## Not in the SKiDL netlist yet
 
-Global brightness (Bright button with tap-to-increment and hold-plus-stick adjustment, console AVR writing MAX7219 intensity) and extra console wiring for that feature. The playfield is the 256 LEDs from the four matrices only.
+* Global brightness (Bright button with tap-to-increment and hold-plus-stick adjustment, system AVR writing MAX7219 intensity) and extra system wiring for that feature.
+* Status digits driver U7 and the 18-pin display header on the left side of the main board (see [status-digits.md](status-digits.md)).
+* The playfield is the 256 LEDs from the four matrices only.
 
 ## Future plans
 
