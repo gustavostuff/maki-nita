@@ -153,8 +153,6 @@ Transmitting five words instead of four adds negligible overhead (under 10 us at
 * Game labels (such as Lives, Pts, Jade, or Time) are applied as printed stickers on the plastic frame directly below the digits, providing high-contrast legends tailored to each title.
 * Board mounting holes remain unobstructed.
 
-<img src="../img/acetate_examples/Full_overlay_example.png" alt="Full overlay example" />
-
 ## 5. Bill of Materials
 
 Most parts are standard through-hole components, while the display modules are compact surface-mount units:

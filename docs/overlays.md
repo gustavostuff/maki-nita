@@ -13,8 +13,6 @@ Each game is conceived as a complete, tactile physical release rather than just 
 
 Preparing to play involves an enjoyable physical ritual. Inserting the cartridge, snapping the matching magnetic marquee into place along the cabinet top, and snapping the overlay into the faceplate turns the tabletop system into a dedicated arcade cabinet for that specific title.
 
-<img src="../img/acetate_examples/Full_overlay_example.png" alt="Full overlay example" />
-
 ## Visual mechanics
 
 Both the playfield matrix LEDs and the 7-segment status digits emit white light. A single overlay assembly covers the entire front visual area, filtering the white emitters into custom color zones:
