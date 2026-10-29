@@ -8345,6 +8345,7 @@
 			)
 		)
 		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -17805,6 +17806,7 @@
 			)
 		)
 		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -19498,6 +19500,7 @@
 			)
 		)
 		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -22023,6 +22026,7 @@
 			)
 		)
 		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+			(hide yes)
 			(offset
 				(xyz 0 0 0)
 			)
@@ -22446,6 +22450,18 @@
 		(layer "Edge.Cuts")
 		(uuid "b4a1cace-ddd0-4d8b-8101-591c75c8dc3e")
 	)
+	(gr_text "Maki-Nita main board\nv0.0.3\n\ngithub.com/gustavostuff/maki-nita"
+		(at 22.25 36.25 0)
+		(layer "F.SilkS")
+		(uuid "5343c53a-5b68-4336-898a-03add7e5720f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "R"
 		(at 57 37 0)
 		(layer "F.SilkS")
@@ -22558,18 +22574,6 @@
 		(at 82 46.5 0)
 		(layer "F.SilkS")
 		(uuid "52edf27e-4063-4a9a-ae3b-e68eded72511")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "Maki-Nita main board\nv0.0.2\n\ngithub.com/gustavostuff/maki-nita"
-		(at 29.5 100.5 90)
-		(layer "F.SilkS")
-		(uuid "5343c53a-5b68-4336-898a-03add7e5720f")
 		(effects
 			(font
 				(size 1 1)

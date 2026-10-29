@@ -22,9 +22,11 @@ The hardware and low-level driver treat every digit as generic numeric display p
 
 ## 2. Hardware
 
+While most components across the Maki-Nita system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules.
+
 ### 2.1 Driver IC (U7)
 
-* Part: MAX7219ENG+ or MAX7219CNG+ in DIP-24 package
+* Part: MAX7219ENG+ or MAX7219CNG+ in DIP-24 through-hole package
 * Power: +5V and GND from the main system rail, decoupled with a 100 nF ceramic capacitor and a 10 uF electrolytic bulk capacitor
 * ISET resistor: Set to match current requirements of the selected 7-segment modules
 
@@ -39,11 +41,18 @@ The display chain extends through U7:
 * CLK and LOAD distribute in parallel across all five drivers.
 * No additional edge connector pins are required on the cartridge interface.
 
-### 2.3 Digit Connector (2x9 Header)
+### 2.3 Display Modules and Digit Connector
 
-All eight digit cathode sinks (DIG0 through DIG7) and the eight segment anode drivers (SEGA through SEGG and DP) route to a single 2x9 male pin header (18 pins total).
+The status display subsystem settles on two passive 4-digit SMD modules (eight digits total), both emitting white light:
 
-Displays mount on the cabinet faceplate or on daughter boards, connected via ribbon cable.
+* Two 4-digit white SMD modules
+* All color styling achieved through overlay filtering
+
+These units are passive common-cathode SMD modules (29.2 mm x 12 mm x 3.75 mm) featuring castellated edge pads. Emitting pure white light allows the front overlay to tint each digit into any desired color scheme. Being passive, they contain no onboard controller and are wired directly to U7.
+
+<img src="../img/references/7-segment-displays.png" alt="Passive 4-digit SMD 7-segment display modules" />
+
+All eight digit cathode sinks (DIG0 through DIG7) and the eight segment anode drivers (SEGA through SEGG and DP) route to a single 2x9 male pin header (18 pins total). The displays mount to a small daughterboard or cabinet faceplate breakout and link to the main board through a ribbon cable.
 
 | Pin | Signal | Pin | Signal |
 |---|---|---|---|
@@ -112,21 +121,26 @@ Transmitting five words instead of four adds negligible overhead (under 10 us at
 
 ## 4. Mechanical and Visual Layout
 
-* Driver U7 mounts in available PCB space adjacent to the matrix drivers.
+* Driver U7 mounts in available PCB space adjacent to the matrix drivers using a standard DIP-24 through-hole footprint.
 * The 2x9 header routes along the PCB periphery for ribbon cable clearance.
-* Display positions remain modular, allowing left-hand, right-hand, or split panel mounting.
-* Mixed display colors (such as pairings of red, green, and amber or yellow modules) can be assembled across digit groups without imposing fixed functional legends on the hardware.
+* The two 4-digit white display modules mount side by side on the front panel below the 16x16 matrix.
+* The full-front overlay assembly (detailed in [overlays.md](overlays.md)) extends across both the 16x16 playfield and the eight status digits. A single rigid plastic frame holds a clear carrier acetate sheet with colored gel cutout pieces affixed on top, defining custom color zones across the four digit pairs (for example, blue, red, green, and yellow).
+* Game labels (such as Lives, Pts, Jade, or Time) are applied as printed stickers on the plastic frame directly below the digits, providing high-contrast legends tailored to each title.
 * Board mounting holes remain unobstructed.
+
+<img src="../img/acetate_examples/Full_overlay_example.png" alt="Full overlay example" />
 
 ## 5. Bill of Materials
 
+Most parts are standard through-hole components, while the display modules are compact surface-mount units:
+
 | Quantity | Item | Notes |
 |---|---|---|
-| 1 | MAX7219 DIP-24 | Display driver IC |
-| 4 to 8 | 0.36 inch 7-segment LED displays | Common cathode modules |
-| 1 | ISET resistor | Value tuned for display forward voltage |
-| 1 | 100 nF ceramic capacitor | Decoupling capacitor |
-| 1 | 10 uF electrolytic capacitor | Bulk power rail capacitor |
+| 1 | MAX7219 DIP-24 | Through-hole display driver IC |
+| 2 | 4-digit SMD 7-segment display (White) | Passive common-cathode SMD module (29.2 x 12 mm) |
+| 1 | ISET resistor | Through-hole resistor tuned for display forward voltage |
+| 1 | 100 nF ceramic capacitor | Through-hole decoupling capacitor |
+| 1 | 10 uF electrolytic capacitor | Through-hole bulk power rail capacitor |
 | 1 | 2x9 male pin header | 18-pin digit and segment interface |
 | 1 | 2x6 male pin header | Auxiliary expansion interface |
 

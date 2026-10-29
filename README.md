@@ -49,15 +49,11 @@ SKiDL export writes `tools/kicad/main-pcb/skidl/maki-nita.net` and updates net c
 
 `./sim.sh` opens the UI. The active cart is named in `cart_placed.json`.
 
-## Overlay simulator
+## Screen overlay
 
-This is a small tool to simulate (paint) a game screen with an overlay on top of it. It will soon be integrated into the Game simulator:
+Physical translucent sheets, placed in front of the white matrix LEDs and status digits, make multi-colored graphics. A single framed overlay holds colored acetate cutouts across both zones, with game labels along the frame:
 
-<img src="img/acetate_examples/frog-led.png" alt="Overlay simulator" />
-
-<img src="img/acetate_examples/ledtris.png" alt="Overlay simulator" />
-
-<img src="img/acetate_examples/super-led-bros.png" alt="Overlay simulator" />
+<img src="img/acetate_examples/Full_overlay_example.png" alt="Full overlay example" />
 
 ## Docs
 

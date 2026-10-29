@@ -9,11 +9,12 @@ Once the base 16x16 LED matrix arcade hardware is proven and verified, several h
 
 ## 2. 7-Segment Status Display Subsystem
 
-A fifth MAX7219 driver (U7) cascaded from matrix driver U4 provides up to eight generic 7-segment numeric digits.
+A fifth MAX7219 driver (U7) cascaded from matrix driver U4 provides up to eight generic 7-segment numeric digits. While most console components are through-hole, the status display uses two passive 4-digit white SMD modules.
 
 * **Interface**: All eight digit sinks (DIG0 to DIG7) and segment lines (SEGA to SEGG, DP) route to an 18-pin (2x9) male header for flexible ribbon-cable connection to front panel displays.
 * **Protocol**: Driven via the existing SPI chain using Code-B decoding mode, requiring no additional cartridge edge pins.
-* **Visual Style**: Evokes retro control panel numbers using colored digits (such as red, green, and amber) without fixed printed labels, keeping digit meaning fully software-defined.
+* **Visual Style**: White LED digits filtered into vibrant custom colors by a full-front overlay assembly that covers both the 16x16 matrix and the status digits, keeping display styling dynamic and customizable.
+* **Framed Overlay Assembly**: A rigid plastic frame holds a clear carrier sheet with pasted color cutout gels and printed label stickers beneath the digits, defining game-specific numeric fields without permanent cabinet legends.
 * **Use Cases**: Credits, player lives, high score, game timer, or level indicators.
 
 
