@@ -1,4 +1,4 @@
-# Maki-Nita - Future Plans and Roadmap
+# MakiNeat - Future Plans and Roadmap
 
 Status: Roadmap and technical specifications  
 Scope: System enhancements planned for post-base-design hardware and firmware revisions.
@@ -84,7 +84,7 @@ The cabinet speaker driven by the LM386 audio amplifier (U6) provides loud playf
 
 ## 7. High-Resolution Display Variant (32x32 Matrix Grid)
 
-A future high-resolution Maki-Nita system revision doubles display resolution from 16x16 to 32x32 pixels, expanding the visual canvas from 256 LEDs to 1024 LEDs.
+A future high-resolution MakiNeat system revision doubles display resolution from 16x16 to 32x32 pixels, expanding the visual canvas from 256 LEDs to 1024 LEDs.
 
 ### 7.1 Display Architecture
 

@@ -1,6 +1,6 @@
 # Acetate Simulator (`acetate_sim`)
 
-Interactive desktop tool for designing and previewing transparent colored acetate overlays for Maki-Nita's 16x16 LED matrix display.
+Interactive desktop tool for designing and previewing transparent colored acetate overlays for MakiNeat's 16x16 LED matrix display.
 
 ## Controls
 

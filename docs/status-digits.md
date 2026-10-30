@@ -1,4 +1,4 @@
-# Maki-Nita - Status Digits
+# MakiNeat - Status Digits
 
 Status: In the SKiDL netlist (`tools/kicad/main-pcb/skidl/maki_nita.py`)  
 Scope: Add a fifth MAX7219 (U7) by extending the display chain. This chip drives up to eight 7-segment digits for credits, lives, score, level, timer, or other numeric information. All eight digits route to a single 16-pin (2x8) pin header (J7) for flexible physical placement.
@@ -22,7 +22,7 @@ The hardware and low-level driver treat every digit as generic numeric display p
 
 ## 2. Hardware
 
-While most components across the Maki-Nita system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules. Driver IC U7, its passives, and the 16-pin connector J7 are defined in the SKiDL netlist.
+While most components across the MakiNeat system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules. Driver IC U7, its passives, and the 16-pin connector J7 are defined in the SKiDL netlist.
 
 ### 2.1 Driver IC (U7) and Main Board Placement
 

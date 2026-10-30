@@ -1,6 +1,6 @@
 # 1088AS 8x8 LED Matrix Pinout & Activation Reference
 
-This document is the **electrical source of truth** for the 1088AS 8x8 LED matrix displays used in the Maki-Nita system.
+This document is the **electrical source of truth** for the 1088AS 8x8 LED matrix displays used in the MakiNeat system.
 
 ---
 
