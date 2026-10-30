@@ -15,8 +15,9 @@ All external headers and the cart socket (J1 to J7) sit along the top area of th
 | J3 | EDAC 395 cart socket, 20 contacts |
 | J4 | 1x2 horizontal header, 5 V power (JST XH: Pin 1 GND, Pin 2 +5V) |
 | J5 | 2x2 horizontal header, speaker |
-| J6 | 1x3 header, audio AVR UPDI |
+| J6 | 1x3 header, audio AVR UPDI (Pin 1 UPDI, Pin 2 +5V, Pin 3 GND) |
 | J7 | 2x8 header, 8-digit status display |
+| J8 | 1x3 header, cartridge AVR UPDI (in-system flashing; Pin 1 UPDI, Pin 2 +5V, Pin 3 GND) |
 | U1 to U4 | MAX7219, one per 8x8 matrix block |
 | U5 | AVR128DB28, audio and planned brightness control |
 | U6 | LM386N-1 amplifier |
@@ -25,13 +26,13 @@ All external headers and the cart socket (J1 to J7) sit along the top area of th
 
 A part on "UN" uses "N" as part of its silkscreen label. A second part on that IC adds 10, a third adds 20. For instance:
 
-- On U5: C5 is the first bypass, C15 the second, C25 the third.
+- On U5: C5 is the first bypass, C15 the second, C25 the third. R5 is EVENT pull-up, R15 is DAC load, R25 is RESET pull-up.
 - On U1: R1 is ISET, C1 is the 100 nF bypass, C11 is the 10 uF bulk.
 - On U7: R7 is ISET, C7 is the 100 nF bypass, C17 is the 10 uF bulk.
 
-R1 to R4 and R7 are horizontal axial resistors on a 10.16 mm pitch. Audio and event resistors stand vertical on a 2.54 mm pitch.
+R1 to R4 and R7 are horizontal axial resistors on a 10.16 mm pitch. Audio, event, and reset resistors stand vertical on a 2.54 mm pitch.
 
-Power enters on J4 (Pin 1 GND, Pin 2 +5V). The barrel jack, polyfuse, Schottky, and panel switch are off the board (design TBD).
+Power enters on J4 (Pin 1 GND, Pin 2 +5V). A 470 uF electrolytic bulk reservoir capacitor (C10) sits directly across +5V and GND near J4 to buffer matrix scan transients and audio amplifier peaks. The barrel jack, polyfuse, Schottky, and panel switch are off the board (design TBD).
 
 ## Display
 
@@ -43,7 +44,7 @@ Vertical clearance under the matrix body depends on socket height and needs phys
 
 DIN, CLK, and LOAD come from the cart through J3 into U1. DOUT chains U1 to U2 to U3 to U4 to U7.
 
-The cart AVR keeps the frame and shifts it over DIN, CLK, and LOAD at 12 MHz. Each MAX7219 scans its block. Segment pins source anodes. Digit pins sink cathodes.
+The cart AVR runs at 12 MHz and shifts the frame over DIN, CLK, and LOAD at 1 MHz (0.64 ms full frame update, under 4% of the 60 Hz frame interval). Each MAX7219 scans its block. Segment pins source anodes. Digit pins sink cathodes.
 
 The MAX7219 multiplexes its eight rows using an autonomous internal oscillator at ~800 Hz (~1.25 ms per full 8-row cycle). This scan frequency is fixed in hardware and cannot be reconfigured in software. During each 16.67 ms (60 Hz) game frame, the display completes roughly 13 full refresh cycles. Because driver registers update atomically on the rising edge of LOAD, frame flushes remain clean without tearing or flicker.
 
@@ -73,7 +74,7 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 | 9 | P2_RIGHT | GND |
 | 10 | P2_BTN | +5V |
 
-Player 1 cabinet stick and button wires land on J1 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J2 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties directly to U5 reset.
+Player 1 cabinet stick and button wires land on J1 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J2 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties to U5 reset with a 10 kohm pull-up to +5V (R25).
 
 ## Audio (U5, U6, J5)
 

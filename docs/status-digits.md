@@ -142,7 +142,7 @@ Games that omit status calls leave digits blank.
 
 ### 3.4 Frame Timing
 
-Transmitting five words instead of four adds negligible overhead (under 10 us at 12 MHz SPI clock rates), fitting within the 16.6 ms (60 Hz) frame interval.
+Transmitting five words instead of four adds negligible overhead (around 128 us at a 1 MHz SPI clock rate), fitting well within the 16.6 ms (60 Hz) frame interval.
 
 ## 4. Mechanical and Visual Layout
 

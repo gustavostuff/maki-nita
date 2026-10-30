@@ -302,6 +302,9 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     pull = _passive(_ic_ref("R", 5), R_FP, "10k EVENT", "10 kohm EVENT pull-up")
     _tie(pull, 1, event)
     _tie(pull, 2, vcc)
+    reset_pull = _passive(_ic_ref("R", 5, 2), R_FP, "10k RESET", "10 kohm RESET pull-up")
+    _tie(reset_pull, 1, reset)
+    _tie(reset_pull, 2, vcc)
     sink = _passive(_ic_ref("R", 5, 1), R_FP, "10k DAC", "10 kohm DAC load")
     _tie(sink, 1, dac)
     _tie(sink, 2, gnd)
@@ -433,6 +436,18 @@ def build() -> None:
         else:
             _tie(socket, pad, Net(net_name))
 
+    cart_prog = _part(
+        "PinHeader_1x03",
+        "J8",
+        UPDI_FP,
+        ((1, "UPDI"), (2, "VCC"), (3, "GND")),
+        "Cart UPDI",
+        "Cartridge programming",
+    )
+    _tie(cart_prog, 1, updi)
+    _tie(cart_prog, 2, vcc)
+    _tie(cart_prog, 3, gnd)
+
     p1_hdr = _part("PinHeader_2x03", "J1", HDR_FP, HDR_PINS, "P1 Controls", "Player 1 controls")
     _tie(p1_hdr, 1, p1_switches["P1_DOWN"])
     _tie(p1_hdr, 2, p1_switches["P1_BTN"])
@@ -452,6 +467,9 @@ def build() -> None:
     power = _part("PinHeader_1x02", "J4", PWR_FP, PWR_PINS, "Power", "5 V power")
     _tie(power, 1, gnd)
     _tie(power, 2, vcc)
+    c10 = _passive("C10", C_ELEC_FP, "470u VCC", "470 uF power entry bulk reservoir")
+    _tie(c10, 1, vcc)
+    _tie(c10, 2, gnd)
     _audio(vcc, gnd, event, reset)
 
     drivers = []
@@ -639,8 +657,10 @@ def _check(text: str) -> None:
     if p2_btn != {("J3", "1"), ("J2", "2")}:
         raise SystemExit(f"P2_BTN nodes {p2_btn}")
     reset_net = nodes("RESET")
-    if reset_net != {("J3", "14"), ("U5", "18")}:
+    if reset_net != {("J3", "14"), ("U5", "18"), ("R25", "1")}:
         raise SystemExit(f"RESET nodes {reset_net}")
+    if ("R25", "2") not in vcc:
+        raise SystemExit("RESET pull-up does not reach +5V")
     if text.count('(value "Audio AVR")') != 1 or text.count('(description "AVR128DB28-I/SP")') != 1:
         raise SystemExit("audio AVR missing")
     if text.count('(value "LM386")') != 1 or text.count('(description "LM386N-1 speaker amplifier")') != 1:
@@ -649,14 +669,16 @@ def _check(text: str) -> None:
         raise SystemExit("audio AVR footprint missing")
     if text.count(f'(footprint "{AMP_FP}")') != 1:
         raise SystemExit("LM386 footprint missing")
-    if text.count(f'(footprint "{UPDI_FP}")') != 1:
-        raise SystemExit("audio UPDI header missing")
+    if text.count(f'(footprint "{UPDI_FP}")') != 2:
+        raise SystemExit("expected 2 UPDI headers (audio and cart)")
+    if text.count('(description "Cartridge programming")') != 1:
+        raise SystemExit("cart UPDI header missing")
     if text.count(f'(footprint "{R_HORIZ_FP}")') != 5:
         raise SystemExit("expected 5 horizontal resistor footprints")
-    if text.count(f'(footprint "{R_VERT_FP}")') != 5:
-        raise SystemExit("expected 5 vertical resistor footprints")
-    if text.count('(value "10k EVENT")') != 1 or text.count('(value "10k DAC")') != 1:
-        raise SystemExit("expected the EVENT pull-up and the DAC load")
+    if text.count(f'(footprint "{R_VERT_FP}")') != 6:
+        raise SystemExit("expected 6 vertical resistor footprints")
+    if text.count('(value "10k EVENT")') != 1 or text.count('(value "10k DAC")') != 1 or text.count('(value "10k RESET")') != 1:
+        raise SystemExit("expected the EVENT pull-up, DAC load, and RESET pull-up")
     if text.count('(value "22k IN")') != 1 or text.count('(value "1k IN")') != 1:
         raise SystemExit("input divider missing")
     if text.count('(value "10R ZOB")') != 1 or text.count('(value "47n ZOB")') != 1:
@@ -669,6 +691,8 @@ def _check(text: str) -> None:
         raise SystemExit("U5 IO bypass missing")
     if text.count('(value "U6 VS")') != 2 or text.count('(value "U6 BYP")') != 1:
         raise SystemExit("U6 supply caps missing")
+    if text.count('(value "470u VCC")') != 1:
+        raise SystemExit("470 uF power entry bulk reservoir missing")
     for n in (1, 2, 3, 4, 7):
         if text.count(f'(value "U{n} ISET")') != 1 or text.count(f'(value "U{n} V+")') != 1:
             raise SystemExit(f"U{n} ISET or 100 nF missing")
@@ -708,7 +732,7 @@ def _check(text: str) -> None:
     for num in ("15", "21"):
         if ("U5", num) not in gnd:
             raise SystemExit(f"audio AVR pin {num} is not ground")
-    for ref in ("C5", "C15", "C25", "C6", "C16"):
+    for ref in ("C5", "C15", "C25", "C6", "C16", "C10"):
         if (ref, "1") not in vcc or (ref, "2") not in gnd:
             raise SystemExit(f"{ref} is not across +5V and GND")
     bypass_net = nodes("BYPASS")
@@ -736,6 +760,11 @@ def _check(text: str) -> None:
         raise SystemExit(f"AUDIO_UPDI nodes {audio_updi}")
     if ("J6", "2") not in vcc or ("J6", "3") not in gnd:
         raise SystemExit("audio UPDI header power missing")
+    cart_updi = nodes("UPDI")
+    if cart_updi != {("J3", "12"), ("J8", "1")}:
+        raise SystemExit(f"UPDI nodes {cart_updi}")
+    if ("J8", "2") not in vcc or ("J8", "3") not in gnd:
+        raise SystemExit("cart UPDI header power missing")
     used_u5 = {6, 12, 14, 15, 18, 19, 20, 21, 23}
     for num, _name in AUDIO_PINS:
         if num in used_u5:

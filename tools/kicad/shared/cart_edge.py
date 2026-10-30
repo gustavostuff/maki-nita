@@ -15,9 +15,9 @@ _ROWS = (
     (3, "P2_UP", 7, "DIN", 26),
     (4, "P2_RIGHT", 10, "GND", None),
     (5, "P2_LEFT", 9, "GND", None),
-    (6, "P1_BTN", 5, "UPDI", 22),
-    (7, "P1_DOWN", 2, "RESET", 19),
-    (8, "P1_UP", 1, "EVENT", 18),
+    (6, "P1_BTN", 5, "UPDI", 19),
+    (7, "P1_DOWN", 2, "RESET", 18),
+    (8, "P1_UP", 1, "EVENT", 22),
     (9, "P1_RIGHT", 4, "GND", None),
     (10, "P1_LEFT", 3, "+5V", None),
 )

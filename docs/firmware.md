@@ -45,6 +45,26 @@ Each cart implements `void game_tick(const Input *in)`. Test carts configured in
 - Build cartridge firmware with `make -C tools/fw/avr` or `make -C tools/fw/avr CART=paddle`.
 - Build system audio firmware with `make -C tools/fw/audio`.
 
+## Flashing hardware (UPDI)
+
+Both microcontrollers (cartridge AVR on J8 and audio AVR on J6) use identical 3-pin headers:
+- Pin 1: UPDI
+- Pin 2: +5V
+- Pin 3: GND
+
+Recommended low-cost programmers:
+1. **Adafruit UPDI Friend**: Compact USB-C/micro-USB to UPDI programmer with built-in bidirectional resistor/diode network and selectable 3.3V/5V target power. Connects directly to J6 or J8 via a 3-wire cable.
+2. **HiLetgo CH340 USB-UART adapter (SerialUPDI)**: Low-cost USB-to-serial adapter. Connect TX through a 4.7 kohm resistor to RX to form the single bidirectional UPDI line (Pin 1), with 5V on Pin 2 and GND on Pin 3.
+
+Flash commands using `pymcuprog`:
+```bash
+# Flash cartridge game (with cart seated in J3, programmer plugged into J8):
+pymcuprog write -d avr128db28 -t uart -u /dev/ttyACM0 --verify -f tools/fw/avr/game.hex
+
+# Flash console audio synthesis (programmer plugged into J6):
+pymcuprog write -d avr128db28 -t uart -u /dev/ttyACM0 --verify -f tools/fw/audio/audio.hex
+```
+
 ## Simulator
 
 `./sim.sh` builds and launches `tools/sim/maki-nita-ui`. The netlist model connects simulated cartridge pins to U1 through U4, EVENT, and J5. Host simulation runs at 60 Hz with 12 MHz and 20 MHz timing constants defined in `tools/sim/clocks.h`.
