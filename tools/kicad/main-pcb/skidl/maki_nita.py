@@ -59,7 +59,10 @@ from net_classes import (
 NET_PATH = HERE / "maki-nita.net"
 PRO_PATHS = (
     MAIN_PCB_DIR / "maki-nita_v_03.kicad_pro",
+    MAIN_PCB_DIR / "maki-nita_v_02.kicad_pro",
+    MAIN_PCB_DIR / "maki-nita.kicad_pro",
 )
+
 
 SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"

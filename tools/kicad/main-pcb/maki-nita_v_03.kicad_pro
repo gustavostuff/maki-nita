@@ -546,8 +546,27 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
+        "name": "5V",
+        "pcb_color": "rgb(255, 13, 36)",
+        "priority": 4,
+        "schematic_color": "rgb(255, 127, 14)",
+        "track_width": 0.8,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
         "name": "AUDIO",
-        "pcb_color": "rgb(44, 160, 44)",
+        "pcb_color": "rgb(22, 160, 33)",
         "priority": 1,
         "schematic_color": "rgb(44, 160, 44)",
         "track_width": 0.4,
@@ -566,9 +585,28 @@
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "MATRIX",
-        "pcb_color": "rgb(214, 39, 40)",
+        "pcb_color": "rgb(214, 162, 4)",
         "priority": 2,
         "schematic_color": "rgb(214, 39, 40)",
+        "track_width": 0.4,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "name": "SPI",
+        "pcb_color": "rgb(180, 176, 179)",
+        "priority": 3,
+        "schematic_color": "rgb(31, 119, 180)",
         "track_width": 0.4,
         "tuning_profile": "",
         "via_diameter": 0.8,
@@ -581,6 +619,9 @@
     },
     "net_colors": null,
     "netclass_assignments": {
+      "+5V": [
+        "5V"
+      ],
       "AMP": [
         "AUDIO"
       ],
@@ -594,28 +635,28 @@
         "AUDIO"
       ],
       "CLK": [
-        "MATRIX"
+        "SPI"
       ],
       "DAC": [
         "AUDIO"
       ],
       "DIN": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U1": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U2": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U3": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U4": [
-        "MATRIX"
+        "SPI"
       ],
       "DS1_0": [
         "MATRIX"
@@ -858,7 +899,7 @@
         "MATRIX"
       ],
       "LOAD": [
-        "MATRIX"
+        "SPI"
       ],
       "SPK": [
         "AUDIO"
@@ -897,36 +938,40 @@
         "pattern": "ZOBEL"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "CLK"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DIN"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U1"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U2"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U3"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U4"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "LOAD"
+      },
+      {
+        "netclass": "5V",
+        "pattern": "+5V"
       },
       {
         "netclass": "MATRIX",

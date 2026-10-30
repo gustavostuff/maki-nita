@@ -1,8 +1,10 @@
 """KiCad net classes for the Maki-Nita console.
 
 AUDIO is the sensitive analog path around U5 and U6. MATRIX is
-the display SPI bus and every segment and digit net from the MAX7219
-drivers to their 8x8 blocks. Other nets stay in Default. GND is the pour.
+every segment and digit net from the MAX7219 drivers to their 8x8 blocks.
+SPI is the display SPI bus (CLK, DIN, LOAD, DOUT chain).
+5V is the +5V power distribution rail (0.8 mm width).
+Other nets stay in Default. GND is the pour.
 """
 
 from __future__ import annotations
@@ -13,12 +15,17 @@ from typing import Iterable
 
 CLASS_AUDIO = "AUDIO"
 CLASS_MATRIX = "MATRIX"
+CLASS_SPI = "SPI"
+CLASS_5V = "5V"
 
 AUDIO_NETS = frozenset(
     ("DAC", "AUD", "AUDIN", "AMP", "SPK", "ZOBEL", "BYPASS")
 )
 SPI_NETS = frozenset(
     ("CLK", "DIN", "LOAD", "DOUT", "DOUT_U1", "DOUT_U2", "DOUT_U3", "DOUT_U4")
+)
+POWER_NETS = frozenset(
+    ("+5V",)
 )
 
 _GEOM = {
@@ -37,7 +44,12 @@ _GEOM = {
     "wire_width": 6,
 }
 
-# AUDIO is green. MATRIX is red/orange.
+_POWER_GEOM = {
+    **_GEOM,
+    "track_width": 0.8,
+}
+
+# AUDIO is green. MATRIX is red. SPI is blue. 5V is orange.
 KICAD_CLASSES = [
     {
         **_GEOM,
@@ -53,11 +65,26 @@ KICAD_CLASSES = [
         "schematic_color": "rgb(214, 39, 40)",
         "priority": 2,
     },
+    {
+        **_GEOM,
+        "name": CLASS_SPI,
+        "pcb_color": "rgb(31, 119, 180)",
+        "schematic_color": "rgb(31, 119, 180)",
+        "priority": 3,
+    },
+    {
+        **_POWER_GEOM,
+        "name": CLASS_5V,
+        "pcb_color": "rgb(255, 127, 14)",
+        "schematic_color": "rgb(255, 127, 14)",
+        "priority": 4,
+    },
 ]
 
 PATTERNS = [
     *({"netclass": CLASS_AUDIO, "pattern": name} for name in sorted(AUDIO_NETS)),
-    *({"netclass": CLASS_MATRIX, "pattern": name} for name in sorted(SPI_NETS)),
+    *({"netclass": CLASS_SPI, "pattern": name} for name in sorted(SPI_NETS)),
+    *({"netclass": CLASS_5V, "pattern": name} for name in sorted(POWER_NETS)),
     {"netclass": CLASS_MATRIX, "pattern": "DS1_*"},
     {"netclass": CLASS_MATRIX, "pattern": "DS2_*"},
     {"netclass": CLASS_MATRIX, "pattern": "DS3_*"},
@@ -71,7 +98,11 @@ _MATRIX = re.compile(r"^DS[1-5]_")
 def class_for_name(name: str) -> str:
     if name in AUDIO_NETS:
         return CLASS_AUDIO
-    if name in SPI_NETS or _MATRIX.match(name):
+    if name in SPI_NETS:
+        return CLASS_SPI
+    if name in POWER_NETS:
+        return CLASS_5V
+    if _MATRIX.match(name):
         return CLASS_MATRIX
     return "Default"
 

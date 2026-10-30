@@ -3151,7 +3151,7 @@
 		(property "Reference" "R4"
 			(at -2.92 0 0)
 			(layer "F.SilkS")
-			(uuid "db0bc109-2499-4e31-85a6-519b96a7195f")
+			(uuid "172c5945-95f7-486b-b576-a213cc26c4a0")
 			(effects
 				(font
 					(size 1 1)
@@ -3162,7 +3162,7 @@
 		(property "Value" "U4 ISET"
 			(at 4.983228 0.10143 0)
 			(layer "F.SilkS")
-			(uuid "a2d1e4ca-fac0-4b07-aa25-7b0ccc264030")
+			(uuid "a403402a-8639-4866-9dfc-8ac76384263a")
 			(effects
 				(font
 					(size 1 1)
@@ -3174,7 +3174,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c2894d0b-1c8b-40d4-9bc3-0c90c8b91f6f")
+			(uuid "b1c9f279-26d4-4f4a-a585-eeece1b9fce7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3185,7 +3185,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "fad38118-6c24-42f5-96b3-7d64f3999924")
+			(uuid "e0354c26-9435-42c2-bf2a-eb6b944ce995")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7618,7 +7618,7 @@
 		(property "Reference" "R2"
 			(at 5.08 -2.37 0)
 			(layer "F.SilkS")
-			(uuid "f5e1ac93-879c-4edc-b215-e86aa9ea5007")
+			(uuid "255f51e4-046d-4e8d-9820-4c950cf6039d")
 			(effects
 				(font
 					(size 1 1)
@@ -7629,7 +7629,7 @@
 		(property "Value" "U2 ISET"
 			(at 5.08 2.37 0)
 			(layer "F.Fab")
-			(uuid "6d439ee3-f7a3-4c47-b01b-6ff973fe4d86")
+			(uuid "26ad21e7-ddf8-4152-b1ae-20fcb8c372e1")
 			(effects
 				(font
 					(size 1 1)
@@ -7641,7 +7641,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "2f4d4242-988c-4fee-8322-40b6035322de")
+			(uuid "fddb956d-9ec7-4eda-a999-0db4456652b4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7652,7 +7652,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "12cf4897-659e-4650-ab92-957466635ff9")
+			(uuid "b86f4450-b861-401d-82b2-037b106c3fec")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10982,13 +10982,13 @@
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "84701543-65a0-487c-b13f-bb7214e7a21d")
-		(at 29.17 89.17)
+		(at 27.86 89.7)
 		(descr "Through hole straight pin header, 2x08, 2.54mm pitch, double rows")
 		(tags "Through hole pin header THT 2x08 2.54mm double row")
 		(property "Reference" "J7"
 			(at -2.92 13.08 90)
 			(layer "F.SilkS")
-			(uuid "8d4f85c3-4317-4638-9cd3-16ae372901f5")
+			(uuid "b577f67d-ff6d-4ada-990c-6e7b729f8ac4")
 			(effects
 				(font
 					(size 1 1)
@@ -10999,7 +10999,7 @@
 		(property "Value" "Status Digits"
 			(at -2.92 5.58 90)
 			(layer "F.SilkS")
-			(uuid "0ce720fb-6941-449e-a041-0dd707836764")
+			(uuid "f503fb18-b717-4c3c-8ca6-6bad2e22baf7")
 			(effects
 				(font
 					(size 1 1)
@@ -11011,7 +11011,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "98220d6f-c439-44e7-885a-b6bdbe89ae26")
+			(uuid "59d1ce76-05cd-43fe-8e64-3536e6eb498c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11022,7 +11022,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "39197c74-157d-4af5-9351-f66574e3fb11")
+			(uuid "0caafbeb-ce82-4f09-8b05-fb88ef93ea9e")
 			(effects
 				(font
 					(size 1.27 1.27)

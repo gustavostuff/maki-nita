@@ -574,6 +574,44 @@
         "pcb_color": "rgb(214, 39, 40)",
         "schematic_color": "rgb(214, 39, 40)",
         "priority": 2
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "track_width": 0.4,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6,
+        "name": "SPI",
+        "pcb_color": "rgb(31, 119, 180)",
+        "schematic_color": "rgb(31, 119, 180)",
+        "priority": 3
+      },
+      {
+        "bus_width": 12,
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "line_style": 0,
+        "microvia_diameter": 0.3,
+        "microvia_drill": 0.1,
+        "track_width": 0.8,
+        "tuning_profile": "",
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
+        "wire_width": 6,
+        "name": "5V",
+        "pcb_color": "rgb(255, 127, 14)",
+        "schematic_color": "rgb(255, 127, 14)",
+        "priority": 4
       }
     ],
     "meta": {
@@ -581,6 +619,9 @@
     },
     "net_colors": null,
     "netclass_assignments": {
+      "+5V": [
+        "5V"
+      ],
       "AMP": [
         "AUDIO"
       ],
@@ -594,220 +635,271 @@
         "AUDIO"
       ],
       "CLK": [
-        "MATRIX"
+        "SPI"
       ],
       "DAC": [
         "AUDIO"
       ],
       "DIN": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U1": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U2": [
-        "MATRIX"
+        "SPI"
       ],
       "DOUT_U3": [
+        "SPI"
+      ],
+      "DOUT_U4": [
+        "SPI"
+      ],
+      "DS1_0": [
+        "MATRIX"
+      ],
+      "DS1_1": [
+        "MATRIX"
+      ],
+      "DS1_2": [
+        "MATRIX"
+      ],
+      "DS1_3": [
+        "MATRIX"
+      ],
+      "DS1_4": [
+        "MATRIX"
+      ],
+      "DS1_5": [
+        "MATRIX"
+      ],
+      "DS1_6": [
+        "MATRIX"
+      ],
+      "DS1_7": [
+        "MATRIX"
+      ],
+      "DS1_8": [
+        "MATRIX"
+      ],
+      "DS1_9": [
+        "MATRIX"
+      ],
+      "DS1_A": [
+        "MATRIX"
+      ],
+      "DS1_B": [
+        "MATRIX"
+      ],
+      "DS1_C": [
+        "MATRIX"
+      ],
+      "DS1_D": [
+        "MATRIX"
+      ],
+      "DS1_E": [
+        "MATRIX"
+      ],
+      "DS1_F": [
         "MATRIX"
       ],
-      "DS1_C0": [
+      "DS2_0": [
         "MATRIX"
       ],
-      "DS1_C1": [
+      "DS2_1": [
         "MATRIX"
       ],
-      "DS1_C2": [
+      "DS2_2": [
         "MATRIX"
       ],
-      "DS1_C3": [
+      "DS2_3": [
         "MATRIX"
       ],
-      "DS1_C4": [
+      "DS2_4": [
         "MATRIX"
       ],
-      "DS1_C5": [
+      "DS2_5": [
         "MATRIX"
       ],
-      "DS1_C6": [
+      "DS2_6": [
         "MATRIX"
       ],
-      "DS1_C7": [
+      "DS2_7": [
         "MATRIX"
       ],
-      "DS1_R0": [
+      "DS2_8": [
         "MATRIX"
       ],
-      "DS1_R1": [
+      "DS2_9": [
         "MATRIX"
       ],
-      "DS1_R2": [
+      "DS2_A": [
         "MATRIX"
       ],
-      "DS1_R3": [
+      "DS2_B": [
         "MATRIX"
       ],
-      "DS1_R4": [
+      "DS2_C": [
         "MATRIX"
       ],
-      "DS1_R5": [
+      "DS2_D": [
         "MATRIX"
       ],
-      "DS1_R6": [
+      "DS2_E": [
         "MATRIX"
       ],
-      "DS1_R7": [
+      "DS2_F": [
         "MATRIX"
       ],
-      "DS2_C0": [
+      "DS3_0": [
         "MATRIX"
       ],
-      "DS2_C1": [
+      "DS3_1": [
         "MATRIX"
       ],
-      "DS2_C2": [
+      "DS3_2": [
         "MATRIX"
       ],
-      "DS2_C3": [
+      "DS3_3": [
         "MATRIX"
       ],
-      "DS2_C4": [
+      "DS3_4": [
         "MATRIX"
       ],
-      "DS2_C5": [
+      "DS3_5": [
         "MATRIX"
       ],
-      "DS2_C6": [
+      "DS3_6": [
         "MATRIX"
       ],
-      "DS2_C7": [
+      "DS3_7": [
         "MATRIX"
       ],
-      "DS2_R0": [
+      "DS3_8": [
         "MATRIX"
       ],
-      "DS2_R1": [
+      "DS3_9": [
         "MATRIX"
       ],
-      "DS2_R2": [
+      "DS3_A": [
         "MATRIX"
       ],
-      "DS2_R3": [
+      "DS3_B": [
         "MATRIX"
       ],
-      "DS2_R4": [
+      "DS3_C": [
         "MATRIX"
       ],
-      "DS2_R5": [
+      "DS3_D": [
         "MATRIX"
       ],
-      "DS2_R6": [
+      "DS3_E": [
         "MATRIX"
       ],
-      "DS2_R7": [
+      "DS3_F": [
         "MATRIX"
       ],
-      "DS3_C0": [
+      "DS4_0": [
         "MATRIX"
       ],
-      "DS3_C1": [
+      "DS4_1": [
         "MATRIX"
       ],
-      "DS3_C2": [
+      "DS4_2": [
         "MATRIX"
       ],
-      "DS3_C3": [
+      "DS4_3": [
         "MATRIX"
       ],
-      "DS3_C4": [
+      "DS4_4": [
         "MATRIX"
       ],
-      "DS3_C5": [
+      "DS4_5": [
         "MATRIX"
       ],
-      "DS3_C6": [
+      "DS4_6": [
         "MATRIX"
       ],
-      "DS3_C7": [
+      "DS4_7": [
         "MATRIX"
       ],
-      "DS3_R0": [
+      "DS4_8": [
         "MATRIX"
       ],
-      "DS3_R1": [
+      "DS4_9": [
         "MATRIX"
       ],
-      "DS3_R2": [
+      "DS4_A": [
         "MATRIX"
       ],
-      "DS3_R3": [
+      "DS4_B": [
         "MATRIX"
       ],
-      "DS3_R4": [
+      "DS4_C": [
         "MATRIX"
       ],
-      "DS3_R5": [
+      "DS4_D": [
         "MATRIX"
       ],
-      "DS3_R6": [
+      "DS4_E": [
         "MATRIX"
       ],
-      "DS3_R7": [
+      "DS4_F": [
         "MATRIX"
       ],
-      "DS4_C0": [
+      "DS5_0": [
         "MATRIX"
       ],
-      "DS4_C1": [
+      "DS5_1": [
         "MATRIX"
       ],
-      "DS4_C2": [
+      "DS5_2": [
         "MATRIX"
       ],
-      "DS4_C3": [
+      "DS5_3": [
         "MATRIX"
       ],
-      "DS4_C4": [
+      "DS5_4": [
         "MATRIX"
       ],
-      "DS4_C5": [
+      "DS5_5": [
         "MATRIX"
       ],
-      "DS4_C6": [
+      "DS5_6": [
         "MATRIX"
       ],
-      "DS4_C7": [
+      "DS5_7": [
         "MATRIX"
       ],
-      "DS4_R0": [
+      "DS5_8": [
         "MATRIX"
       ],
-      "DS4_R1": [
+      "DS5_9": [
         "MATRIX"
       ],
-      "DS4_R2": [
+      "DS5_A": [
         "MATRIX"
       ],
-      "DS4_R3": [
+      "DS5_B": [
         "MATRIX"
       ],
-      "DS4_R4": [
+      "DS5_C": [
         "MATRIX"
       ],
-      "DS4_R5": [
+      "DS5_D": [
         "MATRIX"
       ],
-      "DS4_R6": [
+      "DS5_E": [
         "MATRIX"
       ],
-      "DS4_R7": [
+      "DS5_F": [
         "MATRIX"
       ],
       "LOAD": [
-        "MATRIX"
+        "SPI"
       ],
       "SPK": [
         "AUDIO"
@@ -846,32 +938,40 @@
         "pattern": "ZOBEL"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "CLK"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DIN"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U1"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U2"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
         "pattern": "DOUT_U3"
       },
       {
-        "netclass": "MATRIX",
+        "netclass": "SPI",
+        "pattern": "DOUT_U4"
+      },
+      {
+        "netclass": "SPI",
         "pattern": "LOAD"
+      },
+      {
+        "netclass": "5V",
+        "pattern": "+5V"
       },
       {
         "netclass": "MATRIX",
@@ -888,6 +988,10 @@
       {
         "netclass": "MATRIX",
         "pattern": "DS4_*"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DS5_*"
       }
     ]
   },
