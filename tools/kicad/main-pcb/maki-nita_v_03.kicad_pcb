@@ -199,7 +199,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -766,7 +766,7 @@
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U1"
-			(at 3.705 30.27 180)
+			(at 4.905 31.07 180)
 			(layer "F.SilkS")
 			(uuid "7eab46dd-ff9e-4efc-bebc-4b8e826858d8")
 			(effects
@@ -834,7 +834,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1430,7 +1430,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1649,7 +1649,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1868,7 +1868,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2087,7 +2087,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2236,7 +2236,7 @@
 		(at 82.54 40 -90)
 		(descr "Through hole straight pin header, 2x03, 2.54mm pitch, double rows")
 		(tags "Through hole pin header THT 2x03 2.54mm double row")
-		(property "Reference" "J3"
+		(property "Reference" "J2"
 			(at 1 -3.919556 180)
 			(layer "F.SilkS")
 			(uuid "2bf0d3da-a37f-4a89-8587-8b76cb001654")
@@ -2292,7 +2292,7 @@
 				)
 			)
 		)
-		(property "SKiDL Tag" "J3"
+		(property "SKiDL Tag" "J2"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2305,7 +2305,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2318,7 +2318,7 @@
 				)
 			)
 		)
-		(path "/feeefe1a-2e42-5bb8-adfa-cd7486f50a6d")
+		(path "/5e0b731b-c654-5cf6-8847-00f2f042255c")
 		(sheetname "/")
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -2622,7 +2622,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3217,7 +3217,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3426,7 +3426,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3616,7 +3616,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5007,7 +5007,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6329,7 +6329,7 @@
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U2"
-			(at 3.455 30.37 180)
+			(at 2.105 31.07 180)
 			(layer "F.SilkS")
 			(uuid "a131ec90-8293-4fcb-87c5-46a9d61af8bb")
 			(effects
@@ -6397,7 +6397,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6813,7 +6813,7 @@
 		(at 62.54 40 -90)
 		(descr "Through hole straight pin header, 2x03, 2.54mm pitch, double rows")
 		(tags "Through hole pin header THT 2x03 2.54mm double row")
-		(property "Reference" "J2"
+		(property "Reference" "J1"
 			(at 1 9.169097 180)
 			(layer "F.SilkS")
 			(uuid "b81187b3-d224-4b71-8a69-cb008997542c")
@@ -6869,7 +6869,7 @@
 				)
 			)
 		)
-		(property "SKiDL Tag" "J2"
+		(property "SKiDL Tag" "J1"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6882,7 +6882,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6895,7 +6895,7 @@
 				)
 			)
 		)
-		(path "/5e0b731b-c654-5cf6-8847-00f2f042255c")
+		(path "/d7608689-a7d2-514c-aa16-0f8bde5cf213")
 		(sheetname "/")
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -7131,7 +7131,7 @@
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U3"
-			(at 3.705 30.37 180)
+			(at 5.105 30.87 180)
 			(layer "F.SilkS")
 			(uuid "23d5d541-4da0-4ee9-9790-a2a4ff1771a5")
 			(effects
@@ -7199,7 +7199,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7684,7 +7684,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7893,7 +7893,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8393,7 +8393,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9784,7 +9784,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10002,7 +10002,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10208,7 +10208,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10729,7 +10729,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11054,7 +11054,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11472,7 +11472,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12863,7 +12863,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13082,7 +13082,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14583,7 +14583,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15973,7 +15973,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17295,7 +17295,7 @@
 		(descr "24-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U4"
-			(at 3.705 30.37 180)
+			(at 2.105 30.87 180)
 			(layer "F.SilkS")
 			(uuid "674100dc-7af9-4c3c-a418-2b2812474bf8")
 			(effects
@@ -17363,7 +17363,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17849,7 +17849,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17998,8 +17998,8 @@
 		(at 81.43 30.08 -90)
 		(descr "EDAC 395-020-520-202 motherboard socket. 2x10 THT, 2.54mm pitch along a row, 5.08mm between row centers (pads 1/3/5.. at X=0, 2/4/6.. at X=-5.08). Pad 1 rect at origin. Ten contacts per row.")
 		(tags "EDAC 395-020-520-202 mobo socket 2x10 2.54mm 5.08mm")
-		(property "Reference" "J1"
-			(at 4.512504 11.433271 0)
+		(property "Reference" "J3"
+			(at 3.712504 13.63 0)
 			(layer "F.SilkS")
 			(uuid "ec3fba75-0b78-4bc4-9666-2589aa40e6b1")
 			(effects
@@ -18010,7 +18010,7 @@
 			)
 		)
 		(property "Value" "Cart"
-			(at -3.81 25.63 90)
+			(at 3.72 10.026729 180)
 			(layer "F.SilkS")
 			(uuid "1461fa8a-3cc1-4164-9bf8-2f2859767a27")
 			(effects
@@ -18042,7 +18042,7 @@
 				)
 			)
 		)
-		(property "SKiDL Tag" "J1"
+		(property "SKiDL Tag" "J3"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18055,7 +18055,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18068,7 +18068,7 @@
 				)
 			)
 		)
-		(path "/d7608689-a7d2-514c-aa16-0f8bde5cf213")
+		(path "/feeefe1a-2e42-5bb8-adfa-cd7486f50a6d")
 		(sheetname "/")
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -18530,7 +18530,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18720,7 +18720,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20098,7 +20098,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20729,7 +20729,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20997,7 +20997,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21176,7 +21176,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21365,7 +21365,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21584,7 +21584,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21781,7 +21781,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22230,11 +22230,11 @@
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "d573c7eb-5884-4948-8434-a132ef962b38")
-		(at 36.25 27 90)
+		(at 34.075 114.015 -90)
 		(descr "Through hole angled pin header, 1x02, 2.54mm pitch, 6mm pin length, single row")
 		(tags "Through hole angled pin header THT 1x02 2.54mm single row")
 		(property "Reference" "J4"
-			(at 2.75 -3.25 90)
+			(at -0.516344 5.402731 270)
 			(layer "F.SilkS")
 			(uuid "b4a94ea7-cb53-445a-8640-b459ad49b28a")
 			(effects
@@ -22245,7 +22245,7 @@
 			)
 		)
 		(property "Value" "Power"
-			(at 2.25 5.75 90)
+			(at -2.751911 1.271177 180)
 			(layer "F.SilkS")
 			(uuid "7c18345d-a062-4ab2-b8f3-45805b0883a1")
 			(effects
@@ -22290,7 +22290,7 @@
 			)
 		)
 		(property "SKiDL Tag" "J4"
-			(at 0 0 90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -22302,8 +22302,8 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
-			(at 0 0 90)
+		(property "SKiDL Line" "maki_nita.py:234"
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -22320,84 +22320,14 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
-			(start -1.27 -1.27)
-			(end 0 -1.27)
+			(start 1.077358 2.97)
+			(end 1.39 2.97)
 			(stroke
 				(width 0.12)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "313b6992-4ca8-49b6-a7a8-04c805400eb5")
-		)
-		(fp_line
-			(start 1.16 -0.43)
-			(end 1.39 -0.43)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5c333efa-d8ca-4231-928f-e4fb64b01874")
-		)
-		(fp_line
-			(start -1.27 0)
-			(end -1.27 -1.27)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "b686cf82-0615-4b59-9c91-29350a7e5618")
-		)
-		(fp_line
-			(start 1.16 0.43)
-			(end 1.39 0.43)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "9ed1bbb6-bd90-41a4-9635-d2b3d6170073")
-		)
-		(fp_line
-			(start 1.39 1.27)
-			(end 4.15 1.27)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "c841ac76-ae7c-4724-9398-afe22cd16779")
-		)
-		(fp_line
-			(start 10.15 2.11)
-			(end 10.15 2.97)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "7e05a9bc-f33b-467c-8e78-d4effeae3053")
-		)
-		(fp_line
-			(start 4.15 2.11)
-			(end 10.15 2.11)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "bb45a2c9-b27e-448b-adba-e00b76aa54cd")
-		)
-		(fp_line
-			(start 1.077358 2.11)
-			(end 1.39 2.11)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "c98e7f48-fbe2-44e5-8936-6b4071abe5b1")
+			(uuid "5bbc4da4-924b-4d3b-9496-d9183a9265ce")
 		)
 		(fp_line
 			(start 10.15 2.97)
@@ -22410,25 +22340,84 @@
 			(uuid "7f021a84-12ba-4e3d-a0b9-35b04dd94518")
 		)
 		(fp_line
-			(start 1.077358 2.97)
-			(end 1.39 2.97)
+			(start 1.077358 2.11)
+			(end 1.39 2.11)
 			(stroke
 				(width 0.12)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "5bbc4da4-924b-4d3b-9496-d9183a9265ce")
+			(uuid "c98e7f48-fbe2-44e5-8936-6b4071abe5b1")
 		)
-		(fp_rect
-			(start 1.39 -1.38)
-			(end 4.15 3.92)
+		(fp_line
+			(start 4.15 2.11)
+			(end 10.15 2.11)
 			(stroke
 				(width 0.12)
 				(type solid)
 			)
-			(fill no)
 			(layer "F.SilkS")
-			(uuid "0dfc85c2-de74-4193-813a-77511c4a20f2")
+			(uuid "bb45a2c9-b27e-448b-adba-e00b76aa54cd")
+		)
+		(fp_line
+			(start 10.15 2.11)
+			(end 10.15 2.97)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "7e05a9bc-f33b-467c-8e78-d4effeae3053")
+		)
+		(fp_line
+			(start 1.39 1.27)
+			(end 4.15 1.27)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "c841ac76-ae7c-4724-9398-afe22cd16779")
+		)
+		(fp_line
+			(start 1.16 0.43)
+			(end 1.39 0.43)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "9ed1bbb6-bd90-41a4-9635-d2b3d6170073")
+		)
+		(fp_line
+			(start -1.27 0)
+			(end -1.27 -1.27)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "b686cf82-0615-4b59-9c91-29350a7e5618")
+		)
+		(fp_line
+			(start 1.16 -0.43)
+			(end 1.39 -0.43)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "5c333efa-d8ca-4231-928f-e4fb64b01874")
+		)
+		(fp_line
+			(start -1.27 -1.27)
+			(end 0 -1.27)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "313b6992-4ca8-49b6-a7a8-04c805400eb5")
 		)
 		(fp_rect
 			(start 4.15 -0.43)
@@ -22442,6 +22431,17 @@
 			(uuid "3904e2fc-2fd5-4060-8c11-ffcc4037a132")
 		)
 		(fp_rect
+			(start 1.39 -1.38)
+			(end 4.15 3.92)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.SilkS")
+			(uuid "0dfc85c2-de74-4193-813a-77511c4a20f2")
+		)
+		(fp_rect
 			(start -1.77 -1.77)
 			(end 10.54 4.32)
 			(stroke
@@ -22453,154 +22453,14 @@
 			(uuid "6cf04974-6616-4e48-85a3-cb9b5593acca")
 		)
 		(fp_line
-			(start 4.04 -1.27)
-			(end 4.04 3.81)
+			(start 1.5 3.81)
+			(end 1.5 -0.635)
 			(stroke
 				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "e4e4269f-9c2b-4aef-805e-58e5bc8ad507")
-		)
-		(fp_line
-			(start 2.135 -1.27)
-			(end 4.04 -1.27)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "03e3a24e-2b61-4f1c-99fc-f8face0fa94d")
-		)
-		(fp_line
-			(start 1.5 -0.635)
-			(end 2.135 -1.27)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "3026b6ba-eadc-4e5b-a67e-1bed76cc16d4")
-		)
-		(fp_line
-			(start 10.04 -0.32)
-			(end 10.04 0.32)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "b52aa824-c600-4668-ac42-cc99281e4cf2")
-		)
-		(fp_line
-			(start 4.04 -0.32)
-			(end 10.04 -0.32)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "9b876d04-ea87-4ef1-836d-a8ad9f1b78ae")
-		)
-		(fp_line
-			(start -0.32 -0.32)
-			(end 1.5 -0.32)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "6e7e11cf-3fc4-4ea6-97a3-de25741336f5")
-		)
-		(fp_line
-			(start -0.32 -0.32)
-			(end -0.32 0.32)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "b956421e-080c-4ca7-8b78-b28257eea6e3")
-		)
-		(fp_line
-			(start 4.04 0.32)
-			(end 10.04 0.32)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "d6f193b7-f83c-499a-872a-d55056d36a25")
-		)
-		(fp_line
-			(start -0.32 0.32)
-			(end 1.5 0.32)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "1616ab01-3a30-4ac7-86be-770a0bfed69f")
-		)
-		(fp_line
-			(start 10.04 2.22)
-			(end 10.04 2.86)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "c4e9ad9f-f809-4792-a8fe-87d8cecaa1d7")
-		)
-		(fp_line
-			(start 4.04 2.22)
-			(end 10.04 2.22)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "355491a0-50e6-411d-8454-aa423f34d658")
-		)
-		(fp_line
-			(start -0.32 2.22)
-			(end 1.5 2.22)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "3ecae4f8-72f1-4f6b-9cf1-f35051f20d69")
-		)
-		(fp_line
-			(start -0.32 2.22)
-			(end -0.32 2.86)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "b175cd98-04df-45ae-9fe2-cf481f9851e3")
-		)
-		(fp_line
-			(start 4.04 2.86)
-			(end 10.04 2.86)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "ce896c9a-72c8-4c6f-b5d9-090a52dc5c79")
-		)
-		(fp_line
-			(start -0.32 2.86)
-			(end 1.5 2.86)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "b35aca64-e1e9-4b35-a892-11076c8ca51f")
+			(uuid "7de5f355-8dd6-47fa-9eee-bd8be21d26d2")
 		)
 		(fp_line
 			(start 4.04 3.81)
@@ -22613,14 +22473,154 @@
 			(uuid "d57cf741-ee48-4c04-ac99-f202c024c93a")
 		)
 		(fp_line
-			(start 1.5 3.81)
-			(end 1.5 -0.635)
+			(start -0.32 2.86)
+			(end 1.5 2.86)
 			(stroke
 				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "7de5f355-8dd6-47fa-9eee-bd8be21d26d2")
+			(uuid "b35aca64-e1e9-4b35-a892-11076c8ca51f")
+		)
+		(fp_line
+			(start 4.04 2.86)
+			(end 10.04 2.86)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "ce896c9a-72c8-4c6f-b5d9-090a52dc5c79")
+		)
+		(fp_line
+			(start -0.32 2.22)
+			(end -0.32 2.86)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b175cd98-04df-45ae-9fe2-cf481f9851e3")
+		)
+		(fp_line
+			(start -0.32 2.22)
+			(end 1.5 2.22)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "3ecae4f8-72f1-4f6b-9cf1-f35051f20d69")
+		)
+		(fp_line
+			(start 4.04 2.22)
+			(end 10.04 2.22)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "355491a0-50e6-411d-8454-aa423f34d658")
+		)
+		(fp_line
+			(start 10.04 2.22)
+			(end 10.04 2.86)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "c4e9ad9f-f809-4792-a8fe-87d8cecaa1d7")
+		)
+		(fp_line
+			(start -0.32 0.32)
+			(end 1.5 0.32)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "1616ab01-3a30-4ac7-86be-770a0bfed69f")
+		)
+		(fp_line
+			(start 4.04 0.32)
+			(end 10.04 0.32)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "d6f193b7-f83c-499a-872a-d55056d36a25")
+		)
+		(fp_line
+			(start -0.32 -0.32)
+			(end -0.32 0.32)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b956421e-080c-4ca7-8b78-b28257eea6e3")
+		)
+		(fp_line
+			(start -0.32 -0.32)
+			(end 1.5 -0.32)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "6e7e11cf-3fc4-4ea6-97a3-de25741336f5")
+		)
+		(fp_line
+			(start 4.04 -0.32)
+			(end 10.04 -0.32)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "9b876d04-ea87-4ef1-836d-a8ad9f1b78ae")
+		)
+		(fp_line
+			(start 10.04 -0.32)
+			(end 10.04 0.32)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "b52aa824-c600-4668-ac42-cc99281e4cf2")
+		)
+		(fp_line
+			(start 1.5 -0.635)
+			(end 2.135 -1.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "3026b6ba-eadc-4e5b-a67e-1bed76cc16d4")
+		)
+		(fp_line
+			(start 2.135 -1.27)
+			(end 4.04 -1.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "03e3a24e-2b61-4f1c-99fc-f8face0fa94d")
+		)
+		(fp_line
+			(start 4.04 -1.27)
+			(end 4.04 3.81)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "e4e4269f-9c2b-4aef-805e-58e5bc8ad507")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 2.77 1.27 0)
@@ -22634,7 +22634,7 @@
 			)
 		)
 		(pad "1" thru_hole rect
-			(at 0 0 90)
+			(at 0 0 270)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -22644,7 +22644,7 @@
 			(uuid "9d110fcb-3eca-4c5a-be44-f991baae7d04")
 		)
 		(pad "2" thru_hole circle
-			(at 0 2.54 90)
+			(at 0 2.54 270)
 			(size 1.7 1.7)
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
@@ -22741,7 +22741,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22951,7 +22951,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -24342,7 +24342,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -24658,7 +24658,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25179,7 +25179,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25369,7 +25369,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:230"
+		(property "SKiDL Line" "maki_nita.py:234"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")

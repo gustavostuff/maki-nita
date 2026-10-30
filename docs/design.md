@@ -6,13 +6,13 @@ The electrical source of truth is `tools/kicad/main-pcb/skidl/maki_nita.py`. `to
 
 The main system board is a 100x100 mm 2-layer board with ground pours on both sides. Parts are through-hole on a 2.54 mm grid. The game AVR is on the cartridge PCB. Six M3 (3.2 mm) mounting holes (H1 to H6) secure the corners and top edge.
 
-All external headers and the cart socket (J1 to J6) sit along the top area of the board. The 16x16 display field occupies the central and lower area.
+All external headers and the cart socket (J1 to J7) sit along the top area of the board. The 16x16 display field occupies the central and lower area.
 
 | Ref | Role |
 | --- | --- |
-| J1 | EDAC 395 cart socket, 20 contacts |
-| J2 | 2x3 header, Player 1 controls (four directions, button, GND) |
-| J3 | 2x3 header, Player 2 controls (four directions, button, GND) |
+| J1 | 2x3 header, Player 1 controls (four directions, button, GND) |
+| J2 | 2x3 header, Player 2 controls (four directions, button, GND) |
+| J3 | EDAC 395 cart socket, 20 contacts |
 | J4 | 1x2 horizontal header, 5 V power (JST XH: Pin 1 GND, Pin 2 +5V) |
 | J5 | 2x2 horizontal header, speaker |
 | J6 | 1x3 header, audio AVR UPDI |
@@ -41,7 +41,7 @@ Each matrix sits in two elevated 1x8 female pin socket strips. Its MAX7219 drive
 
 Vertical clearance under the matrix body depends on socket height and needs physical verification during assembly. If a DIP-24 socket plus the MAX7219 package is too tall to clear the seated matrix, the drivers can be soldered directly to the board without IC sockets. Because the MAX7219 is fixed-function silicon without firmware or flashing needs, sockets are primarily valuable for the AVR microcontrollers.
 
-DIN, CLK, and LOAD come from the cart through J1 into U1. DOUT chains U1 to U2 to U3 to U4 to U7.
+DIN, CLK, and LOAD come from the cart through J3 into U1. DOUT chains U1 to U2 to U3 to U4 to U7.
 
 The cart AVR keeps the frame and shifts it over DIN, CLK, and LOAD at 12 MHz. Each MAX7219 scans its block. Segment pins source anodes. Digit pins sink cathodes.
 
@@ -54,7 +54,7 @@ The MAX7219 multiplexes its eight rows using an autonomous internal oscillator a
 | DS3 | 0 to 7 | 8 to 15 | Third |
 | DS4 | 8 to 15 | 8 to 15 | Fourth |
 
-## Cart edge (J1)
+## Cart edge (J3)
 
 The cart socket is an EDAC 395-020-520-202 with 20 contacts (10 contacts per side, 2.54 mm pitch).
 
@@ -73,7 +73,7 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 | 9 | P2_RIGHT | GND |
 | 10 | P2_BTN | +5V |
 
-Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties directly to U5 reset.
+Player 1 cabinet stick and button wires land on J1 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J2 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties directly to U5 reset.
 
 ## Audio (U5, U6, J5)
 
