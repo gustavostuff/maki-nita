@@ -546,15 +546,15 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "AUDIO",
-        "pcb_color": "rgb(44, 160, 44)",
-        "priority": 1,
-        "schematic_color": "rgb(44, 160, 44)",
         "track_width": 0.4,
         "tuning_profile": "",
         "via_diameter": 0.8,
         "via_drill": 0.4,
-        "wire_width": 6
+        "wire_width": 6,
+        "name": "AUDIO",
+        "pcb_color": "rgb(44, 160, 44)",
+        "schematic_color": "rgb(44, 160, 44)",
+        "priority": 1
       },
       {
         "bus_width": 12,
@@ -565,15 +565,15 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "MATRIX",
-        "pcb_color": "rgb(214, 39, 40)",
-        "priority": 2,
-        "schematic_color": "rgb(214, 39, 40)",
         "track_width": 0.4,
         "tuning_profile": "",
         "via_diameter": 0.8,
         "via_drill": 0.4,
-        "wire_width": 6
+        "wire_width": 6,
+        "name": "MATRIX",
+        "pcb_color": "rgb(214, 39, 40)",
+        "schematic_color": "rgb(214, 39, 40)",
+        "priority": 2
       }
     ],
     "meta": {
@@ -612,6 +612,9 @@
         "MATRIX"
       ],
       "DOUT_U3": [
+        "MATRIX"
+      ],
+      "DOUT_U4": [
         "MATRIX"
       ],
       "DS1_0": [
@@ -806,6 +809,54 @@
       "DS4_F": [
         "MATRIX"
       ],
+      "DS5_0": [
+        "MATRIX"
+      ],
+      "DS5_1": [
+        "MATRIX"
+      ],
+      "DS5_2": [
+        "MATRIX"
+      ],
+      "DS5_3": [
+        "MATRIX"
+      ],
+      "DS5_4": [
+        "MATRIX"
+      ],
+      "DS5_5": [
+        "MATRIX"
+      ],
+      "DS5_6": [
+        "MATRIX"
+      ],
+      "DS5_7": [
+        "MATRIX"
+      ],
+      "DS5_8": [
+        "MATRIX"
+      ],
+      "DS5_9": [
+        "MATRIX"
+      ],
+      "DS5_A": [
+        "MATRIX"
+      ],
+      "DS5_B": [
+        "MATRIX"
+      ],
+      "DS5_C": [
+        "MATRIX"
+      ],
+      "DS5_D": [
+        "MATRIX"
+      ],
+      "DS5_E": [
+        "MATRIX"
+      ],
+      "DS5_F": [
+        "MATRIX"
+      ],
       "LOAD": [
         "MATRIX"
       ],
@@ -871,6 +922,10 @@
       },
       {
         "netclass": "MATRIX",
+        "pattern": "DOUT_U4"
+      },
+      {
+        "netclass": "MATRIX",
         "pattern": "LOAD"
       },
       {
@@ -888,6 +943,10 @@
       {
         "netclass": "MATRIX",
         "pattern": "DS4_*"
+      },
+      {
+        "netclass": "MATRIX",
+        "pattern": "DS5_*"
       }
     ]
   },

@@ -63,9 +63,10 @@ PRO_PATHS = (
 
 SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
-PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
+PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal"
 SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
 UPDI_FP = "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
+DISP_HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 AUDIO_FP = "Package_DIP:DIP-28_W7.62mm"
 AMP_FP = "Package_DIP:DIP-8_W7.62mm"
@@ -89,12 +90,10 @@ HDR_PINS = (
     (6, "LEFT"),
 )
 
-# Pin 1 is the square pad. The row with pin 1 is power. The other row is reset.
+# 1x2 JST XH power header (Pin 1 is GND, Pin 2 is +5V).
 PWR_PINS = (
     (1, "GND"),
     (2, "VCC"),
-    (3, "RESET"),
-    (4, "GND2"),
 )
 
 # Pin 1 is the square pad. Pins 1 and 4 are ground. Pins 2 and 3 are the speaker.
@@ -125,6 +124,26 @@ MATRIX_DRV_PINS = {
     "D": 23,  # COL 5 -> SEGD (pin 23)
     "E": 10,  # ROW 6 -> DIG5 (pin 10)
     "F": 6,   # ROW 3 -> DIG2 (pin 6)
+}
+
+# 2x8 header pin to matrix pin map for 8-digit status display (Row A: pins 1-8, Row B: pins 9-16)
+HEADER_PIN_MAP = {
+    1: "0",
+    2: "1",
+    3: "2",
+    4: "3",
+    5: "8",
+    6: "9",
+    7: "A",
+    8: "B",
+    9: "4",
+    10: "5",
+    11: "6",
+    12: "7",
+    13: "C",
+    14: "D",
+    15: "E",
+    16: "F",
 }
 
 DRV_PINS = (
@@ -426,11 +445,9 @@ def build() -> None:
     _tie(p2_hdr, 5, p2_switches["P2_RIGHT"])
     _tie(p2_hdr, 6, p2_switches["P2_LEFT"])
 
-    power = _part("PinHeader_2x02", "J4", PWR_FP, PWR_PINS, "Power", "5 V and reset")
+    power = _part("PinHeader_1x02", "J4", PWR_FP, PWR_PINS, "Power", "5 V power")
     _tie(power, 1, gnd)
     _tie(power, 2, vcc)
-    _tie(power, 3, reset)
-    _tie(power, 4, gnd)
     _audio(vcc, gnd, event, reset)
 
     drivers = []
@@ -476,7 +493,46 @@ def build() -> None:
         link = Net(f"DOUT_{drivers[index].ref}")
         _tie(drivers[index], 24, link)
         _tie(drivers[index + 1], 1, link)
-    _tie(drivers[-1], 24, Net("DOUT"))
+
+    # 5th MAX7219 driver (U7) for the 8-digit status display
+    u7 = _part("MAX7219", "U7", DRV_FP, DRV_PINS, "MAX7219")
+    _tie(u7, 19, vcc)
+    _tie(u7, 4, gnd)
+    _tie(u7, 9, gnd)
+    _tie(u7, 13, clk)
+    _tie(u7, 12, load)
+    iset7 = Net("U7_ISET")
+    _tie(u7, 18, iset7)
+    iset7_r = _passive(_ic_ref("R", 7), R_HORIZ_FP, "U7 ISET", "28 kohm ISET")
+    _tie(iset7_r, 1, vcc)
+    _tie(iset7_r, 2, iset7)
+    bypass_7 = _passive(_ic_ref("C", 7), C_DISC_FP, "U7 V+", "100 nF on U7 V+")
+    _tie(bypass_7, 1, vcc)
+    _tie(bypass_7, 2, gnd)
+    bulk_7 = _passive(_ic_ref("C", 7, 1), C_ELEC_FP, "U7 10u", "10 uF on U7 V+")
+    _tie(bulk_7, 1, vcc)
+    _tie(bulk_7, 2, gnd)
+
+    # Chain U4 -> U7
+    link_u4 = Net("DOUT_U4")
+    _tie(drivers[3], 24, link_u4)
+    _tie(u7, 1, link_u4)
+    _tie(u7, 24, Net("DOUT"))
+
+    # 16-pin connector for status digits daughterboard
+    disp_pins = tuple((i, str(i)) for i in range(1, 17))
+    disp_hdr = _part(
+        "PinHeader_2x08",
+        "J7",
+        DISP_HDR_FP,
+        disp_pins,
+        "Status Digits",
+        "8-digit status display header",
+    )
+    for hdr_pin, matrix_pin in HEADER_PIN_MAP.items():
+        net = Net(f"DS5_{matrix_pin}")
+        _tie(u7, MATRIX_DRV_PINS[matrix_pin], net)
+        _tie(disp_hdr, hdr_pin, net)
 
 
 def _check(text: str) -> None:
@@ -504,10 +560,14 @@ def _check(text: str) -> None:
         raise SystemExit("cart socket footprint missing")
     if text.count(f'(footprint "{HDR_FP}")') != 2:
         raise SystemExit("expected 2 player control header footprints")
-    if text.count(f'(footprint "{PWR_FP}")') != 2:
-        raise SystemExit("expected the power header and the speaker header")
-    if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 4:
-        raise SystemExit("expected 4 MAX7219 footprints")
+    if text.count(f'(footprint "{PWR_FP}")') != 1:
+        raise SystemExit("expected the power header footprint")
+    if text.count(f'(footprint "{SPK_FP}")') != 1:
+        raise SystemExit("expected the speaker header footprint")
+    if text.count(f'(footprint "{DISP_HDR_FP}")') != 1:
+        raise SystemExit("expected status digits display header footprint")
+    if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 5:
+        raise SystemExit("expected 5 MAX7219 footprints")
     if text.count(f'(footprint "{MATRIX_FP}")') != 4:
         raise SystemExit("expected 4 matrix footprints")
     if text.count('(name "+5V")') != 1:
@@ -521,7 +581,7 @@ def _check(text: str) -> None:
     if ("J4", "2") not in vcc:
         raise SystemExit("+5V does not reach the power header")
     drivers_on_vcc = {ref for ref, pin in vcc if pin == "19"}
-    if drivers_on_vcc != {f"U{n}" for n in range(1, 5)}:
+    if drivers_on_vcc != {"U1", "U2", "U3", "U4", "U7"}:
         raise SystemExit(f"+5V drivers {sorted(drivers_on_vcc)}")
     for pad in ("8", "10", "18"):
         if ("J1", pad) not in gnd:
@@ -530,10 +590,11 @@ def _check(text: str) -> None:
         raise SystemExit("cart socket pad 16 is EVENT")
     if ("J2", "4") not in gnd or ("J3", "4") not in gnd:
         raise SystemExit("GND does not reach player header ground pins")
-    if ("J4", "1") not in gnd or ("J4", "4") not in gnd:
-        raise SystemExit("GND does not reach both power header ground pins")
-    if ("U1", "4") not in gnd or ("U1", "9") not in gnd:
-        raise SystemExit("GND does not reach both MAX7219 ground pins")
+    if ("J4", "1") not in gnd:
+        raise SystemExit("GND does not reach power header ground pin")
+    for u in ("U1", "U2", "U3", "U4", "U7"):
+        if (u, "4") not in gnd or (u, "9") not in gnd:
+            raise SystemExit(f"GND does not reach both {u} ground pins")
     din = nodes("DIN")
     if din != {("J1", "6"), ("U1", "1")}:
         raise SystemExit(f"DIN nodes {din}")
@@ -574,7 +635,7 @@ def _check(text: str) -> None:
     if p2_btn != {("J1", "1"), ("J3", "2")}:
         raise SystemExit(f"P2_BTN nodes {p2_btn}")
     reset_net = nodes("RESET")
-    if reset_net != {("J1", "14"), ("J4", "3"), ("U5", "18")}:
+    if reset_net != {("J1", "14"), ("U5", "18")}:
         raise SystemExit(f"RESET nodes {reset_net}")
     if text.count('(value "Audio AVR")') != 1 or text.count('(description "AVR128DB28-I/SP")') != 1:
         raise SystemExit("audio AVR missing")
@@ -586,8 +647,8 @@ def _check(text: str) -> None:
         raise SystemExit("LM386 footprint missing")
     if text.count(f'(footprint "{UPDI_FP}")') != 1:
         raise SystemExit("audio UPDI header missing")
-    if text.count(f'(footprint "{R_HORIZ_FP}")') != 4:
-        raise SystemExit("expected 4 horizontal resistor footprints")
+    if text.count(f'(footprint "{R_HORIZ_FP}")') != 5:
+        raise SystemExit("expected 5 horizontal resistor footprints")
     if text.count(f'(footprint "{R_VERT_FP}")') != 5:
         raise SystemExit("expected 5 vertical resistor footprints")
     if text.count('(value "10k EVENT")') != 1 or text.count('(value "10k DAC")') != 1:
@@ -604,7 +665,7 @@ def _check(text: str) -> None:
         raise SystemExit("U5 IO bypass missing")
     if text.count('(value "U6 VS")') != 2 or text.count('(value "U6 BYP")') != 1:
         raise SystemExit("U6 supply caps missing")
-    for n in range(1, 5):
+    for n in (1, 2, 3, 4, 7):
         if text.count(f'(value "U{n} ISET")') != 1 or text.count(f'(value "U{n} V+")') != 1:
             raise SystemExit(f"U{n} ISET or 100 nF missing")
         if text.count(f'(value "U{n} 10u")') != 1:
@@ -682,9 +743,18 @@ def _check(text: str) -> None:
         nc = nodes(f"NC_U6_{num}")
         if nc != {("U6", str(num))}:
             raise SystemExit(f"NC_U6_{num} nodes {nc}")
-    link = nodes("DOUT_U1")
-    if link != {("U1", "24"), ("U2", "1")}:
-        raise SystemExit(f"DOUT_U1 nodes {link}")
+    for link_name, from_node, to_node in (
+        ("DOUT_U1", ("U1", "24"), ("U2", "1")),
+        ("DOUT_U2", ("U2", "24"), ("U3", "1")),
+        ("DOUT_U3", ("U3", "24"), ("U4", "1")),
+        ("DOUT_U4", ("U4", "24"), ("U7", "1")),
+    ):
+        link = nodes(link_name)
+        if link != {from_node, to_node}:
+            raise SystemExit(f"{link_name} nodes {link}")
+    dout = nodes("DOUT")
+    if dout != {("U7", "24")}:
+        raise SystemExit(f"DOUT nodes {dout}")
     for n in range(1, 5):
         for pin_name in MATRIX_PIN_NAMES:
             net_name = f"DS{n}_{pin_name}"
@@ -692,6 +762,12 @@ def _check(text: str) -> None:
             expected = {(f"U{n}", str(MATRIX_DRV_PINS[pin_name])), (f"DS{n}", pin_name)}
             if actual != expected:
                 raise SystemExit(f"{net_name} nodes {actual} != {expected}")
+    for hdr_pin, matrix_pin in HEADER_PIN_MAP.items():
+        net_name = f"DS5_{matrix_pin}"
+        actual = nodes(net_name)
+        expected = {("U7", str(MATRIX_DRV_PINS[matrix_pin])), ("J7", str(hdr_pin))}
+        if actual != expected:
+            raise SystemExit(f"{net_name} nodes {actual} != {expected}")
 
 
 def _clean_strays() -> None:

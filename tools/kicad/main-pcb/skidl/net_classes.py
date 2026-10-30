@@ -18,7 +18,7 @@ AUDIO_NETS = frozenset(
     ("DAC", "AUD", "AUDIN", "AMP", "SPK", "ZOBEL", "BYPASS")
 )
 SPI_NETS = frozenset(
-    ("CLK", "DIN", "LOAD", "DOUT", "DOUT_U1", "DOUT_U2", "DOUT_U3")
+    ("CLK", "DIN", "LOAD", "DOUT", "DOUT_U1", "DOUT_U2", "DOUT_U3", "DOUT_U4")
 )
 
 _GEOM = {
@@ -62,9 +62,10 @@ PATTERNS = [
     {"netclass": CLASS_MATRIX, "pattern": "DS2_*"},
     {"netclass": CLASS_MATRIX, "pattern": "DS3_*"},
     {"netclass": CLASS_MATRIX, "pattern": "DS4_*"},
+    {"netclass": CLASS_MATRIX, "pattern": "DS5_*"},
 ]
 
-_MATRIX = re.compile(r"^DS[1-4]_")
+_MATRIX = re.compile(r"^DS[1-5]_")
 
 
 def class_for_name(name: str) -> str:
