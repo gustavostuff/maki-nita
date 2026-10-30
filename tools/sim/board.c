@@ -19,8 +19,8 @@ static const char *sw_name[5] = {
     "UP", "DOWN", "LEFT", "RIGHT", "BUTTON",
 };
 
-static const char *spk_name[4] = {
-    "GND", "SPK", "SPK", "GND",
+static const char *spk_name[2] = {
+    "GND", "SPK",
 };
 
 static void settle_all(Board *board)
@@ -295,7 +295,7 @@ void board_init(Board *board)
         net_tie(&board->sw[i], &board->contact[i]);
     }
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 2; i++) {
         board->speaker[i].name = spk_name[i];
         board->speaker[i].number = i + 1;
         board->speaker[i].dir = PIN_IN;
@@ -305,8 +305,6 @@ void board_init(Board *board)
     }
     net_tie(&board->gnd, &board->speaker[0]);
     net_tie(&board->spk, &board->speaker[1]);
-    net_tie(&board->spk, &board->speaker[2]);
-    net_tie(&board->gnd, &board->speaker[3]);
 
     board->event_wire.n = 0;
     board->event_wire.r = 0;

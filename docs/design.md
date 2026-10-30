@@ -14,7 +14,7 @@ All external headers and the cart socket (J1 to J7) sit along the top area of th
 | J2 | 2x3 header, Player 2 controls (four directions, button, GND) |
 | J3 | EDAC 395 cart socket, 20 contacts |
 | J4 | 1x2 horizontal header, 5 V power (JST XH: Pin 1 GND, Pin 2 +5V) |
-| J5 | 2x2 horizontal header, speaker |
+| J5 | 1x2 horizontal header, speaker (Pin 1 GND, Pin 2 SPK) |
 | J6 | 1x3 header, audio AVR UPDI (Pin 1 UPDI, Pin 2 +5V, Pin 3 GND) |
 | J7 | 2x8 header, 8-digit status display |
 | J8 | 1x3 header, cartridge AVR UPDI (in-system flashing; Pin 1 UPDI, Pin 2 +5V, Pin 3 GND) |
@@ -78,7 +78,7 @@ Player 1 cabinet stick and button wires land on J1 (a 2x3 header with pins 5, 3,
 
 ## Audio (U5, U6, J5)
 
-U5 sits along the left edge of the board. U6 and the speaker header J5 (a 2x2 horizontal 2.54 mm header) sit along the right edge.
+U5 sits along the left edge of the board. U6 and the speaker header J5 (a 1x2 horizontal 2.54 mm header, Pin 1 GND, Pin 2 SPK) sit along the right edge.
 
 The cart drives EVENT on contact B8 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the system board. The mix updates at 20 kHz.
 

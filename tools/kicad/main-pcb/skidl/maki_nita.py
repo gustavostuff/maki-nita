@@ -59,6 +59,7 @@ from net_classes import (
 
 NET_PATH = HERE / "maki-nita.net"
 PRO_PATHS = (
+    MAIN_PCB_DIR / "maki-nita_v_04.kicad_pro",
     MAIN_PCB_DIR / "maki-nita_v_03.kicad_pro",
     MAIN_PCB_DIR / "maki-nita_v_02.kicad_pro",
     MAIN_PCB_DIR / "maki-nita.kicad_pro",
@@ -68,7 +69,7 @@ PRO_PATHS = (
 SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
 PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal"
-SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Horizontal"
+SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal"
 UPDI_FP = "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
 DISP_HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
@@ -100,12 +101,10 @@ PWR_PINS = (
     (2, "VCC"),
 )
 
-# Pin 1 is the square pad. Pins 1 and 4 are ground. Pins 2 and 3 are the speaker.
+# 1x2 speaker header (Pin 1 is GND, Pin 2 is SPK).
 SPK_PINS = (
     (1, "GND"),
     (2, "SPK"),
-    (3, "SPK2"),
-    (4, "GND2"),
 )
 
 MATRIX_PIN_NAMES = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
@@ -336,7 +335,7 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     _tie(output, 1, amp_out)
     _tie(output, 2, spk)
     speaker = _part(
-        "PinHeader_2x02",
+        "PinHeader_1x02",
         "J5",
         SPK_FP,
         SPK_PINS,
@@ -345,8 +344,6 @@ def _audio(vcc: Net, gnd: Net, event: Net, reset: Net) -> None:
     )
     _tie(speaker, 1, gnd)
     _tie(speaker, 2, spk)
-    _tie(speaker, 3, spk)
-    _tie(speaker, 4, gnd)
 
     zobel = Net("ZOBEL")
     zobel_r = _passive(_ic_ref("R", 6, 2), R_FP, "10R ZOB", "10 ohm Zobel")
@@ -582,10 +579,8 @@ def _check(text: str) -> None:
         raise SystemExit("cart socket footprint missing")
     if text.count(f'(footprint "{HDR_FP}")') != 2:
         raise SystemExit("expected 2 player control header footprints")
-    if text.count(f'(footprint "{PWR_FP}")') != 1:
-        raise SystemExit("expected the power header footprint")
-    if text.count(f'(footprint "{SPK_FP}")') != 1:
-        raise SystemExit("expected the speaker header footprint")
+    if text.count(f'(footprint "{PWR_FP}")') != 2:
+        raise SystemExit("expected 2 1x02 horizontal header footprints (power and speaker)")
     if text.count(f'(footprint "{DISP_HDR_FP}")') != 1:
         raise SystemExit("expected status digits display header footprint")
     if text.count('(footprint "Package_DIP:DIP-24_W7.62mm")') != 5:
@@ -751,9 +746,9 @@ def _check(text: str) -> None:
     if ("C46", "2") not in gnd:
         raise SystemExit("zobel cap does not reach GND")
     spk = nodes("SPK")
-    if spk != {("C36", "2"), ("J5", "2"), ("J5", "3")}:
+    if spk != {("C36", "2"), ("J5", "2")}:
         raise SystemExit(f"SPK nodes {spk}")
-    if ("J5", "1") not in gnd or ("J5", "4") not in gnd:
+    if ("J5", "1") not in gnd:
         raise SystemExit("speaker return missing")
     audio_updi = nodes("AUDIO_UPDI")
     if audio_updi != {("U5", "19"), ("J6", "1")}:

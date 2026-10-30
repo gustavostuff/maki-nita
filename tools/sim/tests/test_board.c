@@ -150,11 +150,10 @@ static void test_event(void)
     expect(board.cpu.pin[AVR_PA0 - 1].net == &board.event &&
                board.audio.pin[AVR_PA1 - 1].net == &board.event,
            "pin 22 and pin 23 share EVENT");
-    expect(board.speaker[0].net == &board.gnd && board.speaker[3].net == &board.gnd &&
-               board.speaker[0].level == SIG_L && board.speaker[3].level == SIG_L,
-           "J4 pins 1 and 4 are ground");
-    expect(board.speaker[1].net == &board.spk && board.speaker[2].net == &board.spk,
-           "J4 pins 2 and 3 share the speaker net");
+    expect(board.speaker[0].net == &board.gnd && board.speaker[0].level == SIG_L,
+           "J5 pin 1 is ground");
+    expect(board.speaker[1].net == &board.spk,
+           "J5 pin 2 is speaker");
 
     board_drive(&board, AVR_PA0, SIG_Z);
     board_eval(&board);
