@@ -1,7 +1,7 @@
 # Maki-Nita - Status Digits
 
-Status: Design proposal (not in the SKiDL netlist yet)  
-Scope: Add a fifth MAX7219 (U7) by extending the display chain. This chip drives up to eight 7-segment digits for credits, lives, score, level, timer, or other numeric information. All eight digits route to a single pin header for flexible physical placement.
+Status: In the SKiDL netlist (`tools/kicad/main-pcb/skidl/maki_nita.py`)  
+Scope: Add a fifth MAX7219 (U7) by extending the display chain. This chip drives up to eight 7-segment digits for credits, lives, score, level, timer, or other numeric information. All eight digits route to a single 16-pin (2x8) pin header (J7) for flexible physical placement.
 
 ## 1. Goal
 
@@ -22,14 +22,14 @@ The hardware and low-level driver treat every digit as generic numeric display p
 
 ## 2. Hardware
 
-While most components across the Maki-Nita system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules. This subsystem is not in the SKiDL netlist yet.
+While most components across the Maki-Nita system are through-hole parts for straightforward hand assembly, the 7-segment status display subsystem uses surface-mount passive display modules. Driver IC U7, its passives, and the 16-pin connector J7 are defined in the SKiDL netlist.
 
 ### 2.1 Driver IC (U7) and Main Board Placement
 
 * Part: MAX7219ENG+ or MAX7219CNG+ in DIP-24 through-hole package
-* Placement: Both U7 and the male 18-pin header connector will live in the currently free space on the left side of the main system PCB.
-* Power: +5V and GND from the main system rail, decoupled with a 100 nF ceramic capacitor and a 10 uF electrolytic bulk capacitor
-* ISET resistor: Set to match current requirements of the selected 7-segment modules
+* Placement: Both U7 and the male 16-pin header connector (J7) will live in the currently free space on the left side of the main system PCB.
+* Power: +5V and GND from the main system rail, decoupled with a 100 nF ceramic capacitor (C7) and a 10 uF electrolytic bulk capacitor (C17)
+* ISET resistor: R7 (28 kohm) set to match current requirements of the selected 7-segment modules
 
 ### 2.2 Chain Connection
 
@@ -38,13 +38,13 @@ The display chain extends through U7:
 `Cart AVR -> U1 -> U2 -> U3 -> U4 -> U7`
 
 * Signals DIN, CLK, and LOAD originate from cartridge pins PA4, PA6, and PA7.
-* One board trace connects DOUT of U4 to DIN of U7.
+* One board trace (`DOUT_U4`) connects DOUT of U4 to DIN of U7.
 * CLK and LOAD distribute in parallel across all five drivers.
 * No additional edge connector pins are required on the cartridge interface.
 
 ### 2.3 Display Daughterboard and Connector
 
-The two 4-digit SMD white display units will be soldered to another PCB (a display daughterboard). This PCB will have an 18-pin male connector (2x8 pin header for the 16 display lines, or 2x9 when including power rails) on the left side, and this will be connected to the main system board.
+The two 4-digit SMD white display units will be soldered to another PCB (a display daughterboard). This PCB connects to the main system board via a 16-pin (2x8) pin header (J7, `Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical`) on the left side.
 
 No designs exist yet for the new PCB holding the digits boards, but it will probably be L-shaped:
 
@@ -54,7 +54,7 @@ No designs exist yet for the new PCB holding the digits boards, but it will prob
 |  |  |  |
 |  |  |  |
 |  |  |  |
-|  |  |  |   <---- pin header that goes into the main PCB
+|  |  |  |   <---- pin header (J7) that goes into the main PCB
 |  |  |  |
 |  |  |  |
 |  |  |  |
@@ -67,30 +67,29 @@ No designs exist yet for the new PCB holding the digits boards, but it will prob
 
 ```
 
-The vertical stem positions the 18-pin header to mate directly into the left side of the main system PCB, while the horizontal section extends underneath the 16x16 LED matrix array to hold the two display modules.
+The vertical stem positions the 16-pin header to mate directly into the left side of the main system PCB, while the horizontal section extends underneath the 16x16 LED matrix array to hold the two display modules.
 
 The status display subsystem settles on two passive 4-digit SMD modules (eight digits total), both emitting white light:
 
 * Two 4-digit white SMD modules
 * All color styling achieved through overlay filtering
 
-These units are passive common-cathode SMD modules (29.2 mm x 12 mm x 3.75 mm) featuring castellated edge pads. Emitting pure white light allows the front overlay to tint each digit into any desired color scheme. Being passive, they contain no onboard controller and are wired directly to U7.
+These units are passive common-cathode SMD modules (29.2 mm x 12 mm x 3.75 mm) featuring castellated edge pads. Emitting pure white light allows the front overlay to tint each digit into any desired color scheme. Being passive, they contain no onboard controller and are wired directly to U7 (no +5V or GND rails required on the passive display module).
 
 <img src="../img/references/7-segment-displays.png" alt="Passive 4-digit SMD 7-segment display modules" />
 
-All eight digit cathode sinks (DIG0 through DIG7) and the eight segment anode drivers (SEGA through SEGG and DP) route through the 18-pin male pin header:
+All eight digit cathode sinks (DIG0 through DIG7) and the eight segment anode drivers (SEGA through SEGG and DP) route through the 16-pin male pin header (J7):
 
-| Pin | Signal | Pin | Signal |
+| Pin | Row A (Pins 1–8) | Pin | Row B (Pins 9–16) |
 |---|---|---|---|
-| 1 | DIG0 | 2 | SEGA |
-| 3 | DIG1 | 4 | SEGB |
-| 5 | DIG2 | 6 | SEGC |
-| 7 | DIG3 | 8 | SEGD |
-| 9 | DIG4 | 10 | SEGE |
-| 11 | DIG5 | 12 | SEGF |
-| 13 | DIG6 | 14 | SEGG |
-| 15 | DIG7 | 16 | DP |
-| 17 | +5V | 18 | GND |
+| 1 | `Pin 0` (SEGG / Col 7) | 9 | `Pin 4` (DIG3 / Row 3) |
+| 2 | `Pin 1` (SEGF / Col 6) | 10 | `Pin 5` (SEGE / Col 5) |
+| 3 | `Pin 2` (DIG1 / Row 1) | 11 | `Pin 6` (SEGC / Col 3) |
+| 4 | `Pin 3` (SEGDP / Col 0) | 12 | `Pin 7` (DIG0 / Row 0) |
+| 5 | `Pin 8` (DIG4 / Row 4) | 13 | `Pin C` (DIG7 / Row 7) |
+| 6 | `Pin 9` (DIG6 / Row 6) | 14 | `Pin D` (SEGD / Col 4) |
+| 7 | `Pin A` (SEGA / Col 1) | 15 | `Pin E` (DIG5 / Row 5) |
+| 8 | `Pin B` (SEGB / Col 2) | 16 | `Pin F` (DIG2 / Row 2) |
 
 ### 2.4 Auxiliary Expansion Header
 
@@ -147,7 +146,7 @@ Transmitting five words instead of four adds negligible overhead (under 10 us at
 
 ## 4. Mechanical and Visual Layout
 
-* Driver U7 and the 18-pin mating header live in the available open space along the left side of the main system PCB.
+* Driver U7 and the 16-pin mating header (J7) live in the available open space along the left side of the main system PCB.
 * The separate L-shaped display daughterboard plugs into the left-side header on the main system PCB, positioning the two 4-digit display modules directly below the 16x16 matrix array on the front panel.
 * The full-front overlay assembly (detailed in [overlays.md](overlays.md)) extends across both the 16x16 playfield and the eight status digits. A single rigid plastic frame holds a clear carrier acetate sheet with colored gel cutout pieces affixed on top, defining custom color zones across the four digit pairs (for example, blue, red, green, and yellow).
 * Game labels (such as Lives, Pts, Jade, or Time) are applied as printed stickers on the plastic frame directly below the digits, providing high-contrast legends tailored to each title.
@@ -159,19 +158,19 @@ Most parts are standard through-hole components, while the display modules are c
 
 | Quantity | Item | Notes |
 |---|---|---|
-| 1 | MAX7219 DIP-24 | Through-hole display driver IC (lives on left side of main PCB) |
+| 1 | MAX7219 DIP-24 | Through-hole display driver IC U7 (lives on left side of main PCB) |
 | 2 | 4-digit SMD 7-segment display (White) | Passive common-cathode SMD module (soldered to L-shaped daughterboard) |
-| 1 | ISET resistor | Through-hole resistor tuned for display forward voltage |
-| 1 | 100 nF ceramic capacitor | Through-hole decoupling capacitor |
-| 1 | 10 uF electrolytic capacitor | Through-hole bulk power rail capacitor |
-| 1 | 2x9 male pin header | 18-pin display daughterboard interface to main PCB |
+| 1 | ISET resistor (R7, 28 kΩ) | Through-hole horizontal axial resistor |
+| 1 | 100 nF ceramic capacitor (C7) | Through-hole decoupling capacitor |
+| 1 | 10 uF electrolytic capacitor (C17) | Through-hole bulk power rail capacitor |
+| 1 | 2x8 male pin header (J7) | 16-pin display daughterboard interface to main PCB (`PinHeader_2x08_P2.54mm_Vertical`) |
 | 1 | 2x6 male pin header | Auxiliary expansion interface |
 
 ## 6. Implementation Steps
 
-1. Add U7 footprint and decoupling capacitors to the main board schematic.
-2. Connect DOUT of U4 to DIN of U7, sharing CLK and LOAD.
-3. Route U7 digit and segment pins to the 2x9 header.
+1. Add U7 footprint and decoupling capacitors to the main board schematic. *(Done in SKiDL)*
+2. Connect DOUT of U4 to DIN of U7 (`DOUT_U4`), sharing CLK and LOAD. *(Done in SKiDL)*
+3. Route U7 digit and segment pins to the 2x8 header J7. *(Done in SKiDL)*
 4. Add the 2x6 auxiliary expansion header.
 5. Update `CHAIN` to 5 in `tools/fw/flush.c` and expand `drivers_init()` and `drivers_flush()`.
 6. Implement the status buffer API in `tools/fw/`.

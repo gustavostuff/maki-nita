@@ -9,11 +9,11 @@ Once the base 16x16 LED matrix arcade hardware is proven and verified, several h
 
 ## 2. 7-Segment Status Display Subsystem
 
-A fifth MAX7219 driver (U7) cascaded from matrix driver U4 provides up to eight generic 7-segment numeric digits. This subsystem is not in the SKiDL netlist yet. While most components are through-hole, the status display uses two passive 4-digit white SMD modules.
+A fifth MAX7219 driver (U7) cascaded from matrix driver U4 provides up to eight generic 7-segment numeric digits. Driver U7, its passives, and the 16-pin connector (J7) are defined in the SKiDL netlist (`tools/kicad/main-pcb/skidl/maki_nita.py`). While most components are through-hole, the status display uses two passive 4-digit white SMD modules.
 
-* **Daughterboard PCB**: The two 4-digit SMD modules solder to a dedicated display daughterboard PCB. While formal PCB designs are not created yet, the daughterboard will likely adopt an L-shaped outline, positioning an 18-pin male header on its left side while extending the display section beneath the main 16x16 matrix.
-* **Main Board Placement**: Both U7 and the 18-pin mating display header reside in the currently free space on the left side of the main system PCB.
-* **Interface**: All eight digit sinks (DIG0 to DIG7) and segment lines (SEGA to SEGG, DP) route through the 18-pin header between the main board and the display daughterboard.
+* **Daughterboard PCB**: The two 4-digit SMD modules solder to a dedicated display daughterboard PCB. While formal PCB designs are not created yet, the daughterboard will likely adopt an L-shaped outline, positioning a 16-pin male header on its left side while extending the display section beneath the main 16x16 matrix.
+* **Main Board Placement**: Both U7 and the 16-pin mating display header (J7) reside in the currently free space on the left side of the main system PCB.
+* **Interface**: All eight digit sinks (DIG0 to DIG7) and segment lines (SEGA to SEGG, DP) route through the 16-pin header (J7) between the main board and the display daughterboard.
 * **Protocol**: Driven via the existing SPI chain using Code-B decoding mode, requiring no additional cartridge edge pins.
 * **Visual Style**: White LED digits filtered into vibrant custom colors by a full-front overlay assembly that covers both the 16x16 matrix and the status digits, keeping display styling dynamic and customizable.
 * **Framed Overlay Assembly**: A rigid plastic frame holds a clear carrier sheet with pasted color cutout gels and printed label stickers beneath the digits, defining game-specific numeric fields without permanent cabinet legends.

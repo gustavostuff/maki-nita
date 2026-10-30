@@ -13,22 +13,25 @@ All external headers and the cart socket (J1 to J6) sit along the top area of th
 | J1 | EDAC 395 cart socket, 20 contacts |
 | J2 | 2x3 header, Player 1 controls (four directions, button, GND) |
 | J3 | 2x3 header, Player 2 controls (four directions, button, GND) |
-| J4 | 2x2 header, 5 V and reset |
-| J5 | 2x2 header, speaker |
+| J4 | 1x2 horizontal header, 5 V power (JST XH: Pin 1 GND, Pin 2 +5V) |
+| J5 | 2x2 horizontal header, speaker |
 | J6 | 1x3 header, audio AVR UPDI |
-| U1 to U4 | MAX7219, one per 8x8 block |
+| J7 | 2x8 header, 8-digit status display |
+| U1 to U4 | MAX7219, one per 8x8 matrix block |
 | U5 | AVR128DB28, audio and planned brightness control |
 | U6 | LM386N-1 amplifier |
+| U7 | MAX7219, 8-digit status display driver |
 | DS1 to DS4 | 8x8 common-cathode matrices |
 
 A part on "UN" uses "N" as part of its silkscreen label. A second part on that IC adds 10, a third adds 20. For instance:
 
 - On U5: C5 is the first bypass, C15 the second, C25 the third.
 - On U1: R1 is ISET, C1 is the 100 nF bypass, C11 is the 10 uF bulk.
+- On U7: R7 is ISET, C7 is the 100 nF bypass, C17 is the 10 uF bulk.
 
-R1 to R4 are horizontal axial resistors on a 10.16 mm pitch. Audio and event resistors stand vertical on a 2.54 mm pitch.
+R1 to R4 and R7 are horizontal axial resistors on a 10.16 mm pitch. Audio and event resistors stand vertical on a 2.54 mm pitch.
 
-Power enters on J4. The barrel jack, polyfuse, Schottky, and panel switch are off the board (design TBD).
+Power enters on J4 (Pin 1 GND, Pin 2 +5V). The barrel jack, polyfuse, Schottky, and panel switch are off the board (design TBD).
 
 ## Display
 
@@ -38,7 +41,7 @@ Each matrix sits in two elevated 1x8 female pin socket strips. Its MAX7219 drive
 
 Vertical clearance under the matrix body depends on socket height and needs physical verification during assembly. If a DIP-24 socket plus the MAX7219 package is too tall to clear the seated matrix, the drivers can be soldered directly to the board without IC sockets. Because the MAX7219 is fixed-function silicon without firmware or flashing needs, sockets are primarily valuable for the AVR microcontrollers.
 
-DIN, CLK, and LOAD come from the cart through J1 into U1. DOUT chains U1 to U2 to U3 to U4.
+DIN, CLK, and LOAD come from the cart through J1 into U1. DOUT chains U1 to U2 to U3 to U4 to U7.
 
 The cart AVR keeps the frame and shifts it over DIN, CLK, and LOAD at 12 MHz. Each MAX7219 scans its block. Segment pins source anodes. Digit pins sink cathodes.
 
@@ -70,22 +73,22 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 | 9 | P2_RIGHT | GND |
 | 10 | P2_BTN | +5V |
 
-Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on J4 ties to cart contact B7 and U5 reset.
+Player 1 cabinet stick and button wires land on J2 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J3 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties directly to U5 reset.
 
 ## Audio (U5, U6, J5)
 
-U5 sits along the left edge of the board. U6 and the speaker header J5 sit along the right edge.
+U5 sits along the left edge of the board. U6 and the speaker header J5 (a 2x2 horizontal 2.54 mm header) sit along the right edge.
 
 The cart drives EVENT on contact B8 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the system board. The mix updates at 20 kHz.
 
 ## Net classes
 
-From `tools/kicad/main-pcb/skidl/net_classes.py`: 5V is 0.8 mm track width. MATRIX is segment and digit nets per driver block, routed at 0.4 mm width instead of the default 0.25 mm. Each digit pin sinks up to eight LEDs simultaneously, carrying peak return currents around 160 mA. The 0.4 mm width lowers line resistance and voltage drop across the scan cycle, keeping LED brightness uniform between digits and reducing switching noise into adjacent lines. AUDIO is DAC, AUD, AUDIN, AMP, SPK, ZOBEL, and BYPASS. Default is 0.25 mm. GND is the pour.
+From `tools/kicad/main-pcb/skidl/net_classes.py`: 5V is 0.8 mm track width. MATRIX is segment and digit nets per driver block (`DS1_*` through `DS5_*`) and SPI cascade links (`DOUT_U1` through `DOUT_U4`), routed at 0.4 mm width instead of the default 0.25 mm. Each digit pin sinks up to eight LEDs simultaneously, carrying peak return currents around 160 mA. The 0.4 mm width lowers line resistance and voltage drop across the scan cycle, keeping LED brightness uniform between digits and reducing switching noise into adjacent lines. AUDIO is DAC, AUD, AUDIN, AMP, SPK, ZOBEL, and BYPASS. Default is 0.25 mm. GND is the pour.
 
 ## Not in the SKiDL netlist yet
 
 * Global brightness (Bright button with tap-to-increment and hold-plus-stick adjustment, system AVR writing MAX7219 intensity) and extra system wiring for that feature.
-* Status digits driver U7 and the 18-pin display header on the left side of the main board (see [status-digits.md](status-digits.md)).
+* Status display daughterboard PCB itself (the driver U7 and 16-pin mating header J7 on the main PCB are now in the netlist; see [status-digits.md](status-digits.md)).
 * The playfield is the 256 LEDs from the four matrices only.
 
 ## Future plans
