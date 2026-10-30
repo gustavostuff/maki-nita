@@ -1,4 +1,4 @@
-"""KiCad net classes for the Maki-Nita console.
+"""KiCad net classes for the MakiNeat console.
 
 AUDIO is the sensitive analog path around U5 and U6. MATRIX is
 every segment and digit net from the MAX7219 drivers to their 8x8 blocks.

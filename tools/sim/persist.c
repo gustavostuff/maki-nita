@@ -12,7 +12,7 @@ static int ready;
 static const char *path;
 static const char *bound;
 
-static const char *const cand[] = {"tools/sim/maki-nita.eep", "maki-nita.eep"};
+static const char *const cand[] = {"tools/sim/makineat.eep", "makineat.eep"};
 
 void persist_bind(const char *stored)
 {

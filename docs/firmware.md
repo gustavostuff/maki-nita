@@ -67,4 +67,4 @@ pymcuprog write -d avr128db28 -t uart -u /dev/ttyACM0 --verify -f tools/fw/audio
 
 ## Simulator
 
-`./sim.sh` builds and launches `tools/sim/maki-nita-ui`. The netlist model connects simulated cartridge pins to U1 through U4, EVENT, and J5. Host simulation runs at 60 Hz with 12 MHz and 20 MHz timing constants defined in `tools/sim/clocks.h`.
+`./sim.sh` builds and launches `tools/sim/makineat-ui`. The netlist model connects simulated cartridge pins to U1 through U4, EVENT, and J5. Host simulation runs at 60 Hz with 12 MHz and 20 MHz timing constants defined in `tools/sim/clocks.h`.

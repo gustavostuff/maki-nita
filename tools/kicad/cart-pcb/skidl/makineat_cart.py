@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SKiDL netlist for a Maki-Nita cartridge.
+"""SKiDL netlist for a MakiNeat cartridge.
 
 The cartridge holds one AVR128DB28 and a double-sided 2x10 gold edge.
 Side A is the controller face (Player 1 and Player 2). Side B carries
@@ -30,10 +30,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
 from tools.kicad.shared.cart_edge import contacts, finger_pins
 
 HERE = Path(__file__).resolve().parent
-NET_PATH = HERE / "maki-nita-cart.net"
+NET_PATH = HERE / "makineat-cart.net"
 
 AVR_FP = "Package_DIP:DIP-28_W7.62mm"
-FINGER_FP = "MakiNita:Cart_Edge_2x10_P2.54mm"
+FINGER_FP = "MakiNeat:Cart_Edge_2x10_P2.54mm"
 C_FP = "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm"
 TWO_PINS = ((1, "1"), (2, "2"))
 

@@ -443,7 +443,7 @@
 		(remove_unused_layers no)
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/library/MakiNita.3dshapes/EDAC_395-036-520-201.wrl"
+	(model "${KIPRJMOD}/library/MakiNeat.3dshapes/EDAC_395-036-520-201.wrl"
 		(offset
 			(xyz 2.15 -55 0)
 		)

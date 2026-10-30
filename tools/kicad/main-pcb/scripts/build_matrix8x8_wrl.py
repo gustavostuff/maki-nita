@@ -12,7 +12,7 @@ from pathlib import Path
 
 LIB_WRL = (
     Path(__file__).resolve().parents[1]
-    / "library/MakiNita.3dshapes/NFM-12881xx.wrl"
+    / "library/MakiNeat.3dshapes/NFM-12881xx.wrl"
 )
 
 BODY = (12 / 255, 12 / 255, 12 / 255)

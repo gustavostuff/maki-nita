@@ -3,11 +3,11 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-NET="$DIR/maki-nita.net"
+NET="$DIR/makineat.net"
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     echo "Usage: $0 [PROJECT.kicad_pro]"
-    echo "  Writes $NET and updates net classes in maki-nita_v_03.kicad_pro"
+    echo "  Writes $NET and updates net classes in makineat_v_04.kicad_pro"
     echo "  The cartridge netlist is tools/kicad/cart-pcb/skidl/export_netlist.sh"
     exit 0
 fi
@@ -23,4 +23,4 @@ fi
 
 python3 "$DIR/../scripts/build_matrix8x8_wrl.py"
 python3 "$DIR/../scripts/compose_matrix_footprint.py"
-python3 "$DIR/maki_nita.py" "$@"
+python3 "$DIR/makineat.py" "$@"

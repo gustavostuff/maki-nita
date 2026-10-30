@@ -198,7 +198,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -405,7 +405,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1795,7 +1795,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2002,7 +2002,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2291,7 +2291,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2423,7 +2423,7 @@
 			)
 		)
 	)
-	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+	(footprint "MakiNeat:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "1ebc4386-9eef-460e-a9a2-4e05087413bb")
 		(at 70 99)
@@ -2486,7 +2486,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2945,7 +2945,7 @@
 				(xyz 0 0 0)
 			)
 		)
-		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+		(model "${KIPRJMOD}/library/MakiNeat.3dshapes/NFM-12881xx.wrl"
 			(hide yes)
 			(offset
 				(xyz 0 0 0)
@@ -3033,7 +3033,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3222,7 +3222,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3520,7 +3520,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4899,7 +4899,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5236,7 +5236,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5443,7 +5443,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5650,7 +5650,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5828,7 +5828,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7218,7 +7218,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7437,7 +7437,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7627,7 +7627,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9006,7 +9006,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9308,7 +9308,7 @@
 		)
 		(embedded_fonts no)
 	)
-	(footprint "MakiNita:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
+	(footprint "MakiNeat:EDAC_345_MoboSocket_2x8_2.54x5.08mm"
 		(locked yes)
 		(layer "F.Cu")
 		(uuid "4f61f024-5315-473a-b2ff-7212e4e99cda")
@@ -9372,7 +9372,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9720,7 +9720,7 @@
 			(uuid "239f41e7-6ef4-4254-90a8-d4ca3a7299e4")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/library/MakiNita.3dshapes/EDAC_345-016-520-212.wrl"
+		(model "${KIPRJMOD}/library/MakiNeat.3dshapes/EDAC_345-016-520-212.wrl"
 			(offset
 				(xyz 2.15 -29.65 0)
 			)
@@ -9732,7 +9732,7 @@
 			)
 		)
 	)
-	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+	(footprint "MakiNeat:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "50e60c3d-f01d-4bd1-8082-e512b9ca4821")
 		(at 70 67)
@@ -9795,7 +9795,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10254,7 +10254,7 @@
 				(xyz 0 0 0)
 			)
 		)
-		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+		(model "${KIPRJMOD}/library/MakiNeat.3dshapes/NFM-12881xx.wrl"
 			(hide yes)
 			(offset
 				(xyz 0 0 0)
@@ -10342,7 +10342,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10520,7 +10520,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10727,7 +10727,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10917,7 +10917,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11108,7 +11108,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12499,7 +12499,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13889,7 +13889,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14374,7 +14374,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14581,7 +14581,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15066,7 +15066,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15551,7 +15551,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15849,7 +15849,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16298,7 +16298,7 @@
 			)
 		)
 	)
-	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+	(footprint "MakiNeat:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "d41299b6-9f54-4ac7-8b28-02695cc27fba")
 		(at 38 99)
@@ -16361,7 +16361,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16820,7 +16820,7 @@
 				(xyz 0 0 0)
 			)
 		)
-		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+		(model "${KIPRJMOD}/library/MakiNeat.3dshapes/NFM-12881xx.wrl"
 			(hide yes)
 			(offset
 				(xyz 0 0 0)
@@ -16908,7 +16908,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17233,7 +17233,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17440,7 +17440,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17543,7 +17543,7 @@
 			)
 		)
 	)
-	(footprint "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+	(footprint "MakiNeat:Matrix8x8_2x8_P2.52mm_R25mm"
 		(layer "F.Cu")
 		(uuid "eaeaf201-0e80-4d73-8ca1-2762d8f8ca09")
 		(at 38 67)
@@ -17606,7 +17606,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18065,7 +18065,7 @@
 				(xyz 0 0 0)
 			)
 		)
-		(model "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+		(model "${KIPRJMOD}/library/MakiNeat.3dshapes/NFM-12881xx.wrl"
 			(hide yes)
 			(offset
 				(xyz 0 0 0)
@@ -18154,7 +18154,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19544,7 +19544,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19722,7 +19722,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20208,7 +20208,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita.py:191"
+		(property "SKiDL Line" "makineat.py:191"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")

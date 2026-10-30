@@ -1,6 +1,6 @@
 # MakiNeat - Status Digits
 
-Status: In the SKiDL netlist (`tools/kicad/main-pcb/skidl/maki_nita.py`)  
+Status: In the SKiDL netlist (`tools/kicad/main-pcb/skidl/makineat.py`)  
 Scope: Add a fifth MAX7219 (U7) by extending the display chain. This chip drives up to eight 7-segment digits for credits, lives, score, level, timer, or other numeric information. All eight digits route to a single 16-pin (2x8) pin header (J7) for flexible physical placement.
 
 ## 1. Goal

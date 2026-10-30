@@ -513,7 +513,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "maki-nita.kicad_pro",
+    "filename": "makineat.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -807,7 +807,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "../skidl/maki-nita.net",
+      "netlist": "../skidl/makineat.net",
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
@@ -957,8 +957,8 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "maki-nita.kicad_sch",
-        "name": "maki-nita",
+        "filename": "makineat.kicad_sch",
+        "name": "makineat",
         "uuid": "00000000-0000-0000-0000-000000000000"
       }
     ],

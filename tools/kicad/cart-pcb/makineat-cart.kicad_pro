@@ -513,7 +513,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "maki-nita_v_04.kicad_pro",
+    "filename": "makineat-cart.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -539,7 +539,7 @@
       },
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.3,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -547,13 +547,13 @@
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "5V",
-        "pcb_color": "rgb(255, 127, 14)",
-        "priority": 4,
-        "schematic_color": "rgb(255, 127, 14)",
+        "pcb_color": "rgb(148, 103, 189)",
+        "priority": 1,
+        "schematic_color": "rgb(148, 103, 189)",
         "track_width": 0.8,
         "tuning_profile": "",
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
+        "via_diameter": 1.2,
+        "via_drill": 0.6,
         "wire_width": 6
       },
       {
@@ -565,29 +565,10 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "AUDIO",
-        "pcb_color": "rgb(44, 160, 44)",
-        "priority": 1,
-        "schematic_color": "rgb(44, 160, 44)",
-        "track_width": 0.4,
-        "tuning_profile": "",
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
-        "wire_width": 6
-      },
-      {
-        "bus_width": 12,
-        "clearance": 0.2,
-        "diff_pair_gap": 0.25,
-        "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
-        "line_style": 0,
-        "microvia_diameter": 0.3,
-        "microvia_drill": 0.1,
-        "name": "MATRIX",
-        "pcb_color": "rgb(214, 39, 40)",
+        "name": "SIDE_A",
+        "pcb_color": "rgb(230, 219, 116)",
         "priority": 2,
-        "schematic_color": "rgb(214, 39, 40)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.4,
         "tuning_profile": "",
         "via_diameter": 0.8,
@@ -603,10 +584,10 @@
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
-        "name": "SPI",
-        "pcb_color": "rgb(31, 119, 180)",
+        "name": "SIDE_B",
+        "pcb_color": "rgb(214, 39, 40)",
         "priority": 3,
-        "schematic_color": "rgb(31, 119, 180)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.4,
         "tuning_profile": "",
         "via_diameter": 0.8,
@@ -622,376 +603,88 @@
       "+5V": [
         "5V"
       ],
-      "AMP": [
-        "AUDIO"
-      ],
-      "AUD": [
-        "AUDIO"
-      ],
-      "AUDIN": [
-        "AUDIO"
-      ],
-      "BYPASS": [
-        "AUDIO"
+      "BUTTON": [
+        "SIDE_A"
       ],
       "CLK": [
-        "SPI"
-      ],
-      "DAC": [
-        "AUDIO"
+        "SIDE_B"
       ],
       "DIN": [
-        "SPI"
+        "SIDE_B"
       ],
-      "DOUT": [
-        "SPI"
+      "DOWN": [
+        "SIDE_A"
       ],
-      "DOUT_U1": [
-        "SPI"
+      "EVENT": [
+        "SIDE_B"
       ],
-      "DOUT_U2": [
-        "SPI"
-      ],
-      "DOUT_U3": [
-        "SPI"
-      ],
-      "DOUT_U4": [
-        "SPI"
-      ],
-      "DS1_0": [
-        "MATRIX"
-      ],
-      "DS1_1": [
-        "MATRIX"
-      ],
-      "DS1_2": [
-        "MATRIX"
-      ],
-      "DS1_3": [
-        "MATRIX"
-      ],
-      "DS1_4": [
-        "MATRIX"
-      ],
-      "DS1_5": [
-        "MATRIX"
-      ],
-      "DS1_6": [
-        "MATRIX"
-      ],
-      "DS1_7": [
-        "MATRIX"
-      ],
-      "DS1_8": [
-        "MATRIX"
-      ],
-      "DS1_9": [
-        "MATRIX"
-      ],
-      "DS1_A": [
-        "MATRIX"
-      ],
-      "DS1_B": [
-        "MATRIX"
-      ],
-      "DS1_C": [
-        "MATRIX"
-      ],
-      "DS1_D": [
-        "MATRIX"
-      ],
-      "DS1_E": [
-        "MATRIX"
-      ],
-      "DS1_F": [
-        "MATRIX"
-      ],
-      "DS2_0": [
-        "MATRIX"
-      ],
-      "DS2_1": [
-        "MATRIX"
-      ],
-      "DS2_2": [
-        "MATRIX"
-      ],
-      "DS2_3": [
-        "MATRIX"
-      ],
-      "DS2_4": [
-        "MATRIX"
-      ],
-      "DS2_5": [
-        "MATRIX"
-      ],
-      "DS2_6": [
-        "MATRIX"
-      ],
-      "DS2_7": [
-        "MATRIX"
-      ],
-      "DS2_8": [
-        "MATRIX"
-      ],
-      "DS2_9": [
-        "MATRIX"
-      ],
-      "DS2_A": [
-        "MATRIX"
-      ],
-      "DS2_B": [
-        "MATRIX"
-      ],
-      "DS2_C": [
-        "MATRIX"
-      ],
-      "DS2_D": [
-        "MATRIX"
-      ],
-      "DS2_E": [
-        "MATRIX"
-      ],
-      "DS2_F": [
-        "MATRIX"
-      ],
-      "DS3_0": [
-        "MATRIX"
-      ],
-      "DS3_1": [
-        "MATRIX"
-      ],
-      "DS3_2": [
-        "MATRIX"
-      ],
-      "DS3_3": [
-        "MATRIX"
-      ],
-      "DS3_4": [
-        "MATRIX"
-      ],
-      "DS3_5": [
-        "MATRIX"
-      ],
-      "DS3_6": [
-        "MATRIX"
-      ],
-      "DS3_7": [
-        "MATRIX"
-      ],
-      "DS3_8": [
-        "MATRIX"
-      ],
-      "DS3_9": [
-        "MATRIX"
-      ],
-      "DS3_A": [
-        "MATRIX"
-      ],
-      "DS3_B": [
-        "MATRIX"
-      ],
-      "DS3_C": [
-        "MATRIX"
-      ],
-      "DS3_D": [
-        "MATRIX"
-      ],
-      "DS3_E": [
-        "MATRIX"
-      ],
-      "DS3_F": [
-        "MATRIX"
-      ],
-      "DS4_0": [
-        "MATRIX"
-      ],
-      "DS4_1": [
-        "MATRIX"
-      ],
-      "DS4_2": [
-        "MATRIX"
-      ],
-      "DS4_3": [
-        "MATRIX"
-      ],
-      "DS4_4": [
-        "MATRIX"
-      ],
-      "DS4_5": [
-        "MATRIX"
-      ],
-      "DS4_6": [
-        "MATRIX"
-      ],
-      "DS4_7": [
-        "MATRIX"
-      ],
-      "DS4_8": [
-        "MATRIX"
-      ],
-      "DS4_9": [
-        "MATRIX"
-      ],
-      "DS4_A": [
-        "MATRIX"
-      ],
-      "DS4_B": [
-        "MATRIX"
-      ],
-      "DS4_C": [
-        "MATRIX"
-      ],
-      "DS4_D": [
-        "MATRIX"
-      ],
-      "DS4_E": [
-        "MATRIX"
-      ],
-      "DS4_F": [
-        "MATRIX"
-      ],
-      "DS5_0": [
-        "MATRIX"
-      ],
-      "DS5_1": [
-        "MATRIX"
-      ],
-      "DS5_2": [
-        "MATRIX"
-      ],
-      "DS5_3": [
-        "MATRIX"
-      ],
-      "DS5_4": [
-        "MATRIX"
-      ],
-      "DS5_5": [
-        "MATRIX"
-      ],
-      "DS5_6": [
-        "MATRIX"
-      ],
-      "DS5_7": [
-        "MATRIX"
-      ],
-      "DS5_8": [
-        "MATRIX"
-      ],
-      "DS5_9": [
-        "MATRIX"
-      ],
-      "DS5_A": [
-        "MATRIX"
-      ],
-      "DS5_B": [
-        "MATRIX"
-      ],
-      "DS5_C": [
-        "MATRIX"
-      ],
-      "DS5_D": [
-        "MATRIX"
-      ],
-      "DS5_E": [
-        "MATRIX"
-      ],
-      "DS5_F": [
-        "MATRIX"
+      "LEFT": [
+        "SIDE_A"
       ],
       "LOAD": [
-        "SPI"
+        "SIDE_B"
       ],
-      "SPK": [
-        "AUDIO"
+      "RESET": [
+        "SIDE_B"
       ],
-      "ZOBEL": [
-        "AUDIO"
+      "RIGHT": [
+        "SIDE_A"
+      ],
+      "UP": [
+        "SIDE_A"
+      ],
+      "UPDI": [
+        "SIDE_B"
       ]
     },
     "netclass_patterns": [
-      {
-        "netclass": "AUDIO",
-        "pattern": "AMP"
-      },
-      {
-        "netclass": "AUDIO",
-        "pattern": "AUD"
-      },
-      {
-        "netclass": "AUDIO",
-        "pattern": "AUDIN"
-      },
-      {
-        "netclass": "AUDIO",
-        "pattern": "BYPASS"
-      },
-      {
-        "netclass": "AUDIO",
-        "pattern": "DAC"
-      },
-      {
-        "netclass": "AUDIO",
-        "pattern": "SPK"
-      },
-      {
-        "netclass": "AUDIO",
-        "pattern": "ZOBEL"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "CLK"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "DIN"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "DOUT"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "DOUT_U1"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "DOUT_U2"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "DOUT_U3"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "DOUT_U4"
-      },
-      {
-        "netclass": "SPI",
-        "pattern": "LOAD"
-      },
       {
         "netclass": "5V",
         "pattern": "+5V"
       },
       {
-        "netclass": "MATRIX",
-        "pattern": "DS1_*"
+        "netclass": "SIDE_A",
+        "pattern": "BUTTON"
       },
       {
-        "netclass": "MATRIX",
-        "pattern": "DS2_*"
+        "netclass": "SIDE_A",
+        "pattern": "DOWN"
       },
       {
-        "netclass": "MATRIX",
-        "pattern": "DS3_*"
+        "netclass": "SIDE_A",
+        "pattern": "LEFT"
       },
       {
-        "netclass": "MATRIX",
-        "pattern": "DS4_*"
+        "netclass": "SIDE_A",
+        "pattern": "RIGHT"
       },
       {
-        "netclass": "MATRIX",
-        "pattern": "DS5_*"
+        "netclass": "SIDE_A",
+        "pattern": "UP"
+      },
+      {
+        "netclass": "SIDE_B",
+        "pattern": "CLK"
+      },
+      {
+        "netclass": "SIDE_B",
+        "pattern": "DIN"
+      },
+      {
+        "netclass": "SIDE_B",
+        "pattern": "EVENT"
+      },
+      {
+        "netclass": "SIDE_B",
+        "pattern": "LOAD"
+      },
+      {
+        "netclass": "SIDE_B",
+        "pattern": "RESET"
+      },
+      {
+        "netclass": "SIDE_B",
+        "pattern": "UPDI"
       }
     ]
   },
@@ -999,7 +692,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "skidl/maki-nita.net",
+      "netlist": "skidl/makineat-cart.net",
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
@@ -1149,8 +842,8 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "maki-nita.kicad_sch",
-        "name": "maki-nita",
+        "filename": "makineat-cart.kicad_sch",
+        "name": "makineat-cart",
         "uuid": "00000000-0000-0000-0000-000000000000"
       }
     ],
@@ -1159,7 +852,7 @@
   },
   "sheets": [
     [
-      "e70b6168-f98e-4322-bc55-500948ef7b77",
+      "c4a7e2b1-8d0f-4a6e-9c33-71b5e0d4a218",
       "Root"
     ]
   ],

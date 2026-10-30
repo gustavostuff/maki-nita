@@ -1,10 +1,10 @@
 (fp_lib_table
 	(version 7)
 	(lib
-		(name "MakiNita")
+		(name "MakiNeat")
 		(type "KiCad")
-		(uri "${KIPRJMOD}/library/MakiNita.pretty")
+		(uri "${KIPRJMOD}/library/MakiNeat.pretty")
 		(options "")
-		(descr "Maki-Nita cartridge gold fingers")
+		(descr "MakiNeat cartridge gold fingers")
 	)
 )

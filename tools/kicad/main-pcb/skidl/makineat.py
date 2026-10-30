@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SKiDL netlist for the Maki-Nita console.
+"""SKiDL netlist for the MakiNeat console.
 
 J1 is Player 1 controls. J2 is Player 2 controls. J3 is the cart
 socket. The game AVR lives on the cartridge. U5 is the
@@ -20,7 +20,7 @@ Display Row 0 is DIG0, Row 7 is DIG7. Display Col 0 is SEGDP, Col 7 is SEGG.
 
 Run from the repo:
 
-    python3 tools/kicad/main-pcb/skidl/maki_nita.py
+    python3 tools/kicad/main-pcb/skidl/makineat.py
 """
 
 from __future__ import annotations
@@ -57,16 +57,16 @@ from net_classes import (
     patch_kicad_pro,
 )
 
-NET_PATH = HERE / "maki-nita.net"
+NET_PATH = HERE / "makineat.net"
 PRO_PATHS = (
-    MAIN_PCB_DIR / "maki-nita_v_04.kicad_pro",
-    MAIN_PCB_DIR / "maki-nita_v_03.kicad_pro",
-    MAIN_PCB_DIR / "maki-nita_v_02.kicad_pro",
-    MAIN_PCB_DIR / "maki-nita.kicad_pro",
+    MAIN_PCB_DIR / "makineat_v_04.kicad_pro",
+    MAIN_PCB_DIR / "makineat_v_03.kicad_pro",
+    MAIN_PCB_DIR / "makineat_v_02.kicad_pro",
+    MAIN_PCB_DIR / "makineat.kicad_pro",
 )
 
 
-SOCKET_FP = "MakiNita:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
+SOCKET_FP = "MakiNeat:EDAC_395_MoboSocket_2x10_2.54x5.08mm"
 HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
 PWR_FP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal"
 SPK_FP = "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal"
@@ -75,7 +75,7 @@ DISP_HDR_FP = "Connector_PinHeader_2.54mm:PinHeader_2x08_P2.54mm_Vertical"
 DRV_FP = "Package_DIP:DIP-24_W7.62mm"
 AUDIO_FP = "Package_DIP:DIP-28_W7.62mm"
 AMP_FP = "Package_DIP:DIP-8_W7.62mm"
-MATRIX_FP = "MakiNita:Matrix8x8_2x8_P2.52mm_R25mm"
+MATRIX_FP = "MakiNeat:Matrix8x8_2x8_P2.52mm_R25mm"
 R_HORIZ_FP = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 R_VERT_FP = "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 R_FP = R_VERT_FP
@@ -800,7 +800,7 @@ def _check(text: str) -> None:
 
 def _clean_strays() -> None:
     for folder in (REPO, HERE, Path.cwd()):
-        for name in ("skidl_REPL.log", "skidl_REPL.erc", "maki_nita.log", "maki_nita.erc"):
+        for name in ("skidl_REPL.log", "skidl_REPL.erc", "makineat.log", "makineat.erc", "maki_nita.log", "maki_nita.erc"):
             path = folder / name
             if path.is_file():
                 path.unlink()

@@ -3,7 +3,7 @@
 
 KiCad cannot nest footprints inside a .kicad_mod. This script is the
 source of truth: it copies pads (and optional socket graphics) from the
-stock PinSocket and writes the MakiNita matrix footprint.
+stock PinSocket and writes the MakiNeat matrix footprint.
 
 Edit Matrix8x8_2x8_P2.52mm_R25mm.compose.json, then run this script or
 tools/kicad/main-pcb/skidl/export_netlist.sh.
@@ -17,14 +17,14 @@ import uuid
 from pathlib import Path
 
 MAIN_PCB = Path(__file__).resolve().parents[1]
-SPEC = MAIN_PCB / "library/MakiNita.pretty/Matrix8x8_2x8_P2.52mm_R25mm.compose.json"
-OUT = MAIN_PCB / "library/MakiNita.pretty/Matrix8x8_2x8_P2.52mm_R25mm.kicad_mod"
+SPEC = MAIN_PCB / "library/MakiNeat.pretty/Matrix8x8_2x8_P2.52mm_R25mm.compose.json"
+OUT = MAIN_PCB / "library/MakiNeat.pretty/Matrix8x8_2x8_P2.52mm_R25mm.kicad_mod"
 PINSOCK_DIR = Path("/usr/share/kicad/footprints/Connector_PinSocket_2.54mm.pretty")
 PINSOCK_STEP = (
     "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/"
     "PinSocket_1x08_P2.54mm_Vertical.step"
 )
-MATRIX_WRL = "${KIPRJMOD}/library/MakiNita.3dshapes/NFM-12881xx.wrl"
+MATRIX_WRL = "${KIPRJMOD}/library/MakiNeat.3dshapes/NFM-12881xx.wrl"
 PITCH = 2.54
 # PinSocket footprint: pad 1 at y=0, pad 8 at y=17.78 mm. In the composed
 # matrix, model offset must match pad 1 at (ox, oy). The Vertical STEP mesh
@@ -156,7 +156,7 @@ def main() -> None:
 
     content = f"""(footprint "{fp_name}"
 \t(version 20260206)
-\t(generator "maki-nita-compose")
+\t(generator "makineat-compose")
 \t(generator_version "1")
 \t(layer "F.Cu")
 \t(descr "{descr}")

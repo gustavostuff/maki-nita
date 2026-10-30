@@ -81,8 +81,8 @@ def main():
     import cascadio
 
     main_pcb = Path(__file__).resolve().parents[1]
-    step_path = (main_pcb / "library/MakiNita.3dshapes/EDAC_395-020-520-202.STEP").resolve()
-    wrl_path = (main_pcb / "library/MakiNita.3dshapes/EDAC_395-020-520-202.wrl").resolve()
+    step_path = (main_pcb / "library/MakiNeat.3dshapes/EDAC_395-020-520-202.STEP").resolve()
+    wrl_path = (main_pcb / "library/MakiNeat.3dshapes/EDAC_395-020-520-202.wrl").resolve()
 
     with tempfile.TemporaryDirectory() as td:
         obj_path = Path(td) / "model.obj"

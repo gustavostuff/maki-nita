@@ -2,7 +2,7 @@
 #define RD_BOARD_H
 
 /*
- * One Maki-Nita board.
+ * One MakiNeat board.
  * The cartridge CPU is U1 on the cart board.
  * U5 is the audio AVR128DB28 on the console.
  * U1 to U4 are the MAX7219 chain on the console:

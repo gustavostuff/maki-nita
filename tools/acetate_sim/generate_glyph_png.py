@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate 1:1 scale PNG images of the Maki-Nita 4x4 glyph font from img/fonts/4x4_font.png.
+"""Generate 1:1 scale PNG images of the MakiNeat 4x4 glyph font from img/fonts/4x4_font.png.
 
 Black is transparent.
 Characters (44 glyphs, 4x4 each):

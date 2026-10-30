@@ -1,6 +1,6 @@
 # System design
 
-The electrical source of truth is `tools/kicad/main-pcb/skidl/maki_nita.py`. `tools/kicad/main-pcb/skidl/export_netlist.sh` writes `tools/kicad/main-pcb/skidl/maki-nita.net` and patches net classes in `tools/kicad/main-pcb/maki-nita.kicad_pro`. The schematic and PCB live under `tools/kicad/main-pcb/`. The cartridge netlist is `tools/kicad/cart-pcb/skidl/`.
+The electrical source of truth is `tools/kicad/main-pcb/skidl/makineat.py`. `tools/kicad/main-pcb/skidl/export_netlist.sh` writes `tools/kicad/main-pcb/skidl/makineat.net` and patches net classes in `tools/kicad/main-pcb/makineat_v_04.kicad_pro`. The schematic and PCB live under `tools/kicad/main-pcb/`. The cartridge netlist is `tools/kicad/cart-pcb/skidl/`.
 
 ## Main system board
 

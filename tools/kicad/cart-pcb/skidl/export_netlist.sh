@@ -3,7 +3,7 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-NET="$DIR/maki-nita-cart.net"
+NET="$DIR/makineat-cart.net"
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     echo "Usage: $0"
@@ -24,4 +24,4 @@ if ! python3 -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_s
     exit 1
 fi
 
-python3 "$DIR/maki_nita_cart.py"
+python3 "$DIR/makineat_cart.py"

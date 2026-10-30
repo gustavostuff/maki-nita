@@ -502,7 +502,7 @@ int main(void)
 
     int initial_scale = 6;
     SDL_Window *window = SDL_CreateWindow(
-        "Maki-Nita Acetate Simulator",
+        "MakiNeat Acetate Simulator",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         CANVAS_W * initial_scale,

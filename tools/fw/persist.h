@@ -8,7 +8,7 @@
  * An erased image reads as 0xFFFF.
  */
 
-/* NULL keeps the shooter's tools/sim/maki-nita.eep image. */
+/* NULL keeps the shooter's tools/sim/makineat.eep image. */
 void persist_bind(const char *stored);
 uint16_t persist_read(void);
 void persist_write(uint16_t value);

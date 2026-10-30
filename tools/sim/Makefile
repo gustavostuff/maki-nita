@@ -1,6 +1,6 @@
 # From the repo root:
 #   make -C tools/sim
-#   ./tools/sim/maki-nita-ui
+#   ./tools/sim/makineat-ui
 #   make -C tools/sim test
 
 CC = gcc
@@ -24,7 +24,7 @@ TEST_BINS = tests/test_max7219 tests/test_matrix tests/test_avr128db28 tests/tes
             tests/test_paddle tests/test_arkaled tests/test_text_test tests/test_cart tests/test_synth
 CHECK = tests/report.c
 
-maki-nita-ui: main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) $(ARKALED) $(TEXT_TEST) $(COLLIDE) ../fw/synth.c
+makineat-ui: main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) $(ARKALED) $(TEXT_TEST) $(COLLIDE) ../fw/synth.c
 	$(CC) $(CFLAGS) $(SDL_CFLAGS) -o $@ main.c hal.c persist.c sound.c cart.c $(CORE) $(FW) $(PADDLE) $(ARKALED) $(TEXT_TEST) $(COLLIDE) ../fw/synth.c $(LDLIBS)
 
 tests/test_max7219: tests/test_max7219.c chips/max7219.c engine/signal.c $(CHECK)
@@ -74,4 +74,4 @@ test: $(TEST_BINS)
 	./tests/test_synth
 
 clean:
-	rm -f maki-nita-ui makinita-ui retrodiode-ui test_chips $(TEST_BINS)
+	rm -f makineat-ui maki-nita-ui makinita-ui retrodiode-ui test_chips $(TEST_BINS)

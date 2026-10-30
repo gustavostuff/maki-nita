@@ -6,6 +6,10 @@ skidl.log
 skidl.erc
 skidl_REPL.log
 skidl_REPL.erc
+makineat.log
+makineat.erc
+makineat_cart.log
+makineat_cart.erc
 maki_nita.log
 maki_nita.erc
 maki_nita_cart.log
@@ -19,13 +23,16 @@ __pycache__/
 *.net
 
 # Simulator EEPROM image and firmware images
+tools/sim/makineat.eep
 tools/sim/maki-nita.eep
 tools/sim/paddle.eep
 tools/sim/arkaled.eep
+makineat.eep
 maki-nita.eep
 paddle.eep
 arkaled.eep
 unit-tests.sh
+tools/sim/makineat-ui
 tools/sim/maki-nita-ui
 tools/sim/makinita-ui
 tools/sim/retrodiode-ui

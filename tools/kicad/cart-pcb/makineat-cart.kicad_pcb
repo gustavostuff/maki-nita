@@ -159,7 +159,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita_cart.py:80"
+		(property "SKiDL Line" "makineat_cart.py:80"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -357,7 +357,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita_cart.py:95"
+		(property "SKiDL Line" "makineat_cart.py:95"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -882,7 +882,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita_cart.py:80"
+		(property "SKiDL Line" "makineat_cart.py:80"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1005,7 +1005,7 @@
 			)
 		)
 	)
-	(footprint "MakiNita:Cart_Edge_2x10_P2.54mm"
+	(footprint "MakiNeat:Cart_Edge_2x10_P2.54mm"
 		(layer "F.Cu")
 		(uuid "7dc04605-e8d3-491c-a7b5-f6396b63e4a4")
 		(at 38.77 74.37914 90)
@@ -1070,7 +1070,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita_cart.py:121"
+		(property "SKiDL Line" "makineat_cart.py:121"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1524,7 +1524,7 @@
 				)
 			)
 		)
-		(property "SKiDL Line" "maki_nita_cart.py:80"
+		(property "SKiDL Line" "makineat_cart.py:80"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1827,7 +1827,7 @@
 		(layer "Edge.Cuts")
 		(uuid "4c4eeaa2-7e46-4a79-8408-51deb8bfc278")
 	)
-	(gr_text "Maki-Nita Cart PCB\nv0.0.2"
+	(gr_text "MakiNeat Cart PCB\nv0.0.2"
 		(at 30.2 43 0)
 		(layer "F.SilkS")
 		(uuid "47384ff7-a848-4bd2-8dc7-c7cd505c76f5")

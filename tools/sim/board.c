@@ -192,8 +192,8 @@ void board_init(Board *board)
     };
     /*
      * MAX7219 driver pin connected to each matrix pin (0 to F).
-     * Exact match for MATRIX_DRV_PINS in tools/kicad/main-pcb/skidl/maki_nita.py,
-     * maki-nita.net, and docs/driver_to_matrix_pinout.md.
+     * Exact match for MATRIX_DRV_PINS in tools/kicad/main-pcb/skidl/makineat.py,
+     * makineat.net, and docs/driver_to_matrix_pinout.md.
      */
     static const int matrix_drv_pins[16] = {
         17, /* Pin 0: COL 7 (LSB) -> SEGG (pin 17) */
