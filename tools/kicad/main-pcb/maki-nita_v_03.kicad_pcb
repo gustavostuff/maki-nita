@@ -15728,6 +15728,17 @@
 			(uuid "a8b2b01a-00a7-41a5-b46a-d5753c0227f0")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/library/MakiNita.3dshapes/EDAC_395-020-520-202.wrl"
+			(offset
+				(xyz 2.17 -34.85 0)
+			)
+			(scale
+				(xyz 0.395 0.395 0.395)
+			)
+			(rotate
+				(xyz 90 -180 90)
+			)
+		)
 	)
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 		(layer "F.Cu")
@@ -22589,14 +22600,6 @@
 		(layer "F.Cu")
 		(net "P1_LEFT")
 		(uuid "bbf9ef13-6555-4270-b19e-292f8c6004e8")
-	)
-	(segment
-		(start 56 43)
-		(end 57 43)
-		(width 0.4)
-		(layer "F.Cu")
-		(net "P1_LEFT")
-		(uuid "f985edf4-99ab-40ea-be73-c119d668f00f")
 	)
 	(embedded_fonts no)
 )

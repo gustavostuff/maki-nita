@@ -5,14 +5,14 @@
 /*
  * Column anodes C0..C7 mapping to 1088AS pins (0x0 to 0xF).
  * C0 is leftmost pixel (bit 7, DP), C7 is rightmost pixel (bit 0, G).
- * Source: docs/matric_pinout.md
+ * Source: docs/driver_to_matrix_pinout.md
  */
 const int matrix8x8_col_pins[8] = {0x3, 0xA, 0xB, 0x6, 0xD, 0x5, 0x1, 0x0};
 
 /*
  * Row cathodes R0..R7 mapping to 1088AS pins (0x0 to 0xF).
  * R0 is top row (DIG0), R7 is bottom row (DIG7).
- * Source: docs/matric_pinout.md
+ * Source: docs/driver_to_matrix_pinout.md
  */
 const int matrix8x8_row_pins[8] = {0x7, 0x2, 0xF, 0x4, 0x8, 0xE, 0x9, 0xC};
 

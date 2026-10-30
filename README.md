@@ -62,4 +62,5 @@ Physical translucent sheets, placed in front of the white matrix LEDs and status
 - [Overlays](docs/overlays.md) is the colored sheet in front of the field.
 - [Future plans](docs/future-plans.md) is the hardware and firmware enhancement roadmap.
 - [Status digits](docs/status-digits.md) is the fifth driver and 7-segment display proposal.
+- [Driver to matrix pinout](docs/driver_to_matrix_pinout.md) is the MAX7219 and 1088AS LED matrix pinout and activation reference.
 

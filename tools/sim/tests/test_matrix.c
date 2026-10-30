@@ -13,7 +13,7 @@ static void expect(int cond, const char *msg)
 
 /*
  * Replicates the bench tests performed on actual 1088AS hardware
- * using a +5V source and 220 ohm resistor to ground (source: docs/matric_pinout.md).
+ * using a +5V source and 220 ohm resistor to ground (source: docs/driver_to_matrix_pinout.md).
  */
 static void test_bench_pairs(void)
 {

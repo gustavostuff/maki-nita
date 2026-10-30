@@ -5,7 +5,7 @@
  * 1088AS 8x8 LED Matrix module model.
  * 16-pin package (two 1x08 socket strips, 25.4 mm row spacing).
  *
- * Source of truth: docs/matric_pinout.md
+ * Source of truth: docs/driver_to_matrix_pinout.md
  *
  * Physical Orientation (viewed from front display face, notch at bottom edge):
  * Top row (opposite notch, left-to-right, Col 0 to Col 7): Pins 0 to 7.
