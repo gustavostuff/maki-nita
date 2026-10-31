@@ -10,11 +10,11 @@ All external headers and the cart socket (J1 to J7) sit along the top area of th
 
 | Ref | Role |
 | --- | --- |
-| J1 | 2x3 header, Player 1 controls (four directions, button, GND) |
-| J2 | 2x3 header, Player 2 controls (four directions, button, GND) |
+| J1 | 1x6 header, Player 1 controls (GND, LEFT, RIGHT, UP, DOWN, button) |
+| J2 | 1x6 header, Player 2 controls (GND, LEFT, RIGHT, UP, DOWN, button) |
 | J3 | EDAC 395 cart socket, 20 contacts |
-| J4 | 1x2 horizontal header, 5 V power (JST XH: Pin 1 GND, Pin 2 +5V) |
-| J5 | 1x2 horizontal header, speaker (Pin 1 GND, Pin 2 SPK) |
+| J4 | 1x2 vertical header, 5 V power (JST XH: Pin 1 GND, Pin 2 +5V) |
+| J5 | 1x2 vertical header, speaker (Pin 1 GND, Pin 2 SPK) |
 | J6 | 1x3 header, audio AVR UPDI (Pin 1 UPDI, Pin 2 +5V, Pin 3 GND) |
 | J7 | 2x8 header, 8-digit status display |
 | J8 | 1x3 header, cartridge AVR UPDI (in-system flashing; Pin 1 UPDI, Pin 2 +5V, Pin 3 GND) |
@@ -74,11 +74,11 @@ Side A pins sit at the bottom part of the connector on the main PCB, carrying pl
 | 9 | P2_RIGHT | GND |
 | 10 | P2_BTN | +5V |
 
-Player 1 cabinet stick and button wires land on J1 (a 2x3 header with pins 5, 3, 1 carrying RIGHT, UP, DOWN and pins 6, 4, 2 carrying LEFT, GND, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J2 from the side connector (also a 2x3 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties to U5 reset with a 10 kohm pull-up to +5V (R25).
+Player 1 cabinet stick and button wires land on J1 (a 1x6 header with pins 1 to 6 carrying GND, LEFT, RIGHT, UP, DOWN, BUTTON) and route to cart contacts A1 through A5. Player 2 stick and button wires land on J2 from the side connector (also a 1x6 header with the same pin arrangement) and route to cart contacts A6 through A10. RESET on cart contact B7 ties to U5 reset with a 10 kohm pull-up to +5V (R25).
 
 ## Audio (U5, U6, J5)
 
-U5 sits along the left edge of the board. U6 and the speaker header J5 (a 1x2 horizontal 2.54 mm header, Pin 1 GND, Pin 2 SPK) sit along the right edge.
+U5 sits along the left edge of the board. U6 and the speaker header J5 (a 1x2 vertical 2.54 mm header, Pin 1 GND, Pin 2 SPK) sit along the right edge.
 
 The cart drives EVENT on contact B8 from PA0. U5 listens on PA1 and plays rows from `tools/fw/synth.c`. The mix goes to the DAC, through the divider, into U6, and out to J5. U5 runs at 20 MHz. The byte is eight low pulses on EVENT, 100 us or 200 us wide, sampled at 40 kHz on the system board. The mix updates at 20 kHz.
 

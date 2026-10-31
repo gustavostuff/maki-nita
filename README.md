@@ -1,6 +1,6 @@
 <img src="img/logos/logo_v_06_scaled.png" alt="Logo V6" />
 
-MakiNeat is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_, the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
+MakiNeat is a cartridge-based, two-player portable tabletop Arcade. The name comes from _maquinita_ (pronounced very similarly), the Mexican word generally used for an arcade machine. The display is four white 8x8 LED matrices in a 16x16 field. Graphics are 1-bit (LEDs are either ON or OFF).
 
 On a similar spirit as the Magnavox Odyssey and the Vectrex, MakiNeat uses colored, translucent sheets to cover the screen. So the overlay is an extension of the cartridge, part of the game experience. A magnetic marquee runs along the top and the cartridge sits behind it. The [overlays](docs/overlays.md) and [design](docs/design.md) docs cover the sheet and the system netlist.
 
@@ -27,11 +27,13 @@ Software is under the MIT License. The hardware design is under the CERN Open Ha
 
 ## PCBs
 
-Copper tracing is pending for the main PCB, but the full [SKiDL netlist](tools/kicad/main-pcb/skidl/makineat.py) and KiCad files are already under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/` (not tested IRL).
+Copper tracing is still a WIP for the main PCB, but the full [SKiDL netlist](tools/kicad/main-pcb/skidl/makineat.py) and KiCad files are already under `tools/kicad/main-pcb/` and `tools/kicad/cart-pcb/` (not tested IRL).
 
 Main system PCB, 100x100 mm:
 
 <img src="img/pcb/main_pcb_concept.png" alt="Main PCB concept" />
+
+<img src="img/pcb/main_pcb_concept_back.png" alt="Main PCB concept" />
 
 Cartridge PCB, 44x37 mm:
 

@@ -7,4 +7,11 @@
 		(options "")
 		(descr "MakiNeat console footprints (matrix, cart socket, cart edge).")
 	)
+	(lib
+		(name "MakiNita")
+		(type "KiCad")
+		(uri "${KIPRJMOD}/library/MakiNeat.pretty")
+		(options "")
+		(descr "Legacy alias for MakiNeat footprints.")
+	)
 )
